@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prisma:generate": "prisma generate",
     "postinstall": "prisma generate",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "prisma:seed": "tsx prisma/seed-super-admin.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.9.1",
