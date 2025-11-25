@@ -4,7 +4,11 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // This is the URL the Prisma Client will use for queries (Pooler/Port5432 or 6543)
+  url       = env("DATABASE_URL") 
+  
+  // This is the URL the Prisma CLI will use for migrations (Direct Connection/Port 5432)
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
