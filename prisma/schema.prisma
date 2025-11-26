@@ -172,7 +172,12 @@ model Tenant {
   subjects             Subject[]
   years                SchoolYear[]
   phone                String?
+  siret                String?
   address              String?
+  postal               String?
+  city                 String?
+  country              String?
+  landlinePhone        String?
   Notification         Notification[]
   schoolCode           String                  @unique
   InvitedParent        InvitedParent[]
@@ -180,6 +185,33 @@ model Tenant {
   stripeSubscriptionId String?
   staff                Staff[]
   preRegistrations     PreRegistrationParent[]
+  tenantApplication TenantApplication?
+}
+
+model TenantApplication {
+  id              String                  @id @default(cuid())
+  name            String                  // School Name
+  firstName       String                  // Applicant's First Name (Director)
+  lastName        String                  // Applicant's Last Name (Director)
+  email           String                  // Contact Email (Should not be @unique here!)
+  phone           String?
+  siret           String?
+  address         String?
+  postal          String?
+  city            String?
+  country         String?
+  landlinePhone   String?
+  requestedBy     String?                 // Optional: ID of the requesting User
+  
+  status          PreRegistrationStatus   @default(PENDING)
+  rejectionReason String?                 // Reason for rejection
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  approvedById    String?                 // ID of the User who approved/rejected the request
+  
+  // Only the TENANT LINK is UNIQUE, as a Tenant can only come from one approved application.
+  tenantId        String?                 @unique 
+  tenant          Tenant?                 @relation(fields: [tenantId], references: [id])
 }
 
 model InvitedParent {

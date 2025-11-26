@@ -242,6 +242,13 @@ export default function Sidebar({
             icon={<LayoutGrid className="w-4 h-4" />}
           />
           <SidebarBtn
+            label="Demandes"
+            section="requestsAdmin"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<FileText className="w-4 h-4" />}
+          />
+          <SidebarBtn
             label="Statistiques"
             section="chartsAdmin"
             activeSection={activeSection}

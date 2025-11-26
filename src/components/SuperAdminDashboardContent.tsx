@@ -12,6 +12,7 @@ import AdminTenantList from "./AdminTenantList";
 import AdminCharts from "./AdminCharts";
 import AccountSettings from "./AccountSettings";
 import CenteredSpinner from "./CenteredSpinner";
+import AdminTenantRequestsPage from "./AdminTenantRequestsPage";
 
 export default function SuperAdminDashboardContent() {
   const { data: session, status } = useSession();
@@ -51,7 +52,7 @@ export default function SuperAdminDashboardContent() {
         <p className="mb-6">
           Bienvenue, {session.user.firstName} {session.user.lastName}
         </p>
-
+        {activeSection === "requestsAdmin" && <AdminTenantRequestsPage />}
         {activeSection === "tenants" && <AdminTenantList />}
         {activeSection === "chartsAdmin" && <AdminCharts />}
         {activeSection === "settingsAdmin" && (

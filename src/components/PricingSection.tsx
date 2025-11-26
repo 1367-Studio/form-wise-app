@@ -44,7 +44,7 @@ const tiers = [
   {
     name: "Essai gratuit",
     id: "tier-freemium",
-    href: "/register/free-trial",
+    href: "/register/school-register",
     priceMonthly: "Gratuit",
     billingCycle: "20 jours",
     description: "Testez gratuitement toutes les fonctionnalités de Formwise.",

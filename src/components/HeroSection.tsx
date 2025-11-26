@@ -60,7 +60,7 @@ export default function HeroSection() {
               ref={buttonsRef}
               className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-x-6"
             >
-              <Link href="/register/free-trial">
+              <Link href="/register/school-register">
                 <Button className="cursor-pointer w-full sm:w-auto">
                   <Zap className="mr-2 h-4 w-4" />
                   Profitez de 20 jours gratuitement
