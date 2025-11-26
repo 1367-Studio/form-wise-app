@@ -44,7 +44,7 @@ export default function SiteHeader() {
 
               <div className="hidden lg:flex gap-6 items-center">
                 <Link
-                  href="/register/free-trial"
+                  href="/register/school-register"
                   className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
                 >
                   <Button className="cursor-pointer">S&apos;inscrire</Button>
@@ -100,7 +100,7 @@ export default function SiteHeader() {
             </div> */}
             <div className="hidden lg:flex gap-6 items-center">
               <Link
-                href="/register/free-trial"
+                href="/register/school-register"
                 className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
               >
                 <Button className="cursor-pointer">S&apos;inscrire</Button>

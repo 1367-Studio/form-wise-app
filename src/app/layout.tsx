@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import type { Metadata } from "next";
 import ConditionalFooter from "components/ConditionalFooter";
 import ConditionalHeader from "components/ConditionalHeader";
+import "react-phone-number-input/style.css";
 // import ConditionalBanner from "components/ConditionalBanner";
 
 const geistSans = Inter({

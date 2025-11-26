@@ -14,10 +14,10 @@ export async function sendEmailWithTempPassword({
   const result = await resend.emails.send({
     from: "Formwise <onboarding@formwise.fr>",
     to,
-    subject: "Bienvenue sur Formwise – Essai gratuit activé",
+    subject: "Bienvenue sur Formwise – Votre compte est prêt",
     html: `
       <p>Bonjour ${name},</p>
-      <p>Votre essai gratuit de 20 jours est actif. Voici vos accès :</p>
+      <p>Votre compte a été créé avec succès. Voici vos accès :</p>
       <ul>
         <li><strong>Email :</strong> ${to}</li>
         <li><strong>Mot de passe temporaire :</strong> ${password}</li>

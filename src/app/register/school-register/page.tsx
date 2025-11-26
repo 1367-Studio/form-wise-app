@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import FreeTrialRegisterPage from "./FreeTrialRegisterPage";
+import SchoolRegisterPage from "./SchoolRegisterPage";
 
 export const metadata: Metadata = {
   title: "Form Wise app | S'inscrire",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   return (
     <section style={{ height: "100vh" }}>
-      <FreeTrialRegisterPage />
+      <SchoolRegisterPage />
     </section>
   );
 }
