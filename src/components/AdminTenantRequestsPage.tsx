@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { Badge } from "@/components/ui/badge";
 import CenteredSpinner from "./CenteredSpinner";
-import { Eye, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { Eye, CheckCircle, XCircle } from "lucide-react";
 import { useCallback, useState } from "react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -19,6 +19,9 @@ import {
 } from "@/components/ui/dialog";
 
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { DataTable } from "@/components/ui/datatable";
+import { ActionButton } from "@/components/ui/action-button";
+import { DataCard } from "@/components/ui/datacard";
 
 // --- Types and Support Functions (With additional fields for details) ---
 
@@ -378,194 +381,150 @@ export default function AdminTenantRequestsPage() {
       {applications.length > 0 && (
         <>
           {/* -------- DESKTOP TABLE -------- */}
-          <div className="hidden md:block overflow-auto rounded-lg border shadow-lg">
-            <table className="min-w-full text-sm text-left">
-              <thead className="bg-gray-100 text-gray-700 font-semibold">
-                <tr>
-                  <th className="px-4 py-3">Nom</th>
-                  <th className="px-4 py-3">Email</th>
-                  <th className="px-4 py-3">Téléphone</th>
-                  <th className="px-4 py-3">SIRET</th>
-                  <th className="px-4 py-3">Statut</th>
-                  <th className="px-4 py-3">Créé le</th>
-                  <th className="px-4 py-3 text-center">Actions</th>
-                </tr>
-              </thead>
+          <DataTable
+            data={applications}
+            columns={[
+              {
+                header: "Nom",
+                render: (app) => (
+                  <div>
+                    {app.firstName} {app.lastName}
+                    <br />
+                    <span className="text-xs text-gray-500">{app.name}</span>
+                  </div>
+                ),
+              },
 
-              <tbody className="divide-y">
-                {applications.map((app) => {
+              { header: "Email", accessor: "email" },
+              { header: "Téléphone", accessor: "phone" },
+              { header: "SIRET", accessor: "siret" },
+
+              {
+                header: "Statut",
+                render: (app) => getStatusBadge(app.status),
+              },
+
+              {
+                header: "Créé le",
+                render: (app) =>
+                  format(new Date(app.createdAt), "dd/MM/yyyy", { locale: fr }),
+              },
+
+              {
+                header: "Actions",
+                className: "text-center",
+                render: (app) => {
                   const isCurrentAppProcessing = isActionProcessing === app.id;
 
                   return (
-                    <tr key={app.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3">
-                        {app.firstName} {app.lastName}
-                        <br />
-                        <span className="text-xs text-gray-500">
-                          {app.name}
-                        </span>
-                      </td>
+                    <div className="flex justify-center space-x-2">
+                      <ActionButton
+                        onClick={() => fetchDetails(app.id)}
+                        disabled={isCurrentAppProcessing}
+                        loading={false}
+                        title="Voir les détails"
+                        icon={
+                          <Eye className="w-5 h-5 text-gray-600 hover:text-gray-800" />
+                        }
+                      />
 
-                      <td className="px-4 py-3">{app.email}</td>
-                      <td className="px-4 py-3">{app.phone}</td>
-                      <td className="px-4 py-3">{app.siret}</td>
+                      {app.status === "PENDING" ? (
+                        <>
+                          <ActionButton
+                            onClick={() => openActionDialog(app.id, "APPROVE")}
+                            disabled={isCurrentAppProcessing}
+                            loading={isCurrentAppProcessing}
+                            title="Approuver la demande"
+                            className="text-green-600 hover:text-green-800"
+                            icon={<CheckCircle className="w-5 h-5" />}
+                          />
 
-                      <td className="px-4 py-3">
-                        {getStatusBadge(app.status)}
-                      </td>
-
-                      <td className="px-4 py-3">
-                        {format(new Date(app.createdAt), "dd/MM/yyyy", {
-                          locale: fr,
-                        })}
-                      </td>
-
-                      <td className="px-4 py-3 flex justify-center space-x-2">
-                        {/* EYE BUTTON (VIEW DETAILS) */}
-                        <button
-                          onClick={() => fetchDetails(app.id)}
-                          disabled={isCurrentAppProcessing}
-                          className="cursor-pointer p-1 text-gray-500 hover:text-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                          title="Voir les détails"
-                        >
-                          <Eye className="w-5 h-5" />
-                        </button>
-
-                        {app.status === "PENDING" ? (
-                          <>
-                            {/* APPROVE BUTTON */}
-                            <button
-                              onClick={() =>
-                                openActionDialog(app.id, "APPROVE")
-                              }
-                              disabled={isCurrentAppProcessing}
-                              className={`cursor-pointer p-1 text-green-600 hover:text-green-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                                isCurrentAppProcessing ? "animate-pulse" : ""
-                              }`}
-                              title="Approuver la demande"
-                            >
-                              {isCurrentAppProcessing ? (
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                              ) : (
-                                <CheckCircle className="w-5 h-5" />
-                              )}
-                            </button>
-                            {/* REJECT BUTTON */}
-                            <button
-                              onClick={() => openActionDialog(app.id, "REJECT")}
-                              disabled={isCurrentAppProcessing}
-                              className={`cursor-pointer p-1 text-red-600 hover:text-red-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                                isCurrentAppProcessing ? "animate-pulse" : ""
-                              }`}
-                              title="Rejeter la demande"
-                            >
-                              {isCurrentAppProcessing ? (
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                              ) : (
-                                <XCircle className="w-5 h-5" />
-                              )}
-                            </button>
-                          </>
-                        ) : (
-                          <div className="w-5"></div> // Space for alignment
-                        )}
-                      </td>
-                    </tr>
+                          <ActionButton
+                            onClick={() => openActionDialog(app.id, "REJECT")}
+                            disabled={isCurrentAppProcessing}
+                            loading={isCurrentAppProcessing}
+                            title="Rejeter la demande"
+                            className="text-red-600 hover:text-red-800"
+                            icon={<XCircle className="w-5 h-5" />}
+                          />
+                        </>
+                      ) : (
+                        <div className="w-5" />
+                      )}
+                    </div>
                   );
-                })}
-              </tbody>
-            </table>
-          </div>
+                },
+              },
+            ]}
+          />
 
           {/* -------- MOBILE CARDS -------- */}
-          <div className="md:hidden flex flex-col gap-4">
-            {applications.map((app) => {
-              const isCurrentAppProcessing = isActionProcessing === app.id;
-
-              return (
-                <div
-                  key={app.id}
-                  className="border rounded-xl p-4 shadow bg-white"
-                >
+          <DataCard
+            data={applications}
+            fields={[
+              {
+                key: "name",
+                render: (app) => (
                   <div className="text-lg font-bold">
                     {app.firstName} {app.lastName}
+                    <div className="text-sm text-gray-500">{app.name}</div>
                   </div>
+                ),
+              },
+              { key: "email", label: "Email" },
+              { key: "phone", label: "Téléphone" },
+              { key: "siret", label: "SIRET" },
+              {
+                key: "status",
+                label: "Statut",
+                render: (app) => getStatusBadge(app.status),
+              },
+              {
+                key: "createdAt",
+                label: "Créé le",
+                render: (app) =>
+                  format(new Date(app.createdAt), "dd/MM/yyyy", { locale: fr }),
+              },
+              {
+                key: "actions",
+                render: (app) => {
+                  const isProcessing = isActionProcessing === app.id;
 
-                  <div className="text-sm text-gray-500 mb-1">{app.name}</div>
+                  return (
+                    <div className="flex justify-end space-x-3 mt-2">
+                      <ActionButton
+                        onClick={() => fetchDetails(app.id)}
+                        disabled={isProcessing}
+                        title="Voir les détails"
+                        icon={<Eye className="w-6 h-6" />}
+                      />
 
-                  <div className="text-sm">
-                    Email : <strong>{app.email}</strong>
-                  </div>
-
-                  <div className="text-sm">
-                    Téléphone : <strong>{app.phone}</strong>
-                  </div>
-
-                  <div className="text-sm">
-                    SIRET : <strong>{app.siret}</strong>
-                  </div>
-
-                  <div className="text-sm flex items-center gap-2 mt-2">
-                    Statut : {getStatusBadge(app.status)}
-                  </div>
-
-                  <div className="text-sm text-gray-600 mt-2">
-                    Créé le :{" "}
-                    {format(new Date(app.createdAt), "dd/MM/yyyy", {
-                      locale: fr,
-                    })}
-                  </div>
-
-                  <div className="mt-3 text-right flex justify-end space-x-3">
-                    {/* MOBILE EYE BUTTON */}
-                    <button
-                      onClick={() => fetchDetails(app.id)}
-                      disabled={isCurrentAppProcessing}
-                      className="cursor-pointer p-1 text-gray-500 hover:text-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      title="Voir les détails"
-                    >
-                      <Eye className="w-6 h-6" />
-                    </button>
-
-                    {app.status === "PENDING" ? (
-                      <>
-                        {/* MOBILE APPROVE BUTTON */}
-                        <button
-                          onClick={() => openActionDialog(app.id, "APPROVE")}
-                          disabled={isCurrentAppProcessing}
-                          className={`cursor-pointer p-1 text-green-600 hover:text-green-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                            isCurrentAppProcessing ? "animate-pulse" : ""
-                          }`}
-                          title="Approuver la demande"
-                        >
-                          {isCurrentAppProcessing ? (
-                            <Loader2 className="w-6 h-6 animate-spin" />
-                          ) : (
-                            <CheckCircle className="w-6 h-6" />
-                          )}
-                        </button>
-                        {/* MOBILE REJECT BUTTON */}
-                        <button
-                          onClick={() => openActionDialog(app.id, "REJECT")}
-                          disabled={isCurrentAppProcessing}
-                          className={`cursor-pointer p-1 text-red-600 hover:text-red-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-                            isCurrentAppProcessing ? "animate-pulse" : ""
-                          }`}
-                          title="Rejeter la demande"
-                        >
-                          {isCurrentAppProcessing ? (
-                            <Loader2 className="w-6 h-6 animate-spin" />
-                          ) : (
-                            <XCircle className="w-6 h-6" />
-                          )}
-                        </button>
-                      </>
-                    ) : null}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                      {app.status === "PENDING" && (
+                        <>
+                          <ActionButton
+                            onClick={() => openActionDialog(app.id, "APPROVE")}
+                            disabled={isProcessing}
+                            loading={isProcessing}
+                            className="text-green-600 hover:text-green-800"
+                            title="Approuver"
+                            icon={<CheckCircle className="w-6 h-6" />}
+                          />
+                          <ActionButton
+                            onClick={() => openActionDialog(app.id, "REJECT")}
+                            disabled={isProcessing}
+                            loading={isProcessing}
+                            className="text-red-600 hover:text-red-800"
+                            title="Rejeter"
+                            icon={<XCircle className="w-6 h-6" />}
+                          />
+                        </>
+                      )}
+                    </div>
+                  );
+                },
+              },
+            ]}
+          />
         </>
       )}
     </div>
