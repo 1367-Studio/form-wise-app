@@ -30,3 +30,29 @@ export async function sendEmailWithTempPassword({
 
   return result;
 }
+
+export async function sendEmailForDeniedRequest({
+  to,
+  name,
+  reason,
+}: {
+  to: string;
+  name: string;
+  reason: string;
+}) {
+  const result = await resend.emails.send({
+    from: "Formwise <onboarding@formwise.fr>",
+    to,
+    subject: "Formwise – Votre demande a été refusée",
+    html: `
+      <p>Bonjour ${name},</p>
+      <p>Nous vous informons que votre demande a été refusée.</p>
+      <p><strong>Raison :</strong> ${reason}</p>
+      <p>Si vous avez des questions, veuillez nous contacter.</p>
+      <p>À bientôt,</p>
+      <p>L’équipe Formwise</p>
+    `,
+  });
+
+  return result;
+}

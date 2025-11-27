@@ -2,7 +2,10 @@ import { prisma } from "../../../../../lib/prisma";
 import { authOptions } from "../../../../../lib/authOptions";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { sendEmailWithTempPassword } from "../../../../../lib/email";
+import {
+  sendEmailForDeniedRequest,
+  sendEmailWithTempPassword,
+} from "../../../../../lib/email";
 import bcrypt from "bcryptjs";
 import { generateSchoolCode } from "../../../../../lib/generateSchoolCode";
 
@@ -144,13 +147,11 @@ export async function POST(
           },
         });
       });
-
       await sendEmailWithTempPassword({
         to: application.email,
         name: application.firstName,
         password: tempPassword,
       });
-
       return NextResponse.json(
         {
           message:
@@ -167,7 +168,11 @@ export async function POST(
           approvedById: loggedInAdminId,
         },
       });
-
+      await sendEmailForDeniedRequest({
+        to: application.email,
+        name: application.firstName,
+        reason: rejectionReason || "Aucune raison fournie",
+      });
       return NextResponse.json(
         { message: "Demande rejetée avec succès." },
         { status: 200 }
