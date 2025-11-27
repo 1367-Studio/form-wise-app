@@ -165,6 +165,11 @@ const getSections = (role?: string): Section[] => {
         icon: <LayoutGrid className="w-4 h-4" />,
       },
       {
+        key: "requestsAdmin",
+        label: "Demandes",
+        icon: <FileText className="w-4 h-4" />,
+      },
+      {
         key: "chartsAdmin",
         label: "Statistiques",
         icon: <ChartPie className="w-4 h-4" />,

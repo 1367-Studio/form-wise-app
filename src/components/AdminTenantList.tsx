@@ -4,6 +4,9 @@ import useSWR from "swr";
 import { Badge } from "@/components/ui/badge";
 import CenteredSpinner from "./CenteredSpinner";
 import { Eye } from "lucide-react";
+import { DataTable } from "@/components/ui/datatable";
+import { ActionButton } from "@/components/ui/action-button";
+import { DataCard } from "@/components/ui/datacard";
 
 type Tenant = {
   id: string;
@@ -64,100 +67,134 @@ export default function AdminTenantList() {
       </h1>
 
       {/* TABLEAU DESKTOP */}
-      <div className="hidden md:block overflow-auto rounded-lg border">
-        <table className="min-w-full text-sm text-left">
-          <thead className="bg-gray-100 text-gray-700 font-semibold">
-            <tr>
-              <th className="px-4 py-3">N° École</th>
-              <th className="px-4 py-3">Nom</th>
-              <th className="px-4 py-3">Directeur</th>
-              <th className="px-4 py-3">Plan</th>
-              <th className="px-4 py-3">Créé le</th>
-              <th className="px-4 py-3 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {tenants.map((tenant: Tenant) => (
-              <tr key={tenant.id} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-gray-600 font-medium">
-                  {tenant.schoolCode}
-                </td>
-                <td className="px-4 py-3">{tenant.name}</td>
-                <td className="px-4 py-3">
-                  {tenant.users.length > 0 ? (
-                    <>
-                      {tenant.users[0].firstName} {tenant.users[0].lastName}
-                      <br />
-                      <span className="text-xs text-gray-500">
-                        {tenant.users[0].email}
-                      </span>
-                    </>
-                  ) : (
-                    <em className="text-gray-400">Non défini</em>
-                  )}
-                </td>
-                <td className="px-4 py-3">
-                  {getPlanBadge(tenant.billingPlan, tenant.subscriptionStatus)}
-                </td>
-                <td className="px-4 py-3">
-                  {new Date(tenant.createdAt).toLocaleDateString()}
-                </td>
-                <td className="px-4 py-3  justify-center flex">
-                  <button className="cursor-pointer">
-                    <Eye className="w-4 h-4" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <DataTable
+        data={tenants}
+        columns={[
+          {
+            header: "N° École",
+            accessor: "schoolCode",
+          },
 
-      {/* CARTES MOBILE */}
-      <div className="md:hidden flex flex-col gap-4">
-        {tenants.map((tenant: Tenant) => (
-          <div
-            key={tenant.id}
-            className="border rounded-xl p-4 shadow bg-white"
-          >
-            <div className="text-sm text-gray-500 mb-1">
-              N° École : <strong>{tenant.uniqueNumber}</strong>
-            </div>
-            <div className="text-lg font-bold">{tenant.name}</div>
-            <div className="text-sm mb-1">
-              Directeur :{" "}
-              {tenant.users.length > 0 ? (
-                <>
+          {
+            header: "Nom",
+            render: (tenant: Tenant) => <div>{tenant.name}</div>,
+          },
+
+          {
+            header: "Directeur",
+            render: (tenant) =>
+              tenant.users.length > 0 ? (
+                <div>
                   {tenant.users[0].firstName} {tenant.users[0].lastName}
                   <br />
                   <span className="text-xs text-gray-500">
                     {tenant.users[0].email}
                   </span>
-                </>
+                </div>
               ) : (
-                <em className="text-gray-400">Non défini</em>
-              )}
-            </div>
-            <div className="text-sm flex items-center gap-2 mb-1">
+                <em className="text-gray-400 text-sm">Non défini</em>
+              ),
+          },
+
+          {
+            header: "Plan",
+            render: (tenant) =>
+              getPlanBadge(tenant.billingPlan, tenant.subscriptionStatus),
+          },
+
+          {
+            header: "Créé le",
+            render: (tenant) => new Date(tenant.createdAt).toLocaleDateString(),
+          },
+
+          {
+            header: "Actions",
+            className: "text-center",
+            render: () => (
+              <div className="flex justify-center">
+                <ActionButton
+                  onClick={() => console.log("")}
+                  disabled={false}
+                  loading={false}
+                  title="Voir les détails"
+                  icon={
+                    <Eye className="w-5 h-5 text-gray-600 hover:text-gray-800" />
+                  }
+                />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      {/* CARTES MOBILE */}
+      <DataCard
+        data={tenants}
+        fields={[
+          {
+            key: "uniqueNumber",
+            label: "N° École",
+            render: (tenant) => (
+              <div className="text-sm text-gray-500 mb-1">
+                {tenant.uniqueNumber}
+              </div>
+            ),
+          },
+          {
+            key: "name",
+            render: (tenant: Tenant) => (
+              <div className="text-lg font-bold">{tenant.name}</div>
+            ),
+          },
+          {
+            key: "director",
+            label: "Directeur",
+            render: (tenant) =>
+              tenant.users.length > 0 ? (
+                <div className="text-sm mb-1">
+                  {tenant.users[0].firstName} {tenant.users[0].lastName}
+                  <br />
+                  <span className="text-xs text-gray-500">
+                    {tenant.users[0].email}
+                  </span>
+                </div>
+              ) : (
+                <em className="text-gray-400 text-sm">Non défini</em>
+              ),
+          },
+          {
+            key: "plan",
+            label: "Plan",
+            render: (tenant) => (
               <div className="text-sm flex items-center gap-2 mb-1">
-                Plan :{" "}
                 {getPlanBadge(tenant.billingPlan, tenant.subscriptionStatus)}
               </div>
-            </div>
-            <div className="text-sm text-gray-600 mb-2">
-              Créé le : {new Date(tenant.createdAt).toLocaleDateString()}
-            </div>
-            <div className="text-right">
-              <a
-                href={`/admin/tenant/${tenant.id}`}
-                className="text-sm text-blue-600 hover:underline"
-              >
-                Voir les détails →
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
+            ),
+          },
+          {
+            key: "createdAt",
+            label: "Créé le",
+            render: (tenant) => (
+              <div className="text-sm text-gray-600 mb-2">
+                {new Date(tenant.createdAt).toLocaleDateString()}
+              </div>
+            ),
+          },
+          {
+            key: "actions",
+            render: (tenant) => (
+              <div className="text-right">
+                <a
+                  href={`/admin/tenant/${tenant.id}`}
+                  className="text-sm text-blue-600 hover:underline"
+                >
+                  Voir les détails →
+                </a>
+              </div>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }
