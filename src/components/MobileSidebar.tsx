@@ -26,6 +26,7 @@ import {
   LogOut,
   UserPlus,
   ShieldAlert,
+  PlusSquare,
 } from "lucide-react";
 
 type Section = {
@@ -178,6 +179,11 @@ const getSections = (role?: string): Section[] => {
         key: "settingsAdmin",
         label: "Paramètres",
         icon: <Settings className="w-4 h-4" />,
+      },
+      {
+        key: "schoolRegistrationAdmin",
+        label: "Ajouter un établissement",
+        icon: <PlusSquare className="w-4 h-4" />,
       },
     ];
   }
