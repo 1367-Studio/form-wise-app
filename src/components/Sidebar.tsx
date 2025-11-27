@@ -18,6 +18,7 @@ import {
   Settings,
   UserPlus,
   ShieldAlert,
+  PlusSquare,
 } from "lucide-react";
 import { ParentNotification } from "../types/notification";
 
@@ -261,6 +262,13 @@ export default function Sidebar({
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Settings className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label="Ajouter un établissement"
+            section="schoolRegistrationAdmin"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<PlusSquare className="w-4 h-4" />}
           />
         </>
       )}

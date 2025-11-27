@@ -22,4 +22,5 @@ export type DashboardSection =
   | "inviteStaff"
   | "pendingPreinscriptions"
   | "rib"
-  | "requestsAdmin";
+  | "requestsAdmin"
+  | "schoolRegistrationAdmin";
