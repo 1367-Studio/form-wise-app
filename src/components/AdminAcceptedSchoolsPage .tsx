@@ -171,7 +171,10 @@ export default function AdminAcceptedSchoolsPage() {
       <div className="hidden md:block mt-4">
         {isSWRLoading ? (
           <div className="py-10">
-            <CenteredSpinner label="Chargement des écoles acceptées..." />
+            <CenteredSpinner
+              label="Chargement des écoles acceptées..."
+              fullScreen={false}
+            />
           </div>
         ) : applications.length > 0 ? (
           <>
