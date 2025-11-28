@@ -92,9 +92,12 @@ export async function GET(req: Request) {
       // We will use 'contains' for partial search and 'mode: "insensitive"' to ignore case (PostgreSQL/MongoDB)
       whereClause.OR = [
         { name: { contains: searchQuery, mode: "insensitive" as const } },
-        { email: { contains: searchQuery, mode: "insensitive" as const } },
-        { city: { contains: searchQuery, mode: "insensitive" as const } },
-        // Add other relevant fields, such as 'siret', 'firstName', etc., if applicable to the 'Ecole' model
+
+        { siret: { contains: searchQuery, mode: "insensitive" as const } },
+
+        { firstName: { contains: searchQuery, mode: "insensitive" as const } },
+
+        { lastName: { contains: searchQuery, mode: "insensitive" as const } },
       ];
     }
 
