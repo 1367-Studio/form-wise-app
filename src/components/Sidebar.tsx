@@ -19,6 +19,8 @@ import {
   UserPlus,
   ShieldAlert,
   PlusSquare,
+  Clock,
+  CheckCircle,
 } from "lucide-react";
 import { ParentNotification } from "../types/notification";
 
@@ -242,13 +244,23 @@ export default function Sidebar({
             setActiveSection={setActiveSectionAction}
             icon={<LayoutGrid className="w-4 h-4" />}
           />
+
           <SidebarBtn
-            label="Demandes"
-            section="requestsAdmin"
+            label="Écoles en attente de validation"
+            section="pendingSchools"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
-            icon={<FileText className="w-4 h-4" />}
+            icon={<Clock className="w-4 h-4" />}
           />
+
+          <SidebarBtn
+            label="Écoles acceptées"
+            section="acceptedSchools"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<CheckCircle className="w-4 h-4" />}
+          />
+
           <SidebarBtn
             label="Statistiques"
             section="chartsAdmin"
@@ -256,13 +268,15 @@ export default function Sidebar({
             setActiveSection={setActiveSectionAction}
             icon={<ChartPie className="w-4 h-4" />}
           />
+
           <SidebarBtn
-            label="settings"
+            label="Settings"
             section="settingsAdmin"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Settings className="w-4 h-4" />}
           />
+
           <SidebarBtn
             label="Ajouter un établissement"
             section="schoolRegistrationAdmin"

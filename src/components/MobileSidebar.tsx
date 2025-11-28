@@ -27,6 +27,8 @@ import {
   UserPlus,
   ShieldAlert,
   PlusSquare,
+  Clock,
+  CheckCircle,
 } from "lucide-react";
 
 type Section = {
@@ -166,9 +168,14 @@ const getSections = (role?: string): Section[] => {
         icon: <LayoutGrid className="w-4 h-4" />,
       },
       {
-        key: "requestsAdmin",
-        label: "Demandes",
-        icon: <FileText className="w-4 h-4" />,
+        key: "pendingSchools",
+        label: "Écoles en attente de validation",
+        icon: <Clock className="w-4 h-4" />,
+      },
+      {
+        key: "acceptedSchools",
+        label: "Écoles acceptées",
+        icon: <CheckCircle className="w-4 h-4" />,
       },
       {
         key: "chartsAdmin",
