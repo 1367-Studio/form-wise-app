@@ -273,7 +273,10 @@ export default function AdminPendingSchoolsPage() {
 
       {isSWRLoading && (
         <div className="py-10">
-          <CenteredSpinner label="Chargement des écoles en attente..." />
+          <CenteredSpinner
+            label="Chargement des écoles en attente..."
+            fullScreen={false}
+          />
         </div>
       )}
 
