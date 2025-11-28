@@ -214,19 +214,6 @@ export default function AdminAcceptedSchoolsPage() {
                 },
               ]}
             />
-
-            <PaginationControls
-              currentPage={page}
-              totalPages={totalPages}
-              onPageChange={setPage}
-              totalItems={totalItems}
-              pageSize={DEFAULT_PAGE_SIZE}
-              labels={{
-                previous: "Précédent",
-                next: "Suivant",
-                pageIndicator: (c, t) => `Page ${c} sur ${t}`,
-              }}
-            />
           </>
         ) : null}
       </div>
@@ -238,36 +225,52 @@ export default function AdminAcceptedSchoolsPage() {
             <CenteredSpinner label="Chargement des écoles acceptées..." />
           </div>
         ) : applications.length > 0 ? (
-          <DataCard
-            data={applications}
-            fields={[
-              { key: "name", label: "Nom de l’école" },
-              { key: "siret", label: "Numéro de l’école" },
-              { key: "lastName", label: "Nom du responsable" },
-              { key: "firstName", label: "Prénom du responsable" },
-              {
-                key: "createdAt",
-                label: "Date d'Acceptation",
-                render: (app) =>
-                  format(new Date(app.createdAt), "dd/MM/yyyy", { locale: fr }),
-              },
-              {
-                key: "actions",
-                render: (app) => (
-                  <div className="flex justify-end space-x-3 mt-2">
-                    <ActionButton
-                      onClick={() => fetchDetails(app.id)}
-                      disabled={false}
-                      title="Voir les détails"
-                      icon={<Eye className="w-6 h-6" />}
-                    />
-                  </div>
-                ),
-              },
-            ]}
-          />
+          <>
+            <DataCard
+              data={applications}
+              fields={[
+                { key: "name", label: "Nom de l’école" },
+                { key: "siret", label: "Numéro de l’école" },
+                { key: "lastName", label: "Nom du responsable" },
+                { key: "firstName", label: "Prénom du responsable" },
+                {
+                  key: "createdAt",
+                  label: "Date d'Acceptation",
+                  render: (app) =>
+                    format(new Date(app.createdAt), "dd/MM/yyyy", {
+                      locale: fr,
+                    }),
+                },
+                {
+                  key: "actions",
+                  render: (app) => (
+                    <div className="flex justify-end space-x-3 mt-2">
+                      <ActionButton
+                        onClick={() => fetchDetails(app.id)}
+                        disabled={false}
+                        title="Voir les détails"
+                        icon={<Eye className="w-6 h-6" />}
+                      />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </>
         ) : null}
       </div>
+      <PaginationControls
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        totalItems={totalItems}
+        pageSize={DEFAULT_PAGE_SIZE}
+        labels={{
+          previous: "Précédent",
+          next: "Suivant",
+          pageIndicator: (c, t) => `Page ${c} sur ${t}`,
+        }}
+      />
     </div>
   );
 }
