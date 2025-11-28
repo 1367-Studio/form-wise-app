@@ -353,20 +353,6 @@ export default function AdminPendingSchoolsPage() {
                   },
                 ]}
               />
-
-              <PaginationControls
-                currentPage={page}
-                totalPages={totalPages}
-                onPageChange={setPage}
-                totalItems={totalItems}
-                pageSize={DEFAULT_PAGE_SIZE}
-                labels={{
-                  previous: "Précédent",
-                  next: "Suivant",
-                  pageIndicator: (current, total) =>
-                    `Page ${current} sur ${total}`,
-                }}
-              />
             </>
           )}
 
@@ -431,6 +417,18 @@ export default function AdminPendingSchoolsPage() {
           )}
         </>
       )}
+      <PaginationControls
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        totalItems={totalItems}
+        pageSize={DEFAULT_PAGE_SIZE}
+        labels={{
+          previous: "Précédent",
+          next: "Suivant",
+          pageIndicator: (current, total) => `Page ${current} sur ${total}`,
+        }}
+      />
     </div>
   );
 }
