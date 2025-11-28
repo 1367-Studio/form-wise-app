@@ -202,7 +202,7 @@ model TenantApplication {
   country         String?
   landlinePhone   String?
   requestedBy     String?                 // Optional: ID of the requesting User
-  
+  validatedAt     DateTime?
   status          PreRegistrationStatus   @default(PENDING)
   rejectionReason String?                 // Reason for rejection
   createdAt       DateTime                @default(now())

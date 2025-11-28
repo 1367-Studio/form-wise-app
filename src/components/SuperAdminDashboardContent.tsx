@@ -12,8 +12,9 @@ import AdminTenantList from "./AdminTenantList";
 import AdminCharts from "./AdminCharts";
 import AccountSettings from "./AccountSettings";
 import CenteredSpinner from "./CenteredSpinner";
-import AdminTenantRequestsPage from "./AdminTenantRequestsPage";
 import InternalSchoolRegisterPage from "./InternalSchoolRegisterPage";
+import AdminPendingSchoolsPage from "./AdminPendingSchoolsPage";
+import AdminAcceptedSchoolsPage from "./AdminAcceptedSchoolsPage ";
 
 export default function SuperAdminDashboardContent() {
   const { data: session, status } = useSession();
@@ -56,7 +57,8 @@ export default function SuperAdminDashboardContent() {
         {activeSection === "schoolRegistrationAdmin" && (
           <InternalSchoolRegisterPage />
         )}
-        {activeSection === "requestsAdmin" && <AdminTenantRequestsPage />}
+        {activeSection === "pendingSchools" && <AdminPendingSchoolsPage />}
+        {activeSection === "acceptedSchools" && <AdminAcceptedSchoolsPage />}
         {activeSection === "tenants" && <AdminTenantList />}
         {activeSection === "chartsAdmin" && <AdminCharts />}
         {activeSection === "settingsAdmin" && (
