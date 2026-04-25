@@ -16,7 +16,7 @@ interface AppUser {
   email: string;
   role: UserRole;
   phone: string;
-  tenantId: string | null; // Garder null pour les SUPER_ADMIN
+  tenantId: string | null;
   rememberMe?: boolean;
   firstName?: string;
   lastName?: string;
@@ -25,6 +25,7 @@ interface AppUser {
   billingPlan?: string;
   trialEndsAt?: string | null;
   schoolCode?: string | null;
+  tokenVersion?: number;
 }
 
 // ----- JWT Token Shape -----
@@ -151,6 +152,7 @@ export const authOptions: AuthOptions = {
             dbUser.role === "SUPER_ADMIN" ? "ACTIVE" : subscriptionStatus,
           billingPlan: dbUser.tenant?.billingPlan ?? "MONTHLY",
           trialEndsAt: dbUser.tenant?.trialEndsAt?.toISOString() ?? null,
+          tokenVersion: dbUser.tokenVersion,
         };
 
         typedToken.user = userPayload;
@@ -160,6 +162,23 @@ export const authOptions: AuthOptions = {
 
         if (!typedToken.rememberMe) {
           typedToken.exp = Math.floor(Date.now() / 1000) + 4 * 60 * 60;
+        }
+      }
+
+      // On every JWT cycle: revalidate tokenVersion so "Sign out
+      // everywhere" actually invalidates other tabs/devices on next request.
+      if (typedToken.user?.id && typedToken.user?.tokenVersion !== undefined) {
+        const dbCheck = await prisma.user.findUnique({
+          where: { id: typedToken.user.id },
+          select: { tokenVersion: true },
+        });
+        if (
+          dbCheck &&
+          dbCheck.tokenVersion !== typedToken.user.tokenVersion
+        ) {
+          // Token was issued under an older version → invalidate.
+          typedToken.user = undefined;
+          typedToken.role = undefined;
         }
       }
 

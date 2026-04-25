@@ -444,9 +444,21 @@
   },
   "AdminAudit": {
     "title": "Audit log",
-    "subtitle": "History of sensitive actions (create, suspend, payment, etc.).",
-    "comingSoon": "Coming soon",
-    "needsMigration": "This view needs a new Prisma `AuditLog` model. Request the migration to enable event collection."
+    "subtitle": "History of sensitive actions.",
+    "filterAll": "All actions",
+    "headerWhen": "When",
+    "headerActor": "Actor",
+    "headerAction": "Action",
+    "headerTarget": "Target",
+    "empty": "No events recorded.",
+    "loadError": "Could not load the audit log.",
+    "loading": "Loading...",
+    "actionAuthPasswordChanged": "Password changed",
+    "actionAuthSignedOutEverywhere": "Signed out everywhere",
+    "actionTenantStatusChanged": "Tenant status changed",
+    "actionBroadcastSent": "Broadcast sent",
+    "actionImpersonationStarted": "Impersonation started",
+    "actionImpersonationEnded": "Impersonation ended"
   },
   "GdprExport": {
     "title": "My data",
@@ -1116,6 +1128,11 @@
     "passwordChanged": "Password updated!",
     "passwordsNoMatch": "The new passwords don't match",
     "passwordTooShort": "Password must be at least 8 characters",
+    "signOutAllTitle": "Active sessions",
+    "signOutAllSubtitle": "Sign out all other devices. Your current session will be reissued.",
+    "signOutAllButton": "Sign out everywhere",
+    "signingOutAll": "Signing out...",
+    "signOutAllSuccess": "All other sessions revoked.",
     "preferencesTitle": "Preferences",
     "preferencesSubtitle": "Choose the interface language.",
     "languageLabel": "Interface language"

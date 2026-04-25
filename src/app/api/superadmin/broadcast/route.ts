@@ -1,6 +1,7 @@
 import { authOptions } from "../../../../lib/authOptions";
 import { prisma } from "../../../../lib/prisma";
 import { resend } from "../../../../lib/resend";
+import { writeAudit } from "../../../../lib/audit";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import type { Role } from "@prisma/client";
@@ -64,6 +65,22 @@ export async function POST(req: Request) {
       failed += chunk.length;
     }
   }
+
+  await writeAudit({
+    actorUserId: session.user.id ?? null,
+    actorEmail: session.user.email ?? null,
+    actorRole: session.user.role,
+    action: "broadcast.sent",
+    targetType: "audience",
+    targetId: audience ?? "directors",
+    metadata: {
+      subject,
+      audience: audience ?? "directors",
+      totalRecipients: emails.length,
+      sent,
+      failed,
+    },
+  });
 
   return NextResponse.json({
     success: true,

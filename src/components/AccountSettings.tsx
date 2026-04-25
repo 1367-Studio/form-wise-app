@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {
   User,
@@ -22,6 +22,7 @@ import {
   Calendar,
   Building2,
   Download,
+  LogOut,
 } from "lucide-react";
 import CenteredSpinner from "./CenteredSpinner";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -281,6 +282,7 @@ function SecurityTab() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [signingOutAll, setSigningOutAll] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -315,54 +317,93 @@ function SecurityTab() {
     }
   };
 
+  const handleSignOutAll = async () => {
+    setSigningOutAll(true);
+    try {
+      const res = await fetch("/api/me/sign-out-all", { method: "POST" });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        toast.error(data?.error || t("updateFailed"));
+        return;
+      }
+      toast.success(t("signOutAllSuccess"));
+      await signOut({ callbackUrl: "/login" });
+    } catch {
+      toast.error(t("networkError"));
+    } finally {
+      setSigningOutAll(false);
+    }
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="rounded-xl border border-black/10 bg-white p-6"
-    >
-      <h3 className="text-base font-semibold text-gray-900">
-        {t("securityTitle")}
-      </h3>
-      <p className="text-sm text-gray-500">{t("securitySubtitle")}</p>
+    <div className="space-y-6">
+      <form
+        onSubmit={handleSubmit}
+        className="rounded-xl border border-black/10 bg-white p-6"
+      >
+        <h3 className="text-base font-semibold text-gray-900">
+          {t("securityTitle")}
+        </h3>
+        <p className="text-sm text-gray-500">{t("securitySubtitle")}</p>
 
-      <div className="mt-6 grid gap-4 max-w-md">
-        <div className="space-y-2">
-          <Label>{t("currentPassword")}</Label>
-          <Input
-            type="password"
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            required
-          />
+        <div className="mt-6 grid gap-4 max-w-md">
+          <div className="space-y-2">
+            <Label>{t("currentPassword")}</Label>
+            <Input
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>{t("newPassword")}</Label>
+            <Input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+              minLength={8}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>{t("confirmPassword")}</Label>
+            <Input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              minLength={8}
+            />
+          </div>
         </div>
-        <div className="space-y-2">
-          <Label>{t("newPassword")}</Label>
-          <Input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-            minLength={8}
-          />
+
+        <div className="mt-6 flex justify-end">
+          <Button type="submit" className="cursor-pointer" disabled={submitting}>
+            {submitting ? t("changingPassword") : t("changePassword")}
+          </Button>
         </div>
-        <div className="space-y-2">
-          <Label>{t("confirmPassword")}</Label>
-          <Input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            minLength={8}
-          />
+      </form>
+
+      <div className="rounded-xl border border-black/10 bg-white p-6">
+        <h3 className="text-base font-semibold text-gray-900">
+          {t("signOutAllTitle")}
+        </h3>
+        <p className="text-sm text-gray-500">{t("signOutAllSubtitle")}</p>
+        <div className="mt-6">
+          <Button
+            type="button"
+            variant="outline"
+            className="cursor-pointer"
+            onClick={handleSignOutAll}
+            disabled={signingOutAll}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            {signingOutAll ? t("signingOutAll") : t("signOutAllButton")}
+          </Button>
         </div>
       </div>
-
-      <div className="mt-6 flex justify-end">
-        <Button type="submit" className="cursor-pointer" disabled={submitting}>
-          {submitting ? t("changingPassword") : t("changePassword")}
-        </Button>
-      </div>
-    </form>
+    </div>
   );
 }
 

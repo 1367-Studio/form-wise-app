@@ -444,9 +444,21 @@
   },
   "AdminAudit": {
     "title": "Journal d'audit",
-    "subtitle": "Historique des actions sensibles (création, suspension, paiement, etc.).",
-    "comingSoon": "Bientôt disponible",
-    "needsMigration": "Cette vue nécessite une nouvelle table Prisma `AuditLog`. Demandez la migration pour activer la collecte d'événements."
+    "subtitle": "Historique des actions sensibles.",
+    "filterAll": "Toutes les actions",
+    "headerWhen": "Quand",
+    "headerActor": "Acteur",
+    "headerAction": "Action",
+    "headerTarget": "Cible",
+    "empty": "Aucun événement enregistré.",
+    "loadError": "Impossible de charger le journal.",
+    "loading": "Chargement...",
+    "actionAuthPasswordChanged": "Mot de passe modifié",
+    "actionAuthSignedOutEverywhere": "Déconnexion globale",
+    "actionTenantStatusChanged": "Statut établissement modifié",
+    "actionBroadcastSent": "Diffusion envoyée",
+    "actionImpersonationStarted": "Impersonation démarrée",
+    "actionImpersonationEnded": "Impersonation terminée"
   },
   "GdprExport": {
     "title": "Mes données",
@@ -1116,6 +1128,11 @@
     "passwordChanged": "Mot de passe mis à jour !",
     "passwordsNoMatch": "Les nouveaux mots de passe ne correspondent pas",
     "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+    "signOutAllTitle": "Sessions actives",
+    "signOutAllSubtitle": "Déconnectez tous les autres appareils. Votre session actuelle sera renouvelée.",
+    "signOutAllButton": "Se déconnecter partout",
+    "signingOutAll": "Déconnexion...",
+    "signOutAllSuccess": "Toutes les autres sessions ont été révoquées.",
     "preferencesTitle": "Préférences",
     "preferencesSubtitle": "Choisissez la langue de l'interface.",
     "languageLabel": "Langue de l'interface"

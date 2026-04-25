@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import bcrypt from "bcryptjs";
 import { authOptions } from "../../../../lib/authOptions";
 import { prisma } from "../../../../lib/prisma";
+import { writeAudit } from "../../../../lib/audit";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -42,9 +43,20 @@ export async function POST(req: Request) {
   }
 
   const hashed = await bcrypt.hash(newPassword, 10);
-  await prisma.user.update({
+  const updated = await prisma.user.update({
     where: { id: user.id },
-    data: { password: hashed },
+    data: { password: hashed, tokenVersion: { increment: 1 } },
+    select: { id: true, email: true, role: true, tokenVersion: true },
+  });
+
+  await writeAudit({
+    actorUserId: updated.id,
+    actorEmail: updated.email,
+    actorRole: updated.role,
+    action: "auth.password_changed",
+    targetType: "user",
+    targetId: updated.id,
+    metadata: { newTokenVersion: updated.tokenVersion },
   });
 
   return NextResponse.json({ success: true });

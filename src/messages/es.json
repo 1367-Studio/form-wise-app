@@ -444,9 +444,21 @@
   },
   "AdminAudit": {
     "title": "Registro de auditoría",
-    "subtitle": "Historial de acciones sensibles (creación, suspensión, pago, etc.).",
-    "comingSoon": "Próximamente",
-    "needsMigration": "Esta vista requiere un nuevo modelo Prisma `AuditLog`. Solicita la migración para activar la recogida de eventos."
+    "subtitle": "Historial de acciones sensibles.",
+    "filterAll": "Todas las acciones",
+    "headerWhen": "Cuándo",
+    "headerActor": "Actor",
+    "headerAction": "Acción",
+    "headerTarget": "Objetivo",
+    "empty": "Sin eventos registrados.",
+    "loadError": "Error al cargar el registro.",
+    "loading": "Cargando...",
+    "actionAuthPasswordChanged": "Contraseña cambiada",
+    "actionAuthSignedOutEverywhere": "Cierre de sesión global",
+    "actionTenantStatusChanged": "Estado del centro cambiado",
+    "actionBroadcastSent": "Difusión enviada",
+    "actionImpersonationStarted": "Impersonación iniciada",
+    "actionImpersonationEnded": "Impersonación finalizada"
   },
   "GdprExport": {
     "title": "Mis datos",
@@ -1116,6 +1128,11 @@
     "passwordChanged": "¡Contraseña actualizada!",
     "passwordsNoMatch": "Las nuevas contraseñas no coinciden",
     "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+    "signOutAllTitle": "Sesiones activas",
+    "signOutAllSubtitle": "Cierra sesión en otros dispositivos. Tu sesión actual se renovará.",
+    "signOutAllButton": "Cerrar sesión en todas partes",
+    "signingOutAll": "Cerrando sesión...",
+    "signOutAllSuccess": "Todas las demás sesiones revocadas.",
     "preferencesTitle": "Preferencias",
     "preferencesSubtitle": "Elige el idioma de la interfaz.",
     "languageLabel": "Idioma de la interfaz"

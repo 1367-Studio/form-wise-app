@@ -17,6 +17,7 @@ model User {
   password         String?
   role             Role
   createdAt        DateTime           @default(now())
+  tokenVersion     Int                @default(1)
   firstName        String
   lastName         String
   phone            String
@@ -281,4 +282,20 @@ enum PreRegistrationStatus {
   PENDING
   ACCEPTED
   REJECTED
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorUserId String?
+  actorEmail  String?
+  actorRole   String?
+  action      String
+  targetType  String?
+  targetId    String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([actorUserId])
+  @@index([action])
 }
