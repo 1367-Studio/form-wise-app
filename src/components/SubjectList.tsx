@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-// import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -10,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslations } from "next-intl";
 
 interface SchoolClass {
   id: string;
@@ -32,6 +32,7 @@ interface Subject {
 }
 
 export default function SubjectList() {
+  const t = useTranslations("SubjectList");
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [classes, setClasses] = useState<SchoolClass[]>([]);
   const [selectedClassId, setSelectedClassId] = useState<string>("");
@@ -64,11 +65,11 @@ export default function SubjectList() {
           htmlFor="class-select"
           className="text-sm font-medium text-muted-foreground"
         >
-          Choisir une classe
+          {t("chooseClass")}
         </Label>
         <Select value={selectedClassId} onValueChange={setSelectedClassId}>
           <SelectTrigger id="class-select" className="w-48">
-            <SelectValue placeholder="Sélectionner une classe" />
+            <SelectValue placeholder={t("classPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             {classes.map((cls) => (
@@ -83,21 +84,24 @@ export default function SubjectList() {
       {selectedClassId && (
         <div key={selectedClassId} className="space-y-4">
           <h2 className="text-sm font-semibold text-muted-foreground">
-            Matières de la classe{" "}
-            {classes.find((c) => c.id === selectedClassId)?.name}
+            {t("subjectsForClass", {
+              name: classes.find((c) => c.id === selectedClassId)?.name ?? "",
+            })}
           </h2>
 
           {filteredSubjects.length === 0 ? (
-            <p className="text-muted-foreground">
-              Aucune matière pour cette classe.
-            </p>
+            <p className="text-muted-foreground">{t("emptyState")}</p>
           ) : (
             <div className="overflow-x-auto rounded-md border shadow-sm">
               <table className="min-w-full text-sm">
                 <thead className="bg-muted text-muted-foreground uppercase text-xs">
                   <tr>
-                    <th className="px-4 py-3 text-left">Matière</th>
-                    <th className="px-4 py-3 text-left">Professeur</th>
+                    <th className="px-4 py-3 text-left">
+                      {t("headerSubject")}
+                    </th>
+                    <th className="px-4 py-3 text-left">
+                      {t("headerTeacher")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -110,7 +114,7 @@ export default function SubjectList() {
                           `${subject.teachers[0].user.firstName} ${subject.teachers[0].user.lastName}`
                         ) : (
                           <span className="text-muted-foreground italic">
-                            Professeur non assigné
+                            {t("noTeacher")}
                           </span>
                         )}
                       </td>

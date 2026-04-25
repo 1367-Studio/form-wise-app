@@ -12,13 +12,20 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarDays } from "lucide-react";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { fr, enGB, ptBR, es } from "date-fns/locale";
+import { useLocale, useTranslations } from "next-intl";
+
+const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
 export default function SchoolYearForm({
   onCreated,
 }: {
   onCreated: () => void;
 }) {
+  const t = useTranslations("SchoolYearForm");
+  const locale = useLocale() as keyof typeof dateLocales;
+  const dfLocale = dateLocales[locale] ?? fr;
+
   const [formData, setFormData] = useState<{
     name: string;
     startDate: Date | undefined;
@@ -51,7 +58,7 @@ export default function SchoolYearForm({
     setLoading(false);
 
     if (data.success) {
-      setSuccessMessage(`Année "${data.schoolYear.name}" créée avec succès`);
+      setSuccessMessage(t("successCreated", { name: data.schoolYear.name }));
       setFormData({ name: "", startDate: undefined, endDate: undefined });
       onCreated();
     }
@@ -66,7 +73,7 @@ export default function SchoolYearForm({
       )}
 
       <div className="flex flex-col gap-2">
-        <Label>Nom de l’année scolaire</Label>
+        <Label>{t("nameLabel")}</Label>
         <Input
           name="name"
           value={formData.name}
@@ -76,7 +83,7 @@ export default function SchoolYearForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Date de début</Label>
+        <Label>{t("startDateLabel")}</Label>
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -85,8 +92,8 @@ export default function SchoolYearForm({
             >
               <CalendarDays className="mr-2 h-4 w-4" />
               {formData.startDate
-                ? format(formData.startDate, "dd/MM/yyyy", { locale: fr })
-                : "Sélectionner une date"}
+                ? format(formData.startDate, "dd/MM/yyyy", { locale: dfLocale })
+                : t("selectDate")}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
@@ -94,7 +101,7 @@ export default function SchoolYearForm({
               mode="single"
               selected={formData.startDate}
               onSelect={(date) => setFormData({ ...formData, startDate: date })}
-              locale={fr}
+              locale={dfLocale}
               fromYear={2000}
               toYear={2030}
               captionLayout="dropdown"
@@ -104,7 +111,7 @@ export default function SchoolYearForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Date de fin</Label>
+        <Label>{t("endDateLabel")}</Label>
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -113,8 +120,8 @@ export default function SchoolYearForm({
             >
               <CalendarDays className="mr-2 h-4 w-4" />
               {formData.endDate
-                ? format(formData.endDate, "dd/MM/yyyy", { locale: fr })
-                : "Sélectionner une date"}
+                ? format(formData.endDate, "dd/MM/yyyy", { locale: dfLocale })
+                : t("selectDate")}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
@@ -122,7 +129,7 @@ export default function SchoolYearForm({
               mode="single"
               selected={formData.endDate}
               onSelect={(date) => setFormData({ ...formData, endDate: date })}
-              locale={fr}
+              locale={dfLocale}
               fromYear={2000}
               toYear={2030}
               captionLayout="dropdown"
@@ -132,7 +139,7 @@ export default function SchoolYearForm({
       </div>
 
       <Button type="submit" disabled={loading} className="cursor-pointer">
-        {loading ? "Création..." : "Créer l’année scolaire"}
+        {loading ? t("creating") : t("createButton")}
       </Button>
     </form>
   );

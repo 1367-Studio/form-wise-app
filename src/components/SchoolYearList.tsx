@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, UserX } from "lucide-react";
+import { useTranslations } from "next-intl";
 import CenteredSpinner from "./CenteredSpinner";
 
 type SchoolYear = {
@@ -13,6 +14,7 @@ type SchoolYear = {
 };
 
 export default function SchoolYearList() {
+  const t = useTranslations("SchoolYearList");
   const [schoolYears, setSchoolYears] = useState<SchoolYear[]>([]);
   const [loading, setLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -22,7 +24,7 @@ export default function SchoolYearList() {
       setIsMobile(window.innerWidth < 768);
     };
 
-    handleResize(); // initial load
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -38,7 +40,7 @@ export default function SchoolYearList() {
   };
 
   const handleDelete = async (id: string) => {
-    const confirm = window.confirm("Confirmer la suppression de cette année ?");
+    const confirm = window.confirm(t("confirmDelete"));
     if (!confirm) return;
 
     const res = await fetch(`/api/school-year/${id}`, {
@@ -56,14 +58,14 @@ export default function SchoolYearList() {
   }, []);
 
   if (loading) {
-    return <CenteredSpinner label="Chargement..." />;
+    return <CenteredSpinner label={t("loading")} />;
   }
 
   if (schoolYears.length === 0) {
     return (
       <div className="text-muted-foreground flex items-center gap-2 mt-6">
         <AlertTriangle className="w-4 h-4" />
-        Aucune année scolaire enregistrée.
+        {t("emptyState")}
       </div>
     );
   }
@@ -79,8 +81,10 @@ export default function SchoolYearList() {
             >
               <p className="font-semibold">{year.name}</p>
               <p className="text-sm text-muted-foreground">
-                Du {new Date(year.startDate).toLocaleDateString()} au{" "}
-                {new Date(year.endDate).toLocaleDateString()}
+                {t("fromTo", {
+                  start: new Date(year.startDate).toLocaleDateString(),
+                  end: new Date(year.endDate).toLocaleDateString(),
+                })}
               </p>
               <Button
                 variant="destructive"
@@ -89,7 +93,7 @@ export default function SchoolYearList() {
                 className="cursor-pointer"
               >
                 <UserX className="h-4 w-4 mr-1" />
-                Supprimer
+                {t("delete")}
               </Button>
             </div>
           ))}
@@ -99,10 +103,10 @@ export default function SchoolYearList() {
           <table className="min-w-full text-sm">
             <thead className="bg-muted text-muted-foreground uppercase text-xs">
               <tr>
-                <th className="px-4 py-3 text-left">Année scolaire</th>
-                <th className="px-4 py-3 text-left">Début</th>
-                <th className="px-4 py-3 text-left">Fin</th>
-                <th className="px-4 py-3 text-right">Actions</th>
+                <th className="px-4 py-3 text-left">{t("headerYear")}</th>
+                <th className="px-4 py-3 text-left">{t("headerStart")}</th>
+                <th className="px-4 py-3 text-left">{t("headerEnd")}</th>
+                <th className="px-4 py-3 text-right">{t("headerActions")}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -123,7 +127,7 @@ export default function SchoolYearList() {
                       size="sm"
                     >
                       <UserX className="h-4 w-4 mr-1" />
-                      Supprimer
+                      {t("delete")}
                     </Button>
                   </td>
                 </tr>

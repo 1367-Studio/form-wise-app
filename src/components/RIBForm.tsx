@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 export default function RIBForm() {
+  const t = useTranslations("RIBForm");
   const [form, setForm] = useState({
     iban: "",
     bic: "",
@@ -47,15 +49,15 @@ export default function RIBForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="flex flex-col gap-2">
-        <Label htmlFor="iban">IBAN</Label>
+        <Label htmlFor="iban">{t("ibanLabel")}</Label>
         <Input name="iban" value={form.iban} onChange={handleChange} required />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="bic">BIC</Label>
+        <Label htmlFor="bic">{t("bicLabel")}</Label>
         <Input name="bic" value={form.bic} onChange={handleChange} required />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="bankName">Nom de la banque</Label>
+        <Label htmlFor="bankName">{t("bankNameLabel")}</Label>
         <Input
           name="bankName"
           value={form.bankName}
@@ -64,10 +66,10 @@ export default function RIBForm() {
         />
       </div>
       <Button type="submit" className="cursor-pointer">
-        Enregistrer
+        {t("submitButton")}
       </Button>
       {success && (
-        <p className="text-green-600 text-sm">Informations enregistrées</p>
+        <p className="text-green-600 text-sm">{t("successMessage")}</p>
       )}
     </form>
   );

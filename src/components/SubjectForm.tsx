@@ -11,6 +11,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Class = {
   id: string;
@@ -18,6 +19,7 @@ type Class = {
 };
 
 export default function SubjectForm() {
+  const t = useTranslations("SubjectForm");
   const [classes, setClasses] = useState<Class[]>([]);
   const [selectedClassId, setSelectedClassId] = useState<string>("");
   const [subjectName, setSubjectName] = useState("");
@@ -45,15 +47,15 @@ export default function SubjectForm() {
     setSubjectName("");
     setSelectedClassId("");
 
-    await loadClasses(); // 🔁 mise à jour propre ici
+    await loadClasses();
   };
 
   return (
     <form onSubmit={handleSubmit} className=" flex flex-col gap-2 max-w-md">
-      <Label>Classe</Label>
+      <Label>{t("classLabel")}</Label>
       <Select value={selectedClassId} onValueChange={setSelectedClassId}>
         <SelectTrigger>
-          <SelectValue placeholder="Sélectionner une classe" />
+          <SelectValue placeholder={t("classPlaceholder")} />
         </SelectTrigger>
         <SelectContent>
           {classes.map((cls) => (
@@ -64,7 +66,7 @@ export default function SubjectForm() {
         </SelectContent>
       </Select>
       <div className="flex flex-col gap-2">
-        <Label>Nom de la matière</Label>
+        <Label>{t("nameLabel")}</Label>
         <Input
           value={subjectName}
           onChange={(e) => setSubjectName(e.target.value)}
@@ -72,7 +74,7 @@ export default function SubjectForm() {
         />
       </div>
       <Button type="submit" className="cursor-pointer">
-        Ajouter la matière <Plus />
+        {t("submitButton")} <Plus />
       </Button>
     </form>
   );

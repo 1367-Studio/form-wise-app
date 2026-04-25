@@ -267,6 +267,183 @@
     "filesUploaded": "Files uploaded successfully.",
     "uploadError": "Error for {folder}: {error}"
   },
+  "Banner": {
+    "tagline": "Coming soon"
+  },
+  "NavDrawer": {
+    "contactUs": "Contact us",
+    "signIn": "Sign in"
+  },
+  "Support": {
+    "getSupport": "Get support",
+    "needHelp": "Need help?",
+    "emailLabel": "Email:",
+    "phoneLabel": "Phone:",
+    "copiedToClipboard": "{label} copied to clipboard",
+    "emailField": "Email",
+    "phoneField": "Phone"
+  },
+  "Tabs": {
+    "students": "Students",
+    "classes": "Classes",
+    "parentsDashboard": "Parents dashboard",
+    "documents": "Documents",
+    "notifications": "Notifications",
+    "teachersList": "Teachers list",
+    "screenshotAlt": "Screenshot - {label}"
+  },
+  "Hero": {
+    "titlePrefix": "Cut 80% of the time spent on school",
+    "titleHighlight": "enrolments.",
+    "subtitle": "Streamline student management, payments and documents on a single platform.",
+    "ctaTrial": "Get 20 days free",
+    "ctaDemo": "Book a demo",
+    "introAriaLabel": "Formwise introduction"
+  },
+  "Features": {
+    "section": "Formwise features",
+    "title": "Run your school more easily, starting today.",
+    "subtitle": "Everything you need, in a single platform.",
+    "registrationsName": "Centralised enrolments",
+    "registrationsDescription": "Save time with a modern, simple and secure enrolment system. Parents add their children, head teachers approve in one place.",
+    "paymentsName": "Simplified payments",
+    "paymentsDescription": "Each parent receives an automatic notification to settle school fees. Bank transfer, cheque or direct debit (coming soon).",
+    "communicationName": "Smooth communication",
+    "communicationDescription": "Send a message to all parents, or to a single student (\"Bring a water bottle tomorrow\") — everything from the head teacher's dashboard.",
+    "aiName": "Smart assistant (AI)",
+    "aiDescription": "An integrated chatbot guides every user step by step: parents, leadership and teachers all find quick answers."
+  },
+  "Pricing": {
+    "section": "Pricing",
+    "title": "Pick the plan that fits your school",
+    "subtitle": "Choose an affordable plan packed with the best features to engage your community, retain parents and gain efficiency.",
+    "perCycle": "/{cycle}",
+    "ctaTrial": "Get 20 days free",
+    "monthlyName": "Monthly",
+    "monthlyCycle": "month",
+    "monthlyPrice": "€129",
+    "monthlyDescription": "A simple monthly plan, no commitment.",
+    "monthlyFeature1": "Up to 500 students",
+    "monthlyFeature2": "Dashboards: head teacher, parent, teacher",
+    "monthlyFeature3": "Targeted and global notifications",
+    "monthlyFeature4": "Monthly payment tracking",
+    "monthlyFeature5": "Support within 24h",
+    "annualName": "Annual",
+    "annualCycle": "year",
+    "annualPrice": "€1,290",
+    "annualDescription": "2 months free + exclusive services for committed institutions.",
+    "annualFeature1": "Everything in the monthly plan",
+    "annualFeature2": "1 month free (€129 saved)",
+    "annualFeature3": "Priority support access",
+    "annualFeature4": "Free online training",
+    "annualFeature5": "Annual GDPR certificate",
+    "trialName": "Free trial",
+    "trialCycle": "20 days",
+    "trialPrice": "Free",
+    "trialDescription": "Try every Formwise feature for free.",
+    "trialFeature1": "Everything in the monthly plan",
+    "trialFeature2": "No credit card",
+    "trialFeature3": "Valid for 20 days",
+    "trialFeature4": "Instant activation",
+    "trialFeature5": "Support included"
+  },
+  "Newsletter": {
+    "title": "Subscribe to our newsletter to stay informed about updates and new Formwise features.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "Enter your email address",
+    "submitButton": "Notify me",
+    "submitting": "Sending...",
+    "successMessage": "Thanks! You're subscribed to the newsletter.",
+    "errorMessage": "Error while subscribing.",
+    "networkError": "Network error.",
+    "privacyNote": "We respect your privacy.",
+    "privacyLink": "Read our privacy policy."
+  },
+  "EmptyState": {
+    "noData": "No data available."
+  },
+  "SchoolYearForm": {
+    "successCreated": "School year \"{name}\" created successfully",
+    "nameLabel": "School year name",
+    "startDateLabel": "Start date",
+    "endDateLabel": "End date",
+    "selectDate": "Pick a date",
+    "createButton": "Create school year",
+    "creating": "Creating..."
+  },
+  "SchoolYearList": {
+    "loading": "Loading...",
+    "emptyState": "No school year recorded.",
+    "confirmDelete": "Confirm deletion of this year?",
+    "fromTo": "From {start} to {end}",
+    "delete": "Delete",
+    "headerYear": "School year",
+    "headerStart": "Start",
+    "headerEnd": "End",
+    "headerActions": "Actions"
+  },
+  "ClassForm": {
+    "successCreated": "✅ Class \"{name}\" created successfully",
+    "nameLabel": "Class name",
+    "monthlyFeeLabel": "Monthly fee (€)",
+    "schoolYearLabel": "School year",
+    "schoolYearPlaceholder": "Choose a school year",
+    "createButton": "Create class",
+    "creating": "Creating..."
+  },
+  "ClassList": {
+    "emptyState": "No classes created yet.",
+    "yearLabel": "Year:",
+    "feeLabel": "Fee:",
+    "feePerMonth": "€{fee} / month",
+    "delete": "Delete",
+    "headerClass": "Class",
+    "headerYear": "School year",
+    "headerFee": "Monthly fee",
+    "headerActions": "Actions",
+    "feeAmount": "€{fee}"
+  },
+  "SubjectForm": {
+    "classLabel": "Class",
+    "classPlaceholder": "Select a class",
+    "nameLabel": "Subject name",
+    "submitButton": "Add subject"
+  },
+  "SubjectList": {
+    "chooseClass": "Choose a class",
+    "classPlaceholder": "Select a class",
+    "subjectsForClass": "Subjects in {name}",
+    "emptyState": "No subjects in this class.",
+    "headerSubject": "Subject",
+    "headerTeacher": "Teacher",
+    "noTeacher": "Teacher not assigned"
+  },
+  "NotificationForm": {
+    "titleLabel": "Title",
+    "titlePlaceholder": "Notification title",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Enter the message",
+    "typeLabel": "Notification type",
+    "typePlaceholder": "Choose type",
+    "typeAllParents": "All parents",
+    "typeStudent": "A specific student",
+    "typeAllTeachers": "All teachers",
+    "typeTeacher": "A specific teacher",
+    "chooseStudent": "Choose student",
+    "studentPlaceholder": "Select a student",
+    "chooseTeacher": "Choose teacher",
+    "teacherPlaceholder": "Select a teacher",
+    "submitButton": "Send",
+    "successMessage": "Notification sent successfully",
+    "errorMessage": "Error while sending"
+  },
+  "RIBForm": {
+    "ibanLabel": "IBAN",
+    "bicLabel": "BIC",
+    "bankNameLabel": "Bank name",
+    "submitButton": "Save",
+    "successMessage": "Details saved"
+  },
   "AppHeader": {
     "defaultUser": "User",
     "monthlySubscription": "Monthly subscription",

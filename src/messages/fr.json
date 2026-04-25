@@ -267,6 +267,183 @@
     "filesUploaded": "Les fichiers ont été correctement envoyés.",
     "uploadError": "Erreur pour {folder} : {error}"
   },
+  "Banner": {
+    "tagline": "Disponible prochainement"
+  },
+  "NavDrawer": {
+    "contactUs": "Contactez-nous",
+    "signIn": "Connexion"
+  },
+  "Support": {
+    "getSupport": "Obtenir de l'aide",
+    "needHelp": "Besoin d'aide ?",
+    "emailLabel": "Email :",
+    "phoneLabel": "Téléphone :",
+    "copiedToClipboard": "{label} copié dans le presse-papiers",
+    "emailField": "Email",
+    "phoneField": "Téléphone"
+  },
+  "Tabs": {
+    "students": "Élèves",
+    "classes": "Classes",
+    "parentsDashboard": "Tableau parents",
+    "documents": "Documents",
+    "notifications": "Notifications",
+    "teachersList": "Liste de professeurs",
+    "screenshotAlt": "Capture d'écran - {label}"
+  },
+  "Hero": {
+    "titlePrefix": "Réduisez de 80% le temps passé sur les inscriptions",
+    "titleHighlight": "scolaires.",
+    "subtitle": "Simplifiez la gestion des élèves, des paiements et des documents en une seule plateforme.",
+    "ctaTrial": "Profitez de 20 jours gratuitement",
+    "ctaDemo": "Réserver une démo",
+    "introAriaLabel": "Introduction Formwise"
+  },
+  "Features": {
+    "section": "Fonctionnalités Formwise",
+    "title": "Gérez votre établissement plus simplement, dès aujourd'hui.",
+    "subtitle": "Tout ce qu'il vous faut, réuni dans une seule plateforme.",
+    "registrationsName": "Inscriptions centralisées",
+    "registrationsDescription": "Gagnez du temps avec un système d'inscription moderne, simple et sécurisé. Les parents ajoutent leurs enfants, les directeurs valident en un seul endroit.",
+    "paymentsName": "Paiements simplifiés",
+    "paymentsDescription": "Chaque parent reçoit une notification automatique pour régler les frais scolaires. Paiement par virement, chèque ou prélèvement à venir.",
+    "communicationName": "Communication fluide",
+    "communicationDescription": "Envoyez un message à tous les parents, ou à un seul élève (« Prenez une gourde demain ») — tout est possible depuis le tableau de bord directeur.",
+    "aiName": "Assistant intelligent (IA)",
+    "aiDescription": "Un chatbot intégré vous guide pas à pas : parents, direction ou professeurs, chacun trouve rapidement les réponses à ses questions."
+  },
+  "Pricing": {
+    "section": "Tarifs",
+    "title": "Choisissez le plan adapté à votre établissement",
+    "subtitle": "Choisissez une formule abordable, dotée des meilleures fonctionnalités pour engager votre communauté, fidéliser vos parents et gagner en efficacité.",
+    "perCycle": "/{cycle}",
+    "ctaTrial": "Profitez de 20 jours gratuitement",
+    "monthlyName": "Mensuel",
+    "monthlyCycle": "mois",
+    "monthlyPrice": "129€",
+    "monthlyDescription": "Une formule simple, mensuelle, sans engagement.",
+    "monthlyFeature1": "Jusqu'à 500 élèves",
+    "monthlyFeature2": "Tableaux de bord : directeur, parent, professeur",
+    "monthlyFeature3": "Notifications ciblées et globales",
+    "monthlyFeature4": "Suivi des paiements mensuels",
+    "monthlyFeature5": "Support sous 24h",
+    "annualName": "Annuel",
+    "annualCycle": "an",
+    "annualPrice": "1290€",
+    "annualDescription": "2 mois offerts + services exclusifs pour les structures engagées.",
+    "annualFeature1": "Toutes les fonctionnalités de la formule mensuelle",
+    "annualFeature2": "1 mois offert (soit 129€ d'économie)",
+    "annualFeature3": "Accès prioritaire au support",
+    "annualFeature4": "Formations en ligne offertes",
+    "annualFeature5": "Certificat RGPD annuel",
+    "trialName": "Essai gratuit",
+    "trialCycle": "20 jours",
+    "trialPrice": "Gratuit",
+    "trialDescription": "Testez gratuitement toutes les fonctionnalités de Formwise.",
+    "trialFeature1": "Toutes les fonctionnalités de la formule mensuelle",
+    "trialFeature2": "Sans carte bancaire",
+    "trialFeature3": "Valable pendant 20 jours",
+    "trialFeature4": "Activation immédiate",
+    "trialFeature5": "Support inclus"
+  },
+  "Newsletter": {
+    "title": "Inscrivez-vous à notre newsletter pour rester informé des mises à jour et nouvelles fonctionnalités de Formwise.",
+    "emailLabel": "Adresse e-mail",
+    "emailPlaceholder": "Entrez votre adresse e-mail",
+    "submitButton": "Me notifier",
+    "submitting": "Envoi...",
+    "successMessage": "Merci ! Vous êtes inscrit à la newsletter.",
+    "errorMessage": "Erreur lors de l'inscription.",
+    "networkError": "Erreur réseau.",
+    "privacyNote": "Nous respectons votre vie privée.",
+    "privacyLink": "Consultez notre politique de confidentialité."
+  },
+  "EmptyState": {
+    "noData": "Aucune donnée disponible."
+  },
+  "SchoolYearForm": {
+    "successCreated": "Année \"{name}\" créée avec succès",
+    "nameLabel": "Nom de l'année scolaire",
+    "startDateLabel": "Date de début",
+    "endDateLabel": "Date de fin",
+    "selectDate": "Sélectionner une date",
+    "createButton": "Créer l'année scolaire",
+    "creating": "Création..."
+  },
+  "SchoolYearList": {
+    "loading": "Chargement...",
+    "emptyState": "Aucune année scolaire enregistrée.",
+    "confirmDelete": "Confirmer la suppression de cette année ?",
+    "fromTo": "Du {start} au {end}",
+    "delete": "Supprimer",
+    "headerYear": "Année scolaire",
+    "headerStart": "Début",
+    "headerEnd": "Fin",
+    "headerActions": "Actions"
+  },
+  "ClassForm": {
+    "successCreated": "✅ Classe \"{name}\" créée avec succès",
+    "nameLabel": "Nom de la classe",
+    "monthlyFeeLabel": "Prix mensuel (€)",
+    "schoolYearLabel": "Année scolaire",
+    "schoolYearPlaceholder": "Choisir une année scolaire",
+    "createButton": "Créer la classe",
+    "creating": "Création..."
+  },
+  "ClassList": {
+    "emptyState": "Aucune classe créée pour l'instant.",
+    "yearLabel": "Année :",
+    "feeLabel": "Tarif :",
+    "feePerMonth": "{fee} € / mois",
+    "delete": "Supprimer",
+    "headerClass": "Classe",
+    "headerYear": "Année scolaire",
+    "headerFee": "Tarif mensuel",
+    "headerActions": "Actions",
+    "feeAmount": "{fee} €"
+  },
+  "SubjectForm": {
+    "classLabel": "Classe",
+    "classPlaceholder": "Sélectionner une classe",
+    "nameLabel": "Nom de la matière",
+    "submitButton": "Ajouter la matière"
+  },
+  "SubjectList": {
+    "chooseClass": "Choisir une classe",
+    "classPlaceholder": "Sélectionner une classe",
+    "subjectsForClass": "Matières de la classe {name}",
+    "emptyState": "Aucune matière pour cette classe.",
+    "headerSubject": "Matière",
+    "headerTeacher": "Professeur",
+    "noTeacher": "Professeur non assigné"
+  },
+  "NotificationForm": {
+    "titleLabel": "Titre",
+    "titlePlaceholder": "Titre de la notification",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Entrez le message",
+    "typeLabel": "Type de notification",
+    "typePlaceholder": "Choisir le type",
+    "typeAllParents": "Tous les parents",
+    "typeStudent": "Un élève spécifique",
+    "typeAllTeachers": "Tous les enseignants",
+    "typeTeacher": "Un enseignant spécifique",
+    "chooseStudent": "Choisir l'élève",
+    "studentPlaceholder": "Sélectionner un élève",
+    "chooseTeacher": "Choisir l'enseignant",
+    "teacherPlaceholder": "Sélectionner un enseignant",
+    "submitButton": "Envoyer",
+    "successMessage": "Notification envoyée avec succès",
+    "errorMessage": "Erreur lors de l'envoi"
+  },
+  "RIBForm": {
+    "ibanLabel": "IBAN",
+    "bicLabel": "BIC",
+    "bankNameLabel": "Nom de la banque",
+    "submitButton": "Enregistrer",
+    "successMessage": "Informations enregistrées"
+  },
   "AppHeader": {
     "defaultUser": "Utilisateur",
     "monthlySubscription": "Abonnement mensuel",

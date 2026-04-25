@@ -2,12 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import TabsShowcase from "./TabsShowcase";
 import { Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function HeroSection() {
+  const t = useTranslations("Hero");
   const titleRef = useRef(null);
   const paragraphRef = useRef(null);
   const buttonsRef = useRef(null);
@@ -37,7 +39,7 @@ export default function HeroSection() {
   return (
     <section
       className="bg-white relative isolate pt-14"
-      aria-label="Introduction Formwise"
+      aria-label={t("introAriaLabel")}
     >
       <div className="py-24 sm:py-32 lg:pb-40">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -46,15 +48,16 @@ export default function HeroSection() {
               ref={titleRef}
               className="fancy-gradient-text text-balance text-5xl sm:text-7xl leading-[57px] sm:leading-[83px] font-semibold tracking-tight text-gray-900"
             >
-              Réduisez de 80% le temps passé sur les inscriptions{" "}
-              <span className="fancy-gradient-span">scolaires.</span>
+              {t("titlePrefix")}{" "}
+              <span className="fancy-gradient-span">
+                {t("titleHighlight")}
+              </span>
             </h1>
             <p
               ref={paragraphRef}
               className="fancy-gradient-text mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8"
             >
-              Simplifiez la gestion des élèves, des paiements et des documents
-              en une seule plateforme.
+              {t("subtitle")}
             </p>
             <div
               ref={buttonsRef}
@@ -63,7 +66,7 @@ export default function HeroSection() {
               <Link href="/register/free-trial">
                 <Button className="cursor-pointer w-full sm:w-auto">
                   <Zap className="mr-2 h-4 w-4" />
-                  Profitez de 20 jours gratuitement
+                  {t("ctaTrial")}
                 </Button>
               </Link>
               <Link
@@ -74,7 +77,7 @@ export default function HeroSection() {
                   className="cursor-pointer w-full sm:w-auto"
                   variant="outline"
                 >
-                  Réserver une démo
+                  {t("ctaDemo")}
                 </Button>
               </Link>
             </div>

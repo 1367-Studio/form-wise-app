@@ -4,71 +4,71 @@ import { useEffect, useRef } from "react";
 import { Check, Zap } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTranslations } from "next-intl";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const tiers = [
-  {
-    name: "Mensuel",
-    id: "tier-mensuel",
-    href: "/contact",
-    priceMonthly: "129€",
-    billingCycle: "mois",
-    description: "Une formule simple, mensuelle, sans engagement.",
-    features: [
-      "Jusqu'à 500 élèves",
-      "Tableaux de bord : directeur, parent, professeur",
-      "Notifications ciblées et globales",
-      "Suivi des paiements mensuels",
-      "Support sous 24h",
-    ],
-    featured: false,
-  },
-  {
-    name: "Annuel",
-    id: "tier-annuel",
-    href: "/contact",
-    priceMonthly: "1290€",
-    billingCycle: "an",
-    description:
-      "2 mois offert + services exclusifs pour les structures engagées.",
-    features: [
-      "Toutes les fonctionnalités de la formule mensuelle",
-      "1 mois offert (soit 129€ d'économie)",
-      "Accès prioritaire au support",
-      "Formations en ligne offertes",
-      "Certificat RGPD annuel",
-    ],
-    featured: true,
-  },
-  {
-    name: "Essai gratuit",
-    id: "tier-freemium",
-    href: "/register/free-trial",
-    priceMonthly: "Gratuit",
-    billingCycle: "20 jours",
-    description: "Testez gratuitement toutes les fonctionnalités de Formwise.",
-    features: [
-      "Toutes les fonctionnalités de la formule mensuelle",
-      "Sans carte bancaire",
-      "Valable pendant 20 jours",
-      "Activation immédiate",
-      "Support inclus",
-    ],
-    featured: false,
-  },
-];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function PricingSection() {
+  const t = useTranslations("Pricing");
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const titleRef = useRef<HTMLDivElement | null>(null);
 
+  const tiers = [
+    {
+      id: "tier-mensuel",
+      href: "/contact",
+      name: t("monthlyName"),
+      priceMonthly: t("monthlyPrice"),
+      billingCycle: t("monthlyCycle"),
+      description: t("monthlyDescription"),
+      features: [
+        t("monthlyFeature1"),
+        t("monthlyFeature2"),
+        t("monthlyFeature3"),
+        t("monthlyFeature4"),
+        t("monthlyFeature5"),
+      ],
+      featured: false,
+    },
+    {
+      id: "tier-annuel",
+      href: "/contact",
+      name: t("annualName"),
+      priceMonthly: t("annualPrice"),
+      billingCycle: t("annualCycle"),
+      description: t("annualDescription"),
+      features: [
+        t("annualFeature1"),
+        t("annualFeature2"),
+        t("annualFeature3"),
+        t("annualFeature4"),
+        t("annualFeature5"),
+      ],
+      featured: true,
+    },
+    {
+      id: "tier-freemium",
+      href: "/register/free-trial",
+      name: t("trialName"),
+      priceMonthly: t("trialPrice"),
+      billingCycle: t("trialCycle"),
+      description: t("trialDescription"),
+      features: [
+        t("trialFeature1"),
+        t("trialFeature2"),
+        t("trialFeature3"),
+        t("trialFeature4"),
+        t("trialFeature5"),
+      ],
+      featured: false,
+    },
+  ];
+
   useEffect(() => {
-    // Animate title
     if (titleRef.current) {
       gsap.fromTo(
         titleRef.current,
@@ -87,7 +87,6 @@ export default function PricingSection() {
       );
     }
 
-    // Animate cards
     cardsRef.current.forEach((el, index) => {
       if (el) {
         gsap.fromTo(
@@ -113,13 +112,14 @@ export default function PricingSection() {
   return (
     <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div className="mx-auto max-w-4xl text-center" ref={titleRef}>
-        <h2 className="text-base/7 font-semibold text-indigo-600">Tarifs</h2>
+        <h2 className="text-base/7 font-semibold text-indigo-600">
+          {t("section")}
+        </h2>
         <p className="mt-2 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
-          Choisissez le plan adapté à votre établissement
+          {t("title")}
         </p>
         <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8">
-          Choose an affordable plan that’s packed with the best features for
-          engaging your audience, creating customer loyalty, and driving sales.
+          {t("subtitle")}
         </p>
       </div>
       <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-y-6 gap-x-8 sm:grid-cols-2 lg:grid-cols-3 sm:mt-20">
@@ -201,7 +201,7 @@ export default function PricingSection() {
                 "mt-8 flex gap-1 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10"
               )}
             >
-              <Zap /> Profitez de 20 jours gratuitement
+              <Zap /> {t("ctaTrial")}
             </a>
           </div>
         ))}

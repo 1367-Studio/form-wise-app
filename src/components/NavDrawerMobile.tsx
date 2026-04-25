@@ -1,8 +1,8 @@
 "use client";
 
-import { X } from "lucide-react";
-import Link from "next/link";
-import { Zap } from "lucide-react";
+import { X, Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function NavDrawerMobile({ open, onClose }: Props) {
+  const t = useTranslations("NavDrawer");
   if (!open) return null;
 
   return (
@@ -22,7 +23,7 @@ export default function NavDrawerMobile({ open, onClose }: Props) {
         }}
       >
         <div className="flex justify-between items-center">
-          <Link href={"/"} className="flex justify-center items-center gap-2">
+          <Link href="/" className="flex justify-center items-center gap-2">
             <Zap className="text-indigo-600" />
             <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
           </Link>
@@ -37,10 +38,10 @@ export default function NavDrawerMobile({ open, onClose }: Props) {
             onClick={() => onClose(false)}
             className="text-sm font-medium text-gray-900"
           >
-            Contactez-nous
+            {t("contactUs")}
           </Link>
           <Link href="/login" target="_blank">
-            <Button className="cursor-pointer">Connexion</Button>
+            <Button className="cursor-pointer">{t("signIn")}</Button>
           </Link>
         </nav>
       </div>

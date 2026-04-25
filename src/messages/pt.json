@@ -267,6 +267,183 @@
     "filesUploaded": "Arquivos enviados com sucesso.",
     "uploadError": "Erro em {folder}: {error}"
   },
+  "Banner": {
+    "tagline": "Em breve"
+  },
+  "NavDrawer": {
+    "contactUs": "Fale conosco",
+    "signIn": "Entrar"
+  },
+  "Support": {
+    "getSupport": "Obter ajuda",
+    "needHelp": "Precisa de ajuda?",
+    "emailLabel": "E-mail:",
+    "phoneLabel": "Telefone:",
+    "copiedToClipboard": "{label} copiado para a área de transferência",
+    "emailField": "E-mail",
+    "phoneField": "Telefone"
+  },
+  "Tabs": {
+    "students": "Alunos",
+    "classes": "Turmas",
+    "parentsDashboard": "Painel dos pais",
+    "documents": "Documentos",
+    "notifications": "Notificações",
+    "teachersList": "Lista de professores",
+    "screenshotAlt": "Captura de tela - {label}"
+  },
+  "Hero": {
+    "titlePrefix": "Reduza em 80% o tempo gasto com matrículas",
+    "titleHighlight": "escolares.",
+    "subtitle": "Simplifique a gestão de alunos, pagamentos e documentos em uma única plataforma.",
+    "ctaTrial": "Aproveite 20 dias grátis",
+    "ctaDemo": "Agendar uma demo",
+    "introAriaLabel": "Apresentação Formwise"
+  },
+  "Features": {
+    "section": "Funcionalidades Formwise",
+    "title": "Gerencie sua instituição de forma mais simples, a partir de hoje.",
+    "subtitle": "Tudo o que você precisa, reunido em uma só plataforma.",
+    "registrationsName": "Matrículas centralizadas",
+    "registrationsDescription": "Ganhe tempo com um sistema de matrícula moderno, simples e seguro. Os pais cadastram os filhos e os diretores aprovam em um só lugar.",
+    "paymentsName": "Pagamentos simplificados",
+    "paymentsDescription": "Cada responsável recebe uma notificação automática para pagar as mensalidades. Pagamento por transferência, cheque ou débito automático em breve.",
+    "communicationName": "Comunicação fluida",
+    "communicationDescription": "Envie uma mensagem para todos os pais ou para um único aluno (\"Traga uma garrafa de água amanhã\") — tudo a partir do painel da direção.",
+    "aiName": "Assistente inteligente (IA)",
+    "aiDescription": "Um chatbot integrado guia cada usuário passo a passo: pais, direção e professores encontram respostas rapidamente."
+  },
+  "Pricing": {
+    "section": "Planos",
+    "title": "Escolha o plano ideal para a sua instituição",
+    "subtitle": "Escolha um plano acessível com as melhores funcionalidades para engajar a sua comunidade, fidelizar os pais e ganhar eficiência.",
+    "perCycle": "/{cycle}",
+    "ctaTrial": "Aproveite 20 dias grátis",
+    "monthlyName": "Mensal",
+    "monthlyCycle": "mês",
+    "monthlyPrice": "€129",
+    "monthlyDescription": "Um plano mensal simples, sem compromisso.",
+    "monthlyFeature1": "Até 500 alunos",
+    "monthlyFeature2": "Painéis: diretor, pais, professor",
+    "monthlyFeature3": "Notificações segmentadas e globais",
+    "monthlyFeature4": "Acompanhamento de pagamentos mensais",
+    "monthlyFeature5": "Suporte em até 24h",
+    "annualName": "Anual",
+    "annualCycle": "ano",
+    "annualPrice": "€1.290",
+    "annualDescription": "2 meses grátis + serviços exclusivos para instituições parceiras.",
+    "annualFeature1": "Tudo do plano mensal",
+    "annualFeature2": "1 mês grátis (€129 de economia)",
+    "annualFeature3": "Acesso prioritário ao suporte",
+    "annualFeature4": "Treinamentos online incluídos",
+    "annualFeature5": "Certificado RGPD anual",
+    "trialName": "Teste grátis",
+    "trialCycle": "20 dias",
+    "trialPrice": "Grátis",
+    "trialDescription": "Teste gratuitamente todas as funcionalidades do Formwise.",
+    "trialFeature1": "Tudo do plano mensal",
+    "trialFeature2": "Sem cartão de crédito",
+    "trialFeature3": "Válido por 20 dias",
+    "trialFeature4": "Ativação imediata",
+    "trialFeature5": "Suporte incluído"
+  },
+  "Newsletter": {
+    "title": "Assine nossa newsletter para ficar por dentro das atualizações e novos recursos do Formwise.",
+    "emailLabel": "Endereço de e-mail",
+    "emailPlaceholder": "Digite seu e-mail",
+    "submitButton": "Quero ser notificado",
+    "submitting": "Enviando...",
+    "successMessage": "Obrigado! Você está inscrito na newsletter.",
+    "errorMessage": "Erro ao se inscrever.",
+    "networkError": "Erro de rede.",
+    "privacyNote": "Respeitamos sua privacidade.",
+    "privacyLink": "Veja nossa política de privacidade."
+  },
+  "EmptyState": {
+    "noData": "Nenhum dado disponível."
+  },
+  "SchoolYearForm": {
+    "successCreated": "Ano letivo \"{name}\" criado com sucesso",
+    "nameLabel": "Nome do ano letivo",
+    "startDateLabel": "Data de início",
+    "endDateLabel": "Data de término",
+    "selectDate": "Selecionar uma data",
+    "createButton": "Criar ano letivo",
+    "creating": "Criando..."
+  },
+  "SchoolYearList": {
+    "loading": "Carregando...",
+    "emptyState": "Nenhum ano letivo registrado.",
+    "confirmDelete": "Confirmar exclusão deste ano?",
+    "fromTo": "De {start} a {end}",
+    "delete": "Excluir",
+    "headerYear": "Ano letivo",
+    "headerStart": "Início",
+    "headerEnd": "Término",
+    "headerActions": "Ações"
+  },
+  "ClassForm": {
+    "successCreated": "✅ Turma \"{name}\" criada com sucesso",
+    "nameLabel": "Nome da turma",
+    "monthlyFeeLabel": "Mensalidade (€)",
+    "schoolYearLabel": "Ano letivo",
+    "schoolYearPlaceholder": "Escolher um ano letivo",
+    "createButton": "Criar turma",
+    "creating": "Criando..."
+  },
+  "ClassList": {
+    "emptyState": "Nenhuma turma criada ainda.",
+    "yearLabel": "Ano:",
+    "feeLabel": "Mensalidade:",
+    "feePerMonth": "€{fee} / mês",
+    "delete": "Excluir",
+    "headerClass": "Turma",
+    "headerYear": "Ano letivo",
+    "headerFee": "Mensalidade",
+    "headerActions": "Ações",
+    "feeAmount": "€{fee}"
+  },
+  "SubjectForm": {
+    "classLabel": "Turma",
+    "classPlaceholder": "Selecionar uma turma",
+    "nameLabel": "Nome da disciplina",
+    "submitButton": "Adicionar disciplina"
+  },
+  "SubjectList": {
+    "chooseClass": "Escolher uma turma",
+    "classPlaceholder": "Selecionar uma turma",
+    "subjectsForClass": "Disciplinas da turma {name}",
+    "emptyState": "Nenhuma disciplina nesta turma.",
+    "headerSubject": "Disciplina",
+    "headerTeacher": "Professor",
+    "noTeacher": "Professor não atribuído"
+  },
+  "NotificationForm": {
+    "titleLabel": "Título",
+    "titlePlaceholder": "Título da notificação",
+    "messageLabel": "Mensagem",
+    "messagePlaceholder": "Digite a mensagem",
+    "typeLabel": "Tipo de notificação",
+    "typePlaceholder": "Escolher o tipo",
+    "typeAllParents": "Todos os pais",
+    "typeStudent": "Um aluno específico",
+    "typeAllTeachers": "Todos os professores",
+    "typeTeacher": "Um professor específico",
+    "chooseStudent": "Escolher aluno",
+    "studentPlaceholder": "Selecionar um aluno",
+    "chooseTeacher": "Escolher professor",
+    "teacherPlaceholder": "Selecionar um professor",
+    "submitButton": "Enviar",
+    "successMessage": "Notificação enviada com sucesso",
+    "errorMessage": "Erro ao enviar"
+  },
+  "RIBForm": {
+    "ibanLabel": "IBAN",
+    "bicLabel": "BIC",
+    "bankNameLabel": "Nome do banco",
+    "submitButton": "Salvar",
+    "successMessage": "Informações salvas"
+  },
   "AppHeader": {
     "defaultUser": "Usuário",
     "monthlySubscription": "Assinatura mensal",
