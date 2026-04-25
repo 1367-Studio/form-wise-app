@@ -1,12 +1,25 @@
-import React from "react";
 import ForgotPasswordForm from "../../../components/ForgotPasswordForm";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export const metadata = {
-  title: "Mot de passe oublié – Formwise",
-  description:
-    "Recevez un lien de réinitialisation pour votre compte Formwise.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "ForgotPassword.metadata",
+  });
+  return { title: t("title"), description: t("description") };
+}
 
-export default function page() {
+export default async function ForgotPasswordPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return <ForgotPasswordForm />;
 }

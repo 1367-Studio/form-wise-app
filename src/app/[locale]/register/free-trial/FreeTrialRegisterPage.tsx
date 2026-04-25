@@ -2,15 +2,18 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import { Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 export default function FreeTrialRegisterPage() {
+  const t = useTranslations("FreeTrial");
+  const tCommon = useTranslations("Common");
   const router = useRouter();
   const [form, setForm] = useState({
     firstName: "",
@@ -38,17 +41,16 @@ export default function FreeTrialRegisterPage() {
         router.push("/register/thank-you");
       } else {
         const data = await res.json();
-        alert(data.error || "Une erreur est survenue.");
+        alert(data.error || tCommon("errorGeneric"));
       }
     } catch (error) {
       console.error("Erreur lors de l'inscription :", error);
-      alert("Erreur de réseau. Veuillez réessayer.");
+      alert(tCommon("networkError"));
     }
   };
 
   return (
     <div className="flex min-h-full flex-1">
-      {/* LEFT */}
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <Link href="/" className="flex justify-center items-center gap-2">
@@ -57,15 +59,13 @@ export default function FreeTrialRegisterPage() {
           </Link>
 
           <h2 className="mt-8 text-2xl font-bold tracking-tight text-gray-900">
-            Commencez votre essai gratuit
+            {t("formTitle")}
           </h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Pas de carte requise – 20 jours offerts
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">{t("subtitle")}</p>
 
           <form onSubmit={handleSubmit} className="mt-10 space-y-6">
             <div className="space-y-2">
-              <Label>Prénom</Label>
+              <Label>{t("firstNameLabel")}</Label>
               <Input
                 name="firstName"
                 value={form.firstName}
@@ -75,7 +75,7 @@ export default function FreeTrialRegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Nom</Label>
+              <Label>{t("lastNameLabel")}</Label>
               <Input
                 name="lastName"
                 value={form.lastName}
@@ -85,7 +85,7 @@ export default function FreeTrialRegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Nom de l’école</Label>
+              <Label>{t("schoolNameLabel")}</Label>
               <Input
                 name="schoolName"
                 value={form.schoolName}
@@ -95,7 +95,7 @@ export default function FreeTrialRegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Téléphone</Label>
+              <Label>{t("phoneLabel")}</Label>
               <Input
                 name="phone"
                 value={form.phone}
@@ -105,7 +105,7 @@ export default function FreeTrialRegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Adresse</Label>
+              <Label>{t("addressLabel")}</Label>
               <Input
                 name="address"
                 value={form.address}
@@ -115,7 +115,7 @@ export default function FreeTrialRegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Email</Label>
+              <Label>{t("emailLabel")}</Label>
               <Input
                 type="email"
                 name="email"
@@ -126,23 +126,22 @@ export default function FreeTrialRegisterPage() {
             </div>
 
             <Button type="submit" className="w-full mt-4 cursor-pointer">
-              Commencer l’essai gratuit →
+              {t("startTrialButton")}
             </Button>
           </form>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            Vous avez déjà un compte ?{" "}
+            {t("alreadyHaveAccount")}{" "}
             <Link
               href="/login"
               className="font-medium text-primary hover:underline cursor-pointer"
             >
-              Se connecter
+              {t("signinLink")}
             </Link>
           </p>
         </div>
       </div>
 
-      {/* RIGHT */}
       <div className="relative hidden w-0 flex-1 lg:block">
         <div className="absolute inset-0 my-auto -m-2 flex items-center justify-center rounded-xl bg-white-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl lg:p-4">
           <Image

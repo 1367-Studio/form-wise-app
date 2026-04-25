@@ -17,7 +17,9 @@
     "search": "Search",
     "yes": "Yes",
     "no": "No",
-    "language": "Language"
+    "language": "Language",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "networkError": "Network error. Please try again later."
   },
   "Languages": {
     "fr": "Français",
@@ -65,21 +67,205 @@
     "metadata": {
       "title": "Contact us – Formwise",
       "description": "A question? Contact the Formwise team via our form or WhatsApp. We'll reply quickly."
-    },
+    }
+  },
+  "ContactForm": {
     "title": "Contact us",
-    "subtitle": "A question, a demo request, a partnership? Send us a message.",
-    "nameLabel": "Full name",
-    "namePlaceholder": "Your name",
-    "emailLabel": "Email address",
-    "emailPlaceholder": "you@example.com",
+    "iAmLabel": "I am...",
+    "profilePlaceholder": "Choose a profile",
+    "profileParent": "A parent",
+    "profileDirector": "A school director",
+    "profileAssociation": "An association",
+    "profileOther": "Other",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
     "subjectLabel": "Subject",
-    "subjectPlaceholder": "Subject of your message",
+    "subjectPlaceholder": "Select a subject",
+    "subjectOffer": "Get in touch about an offer",
+    "subjectInfo": "Information request",
+    "subjectSupport": "Support request",
     "messageLabel": "Message",
-    "messagePlaceholder": "Write your message here...",
-    "submitButton": "Send message",
+    "sendButton": "Send my request",
+    "sending": "Sending...",
+    "successMessage": "Your message has been sent!",
+    "errorMessage": "Something went wrong. Please try again.",
+    "serverError": "Server error. Please try again later."
+  },
+  "LoginPage": {
+    "metadata": {
+      "title": "Form Wise app | Sign in",
+      "description": "Sign in to Form Wise"
+    },
+    "formTitle": "Sign in to your account",
+    "signupPrompt": "Not signed up yet?",
+    "signupLink": "Create an account",
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "rememberMe": "Stay signed in",
+    "forgotPassword": "Forgot password?",
+    "signInButton": "Sign in",
+    "signingIn": "Signing in...",
+    "errorInvalidCredentials": "Incorrect email or password",
+    "errorRetry": "Sign-in error. Please try again."
+  },
+  "RegisterPage": {
+    "metadata": {
+      "title": "Form Wise app | Sign up",
+      "description": "Sign up to Form Wise"
+    },
+    "formTitle": "Create an account",
+    "signinPrompt": "Already have an account?",
+    "signinLink": "Sign in",
+    "civilityLabel": "Title",
+    "civilityPlaceholder": "Title",
+    "civilityM": "Mr.",
+    "civilityMrs": "Ms.",
+    "firstNameLabel": "First name",
+    "lastNameLabel": "Last name",
+    "phoneLabel": "Mobile number",
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "schoolCodeLabel": "School code",
+    "verifyCodeButton": "Verify code",
+    "schoolFound": "School found: {name}",
+    "invalidCode": "Invalid code",
+    "signUpButton": "Sign up",
+    "loading": "Loading...",
+    "signUpSuccess": "Sign-up successful!"
+  },
+  "FreeTrial": {
+    "metadata": {
+      "title": "Free trial – Formwise",
+      "description": "Start your Formwise free trial — 20 days free, no credit card required."
+    },
+    "formTitle": "Start your free trial",
+    "subtitle": "No card required – 20 days free",
+    "firstNameLabel": "First name",
+    "lastNameLabel": "Last name",
+    "schoolNameLabel": "School name",
+    "phoneLabel": "Phone",
+    "addressLabel": "Address",
+    "emailLabel": "Email",
+    "startTrialButton": "Start free trial →",
+    "alreadyHaveAccount": "Already have an account?",
+    "signinLink": "Sign in"
+  },
+  "ThankYou": {
+    "metadata": {
+      "title": "Thank you! – Formwise",
+      "description": "Your Formwise registration has been received."
+    },
+    "title": "Thank you for signing up!",
+    "body": "An email with your temporary credentials has been sent. You can now sign in to your dashboard.",
+    "signinButton": "Sign in"
+  },
+  "RegisterStaff": {
+    "metadata": {
+      "title": "Staff account activation – Formwise",
+      "description": "Activate your Formwise staff account."
+    },
+    "title": "Create your staff account",
+    "emailPlaceholder": "Your email address",
+    "schoolCodePlaceholder": "School code",
+    "passwordPlaceholder": "Password",
+    "submitButton": "Create my account",
+    "fieldsRequired": "All fields are required.",
+    "successMessage": "Account activated!",
+    "activationError": "Activation error."
+  },
+  "ForgotPassword": {
+    "metadata": {
+      "title": "Forgot password – Formwise",
+      "description": "Receive a reset link for your Formwise account."
+    },
+    "formTitle": "Forgot password",
+    "emailLabel": "Email address",
+    "sendButton": "Send link",
+    "sending": "Sending...",
+    "successMessage": "A reset email has been sent!",
+    "errorMessage": "Something went wrong"
+  },
+  "ResetPassword": {
+    "metadata": {
+      "title": "Reset your password – Formwise",
+      "description": "Choose a new password to access your Formwise account."
+    },
+    "formTitle": "Reset password",
+    "newPasswordPlaceholder": "New password",
+    "confirmPasswordPlaceholder": "Confirm password",
+    "submitButton": "Reset",
+    "submitting": "Resetting...",
+    "passwordsDontMatch": "Passwords do not match",
+    "successMessage": "Password reset successfully",
+    "errorMessage": "Something went wrong"
+  },
+  "CreatePassword": {
+    "metadata": {
+      "title": "Create a new password – Formwise",
+      "description": "Set a new secure password to access your Formwise account."
+    },
+    "title": "Create your password",
+    "passwordLabel": "Password",
+    "togglePasswordVisibility": "Show or hide password",
+    "submitButton": "Create password",
+    "submitting": "Creating...",
+    "signinPrompt": "Already have an account?",
+    "signinLink": "Sign in",
+    "successMessage": "Password created successfully!",
+    "tokenInvalid": "Invalid or missing token",
+    "errorGeneric": "Error"
+  },
+  "Redirect": {
+    "redirecting": "Redirecting..."
+  },
+  "PreinscriptionSuccess": {
+    "metadata": {
+      "title": "Pre-registration sent – Formwise",
+      "description": "Your pre-registration request has been received."
+    },
+    "title": "🎉 Pre-registration sent successfully!",
+    "body": "Thank you for your request. The school will get in touch with you very soon.",
+    "backHomeButton": "Back to home"
+  },
+  "Preinscription": {
+    "metadata": {
+      "title": "Pre-registration – Formwise",
+      "description": "Submit a pre-registration for one or more students at your school."
+    },
+    "loadingForm": "Loading form...",
+    "formTitle": "Pre-registration form",
+    "studentsTitle": "Student(s)",
+    "studentN": "Student {n}",
+    "addAnotherStudent": "Add another student",
+    "submitButton": "Submit pre-registration",
     "submitting": "Sending...",
-    "successMessage": "Your message has been sent. We'll reply shortly.",
-    "errorMessage": "Something went wrong. Please try again."
+    "successMessage": "Pre-registration sent!",
+    "errorMessage": "Error sending pre-registration.",
+    "parentSectionTitle": "Legal guardian",
+    "parentFirstName": "First name",
+    "parentLastName": "Last name",
+    "parentEmail": "Email",
+    "parentPhone": "Phone",
+    "parentAddress": "Address",
+    "childFirstName": "First name",
+    "childLastName": "Last name",
+    "childGender": "Gender",
+    "childGenderGirl": "Girl",
+    "childGenderBoy": "Boy",
+    "childBirthDate": "Date of birth",
+    "childBirthCity": "City of birth",
+    "childBirthCountry": "Country of birth",
+    "childCurrentSchool": "Current school",
+    "childDesiredClass": "Desired class",
+    "filesSectionTitle": "Documents to provide",
+    "fileMotivationLetter": "Motivation letter",
+    "fileSchoolResults": "School results",
+    "fileFamilyBook": "Family record book",
+    "uploadButton": "Upload files",
+    "uploading": "Uploading...",
+    "filesUploaded": "Files uploaded successfully.",
+    "uploadError": "Error for {folder}: {error}"
   },
   "Cgu": {
     "metadata": {

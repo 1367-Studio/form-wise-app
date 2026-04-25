@@ -5,14 +5,16 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Eye, EyeOff, Zap } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export const dynamic = "force-dynamic";
 
 export default function ResetPasswordForm() {
+  const t = useTranslations("ResetPassword");
   const searchParams = useSearchParams();
   const router = useRouter();
-  const token = searchParams?.get("token") ?? ""; // ✅ corrigé ici
+  const token = searchParams?.get("token") ?? "";
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -24,7 +26,7 @@ export default function ResetPasswordForm() {
     e.preventDefault();
 
     if (password !== confirm) {
-      toast.error("Les mots de passe ne correspondent pas");
+      toast.error(t("passwordsDontMatch"));
       return;
     }
 
@@ -40,10 +42,10 @@ export default function ResetPasswordForm() {
     setLoading(false);
 
     if (data.success) {
-      toast.success("Mot de passe réinitialisé avec succès");
+      toast.success(t("successMessage"));
       router.push("/login");
     } else {
-      toast.error(data.error || "Une erreur est survenue");
+      toast.error(data.error || t("errorMessage"));
     }
   };
 
@@ -57,18 +59,17 @@ export default function ResetPasswordForm() {
           </Link>
         </div>
         <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
-          Réinitialiser le mot de passe
+          {t("formTitle")}
         </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
         <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
           <form onSubmit={handleReset} className="space-y-6">
-            {/* Password */}
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Nouveau mot de passe"
+                placeholder={t("newPasswordPlaceholder")}
                 className="w-full px-3 py-2 border rounded pr-10"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -88,11 +89,10 @@ export default function ResetPasswordForm() {
               </button>
             </div>
 
-            {/* Confirm Password */}
             <div className="relative">
               <input
                 type={showConfirm ? "text" : "password"}
-                placeholder="Confirmer le mot de passe"
+                placeholder={t("confirmPasswordPlaceholder")}
                 className="w-full px-3 py-2 border rounded pr-10"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
@@ -117,7 +117,7 @@ export default function ResetPasswordForm() {
               disabled={loading}
               className="w-full cursor-pointer"
             >
-              {loading ? "Réinitialisation..." : "Réinitialiser"}
+              {loading ? t("submitting") : t("submitButton")}
             </Button>
           </form>
         </div>

@@ -4,10 +4,12 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff, Zap } from "lucide-react";
-import Link from "next/link";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function CreatePasswordClient() {
+  const t = useTranslations("CreatePassword");
   const searchParams = useSearchParams();
   const token = searchParams?.get("token");
   const router = useRouter();
@@ -31,17 +33,17 @@ export default function CreatePasswordClient() {
     setLoading(false);
 
     if (data.success) {
-      toast.success("Mot de passe créé avec succès !");
+      toast.success(t("successMessage"));
       router.push("/login");
     } else {
-      setError(data.error || "Erreur");
+      setError(data.error || t("errorGeneric"));
     }
   };
 
   if (!token) {
     return (
       <div className="text-center py-20 text-red-600 text-lg font-semibold">
-        Token invalide ou manquant
+        {t("tokenInvalid")}
       </div>
     );
   }
@@ -56,7 +58,7 @@ export default function CreatePasswordClient() {
           </Link>
         </div>
         <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
-          Créer votre mot de passe
+          {t("title")}
         </h2>
       </div>
 
@@ -68,7 +70,7 @@ export default function CreatePasswordClient() {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-900"
               >
-                Mot de passe
+                {t("passwordLabel")}
               </label>
               <div className="mt-2 relative">
                 <input
@@ -85,7 +87,7 @@ export default function CreatePasswordClient() {
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 cursor-pointer"
-                  aria-label="Afficher ou masquer le mot de passe"
+                  aria-label={t("togglePasswordVisibility")}
                 >
                   {showPassword ? (
                     <EyeOff className="w-5 h-5" />
@@ -103,17 +105,17 @@ export default function CreatePasswordClient() {
               disabled={loading}
               className="w-full cursor-pointer"
             >
-              {loading ? "Création..." : "Créer le mot de passe"}
+              {loading ? t("submitting") : t("submitButton")}
             </Button>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Vous avez déjà un compte ?{" "}
+            {t("signinPrompt")}{" "}
             <Link
               href="/login"
               className="font-semibold text-indigo-600 hover:text-indigo-500"
             >
-              Se connecter
+              {t("signinLink")}
             </Link>
           </p>
         </div>

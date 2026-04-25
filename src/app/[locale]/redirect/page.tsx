@@ -4,8 +4,10 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function RedirectPage() {
+  const t = useTranslations("Redirect");
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -38,7 +40,7 @@ export default function RedirectPage() {
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="flex items-center gap-2 text-gray-700 text-sm font-medium">
         <Loader2 className="w-5 h-5 animate-spin text-indigo-600" />
-        Redirection en cours...
+        {t("redirecting")}
       </div>
     </div>
   );

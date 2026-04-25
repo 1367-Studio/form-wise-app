@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import { Eye, EyeOff, Zap } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,7 +19,9 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-export default function RegisterPage() {
+export default function RegisterForm() {
+  const t = useTranslations("RegisterPage");
+  const tCommon = useTranslations("Common");
   const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -63,17 +66,17 @@ export default function RegisterPage() {
       const result = await res.json();
 
       if (!res.ok) {
-        toast.error(result.error || "Une erreur est survenue.");
+        toast.error(result.error || tCommon("errorGeneric"));
         setLoading(false);
         return;
       }
 
-      toast.success("Inscription réussie !");
+      toast.success(t("signUpSuccess"));
       router.push("/login");
     } catch (err) {
       console.error("Erreur réseau", err);
-      toast.error("Erreur réseau. Réessayez plus tard.");
-      setError("Erreur réseau. Réessayez plus tard.");
+      toast.error(tCommon("networkError"));
+      setError(tCommon("networkError"));
     } finally {
       setLoading(false);
     }
@@ -81,7 +84,6 @@ export default function RegisterPage() {
 
   return (
     <div className="flex min-h-full flex-1">
-      {/* LEFT */}
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <Link href="/" className="flex justify-center items-center gap-2">
@@ -90,37 +92,37 @@ export default function RegisterPage() {
           </Link>
 
           <h2 className="mt-8 text-2xl font-bold tracking-tight text-gray-900">
-            Créer un compte
+            {t("formTitle")}
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Vous avez déjà un compte ?{" "}
+            {t("signinPrompt")}{" "}
             <Link
               href="/login"
               className="font-semibold text-primary hover:underline"
             >
-              Se connecter
+              {t("signinLink")}
             </Link>
           </p>
 
           <form onSubmit={handleSubmit} className="mt-10 space-y-6">
             <div className="space-y-2">
-              <Label>Civilité</Label>
+              <Label>{t("civilityLabel")}</Label>
               <Select
                 value={civility}
                 onValueChange={(value) => setCivility(value as "M." | "Mme")}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Civilité" />
+                  <SelectValue placeholder={t("civilityPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="M.">M.</SelectItem>
-                  <SelectItem value="Mme">Mme</SelectItem>
+                  <SelectItem value="M.">{t("civilityM")}</SelectItem>
+                  <SelectItem value="Mme">{t("civilityMrs")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label>Prénom</Label>
+              <Label>{t("firstNameLabel")}</Label>
               <Input
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
@@ -129,7 +131,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Nom</Label>
+              <Label>{t("lastNameLabel")}</Label>
               <Input
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
@@ -138,7 +140,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Numéro de portable</Label>
+              <Label>{t("phoneLabel")}</Label>
               <Input
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -148,7 +150,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Adresse e-mail</Label>
+              <Label>{t("emailLabel")}</Label>
               <Input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -158,7 +160,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Mot de passe</Label>
+              <Label>{t("passwordLabel")}</Label>
               <div className="relative">
                 <Input
                   type={showPassword ? "text" : "password"}
@@ -182,7 +184,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="schoolCode">Code de l&apos;école</Label>
+              <Label htmlFor="schoolCode">{t("schoolCodeLabel")}</Label>
               <Input
                 id="schoolCode"
                 value={schoolCode}
@@ -202,16 +204,16 @@ export default function RegisterPage() {
                     setSchoolCheck(result);
                   }}
                 >
-                  Vérifier le code
+                  {t("verifyCodeButton")}
                 </Button>
                 {schoolCheck?.valid && (
                   <p className="text-green-600 text-sm">
-                    École trouvée : {schoolCheck.name}
+                    {t("schoolFound", { name: schoolCheck.name ?? "" })}
                   </p>
                 )}
                 {schoolCheck?.valid === false && (
                   <p className="text-red-600 text-sm">
-                    {schoolCheck.error || "Code invalide"}
+                    {schoolCheck.error || t("invalidCode")}
                   </p>
                 )}
               </div>
@@ -224,13 +226,12 @@ export default function RegisterPage() {
               disabled={loading || (Boolean(schoolCode) && !schoolCheck?.valid)}
               className="w-full cursor-pointer"
             >
-              {loading ? "Chargement..." : "S’inscrire"}
+              {loading ? t("loading") : t("signUpButton")}
             </Button>
           </form>
         </div>
       </div>
 
-      {/* RIGHT */}
       <div className="relative hidden w-0 flex-1 lg:block">
         <div className="absolute inset-0 my-auto -m-2 flex items-center justify-center rounded-xl bg-white-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl lg:p-4">
           <Image

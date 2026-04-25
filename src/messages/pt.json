@@ -17,7 +17,9 @@
     "search": "Buscar",
     "yes": "Sim",
     "no": "Não",
-    "language": "Idioma"
+    "language": "Idioma",
+    "errorGeneric": "Ocorreu um erro. Tente novamente.",
+    "networkError": "Erro de rede. Tente mais tarde."
   },
   "Languages": {
     "fr": "Français",
@@ -65,21 +67,205 @@
     "metadata": {
       "title": "Fale conosco – Formwise",
       "description": "Tem uma dúvida? Entre em contato com a equipe Formwise pelo formulário ou WhatsApp. Responderemos rapidamente."
-    },
+    }
+  },
+  "ContactForm": {
     "title": "Fale conosco",
-    "subtitle": "Uma dúvida, uma demonstração, uma parceria? Envie-nos uma mensagem.",
-    "nameLabel": "Nome completo",
-    "namePlaceholder": "Seu nome",
-    "emailLabel": "Endereço de e-mail",
-    "emailPlaceholder": "voce@exemplo.com",
+    "iAmLabel": "Eu sou...",
+    "profilePlaceholder": "Escolha um perfil",
+    "profileParent": "Pai/mãe",
+    "profileDirector": "Diretor de instituição",
+    "profileAssociation": "Associação",
+    "profileOther": "Outro",
+    "nameLabel": "Nome",
+    "emailLabel": "E-mail",
+    "phoneLabel": "Telefone",
     "subjectLabel": "Assunto",
-    "subjectPlaceholder": "Assunto da sua mensagem",
+    "subjectPlaceholder": "Selecionar um assunto",
+    "subjectOffer": "Quero saber sobre uma oferta",
+    "subjectInfo": "Pedido de informações",
+    "subjectSupport": "Pedido de suporte",
     "messageLabel": "Mensagem",
-    "messagePlaceholder": "Escreva sua mensagem aqui...",
-    "submitButton": "Enviar mensagem",
+    "sendButton": "Enviar pedido",
+    "sending": "Enviando...",
+    "successMessage": "Sua mensagem foi enviada!",
+    "errorMessage": "Ocorreu um erro. Tente novamente.",
+    "serverError": "Erro de servidor. Tente novamente mais tarde."
+  },
+  "LoginPage": {
+    "metadata": {
+      "title": "Form Wise app | Entrar",
+      "description": "Entrar no Form Wise"
+    },
+    "formTitle": "Entrar na sua conta",
+    "signupPrompt": "Ainda não tem cadastro?",
+    "signupLink": "Criar uma conta",
+    "emailLabel": "Endereço de e-mail",
+    "passwordLabel": "Senha",
+    "rememberMe": "Manter conectado",
+    "forgotPassword": "Esqueceu a senha?",
+    "signInButton": "Entrar",
+    "signingIn": "Entrando...",
+    "errorInvalidCredentials": "E-mail ou senha incorretos",
+    "errorRetry": "Erro ao entrar. Tente novamente."
+  },
+  "RegisterPage": {
+    "metadata": {
+      "title": "Form Wise app | Cadastrar-se",
+      "description": "Cadastre-se no Form Wise"
+    },
+    "formTitle": "Criar uma conta",
+    "signinPrompt": "Já tem uma conta?",
+    "signinLink": "Entrar",
+    "civilityLabel": "Tratamento",
+    "civilityPlaceholder": "Tratamento",
+    "civilityM": "Sr.",
+    "civilityMrs": "Sra.",
+    "firstNameLabel": "Nome",
+    "lastNameLabel": "Sobrenome",
+    "phoneLabel": "Celular",
+    "emailLabel": "Endereço de e-mail",
+    "passwordLabel": "Senha",
+    "schoolCodeLabel": "Código da escola",
+    "verifyCodeButton": "Verificar código",
+    "schoolFound": "Escola encontrada: {name}",
+    "invalidCode": "Código inválido",
+    "signUpButton": "Cadastrar-se",
+    "loading": "Carregando...",
+    "signUpSuccess": "Cadastro realizado com sucesso!"
+  },
+  "FreeTrial": {
+    "metadata": {
+      "title": "Teste gratuito – Formwise",
+      "description": "Inicie seu teste gratuito Formwise — 20 dias grátis, sem cartão de crédito."
+    },
+    "formTitle": "Comece seu teste gratuito",
+    "subtitle": "Sem cartão — 20 dias grátis",
+    "firstNameLabel": "Nome",
+    "lastNameLabel": "Sobrenome",
+    "schoolNameLabel": "Nome da escola",
+    "phoneLabel": "Telefone",
+    "addressLabel": "Endereço",
+    "emailLabel": "E-mail",
+    "startTrialButton": "Iniciar teste gratuito →",
+    "alreadyHaveAccount": "Já tem uma conta?",
+    "signinLink": "Entrar"
+  },
+  "ThankYou": {
+    "metadata": {
+      "title": "Obrigado! – Formwise",
+      "description": "Seu cadastro Formwise foi recebido."
+    },
+    "title": "Obrigado pelo seu cadastro!",
+    "body": "Um e-mail com seu acesso temporário foi enviado. Você já pode entrar no seu painel.",
+    "signinButton": "Entrar"
+  },
+  "RegisterStaff": {
+    "metadata": {
+      "title": "Ativação da conta de equipe – Formwise",
+      "description": "Ative sua conta de equipe Formwise."
+    },
+    "title": "Crie sua conta de equipe",
+    "emailPlaceholder": "Seu e-mail",
+    "schoolCodePlaceholder": "Código da instituição",
+    "passwordPlaceholder": "Senha",
+    "submitButton": "Criar minha conta",
+    "fieldsRequired": "Todos os campos são obrigatórios.",
+    "successMessage": "Conta ativada!",
+    "activationError": "Erro na ativação."
+  },
+  "ForgotPassword": {
+    "metadata": {
+      "title": "Esqueceu a senha – Formwise",
+      "description": "Receba um link para redefinir sua conta Formwise."
+    },
+    "formTitle": "Esqueceu a senha",
+    "emailLabel": "Endereço de e-mail",
+    "sendButton": "Enviar link",
+    "sending": "Enviando...",
+    "successMessage": "Um e-mail de redefinição foi enviado!",
+    "errorMessage": "Ocorreu um erro"
+  },
+  "ResetPassword": {
+    "metadata": {
+      "title": "Redefinir sua senha – Formwise",
+      "description": "Escolha uma nova senha para acessar sua conta Formwise."
+    },
+    "formTitle": "Redefinir senha",
+    "newPasswordPlaceholder": "Nova senha",
+    "confirmPasswordPlaceholder": "Confirmar senha",
+    "submitButton": "Redefinir",
+    "submitting": "Redefinindo...",
+    "passwordsDontMatch": "As senhas não coincidem",
+    "successMessage": "Senha redefinida com sucesso",
+    "errorMessage": "Ocorreu um erro"
+  },
+  "CreatePassword": {
+    "metadata": {
+      "title": "Criar uma nova senha – Formwise",
+      "description": "Defina uma nova senha segura para acessar sua conta Formwise."
+    },
+    "title": "Crie sua senha",
+    "passwordLabel": "Senha",
+    "togglePasswordVisibility": "Mostrar ou ocultar senha",
+    "submitButton": "Criar senha",
+    "submitting": "Criando...",
+    "signinPrompt": "Já tem uma conta?",
+    "signinLink": "Entrar",
+    "successMessage": "Senha criada com sucesso!",
+    "tokenInvalid": "Token inválido ou ausente",
+    "errorGeneric": "Erro"
+  },
+  "Redirect": {
+    "redirecting": "Redirecionando..."
+  },
+  "PreinscriptionSuccess": {
+    "metadata": {
+      "title": "Pré-matrícula enviada – Formwise",
+      "description": "Sua solicitação de pré-matrícula foi recebida."
+    },
+    "title": "🎉 Pré-matrícula enviada com sucesso!",
+    "body": "Obrigado pela sua solicitação. A instituição entrará em contato em breve.",
+    "backHomeButton": "Voltar à página inicial"
+  },
+  "Preinscription": {
+    "metadata": {
+      "title": "Pré-matrícula – Formwise",
+      "description": "Envie a pré-matrícula de um ou mais alunos para a sua instituição."
+    },
+    "loadingForm": "Carregando formulário...",
+    "formTitle": "Formulário de pré-matrícula",
+    "studentsTitle": "Aluno(s)",
+    "studentN": "Aluno {n}",
+    "addAnotherStudent": "Adicionar outro aluno",
+    "submitButton": "Enviar pré-matrícula",
     "submitting": "Enviando...",
-    "successMessage": "Sua mensagem foi enviada. Responderemos em breve.",
-    "errorMessage": "Ocorreu um erro. Tente novamente."
+    "successMessage": "Pré-matrícula enviada!",
+    "errorMessage": "Erro ao enviar a pré-matrícula.",
+    "parentSectionTitle": "Responsável legal",
+    "parentFirstName": "Nome",
+    "parentLastName": "Sobrenome",
+    "parentEmail": "E-mail",
+    "parentPhone": "Telefone",
+    "parentAddress": "Endereço",
+    "childFirstName": "Nome",
+    "childLastName": "Sobrenome",
+    "childGender": "Sexo",
+    "childGenderGirl": "Menina",
+    "childGenderBoy": "Menino",
+    "childBirthDate": "Data de nascimento",
+    "childBirthCity": "Cidade de nascimento",
+    "childBirthCountry": "País de nascimento",
+    "childCurrentSchool": "Escola atual",
+    "childDesiredClass": "Série desejada",
+    "filesSectionTitle": "Documentos a fornecer",
+    "fileMotivationLetter": "Carta de motivação",
+    "fileSchoolResults": "Boletim escolar",
+    "fileFamilyBook": "Certidão familiar",
+    "uploadButton": "Enviar arquivos",
+    "uploading": "Enviando...",
+    "filesUploaded": "Arquivos enviados com sucesso.",
+    "uploadError": "Erro em {folder}: {error}"
   },
   "Cgu": {
     "metadata": {

@@ -13,10 +13,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import Link from "next/link";
 import { Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function ContactFormPage() {
+  const t = useTranslations("ContactForm");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     role: "",
@@ -43,7 +45,7 @@ export default function ContactFormPage() {
       });
 
       if (res.ok) {
-        toast.success("Votre message a bien été envoyé !");
+        toast.success(t("successMessage"));
         setFormData({
           role: "",
           subject: "",
@@ -53,18 +55,18 @@ export default function ContactFormPage() {
           message: "",
         });
       } else {
-        toast.error("Une erreur est survenue. Veuillez réessayer.");
+        toast.error(t("errorMessage"));
       }
     } catch (error) {
       console.log(error);
-      toast.error("Erreur serveur. Veuillez réessayer plus tard.");
+      toast.error(t("serverError"));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8  h-full pt-[300px] pb-[300px] relative">
+    <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 h-full pt-[300px] pb-[300px] relative">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
           <Link href="/" className="flex justify-center items-center gap-2">
@@ -73,7 +75,7 @@ export default function ContactFormPage() {
           </Link>
         </div>
         <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Contactez-nous
+          {t("title")}
         </h2>
       </div>
 
@@ -81,27 +83,29 @@ export default function ContactFormPage() {
         <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label>Je suis...</Label>
+              <Label>{t("iAmLabel")}</Label>
               <Select
                 value={formData.role}
                 onValueChange={(val) => handleChange("role", val)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Choisir un profil" />
+                  <SelectValue placeholder={t("profilePlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="parent">Un parent</SelectItem>
+                  <SelectItem value="parent">{t("profileParent")}</SelectItem>
                   <SelectItem value="directeur">
-                    Un directeur d&apos;établissement
+                    {t("profileDirector")}
                   </SelectItem>
-                  <SelectItem value="association">Une association</SelectItem>
-                  <SelectItem value="autre">Autre</SelectItem>
+                  <SelectItem value="association">
+                    {t("profileAssociation")}
+                  </SelectItem>
+                  <SelectItem value="autre">{t("profileOther")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="name">Nom</Label>
+              <Label htmlFor="name">{t("nameLabel")}</Label>
               <Input
                 id="name"
                 value={formData.name}
@@ -111,7 +115,7 @@ export default function ContactFormPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("emailLabel")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -122,7 +126,7 @@ export default function ContactFormPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone">Téléphone</Label>
+              <Label htmlFor="phone">{t("phoneLabel")}</Label>
               <Input
                 id="phone"
                 value={formData.phone}
@@ -132,30 +136,30 @@ export default function ContactFormPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Sujet</Label>
+              <Label>{t("subjectLabel")}</Label>
               <Select
                 value={formData.subject}
                 onValueChange={(val) => handleChange("subject", val)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Sélectionner un sujet" />
+                  <SelectValue placeholder={t("subjectPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Être contacté pour une offre">
-                    Être contacté pour une offre
+                  <SelectItem value={t("subjectOffer")}>
+                    {t("subjectOffer")}
                   </SelectItem>
-                  <SelectItem value="Demande de renseignements">
-                    Demande de renseignements
+                  <SelectItem value={t("subjectInfo")}>
+                    {t("subjectInfo")}
                   </SelectItem>
-                  <SelectItem value="Demande de support">
-                    Demande de support
+                  <SelectItem value={t("subjectSupport")}>
+                    {t("subjectSupport")}
                   </SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="message">Message</Label>
+              <Label htmlFor="message">{t("messageLabel")}</Label>
               <Textarea
                 id="message"
                 value={formData.message}
@@ -170,7 +174,7 @@ export default function ContactFormPage() {
               disabled={loading}
               className="w-full cursor-pointer"
             >
-              {loading ? "Envoi en cours..." : "Envoyer ma demande"}
+              {loading ? t("sending") : t("sendButton")}
             </Button>
           </form>
         </div>

@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 export default function RegisterStaffPage() {
+  const t = useTranslations("RegisterStaff");
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -16,7 +18,7 @@ export default function RegisterStaffPage() {
 
   const handleSubmit = async () => {
     if (!email || !schoolCode || !password) {
-      toast.error("Tous les champs sont requis.");
+      toast.error(t("fieldsRequired"));
       return;
     }
 
@@ -29,12 +31,11 @@ export default function RegisterStaffPage() {
     });
 
     if (res.ok) {
-      toast.success("Compte activé !");
-      console.log("✅ redirecting to /dashboard/staffs");
+      toast.success(t("successMessage"));
       router.push("/dashboard/staffs");
     } else {
       const data = await res.json();
-      toast.error(data?.error || "Erreur lors de l’activation.");
+      toast.error(data?.error || t("activationError"));
     }
 
     setSubmitted(false);
@@ -42,18 +43,18 @@ export default function RegisterStaffPage() {
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 border rounded">
-      <h1 className="text-xl font-bold mb-4">Créer votre compte staff</h1>
+      <h1 className="text-xl font-bold mb-4">{t("title")}</h1>
 
       <Input
         type="email"
-        placeholder="Votre adresse email"
+        placeholder={t("emailPlaceholder")}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className="mb-4"
       />
 
       <Input
-        placeholder="Code établissement"
+        placeholder={t("schoolCodePlaceholder")}
         value={schoolCode}
         onChange={(e) => setSchoolCode(e.target.value)}
         className="mb-4"
@@ -61,7 +62,7 @@ export default function RegisterStaffPage() {
 
       <Input
         type="password"
-        placeholder="Mot de passe"
+        placeholder={t("passwordPlaceholder")}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="mb-4"
@@ -72,7 +73,7 @@ export default function RegisterStaffPage() {
         className="cursor-pointer"
         disabled={submitted || !email || !schoolCode || !password}
       >
-        Créer mon compte
+        {t("submitButton")}
       </Button>
     </div>
   );

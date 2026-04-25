@@ -17,7 +17,9 @@
     "search": "Rechercher",
     "yes": "Oui",
     "no": "Non",
-    "language": "Langue"
+    "language": "Langue",
+    "errorGeneric": "Une erreur est survenue. Veuillez réessayer.",
+    "networkError": "Erreur réseau. Réessayez plus tard."
   },
   "Languages": {
     "fr": "Français",
@@ -65,21 +67,205 @@
     "metadata": {
       "title": "Contactez-nous – Formwise",
       "description": "Une question ? Contactez l'équipe Formwise via notre formulaire ou WhatsApp. Nous vous répondrons rapidement."
-    },
+    }
+  },
+  "ContactForm": {
     "title": "Contactez-nous",
-    "subtitle": "Une question, une demande de démonstration, un partenariat ? Envoyez-nous un message.",
-    "nameLabel": "Nom complet",
-    "namePlaceholder": "Votre nom",
-    "emailLabel": "Adresse e-mail",
-    "emailPlaceholder": "vous@exemple.com",
-    "subjectLabel": "Objet",
-    "subjectPlaceholder": "Objet de votre message",
+    "iAmLabel": "Je suis...",
+    "profilePlaceholder": "Choisir un profil",
+    "profileParent": "Un parent",
+    "profileDirector": "Un directeur d'établissement",
+    "profileAssociation": "Une association",
+    "profileOther": "Autre",
+    "nameLabel": "Nom",
+    "emailLabel": "Email",
+    "phoneLabel": "Téléphone",
+    "subjectLabel": "Sujet",
+    "subjectPlaceholder": "Sélectionner un sujet",
+    "subjectOffer": "Être contacté pour une offre",
+    "subjectInfo": "Demande de renseignements",
+    "subjectSupport": "Demande de support",
     "messageLabel": "Message",
-    "messagePlaceholder": "Écrivez votre message ici...",
-    "submitButton": "Envoyer le message",
+    "sendButton": "Envoyer ma demande",
+    "sending": "Envoi en cours...",
+    "successMessage": "Votre message a bien été envoyé !",
+    "errorMessage": "Une erreur est survenue. Veuillez réessayer.",
+    "serverError": "Erreur serveur. Veuillez réessayer plus tard."
+  },
+  "LoginPage": {
+    "metadata": {
+      "title": "Form Wise app | Connexion",
+      "description": "Connexion à Form Wise"
+    },
+    "formTitle": "Connexion à votre compte",
+    "signupPrompt": "Pas encore inscrit ?",
+    "signupLink": "Créer un compte",
+    "emailLabel": "Adresse e-mail",
+    "passwordLabel": "Mot de passe",
+    "rememberMe": "Rester connecté",
+    "forgotPassword": "Mot de passe oublié ?",
+    "signInButton": "Se connecter",
+    "signingIn": "Connexion...",
+    "errorInvalidCredentials": "Email ou mot de passe incorrect",
+    "errorRetry": "Erreur lors de la connexion. Veuillez réessayer."
+  },
+  "RegisterPage": {
+    "metadata": {
+      "title": "Form Wise app | S'inscrire",
+      "description": "Connexion à Form Wise"
+    },
+    "formTitle": "Créer un compte",
+    "signinPrompt": "Vous avez déjà un compte ?",
+    "signinLink": "Se connecter",
+    "civilityLabel": "Civilité",
+    "civilityPlaceholder": "Civilité",
+    "civilityM": "M.",
+    "civilityMrs": "Mme",
+    "firstNameLabel": "Prénom",
+    "lastNameLabel": "Nom",
+    "phoneLabel": "Numéro de portable",
+    "emailLabel": "Adresse e-mail",
+    "passwordLabel": "Mot de passe",
+    "schoolCodeLabel": "Code de l'école",
+    "verifyCodeButton": "Vérifier le code",
+    "schoolFound": "École trouvée : {name}",
+    "invalidCode": "Code invalide",
+    "signUpButton": "S'inscrire",
+    "loading": "Chargement...",
+    "signUpSuccess": "Inscription réussie !"
+  },
+  "FreeTrial": {
+    "metadata": {
+      "title": "Essai gratuit – Formwise",
+      "description": "Démarrez votre essai gratuit Formwise – 20 jours offerts, sans carte bancaire."
+    },
+    "formTitle": "Commencez votre essai gratuit",
+    "subtitle": "Pas de carte requise – 20 jours offerts",
+    "firstNameLabel": "Prénom",
+    "lastNameLabel": "Nom",
+    "schoolNameLabel": "Nom de l'école",
+    "phoneLabel": "Téléphone",
+    "addressLabel": "Adresse",
+    "emailLabel": "Email",
+    "startTrialButton": "Commencer l'essai gratuit →",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "signinLink": "Se connecter"
+  },
+  "ThankYou": {
+    "metadata": {
+      "title": "Merci ! – Formwise",
+      "description": "Votre inscription Formwise a bien été enregistrée."
+    },
+    "title": "Merci pour votre inscription !",
+    "body": "Un email contenant vos identifiants temporaires a été envoyé. Vous pouvez maintenant vous connecter à votre tableau de bord.",
+    "signinButton": "Se connecter"
+  },
+  "RegisterStaff": {
+    "metadata": {
+      "title": "Activation compte staff – Formwise",
+      "description": "Activez votre compte staff Formwise."
+    },
+    "title": "Créer votre compte staff",
+    "emailPlaceholder": "Votre adresse email",
+    "schoolCodePlaceholder": "Code établissement",
+    "passwordPlaceholder": "Mot de passe",
+    "submitButton": "Créer mon compte",
+    "fieldsRequired": "Tous les champs sont requis.",
+    "successMessage": "Compte activé !",
+    "activationError": "Erreur lors de l'activation."
+  },
+  "ForgotPassword": {
+    "metadata": {
+      "title": "Mot de passe oublié – Formwise",
+      "description": "Recevez un lien de réinitialisation pour votre compte Formwise."
+    },
+    "formTitle": "Mot de passe oublié",
+    "emailLabel": "Adresse e-mail",
+    "sendButton": "Envoyer le lien",
+    "sending": "Envoi en cours...",
+    "successMessage": "Un email de réinitialisation a été envoyé !",
+    "errorMessage": "Une erreur s'est produite"
+  },
+  "ResetPassword": {
+    "metadata": {
+      "title": "Réinitialiser votre mot de passe – Formwise",
+      "description": "Choisissez un nouveau mot de passe pour accéder à votre compte Formwise."
+    },
+    "formTitle": "Réinitialiser le mot de passe",
+    "newPasswordPlaceholder": "Nouveau mot de passe",
+    "confirmPasswordPlaceholder": "Confirmer le mot de passe",
+    "submitButton": "Réinitialiser",
+    "submitting": "Réinitialisation...",
+    "passwordsDontMatch": "Les mots de passe ne correspondent pas",
+    "successMessage": "Mot de passe réinitialisé avec succès",
+    "errorMessage": "Une erreur est survenue"
+  },
+  "CreatePassword": {
+    "metadata": {
+      "title": "Créer un nouveau mot de passe – Formwise",
+      "description": "Définissez un nouveau mot de passe sécurisé pour accéder à votre compte Formwise."
+    },
+    "title": "Créer votre mot de passe",
+    "passwordLabel": "Mot de passe",
+    "togglePasswordVisibility": "Afficher ou masquer le mot de passe",
+    "submitButton": "Créer le mot de passe",
+    "submitting": "Création...",
+    "signinPrompt": "Vous avez déjà un compte ?",
+    "signinLink": "Se connecter",
+    "successMessage": "Mot de passe créé avec succès !",
+    "tokenInvalid": "Token invalide ou manquant",
+    "errorGeneric": "Erreur"
+  },
+  "Redirect": {
+    "redirecting": "Redirection en cours..."
+  },
+  "PreinscriptionSuccess": {
+    "metadata": {
+      "title": "Pré-inscription envoyée – Formwise",
+      "description": "Votre demande de pré-inscription a bien été reçue."
+    },
+    "title": "🎉 Pré-inscription envoyée avec succès !",
+    "body": "Merci pour votre demande. L'établissement vous contactera très bientôt.",
+    "backHomeButton": "Retour à l'accueil"
+  },
+  "Preinscription": {
+    "metadata": {
+      "title": "Pré-inscription – Formwise",
+      "description": "Effectuez la pré-inscription d'un ou plusieurs élèves dans votre établissement."
+    },
+    "loadingForm": "Chargement du formulaire...",
+    "formTitle": "Formulaire de pré-inscription",
+    "studentsTitle": "Élève(s)",
+    "studentN": "Élève {n}",
+    "addAnotherStudent": "Ajouter un autre élève",
+    "submitButton": "Envoyer la pré-inscription",
     "submitting": "Envoi en cours...",
-    "successMessage": "Votre message a bien été envoyé. Nous vous répondrons rapidement.",
-    "errorMessage": "Une erreur est survenue. Veuillez réessayer."
+    "successMessage": "Pré-inscription envoyée !",
+    "errorMessage": "Erreur lors de l'envoi de la pré-inscription.",
+    "parentSectionTitle": "Responsable légal",
+    "parentFirstName": "Prénom",
+    "parentLastName": "Nom",
+    "parentEmail": "Email",
+    "parentPhone": "Téléphone",
+    "parentAddress": "Adresse",
+    "childFirstName": "Prénom",
+    "childLastName": "Nom",
+    "childGender": "Sexe",
+    "childGenderGirl": "Fille",
+    "childGenderBoy": "Garçon",
+    "childBirthDate": "Date de naissance",
+    "childBirthCity": "Ville de naissance",
+    "childBirthCountry": "Pays de naissance",
+    "childCurrentSchool": "Établissement actuel",
+    "childDesiredClass": "Classe souhaitée",
+    "filesSectionTitle": "Pièces à fournir",
+    "fileMotivationLetter": "Lettre de motivation",
+    "fileSchoolResults": "Résultats scolaires",
+    "fileFamilyBook": "Livret de famille",
+    "uploadButton": "Uploader les fichiers",
+    "uploading": "Envoi en cours...",
+    "filesUploaded": "Les fichiers ont été correctement envoyés.",
+    "uploadError": "Erreur pour {folder} : {error}"
   },
   "Cgu": {
     "metadata": {

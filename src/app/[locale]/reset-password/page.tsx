@@ -1,17 +1,31 @@
 import ResetPasswordForm from "./ResetPasswordForm";
 import { Suspense } from "react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export const metadata = {
-  title: "Réinitialiser votre mot de passe – Formwise",
-  description:
-    "Choisissez un nouveau mot de passe pour accéder à votre compte Formwise.",
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "ResetPassword.metadata",
+  });
+  return {
+    title: t("title"),
+    description: t("description"),
+    robots: { index: false, follow: false },
+  };
+}
 
-export default function ResetPasswordPage() {
+export default async function ResetPasswordPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ResetPasswordForm />

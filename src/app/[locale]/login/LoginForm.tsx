@@ -4,8 +4,9 @@ import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff, Zap } from "lucide-react";
-import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,9 +14,11 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-export default function LoginPage() {
+export default function LoginForm() {
+  const t = useTranslations("LoginPage");
+  const tCommon = useTranslations("Common");
   const searchParams = useSearchParams();
-  const prefilledEmail = searchParams?.get("email") ?? ""; // ✅ corrigé ici
+  const prefilledEmail = searchParams?.get("email") ?? "";
 
   const [email, setEmail] = useState(prefilledEmail);
   const [password, setPassword] = useState("");
@@ -72,7 +75,7 @@ export default function LoginPage() {
       });
 
       if (res?.error) {
-        setError("Email ou mot de passe incorrect");
+        setError(t("errorInvalidCredentials"));
         setLoading(false);
         return;
       }
@@ -90,11 +93,11 @@ export default function LoginPage() {
       if (session?.user?.role) {
         redirectByRole(session.user.role);
       } else {
-        setError("Erreur lors de la connexion. Veuillez réessayer.");
+        setError(t("errorRetry"));
       }
     } catch (err) {
-      console.log("Une erreur est survenue. Veuillez réessayer.", err);
-      setError("Une erreur est survenue. Veuillez réessayer.");
+      console.log(tCommon("errorGeneric"), err);
+      setError(tCommon("errorGeneric"));
     } finally {
       setLoading(false);
     }
@@ -102,7 +105,6 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-full flex-1">
-      {/* LEFT */}
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <Link href="/" className="flex justify-center items-center gap-2">
@@ -111,21 +113,21 @@ export default function LoginPage() {
           </Link>
 
           <h2 className="mt-8 text-2xl font-bold tracking-tight text-gray-900">
-            Connexion à votre compte
+            {t("formTitle")}
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Pas encore inscrit ?{" "}
+            {t("signupPrompt")}{" "}
             <Link
               href="/register"
               className="font-semibold text-primary hover:underline"
             >
-              Créer un compte
+              {t("signupLink")}
             </Link>
           </p>
 
           <form onSubmit={handleSubmit} className="mt-10 space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email">Adresse e-mail</Label>
+              <Label htmlFor="email">{t("emailLabel")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -138,7 +140,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Mot de passe</Label>
+              <Label htmlFor="password">{t("passwordLabel")}</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -173,13 +175,13 @@ export default function LoginPage() {
                   onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
                   disabled={loading}
                 />
-                <Label htmlFor="remember">Rester connecté</Label>
+                <Label htmlFor="remember">{t("rememberMe")}</Label>
               </div>
               <Link
                 href="/forgot-password"
                 className="text-sm font-medium text-muted-foreground hover:underline"
               >
-                Mot de passe oublié ?
+                {t("forgotPassword")}
               </Link>
             </div>
 
@@ -194,13 +196,12 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full cursor-pointer"
             >
-              {loading ? "Connexion..." : "Se connecter"}
+              {loading ? t("signingIn") : t("signInButton")}
             </Button>
           </form>
         </div>
       </div>
 
-      {/* RIGHT */}
       <div className="relative hidden w-0 flex-1 lg:block">
         <div className="absolute inset-0 my-auto -m-2 flex items-center justify-center rounded-xl bg-white-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl lg:p-4">
           <Image
