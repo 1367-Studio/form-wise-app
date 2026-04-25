@@ -22,6 +22,8 @@ export async function GET() {
     studentsTotal,
     signupsThisMonth,
     signupsLastMonth,
+    activeMonthly,
+    activeYearly,
   ] = await Promise.all([
     prisma.tenant.count(),
     prisma.tenant.count({ where: { subscriptionStatus: "ACTIVE" } }),
@@ -38,7 +40,19 @@ export async function GET() {
         createdAt: { gte: firstOfLastMonth, lt: firstOfThisMonth },
       },
     }),
+    prisma.tenant.count({
+      where: { subscriptionStatus: "ACTIVE", billingPlan: "MONTHLY" },
+    }),
+    prisma.tenant.count({
+      where: { subscriptionStatus: "ACTIVE", billingPlan: "YEARLY" },
+    }),
   ]);
+
+  const MONTHLY_PRICE = 129;
+  const YEARLY_PRICE_PER_MONTH = 1290 / 12;
+  const mrr = Math.round(
+    activeMonthly * MONTHLY_PRICE + activeYearly * YEARLY_PRICE_PER_MONTH
+  );
 
   const roleCounts = usersByRole.reduce<Record<string, number>>((acc, row) => {
     acc[row.role] = row._count._all;
@@ -73,6 +87,11 @@ export async function GET() {
       thisMonth: signupsThisMonth,
       lastMonth: signupsLastMonth,
       delta,
+    },
+    revenue: {
+      mrr,
+      activeMonthly,
+      activeYearly,
     },
   });
 }

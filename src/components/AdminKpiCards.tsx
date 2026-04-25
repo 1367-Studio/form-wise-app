@@ -11,6 +11,7 @@ import {
   GraduationCap,
   TrendingUp,
   TrendingDown,
+  Euro,
 } from "lucide-react";
 
 type Stats = {
@@ -28,6 +29,11 @@ type Stats = {
     thisMonth: number;
     lastMonth: number;
     delta: number | null;
+  };
+  revenue: {
+    mrr: number;
+    activeMonthly: number;
+    activeYearly: number;
   };
 };
 
@@ -110,6 +116,16 @@ export default function AdminKpiCards() {
         icon={<GraduationCap className="h-5 w-5" />}
       />
       <KpiCard
+        label={t("mrr")}
+        value={data.revenue.mrr}
+        icon={<Euro className="h-5 w-5 text-[#f84a00]" />}
+        sub={t("mrrSub", {
+          monthly: data.revenue.activeMonthly,
+          yearly: data.revenue.activeYearly,
+        })}
+        format="currency"
+      />
+      <KpiCard
         className="col-span-2 lg:col-span-2"
         label={t("signupsThisMonth")}
         value={data.signups.thisMonth}
@@ -146,13 +162,19 @@ function KpiCard({
   icon,
   sub,
   className = "",
+  format = "number",
 }: {
   label: string;
   value: number;
   icon: React.ReactNode;
   sub?: React.ReactNode;
   className?: string;
+  format?: "number" | "currency";
 }) {
+  const display =
+    format === "currency"
+      ? `${value.toLocaleString()} €`
+      : value.toLocaleString();
   return (
     <div
       className={`rounded-xl border border-black/10 bg-white p-5 shadow-sm ${className}`}
@@ -164,7 +186,7 @@ function KpiCard({
         <span className="text-gray-600">{icon}</span>
       </div>
       <div className="mt-3 text-3xl font-semibold tracking-tight text-gray-900">
-        {value.toLocaleString()}
+        {display}
       </div>
       {sub && <div className="mt-2 text-xs text-gray-500">{sub}</div>}
     </div>
