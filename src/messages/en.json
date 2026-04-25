@@ -267,6 +267,21 @@
     "filesUploaded": "Files uploaded successfully.",
     "uploadError": "Error for {folder}: {error}"
   },
+  "InviteParents": {
+    "title": "Invite parents",
+    "placeholder": "Enter one or more email addresses (separated by commas, semicolons or new lines)",
+    "submitButton": "Send invitations",
+    "sending": "Sending...",
+    "errorEmpty": "Please enter at least one email address.",
+    "errorSend": "Error sending invitations",
+    "successMessage": "Invitations sent successfully!",
+    "errorNetwork": "Network error"
+  },
+  "TenantDetailPage": {
+    "loadError": "❌ Error loading data.",
+    "notFound": "❌ School not found.",
+    "breadcrumbDashboard": "Dashboard"
+  },
   "Charts": {
     "totalStudentsTitle": "Student trend",
     "studentsByClassTitle": "Students per class",

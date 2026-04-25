@@ -267,6 +267,21 @@
     "filesUploaded": "Arquivos enviados com sucesso.",
     "uploadError": "Erro em {folder}: {error}"
   },
+  "InviteParents": {
+    "title": "Convidar responsáveis",
+    "placeholder": "Digite um ou mais e-mails (separados por vírgula, ponto e vírgula ou nova linha)",
+    "submitButton": "Enviar convites",
+    "sending": "Enviando...",
+    "errorEmpty": "Digite ao menos um endereço de e-mail.",
+    "errorSend": "Erro ao enviar os convites",
+    "successMessage": "Convites enviados com sucesso!",
+    "errorNetwork": "Erro de rede"
+  },
+  "TenantDetailPage": {
+    "loadError": "❌ Erro ao carregar os dados.",
+    "notFound": "❌ Escola não encontrada.",
+    "breadcrumbDashboard": "Painel"
+  },
   "Charts": {
     "totalStudentsTitle": "Evolução dos alunos",
     "studentsByClassTitle": "Alunos por turma",

@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 export default function InviteParentsPage() {
+  const t = useTranslations("InviteParents");
   const [emails, setEmails] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +19,7 @@ export default function InviteParentsPage() {
       .filter((email) => email);
 
     if (emailList.length === 0) {
-      toast.error("Veuillez saisir au moins une adresse email.");
+      toast.error(t("errorEmpty"));
       setLoading(false);
       return;
     }
@@ -32,14 +34,14 @@ export default function InviteParentsPage() {
       const result = await res.json();
 
       if (!res.ok) {
-        toast.error(result.error || "Erreur lors de l'envoi des invitations");
+        toast.error(result.error || t("errorSend"));
       } else {
-        toast.success("Invitations envoyées avec succès !");
+        toast.success(t("successMessage"));
         setEmails("");
       }
     } catch (err) {
-      console.log("Erreur réseau", err);
-      toast.error("Erreur réseau");
+      console.log("Network error", err);
+      toast.error(t("errorNetwork"));
     } finally {
       setLoading(false);
     }
@@ -47,9 +49,9 @@ export default function InviteParentsPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-md shadow-md mt-10">
-      <h1 className="text-xl font-bold mb-4">Inviter des parents</h1>
+      <h1 className="text-xl font-bold mb-4">{t("title")}</h1>
       <Textarea
-        placeholder="Entrez une ou plusieurs adresses email (séparées par des virgules, points-virgules ou sauts de ligne)"
+        placeholder={t("placeholder")}
         value={emails}
         onChange={(e) => setEmails(e.target.value)}
         rows={6}
@@ -59,7 +61,7 @@ export default function InviteParentsPage() {
         className="mt-4 cursor-pointer"
         disabled={loading}
       >
-        {loading ? "Envoi..." : "Envoyer les invitations"}
+        {loading ? t("sending") : t("submitButton")}
       </Button>
     </div>
   );

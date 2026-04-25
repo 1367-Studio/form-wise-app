@@ -267,6 +267,21 @@
     "filesUploaded": "Les fichiers ont été correctement envoyés.",
     "uploadError": "Erreur pour {folder} : {error}"
   },
+  "InviteParents": {
+    "title": "Inviter des parents",
+    "placeholder": "Entrez une ou plusieurs adresses email (séparées par des virgules, points-virgules ou sauts de ligne)",
+    "submitButton": "Envoyer les invitations",
+    "sending": "Envoi...",
+    "errorEmpty": "Veuillez saisir au moins une adresse email.",
+    "errorSend": "Erreur lors de l'envoi des invitations",
+    "successMessage": "Invitations envoyées avec succès !",
+    "errorNetwork": "Erreur réseau"
+  },
+  "TenantDetailPage": {
+    "loadError": "❌ Erreur lors du chargement des données.",
+    "notFound": "❌ École introuvable.",
+    "breadcrumbDashboard": "Dashboard"
+  },
   "Charts": {
     "totalStudentsTitle": "Évolution des élèves",
     "studentsByClassTitle": "Élèves par classe",

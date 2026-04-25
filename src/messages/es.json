@@ -267,6 +267,21 @@
     "filesUploaded": "Los archivos se enviaron correctamente.",
     "uploadError": "Error en {folder}: {error}"
   },
+  "InviteParents": {
+    "title": "Invitar a los padres",
+    "placeholder": "Introduce uno o varios correos (separados por comas, puntos y comas o saltos de línea)",
+    "submitButton": "Enviar invitaciones",
+    "sending": "Enviando...",
+    "errorEmpty": "Introduce al menos un correo electrónico.",
+    "errorSend": "Error al enviar las invitaciones",
+    "successMessage": "¡Invitaciones enviadas con éxito!",
+    "errorNetwork": "Error de red"
+  },
+  "TenantDetailPage": {
+    "loadError": "❌ Error al cargar los datos.",
+    "notFound": "❌ Centro no encontrado.",
+    "breadcrumbDashboard": "Panel"
+  },
   "Charts": {
     "totalStudentsTitle": "Evolución de alumnos",
     "studentsByClassTitle": "Alumnos por clase",

@@ -86,6 +86,7 @@ import { prisma } from "../../../../../lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../../lib/authOptions";
 import { redirect } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import {
   Breadcrumb,
@@ -97,9 +98,8 @@ import {
 import { Slash } from "lucide-react";
 import TenantDetailCard from "../../../../../components/TenantDetailCard";
 
-// Updated interface for Next.js 15+
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }
 
 // Helper function to get session with retry
@@ -123,8 +123,9 @@ async function getSessionWithRetry(maxRetries = 3) {
 }
 
 export default async function TenantDetailPage({ params }: PageProps) {
-  // Await the params since it's now a Promise in Next.js 15+
-  const { id } = await params;
+  const { id, locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "TenantDetailPage" });
 
   // 🔐 Récupérer la session avec retry
   const session = await getSessionWithRetry();
@@ -171,13 +172,13 @@ export default async function TenantDetailPage({ params }: PageProps) {
       },
     });
   } catch (error) {
-    console.error("❌ Erreur lors de la récupération du tenant:", error);
-    return <div className="p-6">❌ Erreur lors du chargement des données.</div>;
+    console.error("Tenant fetch error:", error);
+    return <div className="p-6">{t("loadError")}</div>;
   }
 
   if (!tenant) {
-    console.warn(`❌ Tenant non trouvé pour l'ID: ${id}`);
-    return <div className="p-6">❌ École introuvable.</div>;
+    console.warn(`Tenant not found for id: ${id}`);
+    return <div className="p-6">{t("notFound")}</div>;
   }
 
   const schoolName = tenant.name;
@@ -187,7 +188,9 @@ export default async function TenantDetailPage({ params }: PageProps) {
       <Breadcrumb className="mb-4">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/admin/dashboard">Dashboard</BreadcrumbLink>
+            <BreadcrumbLink href="/admin/dashboard">
+              {t("breadcrumbDashboard")}
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator>
             <Slash className="h-4 w-4 text-muted-foreground" />
