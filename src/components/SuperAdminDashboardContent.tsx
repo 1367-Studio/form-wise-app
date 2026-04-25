@@ -15,6 +15,10 @@ import AdminKpiCards from "./AdminKpiCards";
 import AdminActivityFeed from "./AdminActivityFeed";
 import AdminConversionFunnel from "./AdminConversionFunnel";
 import AdminBilling from "./AdminBilling";
+import AdminFailedPayments from "./AdminFailedPayments";
+import AdminBroadcast from "./AdminBroadcast";
+import AdminImpersonate from "./AdminImpersonate";
+import AdminAuditLog from "./AdminAuditLog";
 import AccountSettings from "./AccountSettings";
 import CenteredSpinner from "./CenteredSpinner";
 
@@ -82,6 +86,10 @@ export default function SuperAdminDashboardContent() {
           </div>
         )}
         {activeSection === "billingAdmin" && <AdminBilling />}
+        {activeSection === "failedPaymentsAdmin" && <AdminFailedPayments />}
+        {activeSection === "broadcastAdmin" && <AdminBroadcast />}
+        {activeSection === "impersonateAdmin" && <AdminImpersonate />}
+        {activeSection === "auditAdmin" && <AdminAuditLog />}
         {activeSection === "settingsAdmin" && (
           <>
             <h2 className="text-xl font-semibold mb-4">

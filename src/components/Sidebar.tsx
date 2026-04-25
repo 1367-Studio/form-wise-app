@@ -20,6 +20,10 @@ import {
   UserPlus,
   ShieldAlert,
   Receipt,
+  AlertCircle,
+  Megaphone,
+  UserCheck,
+  History,
 } from "lucide-react";
 import { ParentNotification } from "../types/notification";
 
@@ -257,6 +261,34 @@ export default function Sidebar({
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Receipt className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("failedPayments")}
+            section="failedPaymentsAdmin"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<AlertCircle className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("broadcast")}
+            section="broadcastAdmin"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<Megaphone className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("impersonate")}
+            section="impersonateAdmin"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<UserCheck className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("auditLog")}
+            section="auditAdmin"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<History className="w-4 h-4" />}
           />
           <SidebarBtn
             label={t("settings")}

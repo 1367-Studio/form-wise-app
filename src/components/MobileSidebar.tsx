@@ -28,6 +28,10 @@ import {
   UserPlus,
   ShieldAlert,
   Receipt,
+  AlertCircle,
+  Megaphone,
+  UserCheck,
+  History,
 } from "lucide-react";
 
 type Section = {
@@ -185,6 +189,26 @@ const useSections = (role?: string): Section[] => {
         key: "billingAdmin",
         label: t("billing"),
         icon: <Receipt className="w-4 h-4" />,
+      },
+      {
+        key: "failedPaymentsAdmin",
+        label: t("failedPayments"),
+        icon: <AlertCircle className="w-4 h-4" />,
+      },
+      {
+        key: "broadcastAdmin",
+        label: t("broadcast"),
+        icon: <Megaphone className="w-4 h-4" />,
+      },
+      {
+        key: "impersonateAdmin",
+        label: t("impersonate"),
+        icon: <UserCheck className="w-4 h-4" />,
+      },
+      {
+        key: "auditAdmin",
+        label: t("auditLog"),
+        icon: <History className="w-4 h-4" />,
       },
       {
         key: "settingsAdmin",

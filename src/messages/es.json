@@ -393,6 +393,61 @@
     "statusVoid": "Anulada",
     "statusDraft": "Borrador"
   },
+  "AdminFailedPayments": {
+    "title": "Pagos fallidos",
+    "subtitle": "Facturas Stripe fallidas o incobrables.",
+    "headerInvoice": "Factura",
+    "headerCustomer": "Cliente",
+    "headerAmount": "Importe debido",
+    "headerAttempts": "Intentos",
+    "headerNextRetry": "Próximo reintento",
+    "headerActions": "Acciones",
+    "retry": "Reintentar",
+    "void": "Anular",
+    "markUncollectible": "Marcar incobrable",
+    "open": "Abrir",
+    "empty": "🎉 Sin pagos fallidos.",
+    "loadError": "No se pudo cargar Stripe.",
+    "retrySuccess": "Pago reintentado.",
+    "retryFailed": "Reintento fallido.",
+    "voidSuccess": "Factura anulada.",
+    "uncollectibleSuccess": "Factura marcada como incobrable.",
+    "actionFailed": "Acción fallida.",
+    "loading": "Cargando...",
+    "notReady": "—"
+  },
+  "AdminBroadcast": {
+    "title": "Enviar difusión",
+    "subtitle": "Envía un email a todos los usuarios.",
+    "audienceLabel": "Destinatarios",
+    "audienceDirectors": "Todos los directores",
+    "audienceAll": "Todos los usuarios (padres, profesores, personal, directores)",
+    "subjectLabel": "Asunto",
+    "subjectPlaceholder": "Novedad Formwise...",
+    "bodyLabel": "Mensaje (HTML permitido)",
+    "bodyPlaceholder": "Hola,\n\nLas novedades...",
+    "sendButton": "Enviar difusión",
+    "sending": "Enviando...",
+    "confirmTitle": "Confirmar envío",
+    "confirmBody": "Estás a punto de enviar este email a {count} destinatarios. Esta acción es irreversible.",
+    "confirmCancel": "Cancelar",
+    "confirmSend": "Enviar",
+    "successMessage": "{sent} envíos correctos, {failed} fallos de {total} destinatarios.",
+    "errorMessage": "Error de envío.",
+    "fieldsRequired": "El asunto y el mensaje son obligatorios."
+  },
+  "AdminImpersonate": {
+    "title": "Ver como usuario",
+    "subtitle": "Inicia sesión como un director para reproducir una incidencia.",
+    "comingSoon": "Próximamente",
+    "needsMigration": "Esta función requiere una migración de schema (tabla de auditoría + token de impersonación separado). Solicita la migración para activarla."
+  },
+  "AdminAudit": {
+    "title": "Registro de auditoría",
+    "subtitle": "Historial de acciones sensibles (creación, suspensión, pago, etc.).",
+    "comingSoon": "Próximamente",
+    "needsMigration": "Esta vista requiere un nuevo modelo Prisma `AuditLog`. Solicita la migración para activar la recogida de eventos."
+  },
   "GdprExport": {
     "title": "Mis datos",
     "subtitle": "Descarga una copia completa de tus datos personales.",
@@ -1010,6 +1065,10 @@
     "schools": "Centros",
     "statistics": "Estadísticas",
     "billing": "Facturación",
+    "failedPayments": "Pagos fallidos",
+    "broadcast": "Difusión",
+    "impersonate": "Ver como",
+    "auditLog": "Registro de auditoría",
     "signOut": "Cerrar sesión"
   },
   "Greeting": {

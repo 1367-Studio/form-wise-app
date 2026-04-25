@@ -393,6 +393,61 @@
     "statusVoid": "Annulée",
     "statusDraft": "Brouillon"
   },
+  "AdminFailedPayments": {
+    "title": "Paiements échoués",
+    "subtitle": "Factures Stripe en échec ou non recouvrables.",
+    "headerInvoice": "Facture",
+    "headerCustomer": "Client",
+    "headerAmount": "Montant dû",
+    "headerAttempts": "Tentatives",
+    "headerNextRetry": "Prochaine tentative",
+    "headerActions": "Actions",
+    "retry": "Relancer",
+    "void": "Annuler",
+    "markUncollectible": "Marquer irrécouvrable",
+    "open": "Ouvrir",
+    "empty": "🎉 Aucun paiement échoué.",
+    "loadError": "Impossible de charger Stripe.",
+    "retrySuccess": "Paiement relancé.",
+    "retryFailed": "Échec de la relance.",
+    "voidSuccess": "Facture annulée.",
+    "uncollectibleSuccess": "Facture marquée irrécouvrable.",
+    "actionFailed": "Action échouée.",
+    "loading": "Chargement...",
+    "notReady": "—"
+  },
+  "AdminBroadcast": {
+    "title": "Envoyer une diffusion",
+    "subtitle": "Envoyer un email à tous les utilisateurs.",
+    "audienceLabel": "Destinataires",
+    "audienceDirectors": "Tous les directeurs",
+    "audienceAll": "Tous les utilisateurs (parents, profs, staff, directeurs)",
+    "subjectLabel": "Sujet",
+    "subjectPlaceholder": "Mise à jour Formwise...",
+    "bodyLabel": "Message (HTML autorisé)",
+    "bodyPlaceholder": "Bonjour,\n\nVoici les nouveautés...",
+    "sendButton": "Envoyer la diffusion",
+    "sending": "Envoi...",
+    "confirmTitle": "Confirmer l'envoi",
+    "confirmBody": "Vous êtes sur le point d'envoyer cet email à {count} destinataires. Cette action est irréversible.",
+    "confirmCancel": "Annuler",
+    "confirmSend": "Envoyer",
+    "successMessage": "{sent} envois réussis, {failed} échecs sur {total} destinataires.",
+    "errorMessage": "Erreur lors de l'envoi.",
+    "fieldsRequired": "Sujet et message sont requis."
+  },
+  "AdminImpersonate": {
+    "title": "Voir comme un utilisateur",
+    "subtitle": "Connectez-vous en tant qu'un directeur pour reproduire un problème de support.",
+    "comingSoon": "Bientôt disponible",
+    "needsMigration": "Cette fonctionnalité nécessite une migration de schéma (table d'audit + jeton d'impersonation séparé). Demandez la migration pour activer."
+  },
+  "AdminAudit": {
+    "title": "Journal d'audit",
+    "subtitle": "Historique des actions sensibles (création, suspension, paiement, etc.).",
+    "comingSoon": "Bientôt disponible",
+    "needsMigration": "Cette vue nécessite une nouvelle table Prisma `AuditLog`. Demandez la migration pour activer la collecte d'événements."
+  },
   "GdprExport": {
     "title": "Mes données",
     "subtitle": "Téléchargez une copie complète de vos données personnelles.",
@@ -1010,6 +1065,10 @@
     "schools": "Établissement",
     "statistics": "Statistiques",
     "billing": "Facturation",
+    "failedPayments": "Paiements échoués",
+    "broadcast": "Diffusion",
+    "impersonate": "Voir comme",
+    "auditLog": "Journal d'audit",
     "signOut": "Se déconnecter"
   },
   "Greeting": {

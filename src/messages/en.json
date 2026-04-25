@@ -393,6 +393,61 @@
     "statusVoid": "Void",
     "statusDraft": "Draft"
   },
+  "AdminFailedPayments": {
+    "title": "Failed payments",
+    "subtitle": "Stripe invoices that failed or are uncollectible.",
+    "headerInvoice": "Invoice",
+    "headerCustomer": "Customer",
+    "headerAmount": "Amount due",
+    "headerAttempts": "Attempts",
+    "headerNextRetry": "Next retry",
+    "headerActions": "Actions",
+    "retry": "Retry",
+    "void": "Void",
+    "markUncollectible": "Mark uncollectible",
+    "open": "Open",
+    "empty": "🎉 No failed payments.",
+    "loadError": "Could not load Stripe data.",
+    "retrySuccess": "Payment retried.",
+    "retryFailed": "Retry failed.",
+    "voidSuccess": "Invoice voided.",
+    "uncollectibleSuccess": "Invoice marked uncollectible.",
+    "actionFailed": "Action failed.",
+    "loading": "Loading...",
+    "notReady": "—"
+  },
+  "AdminBroadcast": {
+    "title": "Send broadcast",
+    "subtitle": "Send an email to all users.",
+    "audienceLabel": "Recipients",
+    "audienceDirectors": "All directors",
+    "audienceAll": "All users (parents, teachers, staff, directors)",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "Formwise update...",
+    "bodyLabel": "Message (HTML allowed)",
+    "bodyPlaceholder": "Hello,\n\nHere's what's new...",
+    "sendButton": "Send broadcast",
+    "sending": "Sending...",
+    "confirmTitle": "Confirm send",
+    "confirmBody": "You are about to send this email to {count} recipients. This action is irreversible.",
+    "confirmCancel": "Cancel",
+    "confirmSend": "Send",
+    "successMessage": "{sent} sends succeeded, {failed} failed out of {total} recipients.",
+    "errorMessage": "Send error.",
+    "fieldsRequired": "Subject and message are required."
+  },
+  "AdminImpersonate": {
+    "title": "View as a user",
+    "subtitle": "Sign in as a director to reproduce a support issue.",
+    "comingSoon": "Coming soon",
+    "needsMigration": "This feature needs a schema migration (audit table + separate impersonation token). Request the migration to enable."
+  },
+  "AdminAudit": {
+    "title": "Audit log",
+    "subtitle": "History of sensitive actions (create, suspend, payment, etc.).",
+    "comingSoon": "Coming soon",
+    "needsMigration": "This view needs a new Prisma `AuditLog` model. Request the migration to enable event collection."
+  },
   "GdprExport": {
     "title": "My data",
     "subtitle": "Download a full copy of your personal data.",
@@ -1010,6 +1065,10 @@
     "schools": "Schools",
     "statistics": "Statistics",
     "billing": "Billing",
+    "failedPayments": "Failed payments",
+    "broadcast": "Broadcast",
+    "impersonate": "View as",
+    "auditLog": "Audit log",
     "signOut": "Sign out"
   },
   "Greeting": {
