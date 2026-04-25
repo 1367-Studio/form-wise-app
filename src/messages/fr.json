@@ -293,6 +293,24 @@
     "unread": "Non lues",
     "studentsKey": "Élèves"
   },
+  "AdminKpi": {
+    "tenantsTotal": "Établissements",
+    "tenantsActive": "Abonnements actifs",
+    "tenantsTrial": "En essai",
+    "tenantsExpired": "Expirés",
+    "usersTotal": "Utilisateurs",
+    "studentsTotal": "Élèves",
+    "signupsThisMonth": "Nouvelles inscriptions (ce mois)",
+    "deltaUp": "+{value}% vs mois dernier",
+    "deltaDown": "{value}% vs mois dernier",
+    "deltaNoPrev": "—",
+    "breakdownDirectors": "{count} directeurs",
+    "breakdownTeachers": "{count} profs",
+    "breakdownParents": "{count} parents",
+    "breakdownStaff": "{count} staff",
+    "loadError": "Impossible de charger les statistiques.",
+    "loading": "Chargement..."
+  },
   "AdminCharts": {
     "schoolsByMonthTitle": "Écoles inscrites par mois",
     "planDistributionTitle": "Répartition des plans",
@@ -326,7 +344,16 @@
     "expired": "Expiré",
     "freeTrial": "Essai gratuit",
     "monthly": "Mensuel",
-    "annual": "Annuel"
+    "annual": "Annuel",
+    "searchPlaceholder": "Rechercher (nom, code école, email directeur)...",
+    "filterAll": "Tous les plans",
+    "filterActive": "Actif",
+    "filterTrial": "Essai",
+    "filterExpired": "Expiré",
+    "sortRecent": "Plus récents",
+    "sortOldest": "Plus anciens",
+    "sortName": "Nom (A-Z)",
+    "countResults": "{count, plural, =0 {Aucun résultat} =1 {1 établissement} other {# établissements}}"
   },
   "TenantDetail": {
     "name": "Nom",

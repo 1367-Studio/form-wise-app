@@ -50,7 +50,10 @@ export const authOptions: AuthOptions = {
         rememberMe: { label: "Rester connecté", type: "checkbox" },
       },
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.email || !credentials?.password) {
+          console.log("🔴 authorize: missing email or password");
+          return null;
+        }
 
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
@@ -65,14 +68,28 @@ export const authOptions: AuthOptions = {
           "SUPER_ADMIN",
         ];
 
-        if (!user || !allowedRoles.includes(user.role)) return null;
-        if (!user.password) return null;
+        if (!user) {
+          console.log("🔴 authorize: user not found for email", credentials.email);
+          return null;
+        }
+        if (!allowedRoles.includes(user.role)) {
+          console.log("🔴 authorize: role not allowed:", user.role);
+          return null;
+        }
+        if (!user.password) {
+          console.log("🔴 authorize: user has no password on record");
+          return null;
+        }
 
         const isValid = await bcrypt.compare(
           credentials.password,
           user.password
         );
-        if (!isValid) return null;
+        if (!isValid) {
+          console.log("🔴 authorize: password does not match for", user.email);
+          return null;
+        }
+        console.log("🟢 authorize: success for", user.email, "role:", user.role);
 
         const rememberMe =
           credentials.rememberMe === "true" || credentials.rememberMe === "on";

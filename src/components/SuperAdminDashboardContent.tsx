@@ -11,6 +11,7 @@ import Sidebar from "./Sidebar";
 import MobileSidebar from "./MobileSidebar";
 import AdminTenantList from "./AdminTenantList";
 import AdminCharts from "./AdminCharts";
+import AdminKpiCards from "./AdminKpiCards";
 import AccountSettings from "./AccountSettings";
 import CenteredSpinner from "./CenteredSpinner";
 
@@ -54,8 +55,18 @@ export default function SuperAdminDashboardContent() {
       <main className="flex-1 p-6 mt-10 md:mt-0">
         <p className="mb-6">{t("welcome", { name: fullName })}</p>
 
-        {activeSection === "tenants" && <AdminTenantList />}
-        {activeSection === "chartsAdmin" && <AdminCharts />}
+        {activeSection === "tenants" && (
+          <div className="space-y-8">
+            <AdminKpiCards />
+            <AdminTenantList />
+          </div>
+        )}
+        {activeSection === "chartsAdmin" && (
+          <div className="space-y-8">
+            <AdminKpiCards />
+            <AdminCharts />
+          </div>
+        )}
         {activeSection === "settingsAdmin" && (
           <>
             <h2 className="text-xl font-semibold mb-4">

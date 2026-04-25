@@ -293,6 +293,24 @@
     "unread": "Sin leer",
     "studentsKey": "Alumnos"
   },
+  "AdminKpi": {
+    "tenantsTotal": "Centros",
+    "tenantsActive": "Suscripciones activas",
+    "tenantsTrial": "En prueba",
+    "tenantsExpired": "Expiradas",
+    "usersTotal": "Usuarios",
+    "studentsTotal": "Alumnos",
+    "signupsThisMonth": "Nuevos registros (este mes)",
+    "deltaUp": "+{value}% vs mes pasado",
+    "deltaDown": "{value}% vs mes pasado",
+    "deltaNoPrev": "—",
+    "breakdownDirectors": "{count} directores",
+    "breakdownTeachers": "{count} profesores",
+    "breakdownParents": "{count} padres",
+    "breakdownStaff": "{count} personal",
+    "loadError": "Error al cargar las estadísticas.",
+    "loading": "Cargando..."
+  },
   "AdminCharts": {
     "schoolsByMonthTitle": "Centros registrados por mes",
     "planDistributionTitle": "Distribución de planes",
@@ -326,7 +344,16 @@
     "expired": "Caducado",
     "freeTrial": "Prueba gratuita",
     "monthly": "Mensual",
-    "annual": "Anual"
+    "annual": "Anual",
+    "searchPlaceholder": "Buscar (nombre, código del centro, email del director)...",
+    "filterAll": "Todos los planes",
+    "filterActive": "Activo",
+    "filterTrial": "Prueba",
+    "filterExpired": "Caducado",
+    "sortRecent": "Más recientes",
+    "sortOldest": "Más antiguos",
+    "sortName": "Nombre (A-Z)",
+    "countResults": "{count, plural, =0 {Sin resultados} =1 {1 centro} other {# centros}}"
   },
   "TenantDetail": {
     "name": "Nombre",

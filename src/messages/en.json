@@ -293,6 +293,24 @@
     "unread": "Unread",
     "studentsKey": "Students"
   },
+  "AdminKpi": {
+    "tenantsTotal": "Institutions",
+    "tenantsActive": "Active subscriptions",
+    "tenantsTrial": "In trial",
+    "tenantsExpired": "Expired",
+    "usersTotal": "Users",
+    "studentsTotal": "Students",
+    "signupsThisMonth": "New signups (this month)",
+    "deltaUp": "+{value}% vs last month",
+    "deltaDown": "{value}% vs last month",
+    "deltaNoPrev": "—",
+    "breakdownDirectors": "{count} directors",
+    "breakdownTeachers": "{count} teachers",
+    "breakdownParents": "{count} parents",
+    "breakdownStaff": "{count} staff",
+    "loadError": "Failed to load stats.",
+    "loading": "Loading..."
+  },
   "AdminCharts": {
     "schoolsByMonthTitle": "Schools registered per month",
     "planDistributionTitle": "Plan distribution",
@@ -326,7 +344,16 @@
     "expired": "Expired",
     "freeTrial": "Free trial",
     "monthly": "Monthly",
-    "annual": "Annual"
+    "annual": "Annual",
+    "searchPlaceholder": "Search (name, school code, director email)...",
+    "filterAll": "All plans",
+    "filterActive": "Active",
+    "filterTrial": "Trial",
+    "filterExpired": "Expired",
+    "sortRecent": "Most recent",
+    "sortOldest": "Oldest",
+    "sortName": "Name (A-Z)",
+    "countResults": "{count, plural, =0 {No results} =1 {1 institution} other {# institutions}}"
   },
   "TenantDetail": {
     "name": "Name",
