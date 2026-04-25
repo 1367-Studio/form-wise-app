@@ -48,7 +48,7 @@ export default function SiteFooter() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
             <Link href="/" className="flex justify-start items-center gap-2">
-              <Zap className="text-indigo-600" />
+              <Zap className="text-blue-900" />
               <h1 className="text-xl font-bold text-white">Formwise</h1>
             </Link>
             <p className="text-balance text-sm/6 text-gray-400">

@@ -56,7 +56,7 @@ export default function TenantDetailCard({ tenant }: Props) {
       case "YEARLY":
         return {
           label: t("annual"),
-          color: "bg-[#eef2ff] text-[#6366f1] ring-indigo-400/30",
+          color: "bg-[#eef2ff] text-[#6366f1] ring-blue-700/30",
         };
       default:
         return {

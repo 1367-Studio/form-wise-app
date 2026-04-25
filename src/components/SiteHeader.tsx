@@ -43,13 +43,13 @@ export default function SiteHeader() {
                 <LanguageSwitcher variant="ghost" />
                 <Link
                   href="/register/free-trial"
-                  className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
+                  className="text-sm flex font-semibold text-white-700 hover:text-blue-900"
                 >
                   <Button className="cursor-pointer">{t("signUp")}</Button>
                 </Link>
                 <Link
                   href="/login"
-                  className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
+                  className="text-sm flex font-semibold text-white-700 hover:text-blue-900"
                 >
                   <Button className="cursor-pointer" variant={"outline"}>
                     {t("signIn")}
@@ -90,13 +90,13 @@ export default function SiteHeader() {
               <LanguageSwitcher />
               <Link
                 href="/register/free-trial"
-                className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
+                className="text-sm flex font-semibold text-white-700 hover:text-blue-900"
               >
                 <Button className="cursor-pointer">{t("signUp")}</Button>
               </Link>
               <Link
                 href="/login"
-                className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
+                className="text-sm flex font-semibold text-white-700 hover:text-blue-900"
               >
                 <Button className="cursor-pointer" variant={"outline"}>
                   {t("signIn")}

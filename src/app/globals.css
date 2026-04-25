@@ -55,14 +55,11 @@
 }
 
 .fancy-gradient-span {
-  text-shadow:
-    -1.5px 3px 3px #9089fc30,
-    /* ombre violette douce */ 0 1px 1px #9089fc20;
-  -webkit-text-fill-color: transparent;
-  background-image:
-    linear-gradient(315deg, #0000, #ffffff40), linear-gradient(#a78bfa, #9089fc); /* dégradé violet */
-  -webkit-background-clip: text;
-  background-clip: text;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 600;
+  color: #0f2540;
+  -webkit-text-fill-color: #0f2540;
 }
 
 :root {

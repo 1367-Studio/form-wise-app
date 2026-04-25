@@ -54,7 +54,7 @@ export default function ResetPasswordForm() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
           <Link href="/" className="flex justify-center items-center gap-2">
-            <Zap className="text-indigo-600" />
+            <Zap className="text-blue-900" />
             <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
           </Link>
         </div>

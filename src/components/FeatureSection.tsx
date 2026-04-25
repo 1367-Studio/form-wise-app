@@ -62,7 +62,7 @@ export default function FeatureSection() {
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-indigo-600">
+          <h2 className="text-base/7 font-semibold text-blue-900">
             {t("section")}
           </h2>
           <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
@@ -81,7 +81,7 @@ export default function FeatureSection() {
                 }}
               >
                 <dt className="text-base/7 font-semibold text-gray-900">
-                  <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-indigo-600">
+                  <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-blue-900">
                     <feature.icon
                       aria-hidden="true"
                       className="size-6 text-white"

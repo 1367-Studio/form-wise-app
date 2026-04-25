@@ -53,7 +53,7 @@ export default function CreatePasswordClient() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
           <Link href="/" className="flex justify-center items-center gap-2">
-            <Zap className="text-indigo-600" />
+            <Zap className="text-blue-900" />
             <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
           </Link>
         </div>
@@ -81,7 +81,7 @@ export default function CreatePasswordClient() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-2 pr-10 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+                  className="block w-full rounded-md bg-white px-3 py-2 pr-10 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-900 sm:text-sm"
                 />
                 <button
                   type="button"
@@ -113,7 +113,7 @@ export default function CreatePasswordClient() {
             {t("signinPrompt")}{" "}
             <Link
               href="/login"
-              className="font-semibold text-indigo-600 hover:text-indigo-500"
+              className="font-semibold text-blue-900 hover:text-blue-800"
             >
               {t("signinLink")}
             </Link>

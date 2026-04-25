@@ -76,7 +76,7 @@ export default function BillingPlans() {
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl sm:text-center">
-          <h2 className="text-base font-semibold text-indigo-600">
+          <h2 className="text-base font-semibold text-blue-900">
             {t("section")}
           </h2>
           <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
@@ -116,7 +116,7 @@ export default function BillingPlans() {
                     )
                   }
                   disabled={redirectingPlan !== null}
-                  className="mt-10 w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="mt-10 w-full rounded-md bg-blue-900 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-800 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {redirectingPlan ===
                   (tier.interval === "year" ? "yearly" : "monthly")
@@ -128,15 +128,15 @@ export default function BillingPlans() {
                   className="mt-6 space-y-3 text-sm text-gray-600"
                 >
                   <li className="flex gap-x-3">
-                    <CheckCircle className="h-5 w-5 text-indigo-600" />{" "}
+                    <CheckCircle className="h-5 w-5 text-blue-900" />{" "}
                     {t("featureMultiUser")}
                   </li>
                   <li className="flex gap-x-3">
-                    <CheckCircle className="h-5 w-5 text-indigo-600" />{" "}
+                    <CheckCircle className="h-5 w-5 text-blue-900" />{" "}
                     {t("featureAll")}
                   </li>
                   <li className="flex gap-x-3">
-                    <CheckCircle className="h-5 w-5 text-indigo-600" />{" "}
+                    <CheckCircle className="h-5 w-5 text-blue-900" />{" "}
                     {tier.interval === "year"
                       ? t("featureSupport24")
                       : t("featureSupport48")}
@@ -150,7 +150,7 @@ export default function BillingPlans() {
       <div className="mt-16 flex justify-center">
         <Link
           href="/dashboard/director"
-          className="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500"
+          className="inline-flex items-center gap-2 rounded-md bg-blue-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-800"
         >
           {t("backToDashboard")}
         </Link>
