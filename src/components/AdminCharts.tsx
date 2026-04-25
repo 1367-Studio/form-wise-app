@@ -9,23 +9,24 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-const mockData = [
-  { name: "Jan", schools: 2 },
-  { name: "Fév", schools: 4 },
-  { name: "Mars", schools: 7 },
-  { name: "Avr", schools: 5 },
-  { name: "Mai", schools: 9 },
-  { name: "Juin", schools: 6 },
-];
+import { useTranslations } from "next-intl";
 
 export default function AdminCharts() {
+  const t = useTranslations("AdminCharts");
+  const mockData = [
+    { name: t("monthJan"), schools: 2 },
+    { name: t("monthFeb"), schools: 4 },
+    { name: t("monthMar"), schools: 7 },
+    { name: t("monthApr"), schools: 5 },
+    { name: t("monthMay"), schools: 9 },
+    { name: t("monthJun"), schools: 6 },
+  ];
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card className="shadow-sm">
         <CardContent className="p-6">
           <h2 className="text-lg font-semibold mb-4">
-            Écoles inscrites par mois
+            {t("schoolsByMonthTitle")}
           </h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={mockData}>
@@ -40,11 +41,13 @@ export default function AdminCharts() {
 
       <Card className="shadow-sm">
         <CardContent className="p-6">
-          <h2 className="text-lg font-semibold mb-4">Répartition des plans</h2>
+          <h2 className="text-lg font-semibold mb-4">
+            {t("planDistributionTitle")}
+          </h2>
           <ul className="space-y-2 text-sm text-gray-700">
-            <li>🟡 Essai gratuit : 12 écoles</li>
-            <li>🟢 Mensuel : 8 écoles</li>
-            <li>🔵 Annuel : 5 écoles</li>
+            <li>{t("freeTrialDistribution", { count: 12 })}</li>
+            <li>{t("monthlyDistribution", { count: 8 })}</li>
+            <li>{t("annualDistribution", { count: 5 })}</li>
           </ul>
         </CardContent>
       </Card>

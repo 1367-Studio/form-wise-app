@@ -9,13 +9,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 const COLORS = ["#22c55e", "#ef4444"];
 
 export default function RIBStatusChart() {
+  const t = useTranslations("Charts");
   const [data, setData] = useState([
-    { name: "RIB à jour", value: 0 },
-    { name: "RIB manquant", value: 0 },
+    { name: t("ribUpdated"), value: 0 },
+    { name: t("ribMissing"), value: 0 },
   ]);
 
   useEffect(() => {
@@ -23,16 +25,18 @@ export default function RIBStatusChart() {
       .then((res) => res.json())
       .then((stats) => {
         setData([
-          { name: "RIB à jour", value: stats.ribOk },
-          { name: "RIB manquant", value: stats.ribMissing },
+          { name: t("ribUpdated"), value: stats.ribOk },
+          { name: t("ribMissing"), value: stats.ribMissing },
         ]);
       });
-  }, []);
+  }, [t]);
 
   return (
     <Card>
       <CardContent className="p-6">
-        <p className="text-lg font-semibold mb-4 text-center">Statut des RIB</p>
+        <p className="text-lg font-semibold mb-4 text-center">
+          {t("ribStatusTitle")}
+        </p>
         <ResponsiveContainer width="100%" height={250}>
           <PieChart width={300} height={200}>
             <Pie

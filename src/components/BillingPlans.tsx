@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { CheckCircle, Gift } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 type StripePrice = {
   id: string;
@@ -13,6 +14,7 @@ type StripePrice = {
 };
 
 export default function BillingPlans() {
+  const t = useTranslations("BillingPlans");
   const [prices, setPrices] = useState<StripePrice[]>([]);
   const [loading, setLoading] = useState(true);
   const [redirectingPlan, setRedirectingPlan] = useState<string | null>(null);
@@ -22,12 +24,10 @@ export default function BillingPlans() {
       const res = await fetch("/api/stripe/stripe-prices");
       const json = await res.json();
 
-      console.log("🎯 Résultat de /api/stripe-prices:", json);
-
       if (json.success && Array.isArray(json.data)) {
         setPrices(json.data);
       } else {
-        console.error("❌ Aucune donnée reçue ou erreur");
+        console.error("Stripe prices fetch error");
       }
 
       setLoading(false);
@@ -37,12 +37,9 @@ export default function BillingPlans() {
   }, []);
 
   const handleCheckout = async (plan: "monthly" | "yearly") => {
-    console.log("🚀 Début checkout pour:", plan);
     setRedirectingPlan(plan);
 
     try {
-      console.log("📤 Envoi de la requête à /api/create-checkout-session");
-
       const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: {
@@ -51,50 +48,28 @@ export default function BillingPlans() {
         body: JSON.stringify({ plan }),
       });
 
-      console.log("📥 Réponse reçue:", {
-        status: res.status,
-        statusText: res.statusText,
-        ok: res.ok,
-      });
-
       if (!res.ok) {
-        const errorText = await res.text();
-        console.error("❌ Erreur serveur:", {
-          status: res.status,
-          statusText: res.statusText,
-          body: errorText,
-        });
-
-        // Essayer de parser comme JSON si possible
-        try {
-          const errorJson = JSON.parse(errorText);
-          console.error("📋 Détails de l'erreur:", errorJson);
-        } catch {
-          console.error("📋 Réponse brute:", errorText);
-        }
-
+        console.error("Checkout session error:", res.status);
         setRedirectingPlan(null);
         return;
       }
 
       const data = await res.json();
-      console.log("✅ Données reçues:", data);
 
       if (data.url) {
-        console.log("🔗 Redirection vers:", data.url);
         window.location.href = data.url;
       } else {
-        console.error("❌ Pas d'URL dans la réponse:", data);
+        console.error("No URL in response:", data);
         setRedirectingPlan(null);
       }
     } catch (error) {
-      console.error("💥 Erreur lors de la requête:", error);
+      console.error("Checkout request error:", error);
       setRedirectingPlan(null);
     }
   };
 
   if (loading) {
-    return <div className="p-6 text-center">Chargement des offres...</div>;
+    return <div className="p-6 text-center">{t("loading")}</div>;
   }
 
   return (
@@ -102,14 +77,14 @@ export default function BillingPlans() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl sm:text-center">
           <h2 className="text-base font-semibold text-indigo-600">
-            Abonnement
+            {t("section")}
           </h2>
           <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-            Choisissez votre forfait Formwise
+            {t("title")}
           </p>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-gray-600 sm:text-center">
-          Débloquez toutes les fonctionnalités pour votre établissement.
+          {t("subtitle")}
         </p>
 
         <div className="mt-20 flow-root">
@@ -127,7 +102,7 @@ export default function BillingPlans() {
                     {tier.amount}
                   </span>
                   <span className="text-sm font-semibold flex items-center gap-2 text-gray-600">
-                    /{tier.interval === "year" ? "an - 2 mois offerts" : "mois"}
+                    /{tier.interval === "year" ? t("perYear") : t("perMonth")}
                     {tier.interval === "year" && (
                       <Gift className="w-4 h-4 text-gray-600" />
                     )}
@@ -145,24 +120,26 @@ export default function BillingPlans() {
                 >
                   {redirectingPlan ===
                   (tier.interval === "year" ? "yearly" : "monthly")
-                    ? "Redirection..."
-                    : "Choisir cette formule"}
+                    ? t("ctaRedirecting")
+                    : t("ctaChoose")}
                 </button>
                 <ul
                   role="list"
                   className="mt-6 space-y-3 text-sm text-gray-600"
                 >
                   <li className="flex gap-x-3">
-                    <CheckCircle className="h-5 w-5 text-indigo-600" /> Accès
-                    multi-utilisateurs
+                    <CheckCircle className="h-5 w-5 text-indigo-600" />{" "}
+                    {t("featureMultiUser")}
                   </li>
                   <li className="flex gap-x-3">
-                    <CheckCircle className="h-5 w-5 text-indigo-600" /> Toutes
-                    les fonctionnalités
+                    <CheckCircle className="h-5 w-5 text-indigo-600" />{" "}
+                    {t("featureAll")}
                   </li>
                   <li className="flex gap-x-3">
-                    <CheckCircle className="h-5 w-5 text-indigo-600" /> Support{" "}
-                    {tier.interval === "year" ? "24h" : "48h"}
+                    <CheckCircle className="h-5 w-5 text-indigo-600" />{" "}
+                    {tier.interval === "year"
+                      ? t("featureSupport24")
+                      : t("featureSupport48")}
                   </li>
                 </ul>
               </div>
@@ -175,7 +152,7 @@ export default function BillingPlans() {
           href="/dashboard/director"
           className="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500"
         >
-          Retourner au tableau de bord
+          {t("backToDashboard")}
         </Link>
       </div>
     </div>

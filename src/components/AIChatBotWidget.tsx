@@ -6,17 +6,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useSession } from "next-auth/react";
-
-const suggestions = [
-  "Comment inscrire mon enfant ?",
-  "Comment envoyer un document ?",
-  "Comment inviter un parent ?",
-  "Comment créer une classe ?",
-];
+import { useTranslations } from "next-intl";
 
 export default function AIChatBotWidget() {
+  const t = useTranslations("AIChatBot");
   const { data: session } = useSession();
   const role = session?.user?.role || "PARENT";
+
+  const suggestions = [
+    t("suggestion1"),
+    t("suggestion2"),
+    t("suggestion3"),
+    t("suggestion4"),
+  ];
 
   const [open, setOpen] = useState(false);
   const [question, setQuestion] = useState("");
@@ -46,20 +48,17 @@ export default function AIChatBotWidget() {
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
         {open && (
           <div className="w-[360px] max-h-[520px] bg-white rounded-xl shadow-xl border flex flex-col overflow-hidden mb-3 animate-in fade-in slide-in-from-bottom-2">
-            {/* Header */}
             <div className="bg-black text-white px-4 py-3 flex items-center justify-between">
-              <span className="text-sm font-medium">Assistant Formwise 🤖</span>
+              <span className="text-sm font-medium">{t("title")}</span>
               <button onClick={() => setOpen(false)} className="cursor-pointer">
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Content */}
             <div className="p-4 space-y-4 text-sm text-muted-foreground overflow-y-auto flex-1">
               {!answer && (
                 <div className="bg-muted p-3 rounded-md text-sm text-gray-700">
-                  👋 Bonjour ! Posez-moi une question sur l’inscription ou le
-                  fonctionnement de la plateforme.
+                  {t("greeting")}
                 </div>
               )}
 
@@ -88,12 +87,11 @@ export default function AIChatBotWidget() {
               )}
             </div>
 
-            {/* Input */}
             <div className="border-t px-4 py-3 flex gap-2 items-center">
               <Input
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
-                placeholder="Votre message..."
+                placeholder={t("placeholder")}
                 className="flex-1"
               />
               <Button
@@ -108,7 +106,6 @@ export default function AIChatBotWidget() {
           </div>
         )}
 
-        {/* Floating button */}
         <Button
           size="icon"
           className="rounded-full shadow-lg bg-black text-white cursor-pointer hover:bg-black/80"
