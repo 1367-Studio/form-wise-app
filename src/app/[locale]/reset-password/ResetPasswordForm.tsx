@@ -4,9 +4,10 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Eye, EyeOff, Zap } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Logo from "@/components/Logo";
 
 export const dynamic = "force-dynamic";
 
@@ -53,9 +54,8 @@ export default function ResetPasswordForm() {
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 h-full relative">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
-          <Link href="/" className="flex justify-center items-center gap-2">
-            <Zap className="text-blue-900" />
-            <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
+          <Link href="/" aria-label="formwise">
+            <Logo />
           </Link>
         </div>
         <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">

@@ -3,10 +3,11 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff, Zap } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Logo from "./Logo";
 
 export default function CreatePasswordClient() {
   const t = useTranslations("CreatePassword");
@@ -52,9 +53,8 @@ export default function CreatePasswordClient() {
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 h-full pt-[300px] pb-[300px] relative">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
-          <Link href="/" className="flex justify-center items-center gap-2">
-            <Zap className="text-blue-900" />
-            <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
+          <Link href="/" aria-label="formwise">
+            <Logo />
           </Link>
         </div>
         <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
@@ -81,7 +81,7 @@ export default function CreatePasswordClient() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-2 pr-10 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-900 sm:text-sm"
+                  className="block w-full rounded-md bg-white px-3 py-2 pr-10 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-black sm:text-sm"
                 />
                 <button
                   type="button"
@@ -113,7 +113,7 @@ export default function CreatePasswordClient() {
             {t("signinPrompt")}{" "}
             <Link
               href="/login"
-              className="font-semibold text-blue-900 hover:text-blue-800"
+              className="font-semibold text-black hover:text-gray-800"
             >
               {t("signinLink")}
             </Link>

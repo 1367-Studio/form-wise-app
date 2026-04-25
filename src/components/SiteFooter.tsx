@@ -1,9 +1,9 @@
 "use client";
 
 import { JSX, SVGProps } from "react";
-import { Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Logo from "./Logo";
 
 const socialLinks = [
   {
@@ -47,9 +47,8 @@ export default function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
-            <Link href="/" className="flex justify-start items-center gap-2">
-              <Zap className="text-blue-900" />
-              <h1 className="text-xl font-bold text-white">Formwise</h1>
+            <Link href="/" aria-label="formwise">
+              <Logo tone="light" />
             </Link>
             <p className="text-balance text-sm/6 text-gray-400">
               {t("tagline")}

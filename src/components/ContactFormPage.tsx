@@ -13,9 +13,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Logo from "./Logo";
 
 export default function ContactFormPage() {
   const t = useTranslations("ContactForm");
@@ -69,9 +69,8 @@ export default function ContactFormPage() {
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 h-full pt-[300px] pb-[300px] relative">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
-          <Link href="/" className="flex justify-center items-center gap-2">
-            <Zap className="text-blue-900" />
-            <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
+          <Link href="/" aria-label="formwise">
+            <Logo />
           </Link>
         </div>
         <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">

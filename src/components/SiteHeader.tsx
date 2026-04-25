@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Zap, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import NavDrawerMobile from "./NavDrawerMobile";
 import { Button } from "@/components/ui/button";
 import LanguageSwitcher from "./LanguageSwitcher";
+import Logo from "./Logo";
 
 export default function SiteHeader() {
   const [showSticky, setShowSticky] = useState(false);
@@ -31,25 +32,21 @@ export default function SiteHeader() {
         {showSticky && (
           <div className="fixed top-4 left-1/2 z-40 -translate-x-1/2 w-[90%] max-w-6xl rounded-full bg-white/10 backdrop-blur-3xl backdrop-saturate-200 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.3)] ring-1 ring-white/20 transition-all duration-300">
             <div className="flex items-center justify-between px-6 py-1 lg:py-3">
-              <Link
-                href="/"
-                className="flex fancy-gradient-text items-center font-semibold text-gray-900"
-              >
-                <Zap className="h-5 w-5 mr-1" />
-                Form<span className="font-bold">wise</span>
+              <Link href="/" aria-label="formwise">
+                <Logo />
               </Link>
 
               <div className="hidden lg:flex gap-3 items-center">
                 <LanguageSwitcher variant="ghost" />
                 <Link
                   href="/register/free-trial"
-                  className="text-sm flex font-semibold text-white-700 hover:text-blue-900"
+                  className="text-sm flex font-semibold text-white-700 hover:text-black"
                 >
                   <Button className="cursor-pointer">{t("signUp")}</Button>
                 </Link>
                 <Link
                   href="/login"
-                  className="text-sm flex font-semibold text-white-700 hover:text-blue-900"
+                  className="text-sm flex font-semibold text-white-700 hover:text-black"
                 >
                   <Button className="cursor-pointer" variant={"outline"}>
                     {t("signIn")}
@@ -76,12 +73,8 @@ export default function SiteHeader() {
           style={{ maxWidth: "1200px", margin: "0 auto" }}
         >
           <div className="flex-shrink-0">
-            <Link
-              href="/"
-              className="flex font-semibold items-center fancy-gradient-text -m-1.5 p-1.5"
-            >
-              <Zap className="h-5 w-5 mr-1" />
-              Form<span className="font-bold">wise</span>
+            <Link href="/" aria-label="formwise" className="-m-1.5 p-1.5">
+              <Logo />
             </Link>
           </div>
 
@@ -90,13 +83,13 @@ export default function SiteHeader() {
               <LanguageSwitcher />
               <Link
                 href="/register/free-trial"
-                className="text-sm flex font-semibold text-white-700 hover:text-blue-900"
+                className="text-sm flex font-semibold text-white-700 hover:text-black"
               >
                 <Button className="cursor-pointer">{t("signUp")}</Button>
               </Link>
               <Link
                 href="/login"
-                className="text-sm flex font-semibold text-white-700 hover:text-blue-900"
+                className="text-sm flex font-semibold text-white-700 hover:text-black"
               >
                 <Button className="cursor-pointer" variant={"outline"}>
                   {t("signIn")}

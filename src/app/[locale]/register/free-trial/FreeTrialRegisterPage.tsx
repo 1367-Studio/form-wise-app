@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Logo from "@/components/Logo";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -53,9 +53,8 @@ export default function FreeTrialRegisterPage() {
     <div className="flex min-h-full flex-1">
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          <Link href="/" className="flex justify-center items-center gap-2">
-            <Zap className="text-gray-900" />
-            <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
+          <Link href="/" aria-label="formwise">
+            <Logo />
           </Link>
 
           <h2 className="mt-8 text-2xl font-bold tracking-tight text-gray-900">

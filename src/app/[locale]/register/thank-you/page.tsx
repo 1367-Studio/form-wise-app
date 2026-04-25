@@ -33,7 +33,7 @@ function ThankYouContent() {
         <p className="text-gray-600 mb-6">{t("body")}</p>
         <Link
           href="/login"
-          className="inline-block bg-blue-900 hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md"
+          className="inline-block bg-black hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-md"
         >
           {t("signinButton")}
         </Link>

@@ -58,8 +58,8 @@
   font-family: var(--font-serif), Georgia, "Times New Roman", serif;
   font-style: italic;
   font-weight: 600;
-  color: #0f2540;
-  -webkit-text-fill-color: #0f2540;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
 }
 
 :root {

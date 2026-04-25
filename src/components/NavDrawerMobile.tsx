@@ -1,9 +1,10 @@
 "use client";
 
-import { X, Zap } from "lucide-react";
+import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import Logo from "./Logo";
 
 interface Props {
   open: boolean;
@@ -23,9 +24,8 @@ export default function NavDrawerMobile({ open, onClose }: Props) {
         }}
       >
         <div className="flex justify-between items-center">
-          <Link href="/" className="flex justify-center items-center gap-2">
-            <Zap className="text-blue-900" />
-            <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
+          <Link href="/" aria-label="formwise">
+            <Logo />
           </Link>
           <button onClick={() => onClose(false)}>
             <X className="h-6 w-6 text-gray-700 cursor-pointer" />
