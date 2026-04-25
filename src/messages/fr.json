@@ -371,7 +371,27 @@
     "sortName": "Nom (A-Z)",
     "countResults": "{count, plural, =0 {Aucun résultat} =1 {1 établissement} other {# établissements}}"
   },
+  "Funnel": {
+    "title": "Tunnel de conversion",
+    "subtitle": "Suivi des établissements de l'inscription au churn",
+    "stageSignup": "Inscriptions totales",
+    "stageTrial": "En essai",
+    "stagePaid": "Abonnements payants",
+    "stageChurn": "Churn / expirés",
+    "rateTrialToPaid": "Conversion essai → payant",
+    "rateChurn": "Taux de churn"
+  },
+  "AdminExport": {
+    "csv": "Exporter en CSV",
+    "exporting": "Export..."
+  },
   "TenantDetail": {
+    "statsStudents": "Élèves",
+    "statsTeachers": "Profs",
+    "statsClasses": "Classes",
+    "statsParents": "Parents",
+    "lastActivity": "Dernière activité",
+    "contactDirector": "Contacter le directeur",
     "name": "Nom",
     "schoolNumber": "N° École",
     "plan": "Plan",

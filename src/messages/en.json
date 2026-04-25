@@ -371,7 +371,27 @@
     "sortName": "Name (A-Z)",
     "countResults": "{count, plural, =0 {No results} =1 {1 institution} other {# institutions}}"
   },
+  "Funnel": {
+    "title": "Conversion funnel",
+    "subtitle": "Institutions tracked from signup to churn",
+    "stageSignup": "Total signups",
+    "stageTrial": "In trial",
+    "stagePaid": "Paid subscriptions",
+    "stageChurn": "Churned / expired",
+    "rateTrialToPaid": "Trial → paid conversion",
+    "rateChurn": "Churn rate"
+  },
+  "AdminExport": {
+    "csv": "Export CSV",
+    "exporting": "Exporting..."
+  },
   "TenantDetail": {
+    "statsStudents": "Students",
+    "statsTeachers": "Teachers",
+    "statsClasses": "Classes",
+    "statsParents": "Parents",
+    "lastActivity": "Last activity",
+    "contactDirector": "Contact director",
     "name": "Name",
     "schoolNumber": "School #",
     "plan": "Plan",

@@ -13,6 +13,7 @@ import AdminTenantList from "./AdminTenantList";
 import AdminCharts from "./AdminCharts";
 import AdminKpiCards from "./AdminKpiCards";
 import AdminActivityFeed from "./AdminActivityFeed";
+import AdminConversionFunnel from "./AdminConversionFunnel";
 import AccountSettings from "./AccountSettings";
 import CenteredSpinner from "./CenteredSpinner";
 
@@ -72,8 +73,11 @@ export default function SuperAdminDashboardContent() {
         {activeSection === "chartsAdmin" && (
           <div className="space-y-8">
             <AdminKpiCards />
+            <div className="grid gap-6 lg:grid-cols-2">
+              <AdminConversionFunnel />
+              <AdminActivityFeed />
+            </div>
             <AdminCharts />
-            <AdminActivityFeed />
           </div>
         )}
         {activeSection === "settingsAdmin" && (

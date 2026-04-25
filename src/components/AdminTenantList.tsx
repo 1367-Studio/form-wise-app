@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import CenteredSpinner from "./CenteredSpinner";
-import { Eye, Search } from "lucide-react";
+import { Eye, Search, Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type Tenant = {
@@ -35,11 +35,13 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function AdminTenantList() {
   const t = useTranslations("AdminTenants");
+  const tExport = useTranslations("AdminExport");
   const { data, isLoading } = useSWR("/api/superadmin/tenants", fetcher);
 
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sortOption, setSortOption] = useState<string>("created-desc");
+  const [exporting, setExporting] = useState(false);
 
   function getPlanBadge(
     plan: string,
@@ -135,8 +137,34 @@ export default function AdminTenantList() {
 
   return (
     <div className="space-y-6">
-      <div>
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
+        <button
+          onClick={async () => {
+            setExporting(true);
+            try {
+              const res = await fetch("/api/superadmin/tenants/export");
+              const blob = await res.blob();
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = `formwise-tenants-${new Date()
+                .toISOString()
+                .slice(0, 10)}.csv`;
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+              URL.revokeObjectURL(url);
+            } finally {
+              setExporting(false);
+            }
+          }}
+          disabled={exporting}
+          className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[#f84a00] hover:text-[#f84a00] disabled:opacity-60 cursor-pointer"
+        >
+          <Download className="h-4 w-4" />
+          {exporting ? tExport("exporting") : tExport("csv")}
+        </button>
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

@@ -7,6 +7,15 @@ import { format } from "date-fns";
 import { fr, enGB, ptBR, es } from "date-fns/locale";
 import { Tenant } from "@prisma/client";
 import { useLocale, useTranslations } from "next-intl";
+import {
+  GraduationCap,
+  Users,
+  LayoutGrid,
+  UserRound,
+  Mail,
+  Phone,
+  Activity,
+} from "lucide-react";
 
 const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
@@ -21,6 +30,13 @@ interface Props {
       address?: string | null;
     }[];
   };
+  stats?: {
+    students: number;
+    teachers: number;
+    classes: number;
+    parents: number;
+    lastActivity: string | null;
+  };
 }
 
 function CustomBadge({ label, color }: { label: string; color: string }) {
@@ -33,7 +49,7 @@ function CustomBadge({ label, color }: { label: string; color: string }) {
   );
 }
 
-export default function TenantDetailCard({ tenant }: Props) {
+export default function TenantDetailCard({ tenant, stats }: Props) {
   const t = useTranslations("TenantDetail");
   const locale = useLocale() as keyof typeof dateLocales;
   const dfLocale = dateLocales[locale] ?? fr;
@@ -90,7 +106,64 @@ export default function TenantDetailCard({ tenant }: Props) {
   };
 
   return (
-    <>
+    <div className="space-y-6">
+      {/* Stats row */}
+      {stats && (
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <StatTile
+            icon={<GraduationCap className="h-4 w-4" />}
+            label={t("statsStudents")}
+            value={stats.students}
+          />
+          <StatTile
+            icon={<UserRound className="h-4 w-4" />}
+            label={t("statsTeachers")}
+            value={stats.teachers}
+          />
+          <StatTile
+            icon={<LayoutGrid className="h-4 w-4" />}
+            label={t("statsClasses")}
+            value={stats.classes}
+          />
+          <StatTile
+            icon={<Users className="h-4 w-4" />}
+            label={t("statsParents")}
+            value={stats.parents}
+          />
+        </div>
+      )}
+
+      {/* Director quick contact */}
+      {director && (
+        <div className="rounded-xl border border-black/10 bg-white p-4 flex flex-wrap gap-2">
+          <a
+            href={`mailto:${director.email}`}
+            className="inline-flex items-center gap-2 rounded-md bg-[#f84a00] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#d43e00]"
+          >
+            <Mail className="h-4 w-4" />
+            {t("contactDirector")}
+          </a>
+          {director.phone && (
+            <a
+              href={`tel:${director.phone}`}
+              className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:border-[#f84a00] hover:text-[#f84a00]"
+            >
+              <Phone className="h-4 w-4" />
+              {director.phone}
+            </a>
+          )}
+          {stats?.lastActivity && (
+            <span className="ml-auto inline-flex items-center gap-2 text-xs text-gray-500">
+              <Activity className="h-3.5 w-3.5" />
+              {t("lastActivity")}:{" "}
+              {format(new Date(stats.lastActivity), "dd/MM/yyyy", {
+                locale: dfLocale,
+              })}
+            </span>
+          )}
+        </div>
+      )}
+
       <div className="hidden md:block border p-4">
         <table className="min-w-full text-sm border rounded-lg overflow-hidden">
           <tbody>
@@ -218,6 +291,28 @@ export default function TenantDetailCard({ tenant }: Props) {
           </Button>
         </div>
       </Card>
-    </>
+    </div>
+  );
+}
+
+function StatTile({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+}) {
+  return (
+    <div className="rounded-xl border border-black/10 bg-white p-4">
+      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-gray-500">
+        {icon}
+        {label}
+      </div>
+      <div className="mt-2 text-2xl font-semibold tracking-tight text-gray-900">
+        {value.toLocaleString()}
+      </div>
+    </div>
   );
 }

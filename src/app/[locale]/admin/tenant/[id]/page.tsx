@@ -156,21 +156,43 @@ export default async function TenantDetailPage({ params }: PageProps) {
   }
 
   let tenant;
+  let stats;
   try {
-    tenant = await prisma.tenant.findUnique({
-      where: { id },
-      include: {
-        users: {
-          where: { role: "DIRECTOR" },
-          select: {
-            firstName: true,
-            lastName: true,
-            email: true,
-            phone: true,
+    const [tenantData, students, teachers, classes, parents, lastStudent] =
+      await Promise.all([
+        prisma.tenant.findUnique({
+          where: { id },
+          include: {
+            users: {
+              where: { role: "DIRECTOR" },
+              select: {
+                firstName: true,
+                lastName: true,
+                email: true,
+                phone: true,
+              },
+            },
           },
-        },
-      },
-    });
+        }),
+        prisma.student.count({ where: { tenantId: id } }),
+        prisma.teacher.count({ where: { tenantId: id } }),
+        prisma.class.count({ where: { tenantId: id } }),
+        prisma.user.count({ where: { tenantId: id, role: "PARENT" } }),
+        prisma.student.findFirst({
+          where: { tenantId: id },
+          orderBy: { createdAt: "desc" },
+          select: { createdAt: true },
+        }),
+      ]);
+
+    tenant = tenantData;
+    stats = {
+      students,
+      teachers,
+      classes,
+      parents,
+      lastActivity: lastStudent?.createdAt?.toISOString() ?? null,
+    };
   } catch (error) {
     console.error("Tenant fetch error:", error);
     return <div className="p-6">{t("loadError")}</div>;
@@ -203,7 +225,7 @@ export default async function TenantDetailPage({ params }: PageProps) {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <TenantDetailCard tenant={tenant} />
+      <TenantDetailCard tenant={tenant} stats={stats} />
     </div>
   );
 }
