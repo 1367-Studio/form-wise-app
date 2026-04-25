@@ -43,75 +43,85 @@ export default function SiteFooter() {
   ] as const;
 
   return (
-    <footer className="bg-gray-900">
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-8">
-            <Link href="/" aria-label="formwise">
-              <Logo tone="light" />
+    <footer className="paper-bg border-t border-black/10">
+      <div className="mx-auto max-w-7xl px-6 pt-16 pb-10 sm:pt-20 lg:px-8 lg:pt-24">
+        {/* Top grid */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+          {/* Brand column */}
+          <div className="lg:col-span-5 space-y-6">
+            <Link href="/" aria-label="formwise" className="inline-block">
+              <Logo size="lg" />
             </Link>
-            <p className="text-balance text-sm/6 text-gray-400">
+            <p className="max-w-sm text-balance text-sm/6 text-gray-600">
               {t("tagline")}
             </p>
-            <div className="flex gap-x-6">
+            <div className="flex items-center gap-x-5 pt-2">
               {socialLinks.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-400 hover:text-gray-300"
+                  className="text-gray-500 transition-colors hover:text-[#f84a00]"
                 >
                   <span className="sr-only">{item.name}</span>
-                  <item.icon aria-hidden="true" className="size-6" />
+                  <item.icon aria-hidden="true" className="size-5" />
                 </a>
               ))}
             </div>
           </div>
-          <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm/6 font-semibold text-white">
-                  {t("company")}
-                </h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {companyLinks.map((item) => (
-                    <li key={item.key}>
-                      <Link
-                        href={item.href}
-                        className="text-sm/6 text-gray-400 hover:text-gray-300"
-                      >
-                        {t(item.key)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-10 md:mt-0">
-                <h3 className="text-sm/6 font-semibold text-white">
-                  {t("legal")}
-                </h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {legalLinks.map((item) => (
-                    <li key={item.key}>
-                      <Link
-                        href={item.href}
-                        className="text-sm/6 text-gray-400 hover:text-gray-300"
-                      >
-                        {t(item.key)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+
+          {/* Link columns */}
+          <div className="grid grid-cols-2 gap-8 lg:col-span-7 lg:grid-cols-2">
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">
+                {t("company")}
+              </h3>
+              <ul role="list" className="mt-5 space-y-3">
+                {companyLinks.map((item) => (
+                  <li key={item.key}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-gray-900 transition-colors hover:text-[#f84a00]"
+                    >
+                      {t(item.key)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">
+                {t("legal")}
+              </h3>
+              <ul role="list" className="mt-5 space-y-3">
+                {legalLinks.map((item) => (
+                  <li key={item.key}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-gray-900 transition-colors hover:text-[#f84a00]"
+                    >
+                      {t(item.key)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
-        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-sm/6 text-gray-400">
+
+        {/* Bottom bar */}
+        <div className="mt-16 flex flex-col-reverse items-start gap-4 border-t border-black/10 pt-6 sm:mt-20 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-gray-500">
             {t("copyright", {
               year: new Date().getFullYear(),
               studio: "1367 Studio",
             })}
           </p>
+          <div className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#f84a00]" />
+            <span className="text-xs font-medium uppercase tracking-[0.18em] text-gray-500">
+              Made in Marseille
+            </span>
+          </div>
         </div>
       </div>
     </footer>
