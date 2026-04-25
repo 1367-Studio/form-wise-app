@@ -4,17 +4,15 @@ import { prisma } from "../../../lib/prisma";
 import { resend } from "../../../lib/resend";
 import jwt from "jsonwebtoken";
 
-if (!process.env.JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is required");
-}
-
-const JWT_SECRET = process.env.JWT_SECRET!;
-
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is not defined");
-}
-
 export async function POST(req: Request) {
+  const JWT_SECRET = process.env.JWT_SECRET;
+  if (!JWT_SECRET) {
+    return NextResponse.json(
+      { success: false, error: "JWT_SECRET is not configured" },
+      { status: 500 }
+    );
+  }
+
   try {
     const { email } = await req.json();
 

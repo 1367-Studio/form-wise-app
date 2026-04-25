@@ -1,6 +1,4 @@
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY!);
+import { resend } from "./resend";
 
 export async function sendEmailWithTempPassword({
   to,
