@@ -23,7 +23,7 @@ import CenteredSpinner from "./CenteredSpinner";
 import PendingStudents from "./PendingStudents";
 import DirectorDocumentList from "./DirectorDocumentList";
 import AccountSettings from "./AccountSettings";
-import InviteParentsPage from "../app/dashboard/director/invite-parents/page";
+import InviteParentsPage from "../app/[locale]/dashboard/director/invite-parents/page";
 import { InvitedParentList } from "./InvitedParentList";
 import StaffForm from "./StaffForm";
 import InvitedStaffList from "./InvitedStaffList";

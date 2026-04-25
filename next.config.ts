@@ -1,4 +1,9 @@
-const nextConfig = {
+import createNextIntlPlugin from "next-intl/plugin";
+import type { NextConfig } from "next";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
+
+const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
@@ -24,4 +29,4 @@ const nextConfig = {
   serverExternalPackages: ["@prisma/client", "prisma"],
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

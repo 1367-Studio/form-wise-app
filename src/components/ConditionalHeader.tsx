@@ -1,22 +1,22 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import SiteHeader from "./SiteHeader";
+
+const HIDDEN_PREFIXES = [
+  "/dashboard",
+  "/app",
+  "/register",
+  "/login",
+  "/preinscription-success",
+  "/preinscription",
+  "/admin",
+];
 
 export default function ConditionalHeader() {
   const pathname = usePathname();
 
-  // Ne pas afficher le footer sur les routes dashboard ou app protégées
-  const isDashboard =
-    pathname?.startsWith("/dashboard") ||
-    pathname?.startsWith("/app") ||
-    pathname?.startsWith("/register") ||
-    pathname?.startsWith("/login") ||
-    pathname?.startsWith("/preinscription-success") ||
-    pathname?.startsWith("/preinscription") ||
-    pathname?.startsWith("/admin");
-
-  if (isDashboard) return null;
+  if (HIDDEN_PREFIXES.some((p) => pathname?.startsWith(p))) return null;
 
   return <SiteHeader />;
 }
