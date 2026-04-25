@@ -14,6 +14,7 @@ import AdminCharts from "./AdminCharts";
 import AdminKpiCards from "./AdminKpiCards";
 import AdminActivityFeed from "./AdminActivityFeed";
 import AdminConversionFunnel from "./AdminConversionFunnel";
+import AdminBilling from "./AdminBilling";
 import AccountSettings from "./AccountSettings";
 import CenteredSpinner from "./CenteredSpinner";
 
@@ -80,6 +81,7 @@ export default function SuperAdminDashboardContent() {
             <AdminCharts />
           </div>
         )}
+        {activeSection === "billingAdmin" && <AdminBilling />}
         {activeSection === "settingsAdmin" && (
           <>
             <h2 className="text-xl font-semibold mb-4">

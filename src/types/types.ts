@@ -18,6 +18,7 @@ export type DashboardSection =
   | "tenants"
   | "chartsAdmin"
   | "settingsAdmin"
+  | "billingAdmin"
   | "inviteParent"
   | "inviteStaff"
   | "pendingPreinscriptions"

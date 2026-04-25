@@ -371,6 +371,34 @@
     "sortName": "Nome (A-Z)",
     "countResults": "{count, plural, =0 {Nenhum resultado} =1 {1 instituição} other {# instituições}}"
   },
+  "AdminBilling": {
+    "title": "Faturamento Stripe",
+    "subtitle": "Dados ao vivo da sua conta Stripe.",
+    "mrrLive": "MRR (Stripe)",
+    "activeSubs": "Assinaturas ativas",
+    "failedPayments": "Pagamentos falhos",
+    "recentInvoices": "Faturas recentes",
+    "headerInvoice": "Fatura",
+    "headerCustomer": "Cliente",
+    "headerAmount": "Valor",
+    "headerStatus": "Status",
+    "headerDate": "Data",
+    "openInStripe": "Abrir",
+    "loadError": "Não foi possível carregar o Stripe. Verifique STRIPE_SECRET_KEY.",
+    "empty": "Nenhuma fatura ainda.",
+    "loading": "Carregando...",
+    "statusPaid": "Paga",
+    "statusOpen": "Aberta",
+    "statusUncollectible": "Incobrável",
+    "statusVoid": "Anulada",
+    "statusDraft": "Rascunho"
+  },
+  "GdprExport": {
+    "title": "Meus dados",
+    "subtitle": "Baixe uma cópia completa dos seus dados pessoais.",
+    "downloadButton": "Baixar meus dados (JSON)",
+    "downloading": "Baixando..."
+  },
   "Funnel": {
     "title": "Funil de conversão",
     "subtitle": "Acompanhamento das instituições do cadastro ao churn",
@@ -981,6 +1009,7 @@
     "myClassSubject": "Minha turma e disciplina",
     "schools": "Escolas",
     "statistics": "Estatísticas",
+    "billing": "Faturamento",
     "signOut": "Sair"
   },
   "Greeting": {

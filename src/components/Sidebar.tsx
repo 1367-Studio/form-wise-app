@@ -19,6 +19,7 @@ import {
   Settings,
   UserPlus,
   ShieldAlert,
+  Receipt,
 } from "lucide-react";
 import { ParentNotification } from "../types/notification";
 
@@ -249,6 +250,13 @@ export default function Sidebar({
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<ChartPie className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("billing")}
+            section="billingAdmin"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<Receipt className="w-4 h-4" />}
           />
           <SidebarBtn
             label={t("settings")}

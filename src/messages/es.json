@@ -371,6 +371,34 @@
     "sortName": "Nombre (A-Z)",
     "countResults": "{count, plural, =0 {Sin resultados} =1 {1 centro} other {# centros}}"
   },
+  "AdminBilling": {
+    "title": "Facturación Stripe",
+    "subtitle": "Datos en vivo desde tu cuenta de Stripe.",
+    "mrrLive": "MRR (Stripe)",
+    "activeSubs": "Suscripciones activas",
+    "failedPayments": "Pagos fallidos",
+    "recentInvoices": "Facturas recientes",
+    "headerInvoice": "Factura",
+    "headerCustomer": "Cliente",
+    "headerAmount": "Importe",
+    "headerStatus": "Estado",
+    "headerDate": "Fecha",
+    "openInStripe": "Abrir",
+    "loadError": "No se pudo cargar Stripe. Comprueba STRIPE_SECRET_KEY.",
+    "empty": "Aún no hay facturas.",
+    "loading": "Cargando...",
+    "statusPaid": "Pagada",
+    "statusOpen": "Abierta",
+    "statusUncollectible": "Incobrable",
+    "statusVoid": "Anulada",
+    "statusDraft": "Borrador"
+  },
+  "GdprExport": {
+    "title": "Mis datos",
+    "subtitle": "Descarga una copia completa de tus datos personales.",
+    "downloadButton": "Descargar mis datos (JSON)",
+    "downloading": "Descargando..."
+  },
   "Funnel": {
     "title": "Embudo de conversión",
     "subtitle": "Seguimiento de los centros desde el alta hasta el churn",
@@ -981,6 +1009,7 @@
     "myClassSubject": "Mi clase y asignatura",
     "schools": "Centros",
     "statistics": "Estadísticas",
+    "billing": "Facturación",
     "signOut": "Cerrar sesión"
   },
   "Greeting": {

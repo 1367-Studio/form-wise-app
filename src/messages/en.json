@@ -371,6 +371,34 @@
     "sortName": "Name (A-Z)",
     "countResults": "{count, plural, =0 {No results} =1 {1 institution} other {# institutions}}"
   },
+  "AdminBilling": {
+    "title": "Stripe billing",
+    "subtitle": "Live data pulled from your Stripe account.",
+    "mrrLive": "MRR (Stripe)",
+    "activeSubs": "Active subscriptions",
+    "failedPayments": "Failed payments",
+    "recentInvoices": "Recent invoices",
+    "headerInvoice": "Invoice",
+    "headerCustomer": "Customer",
+    "headerAmount": "Amount",
+    "headerStatus": "Status",
+    "headerDate": "Date",
+    "openInStripe": "Open",
+    "loadError": "Could not load Stripe data. Check STRIPE_SECRET_KEY.",
+    "empty": "No invoices yet.",
+    "loading": "Loading...",
+    "statusPaid": "Paid",
+    "statusOpen": "Open",
+    "statusUncollectible": "Uncollectible",
+    "statusVoid": "Void",
+    "statusDraft": "Draft"
+  },
+  "GdprExport": {
+    "title": "My data",
+    "subtitle": "Download a full copy of your personal data.",
+    "downloadButton": "Download my data (JSON)",
+    "downloading": "Downloading..."
+  },
   "Funnel": {
     "title": "Conversion funnel",
     "subtitle": "Institutions tracked from signup to churn",
@@ -981,6 +1009,7 @@
     "myClassSubject": "My class & subject",
     "schools": "Schools",
     "statistics": "Statistics",
+    "billing": "Billing",
     "signOut": "Sign out"
   },
   "Greeting": {

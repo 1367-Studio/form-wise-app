@@ -371,6 +371,34 @@
     "sortName": "Nom (A-Z)",
     "countResults": "{count, plural, =0 {Aucun résultat} =1 {1 établissement} other {# établissements}}"
   },
+  "AdminBilling": {
+    "title": "Facturation Stripe",
+    "subtitle": "Données en direct depuis votre compte Stripe.",
+    "mrrLive": "MRR (Stripe)",
+    "activeSubs": "Abonnements actifs",
+    "failedPayments": "Paiements échoués",
+    "recentInvoices": "Factures récentes",
+    "headerInvoice": "Facture",
+    "headerCustomer": "Client",
+    "headerAmount": "Montant",
+    "headerStatus": "Statut",
+    "headerDate": "Date",
+    "openInStripe": "Ouvrir",
+    "loadError": "Impossible de charger Stripe. Vérifiez la clé STRIPE_SECRET_KEY.",
+    "empty": "Aucune facture pour le moment.",
+    "loading": "Chargement...",
+    "statusPaid": "Payée",
+    "statusOpen": "Ouverte",
+    "statusUncollectible": "Irrécouvrable",
+    "statusVoid": "Annulée",
+    "statusDraft": "Brouillon"
+  },
+  "GdprExport": {
+    "title": "Mes données",
+    "subtitle": "Téléchargez une copie complète de vos données personnelles.",
+    "downloadButton": "Télécharger mes données (JSON)",
+    "downloading": "Téléchargement..."
+  },
   "Funnel": {
     "title": "Tunnel de conversion",
     "subtitle": "Suivi des établissements de l'inscription au churn",
@@ -981,6 +1009,7 @@
     "myClassSubject": "Ma classe & matière",
     "schools": "Établissement",
     "statistics": "Statistiques",
+    "billing": "Facturation",
     "signOut": "Se déconnecter"
   },
   "Greeting": {

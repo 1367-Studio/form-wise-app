@@ -15,7 +15,14 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { User, Lock, Settings, Calendar, Building2 } from "lucide-react";
+import {
+  User,
+  Lock,
+  Settings,
+  Calendar,
+  Building2,
+  Download,
+} from "lucide-react";
 import CenteredSpinner from "./CenteredSpinner";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -361,15 +368,59 @@ function SecurityTab() {
 
 function PreferencesTab() {
   const t = useTranslations("AccountSettings");
+  const tGdpr = useTranslations("GdprExport");
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      const res = await fetch("/api/me/export");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `formwise-export-${new Date()
+        .toISOString()
+        .slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } finally {
+      setExporting(false);
+    }
+  };
+
   return (
-    <div className="rounded-xl border border-black/10 bg-white p-6">
-      <h3 className="text-base font-semibold text-gray-900">
-        {t("preferencesTitle")}
-      </h3>
-      <p className="text-sm text-gray-500">{t("preferencesSubtitle")}</p>
-      <div className="mt-6 flex items-center justify-between max-w-md">
-        <Label>{t("languageLabel")}</Label>
-        <LanguageSwitcher />
+    <div className="space-y-6">
+      <div className="rounded-xl border border-black/10 bg-white p-6">
+        <h3 className="text-base font-semibold text-gray-900">
+          {t("preferencesTitle")}
+        </h3>
+        <p className="text-sm text-gray-500">{t("preferencesSubtitle")}</p>
+        <div className="mt-6 flex items-center justify-between max-w-md">
+          <Label>{t("languageLabel")}</Label>
+          <LanguageSwitcher />
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-black/10 bg-white p-6">
+        <h3 className="text-base font-semibold text-gray-900">
+          {tGdpr("title")}
+        </h3>
+        <p className="text-sm text-gray-500">{tGdpr("subtitle")}</p>
+        <div className="mt-6">
+          <Button
+            type="button"
+            variant="outline"
+            className="cursor-pointer"
+            onClick={handleExport}
+            disabled={exporting}
+          >
+            <Download className="mr-2 h-4 w-4" />
+            {exporting ? tGdpr("downloading") : tGdpr("downloadButton")}
+          </Button>
+        </div>
       </div>
     </div>
   );

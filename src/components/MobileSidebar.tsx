@@ -27,6 +27,7 @@ import {
   LogOut,
   UserPlus,
   ShieldAlert,
+  Receipt,
 } from "lucide-react";
 
 type Section = {
@@ -179,6 +180,11 @@ const useSections = (role?: string): Section[] => {
         key: "chartsAdmin",
         label: t("statistics"),
         icon: <ChartPie className="w-4 h-4" />,
+      },
+      {
+        key: "billingAdmin",
+        label: t("billing"),
+        icon: <Receipt className="w-4 h-4" />,
       },
       {
         key: "settingsAdmin",
