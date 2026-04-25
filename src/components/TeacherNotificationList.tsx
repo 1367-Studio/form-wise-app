@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 type NotificationReadTeacher = {
   teacherId: string;
@@ -20,6 +21,7 @@ type Notification = {
 };
 
 export default function TeacherNotificationList() {
+  const t = useTranslations("Notifications");
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +31,7 @@ export default function TeacherNotificationList() {
       const data = await res.json();
       setNotifications(data.notifications || []);
     } catch (err) {
-      console.error("Erreur récupération notifications:", err);
+      console.error("Notifications fetch error:", err);
     } finally {
       setLoading(false);
     }
@@ -61,7 +63,7 @@ export default function TeacherNotificationList() {
         )
       );
     } catch (err) {
-      console.error("Erreur marquage comme lu:", err);
+      console.error("Mark-as-read error:", err);
     }
   };
 
@@ -76,11 +78,7 @@ export default function TeacherNotificationList() {
   }
 
   if (notifications.length === 0) {
-    return (
-      <p className="text-muted-foreground">
-        Aucune notification pour l’instant.
-      </p>
-    );
+    return <p className="text-muted-foreground">{t("noneTeacher")}</p>;
   }
 
   return (
@@ -88,12 +86,12 @@ export default function TeacherNotificationList() {
       <table className="min-w-full text-sm">
         <thead className="bg-muted text-muted-foreground uppercase text-xs">
           <tr>
-            <th className="px-4 py-3 text-left">Titre</th>
-            <th className="px-4 py-3 text-left">Message</th>
-            <th className="px-4 py-3 text-left">Date</th>
-            <th className="px-4 py-3 text-left">Type</th>
-            <th className="px-4 py-3 text-left">Statut</th>
-            <th className="px-4 py-3 text-right">Actions</th>
+            <th className="px-4 py-3 text-left">{t("headerTitle")}</th>
+            <th className="px-4 py-3 text-left">{t("headerMessage")}</th>
+            <th className="px-4 py-3 text-left">{t("headerDate")}</th>
+            <th className="px-4 py-3 text-left">{t("headerType")}</th>
+            <th className="px-4 py-3 text-left">{t("headerStatus")}</th>
+            <th className="px-4 py-3 text-right">{t("headerActions")}</th>
           </tr>
         </thead>
         <tbody className="divide-y">
@@ -116,8 +114,8 @@ export default function TeacherNotificationList() {
                     }`}
                   >
                     {notif.isGlobal
-                      ? "Tous les enseignants"
-                      : "Notification privée"}
+                      ? t("allTeachers")
+                      : t("privateNotification")}
                   </span>
                 </td>
                 <td className="px-4 py-2">
@@ -128,7 +126,7 @@ export default function TeacherNotificationList() {
                         : "bg-red-100 text-red-800"
                     }
                   >
-                    {isRead ? "Lue" : "Non lue"}
+                    {isRead ? t("read") : t("unread")}
                   </Badge>
                 </td>
                 <td className="px-4 py-2 text-right">
@@ -139,7 +137,7 @@ export default function TeacherNotificationList() {
                       disabled
                       className="opacity-60 cursor-pointer"
                     >
-                      Déjà lue
+                      {t("alreadyRead")}
                     </Button>
                   ) : (
                     <Button
@@ -148,7 +146,7 @@ export default function TeacherNotificationList() {
                       onClick={() => handleMarkAsRead(notif.id)}
                       className="cursor-pointer"
                     >
-                      Marquer comme lue
+                      {t("markAsRead")}
                     </Button>
                   )}
                 </td>

@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import NotificationCard from "./NotificationCard";
 import { ParentNotification } from "../types/notification";
 
 export default function ParentNotificationList() {
+  const t = useTranslations("Notifications");
   const [notifications, setNotifications] = useState<ParentNotification[]>([]);
 
   useEffect(() => {
@@ -29,12 +31,10 @@ export default function ParentNotificationList() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold mb-4">Notifications</h2>
+      <h2 className="text-xl font-semibold mb-4">{t("title")}</h2>
 
       {notifications.length === 0 ? (
-        <h1 className="text-gray-500 text-sm italic">
-          Aucune notification pour le moment.
-        </h1>
+        <h1 className="text-gray-500 text-sm italic">{t("noneParent")}</h1>
       ) : (
         <NotificationCard
           notifications={notifications}

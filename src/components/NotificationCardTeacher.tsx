@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 type NotificationReadTeacher = {
   teacherId: string;
@@ -32,6 +33,7 @@ export default function NotificationCardTeacher({
   notification,
   onMarkAsRead,
 }: Props) {
+  const t = useTranslations("Notifications");
   const { id, title, message, createdAt, readByTeachers } = notification;
 
   const isRead = readByTeachers.length > 0;
@@ -49,7 +51,7 @@ export default function NotificationCardTeacher({
             isRead ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
           }
         >
-          {isRead ? "Lue" : "Non lue"}
+          {isRead ? t("read") : t("unread")}
         </Badge>
       </div>
 
@@ -67,10 +69,12 @@ export default function NotificationCardTeacher({
         }`}
       >
         {notification.isGlobal
-          ? "Notification destinée à tous les enseignants"
+          ? t("privateForTeachers")
           : notification.teacher?.user
-            ? `Notification privée pour ${notification.teacher.user.firstName}`
-            : "Notification privée"}
+            ? t("privateForTeacher", {
+                name: notification.teacher.user.firstName,
+              })
+            : t("privateNotification")}
       </p>
       {!isRead && (
         <div className="flex justify-end">
@@ -79,7 +83,7 @@ export default function NotificationCardTeacher({
             variant="secondary"
             onClick={() => onMarkAsRead(id)}
           >
-            Marquer comme lue
+            {t("markAsRead")}
           </Button>
         </div>
       )}

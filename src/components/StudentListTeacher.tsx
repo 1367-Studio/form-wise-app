@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -26,6 +27,7 @@ type Student = {
 };
 
 export default function StudentListTeacher() {
+  const t = useTranslations("StudentListTeacher");
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -43,7 +45,7 @@ export default function StudentListTeacher() {
         const data = await res.json();
         setStudents(data || []);
       } catch (err) {
-        console.error("Erreur récupération élèves:", err);
+        console.error("Students fetch error:", err);
       } finally {
         setLoading(false);
       }
@@ -63,11 +65,7 @@ export default function StudentListTeacher() {
   }
 
   if (students.length === 0) {
-    return (
-      <p className="text-muted-foreground">
-        Aucun élève assigné à votre classe.
-      </p>
-    );
+    return <p className="text-muted-foreground">{t("emptyMessage")}</p>;
   }
 
   return (
@@ -76,11 +74,15 @@ export default function StudentListTeacher() {
         <table className="min-w-full text-sm">
           <thead className="bg-muted text-muted-foreground uppercase text-xs">
             <tr>
-              <th className="px-4 py-3 text-left">Élève</th>
-              <th className="px-4 py-3 text-left">Parent</th>
-              <th className="px-4 py-3 text-left">Problèmes de santé</th>
-              <th className="px-4 py-3 text-left">Peut partir seul</th>
-              <th className="px-4 py-3 text-right">Actions</th>
+              <th className="px-4 py-3 text-left">{t("headerStudent")}</th>
+              <th className="px-4 py-3 text-left">{t("headerParent")}</th>
+              <th className="px-4 py-3 text-left">
+                {t("headerHealthIssues")}
+              </th>
+              <th className="px-4 py-3 text-left">
+                {t("headerCanLeaveAlone")}
+              </th>
+              <th className="px-4 py-3 text-right">{t("headerActions")}</th>
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -92,9 +94,11 @@ export default function StudentListTeacher() {
                 <td className="px-4 py-2">
                   {student.parent.firstName} {student.parent.lastName}
                 </td>
-                <td className="px-4 py-2">{student.healthIssues || "Aucun"}</td>
                 <td className="px-4 py-2">
-                  {student.canLeaveAlone ? "Oui" : "Non"}
+                  {student.healthIssues || t("healthNone")}
+                </td>
+                <td className="px-4 py-2">
+                  {student.canLeaveAlone ? t("yes") : t("no")}
                 </td>
                 <td className="px-4 py-2 text-right">
                   <Button
@@ -115,7 +119,7 @@ export default function StudentListTeacher() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogDescription>Fiche de l&apos;élève</DialogDescription>
+            <DialogDescription>{t("studentSheet")}</DialogDescription>
             <DialogTitle>
               {selectedStudent?.firstName} {selectedStudent?.lastName}
             </DialogTitle>
@@ -125,16 +129,17 @@ export default function StudentListTeacher() {
             <Card className="mt-4">
               <CardContent className="space-y-3 pt-4 text-sm">
                 <p>
-                  <strong>Parent :</strong> {selectedStudent.parent.firstName}{" "}
+                  <strong>{t("parentLabel")}</strong>{" "}
+                  {selectedStudent.parent.firstName}{" "}
                   {selectedStudent.parent.lastName}
                 </p>
                 <p>
-                  <strong>Problèmes de santé :</strong>{" "}
-                  {selectedStudent.healthIssues || "Aucun"}
+                  <strong>{t("healthIssuesLabel")}</strong>{" "}
+                  {selectedStudent.healthIssues || t("healthNone")}
                 </p>
                 <p>
-                  <strong>Peut partir seul :</strong>{" "}
-                  {selectedStudent.canLeaveAlone ? "Oui" : "Non"}
+                  <strong>{t("canLeaveAloneLabel")}</strong>{" "}
+                  {selectedStudent.canLeaveAlone ? t("yes") : t("no")}
                 </p>
               </CardContent>
             </Card>

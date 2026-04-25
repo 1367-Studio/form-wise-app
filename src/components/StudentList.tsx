@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { UserX } from "lucide-react";
+import { useTranslations } from "next-intl";
 import EmptyState from "./EmptyState";
 
 type Student = {
@@ -21,6 +22,7 @@ export default function StudentList({
   students,
   setStudents,
 }: StudentListProps) {
+  const t = useTranslations("StudentList");
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -45,17 +47,16 @@ export default function StudentList({
   if (students.length === 0) {
     return (
       <EmptyState
-        message="Aucun élève inscrit pour le moment."
-        actionLabel="Ajouter un élève"
+        message={t("emptyMessage")}
+        actionLabel={t("emptyAction")}
         onAction={() => {
-          console.log("Ajouter un élève");
+          // intentional no-op (CTA hint only)
         }}
       />
     );
   }
 
   if (isMobile) {
-    // Cartes sur mobile
     return (
       <div className="grid gap-4">
         {students.map((student) => (
@@ -69,7 +70,7 @@ export default function StudentList({
                 onClick={() => handleDelete(student.id)}
                 className="cursor-pointer"
               >
-                Supprimer <UserX className="ml-2 w-4 h-4" />
+                {t("delete")} <UserX className="ml-2 w-4 h-4" />
               </Button>
             </CardContent>
           </Card>
@@ -78,14 +79,13 @@ export default function StudentList({
     );
   }
 
-  // Tableau sur desktop
   return (
     <div className="overflow-x-auto rounded-md border shadow-sm">
       <table className="min-w-full text-sm">
         <thead className="bg-gray-50 dark:bg-zinc-800">
           <tr className="text-left text-gray-500 dark:text-gray-300 uppercase text-xs">
-            <th className="px-4 py-3">Prénom</th>
-            <th className="px-4 py-3 text-right">Actions</th>
+            <th className="px-4 py-3">{t("headerFirstName")}</th>
+            <th className="px-4 py-3 text-right">{t("headerActions")}</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-zinc-700">
@@ -104,7 +104,7 @@ export default function StudentList({
                   onClick={() => handleDelete(student.id)}
                   className="cursor-pointer"
                 >
-                  Supprimer <UserX className="ml-2 w-4 h-4" />
+                  {t("delete")} <UserX className="ml-2 w-4 h-4" />
                 </Button>
               </td>
             </tr>
