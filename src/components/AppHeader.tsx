@@ -20,12 +20,18 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import SupportButton from "./SupportButton";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { fr, enGB, ptBR, es } from "date-fns/locale";
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { toast } from "sonner";
+import { useLocale, useTranslations } from "next-intl";
+
+const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
 export default function AppHeader() {
+  const t = useTranslations("AppHeader");
+  const locale = useLocale() as keyof typeof dateLocales;
   const { data: session, status, update } = useSession();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const searchParams = useSearchParams();
@@ -43,10 +49,10 @@ export default function AppHeader() {
           await new Promise((resolve) => setTimeout(resolve, 2000));
           await update({ trigger: "update" });
           await new Promise((resolve) => setTimeout(resolve, 1000));
-          toast.success("Abonnement activé avec succès !");
+          toast.success(t("subscriptionActivated"));
         } catch (err) {
-          console.error("Erreur de mise à jour de session :", err);
-          toast.error("Erreur lors de la mise à jour de la session");
+          console.error("Session update error:", err);
+          toast.error(t("sessionUpdateError"));
         } finally {
           const newParams = new URLSearchParams(searchParams?.toString());
           newParams.delete("success");
@@ -55,13 +61,13 @@ export default function AppHeader() {
         }
       })();
     }
-  }, [searchParams, update, router, isRefreshing]);
+  }, [searchParams, update, router, isRefreshing, t]);
 
   if (status === "loading") return null;
 
   const firstName = session?.user?.firstName || "";
   const lastName = session?.user?.lastName || "";
-  const fullName = `${firstName} ${lastName}`.trim() || "Utilisateur";
+  const fullName = `${firstName} ${lastName}`.trim() || t("defaultUser");
   const initials = [firstName, lastName]
     .map((n) => n?.[0] || "")
     .join("")
@@ -73,21 +79,23 @@ export default function AppHeader() {
     ? new Date(session.user.trialEndsAt)
     : null;
   const formattedDate = trialEndsAt
-    ? format(trialEndsAt, "dd MMMM yyyy", { locale: fr })
+    ? format(trialEndsAt, "dd MMMM yyyy", {
+        locale: dateLocales[locale] ?? fr,
+      })
     : null;
 
   const label =
     subscriptionStatus === "ACTIVE"
       ? billingPlan === "MONTHLY"
         ? formattedDate
-          ? `Mensuel – Renouvelle le ${formattedDate}`
-          : "Abonnement mensuel"
+          ? t("monthlyRenewsOn", { date: formattedDate })
+          : t("monthlySubscription")
         : formattedDate
-          ? `Annuel – Renouvelle le ${formattedDate}`
-          : "Abonnement annuel"
+          ? t("annualRenewsOn", { date: formattedDate })
+          : t("annualSubscription")
       : trialEndsAt
-        ? `Essai jusqu’au ${formattedDate}`
-        : `Plan gratuit`;
+        ? t("trialUntil", { date: formattedDate ?? "" })
+        : t("freePlan");
 
   return (
     <header className="flex items-center justify-between px-6 py-3 border-b bg-white">
@@ -104,7 +112,7 @@ export default function AppHeader() {
               ) && (
                 <div className="text-xs text-muted-foreground">
                   {label}
-                  {isRefreshing && " (mise à jour...)"}
+                  {isRefreshing && ` ${t("sessionUpdating")}`}
                 </div>
               )}
             </div>
@@ -118,7 +126,7 @@ export default function AppHeader() {
                   onClick={() => router.push("/dashboard/billing")}
                 >
                   <Crown className="w-4 h-4 mr-2" />
-                  <span className="text-sm">Upgrade mon forfait</span>
+                  <span className="text-sm">{t("upgradePlan")}</span>
                 </DropdownMenuItem>
 
                 <DropdownMenuItem
@@ -126,7 +134,7 @@ export default function AppHeader() {
                   onClick={() => router.push("/dashboard/resiliation")}
                 >
                   <Ban className="w-4 h-4 mr-2" />
-                  <span className="text-sm">Résilier mon abonnement</span>
+                  <span className="text-sm">{t("cancelSubscription")}</span>
                 </DropdownMenuItem>
               </>
             )}
@@ -138,23 +146,23 @@ export default function AppHeader() {
               onClick={() => router.push("/politique-de-confidentialite")}
             >
               <ShieldCheck className="w-4 h-4 mr-2" />
-              <span className="text-sm">Politique de confidentialité</span>
+              <span className="text-sm">{t("privacyPolicy")}</span>
             </DropdownMenuItem>
 
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => router.push("/conditions-utilisation")}
+              onClick={() => router.push("/cgu")}
             >
               <FileText className="w-4 h-4 mr-2" />
-              <span className="text-sm">Conditions d&apos;utilisation</span>
+              <span className="text-sm">{t("termsOfUse")}</span>
             </DropdownMenuItem>
 
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => router.push("/conditions-generales")}
+              onClick={() => router.push("/cgs")}
             >
               <Gavel className="w-4 h-4 mr-2" />
-              <span className="text-sm">Conditions générales de service</span>
+              <span className="text-sm">{t("termsOfService")}</span>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
@@ -164,7 +172,7 @@ export default function AppHeader() {
               onClick={() => signOut()}
             >
               <LogOut className="w-4 h-4 mr-2" />
-              Se déconnecter
+              {t("signOut")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -172,21 +180,21 @@ export default function AppHeader() {
       {schoolCode && session?.user?.role === "DIRECTOR" && (
         <div className="hidden md:flex flex-col items-start ml-6 text-xs text-muted-foreground gap-1">
           <div className="flex items-center gap-1">
-            <span>Code établissement :</span>
+            <span>{t("schoolCodeLabel")}</span>
             <span className="font-medium">{schoolCode}</span>
             <button
               onClick={() => {
                 navigator.clipboard.writeText(schoolCode);
-                toast.success("Code copié !");
+                toast.success(t("codeCopied"));
               }}
               className="hover:text-black transition cursor-pointer"
-              title="Copier le code"
+              title={t("copyCode")}
             >
               <Copy className="w-4 h-4" />
             </button>
           </div>
           <div className="flex items-center gap-1">
-            <span>Lien d’inscription :</span>
+            <span>{t("signupLinkLabel")}</span>
             <span className="font-medium">
               https://www.formwise.fr/preinscription?schoolCode={schoolCode}
             </span>
@@ -195,10 +203,10 @@ export default function AppHeader() {
                 navigator.clipboard.writeText(
                   `https://www.formwise.fr/preinscription?schoolCode=${schoolCode}`
                 );
-                toast.success("Lien d'inscription copié !");
+                toast.success(t("linkCopied"));
               }}
               className="hover:text-black transition cursor-pointer"
-              title="Copier le lien"
+              title={t("copyLink")}
             >
               <Copy className="w-4 h-4" />
             </button>

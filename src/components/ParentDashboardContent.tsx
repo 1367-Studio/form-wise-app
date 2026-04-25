@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { DashboardSection } from "../types/types";
 import Sidebar from "../components/Sidebar";
 import MobileSidebar from "../components/MobileSidebar";
@@ -26,6 +27,7 @@ type Student = {
 };
 
 export default function ParentDashboardContent() {
+  const t = useTranslations("Dashboard");
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [showList, setShowList] = useState(false);
 
@@ -47,7 +49,6 @@ export default function ParentDashboardContent() {
     }
   }, []);
 
-  // Sauvegarde la section à chaque changement
   useEffect(() => {
     localStorage.setItem("activeSection", activeSection);
   }, [activeSection]);
@@ -62,7 +63,7 @@ export default function ParentDashboardContent() {
     setStudents((prev) => [...prev, newStudent]);
   };
 
-  if (status === "loading") return <CenteredSpinner label="Chargement..." />;
+  if (status === "loading") return <CenteredSpinner label={t("loading")} />;
   if (!session || session.user.role !== "PARENT") {
     redirect("/login");
     return null;
@@ -84,8 +85,7 @@ export default function ParentDashboardContent() {
         />
       )}
       <main className="flex-1 p-6 mt-10 md:mt-0">
-        {/* <h1 className="text-2xl font-bold mb-4">Tableau de bord parent</h1> */}
-        <p className="mb-6">Bienvenue, {fullName}</p>
+        <p className="mb-6">{t("welcome", { name: fullName })}</p>
 
         {activeSection === "children" && (
           <div className="flex flex-col gap-4">
@@ -104,7 +104,7 @@ export default function ParentDashboardContent() {
                         className="mt-2 cursor-pointer"
                         onClick={() => setShowList(false)}
                       >
-                        Masquer la liste <Minus />
+                        {t("hideStudentList")} <Minus />
                       </Button>
                     </>
                   ) : (
@@ -112,7 +112,7 @@ export default function ParentDashboardContent() {
                       className="mt-4 cursor-pointer"
                       onClick={() => setShowList(true)}
                     >
-                      Voir la liste des élèves <Plus />
+                      {t("viewStudentList")} <Plus />
                     </Button>
                   )}
                 </>
@@ -129,7 +129,7 @@ export default function ParentDashboardContent() {
         {activeSection === "rib" && (
           <>
             <h2 className="text-xl font-semibold mb-4">
-              Coordonnées bancaires
+              {t("bankDetailsTitle")}
             </h2>
             <RIBForm />
           </>
@@ -143,7 +143,9 @@ export default function ParentDashboardContent() {
 
         {activeSection === "settings" && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Paramètres du compte</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("accountSettings")}
+            </h2>
             <AccountSettings />
           </div>
         )}

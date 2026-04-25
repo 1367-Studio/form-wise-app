@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import CenteredSpinner from "./CenteredSpinner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,7 @@ interface UserData {
 }
 
 export default function AccountSettings() {
+  const t = useTranslations("AccountSettings");
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
@@ -38,15 +40,15 @@ export default function AccountSettings() {
           setPhone(data.user.phone || "");
         }
       } catch (error) {
-        console.log("Erreur lors du chargement des données.", error);
-        toast.error("Erreur lors du chargement des données.");
+        console.log(t("loadError"), error);
+        toast.error(t("loadError"));
       } finally {
         setLoading(false);
       }
     };
 
     fetchUser();
-  }, []);
+  }, [t]);
 
   const handleUpdate = async () => {
     setUpdating(true);
@@ -62,12 +64,10 @@ export default function AccountSettings() {
       const data = await res.json();
 
       if (res.ok) {
-        // Update local state
         setUser((prev) =>
           prev ? { ...prev, firstName, lastName, phone } : null
         );
 
-        // Force session update with new data
         await update({
           ...session,
           user: {
@@ -78,28 +78,27 @@ export default function AccountSettings() {
           },
         });
 
-        // Optional: Force a router refresh to update all components
         router.refresh();
 
-        toast.success("Informations mises à jour !");
+        toast.success(t("infoUpdated"));
       } else {
-        toast.error(data?.error || "Échec de la mise à jour.");
+        toast.error(data?.error || t("updateFailed"));
       }
     } catch (error) {
-      console.log("Erreur réseau.", error);
-      toast.error("Erreur réseau.");
+      console.log(t("networkError"), error);
+      toast.error(t("networkError"));
     } finally {
       setUpdating(false);
     }
   };
 
-  if (loading) return <CenteredSpinner label="Chargement..." />;
-  if (!user) return <p>Aucune donnée utilisateur trouvée.</p>;
+  if (loading) return <CenteredSpinner label={t("loading")} />;
+  if (!user) return <p>{t("noUserData")}</p>;
 
   return (
     <div className="max-w-md space-y-4">
       <div>
-        <label className="block text-sm font-medium">Prénom</label>
+        <label className="block text-sm font-medium">{t("firstName")}</label>
         <Input
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -107,18 +106,18 @@ export default function AccountSettings() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Nom</label>
+        <label className="block text-sm font-medium">{t("lastName")}</label>
         <Input value={lastName} onChange={(e) => setLastName(e.target.value)} />
       </div>
 
       <div>
-        <label className="block text-sm font-medium">Téléphone</label>
+        <label className="block text-sm font-medium">{t("phone")}</label>
         <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
       </div>
 
       <div>
         <label className="block text-sm font-medium">
-          Email (non modifiable)
+          {t("emailNonEditable")}
         </label>
         <Input value={user.email} disabled />
       </div>
@@ -128,7 +127,7 @@ export default function AccountSettings() {
         onClick={handleUpdate}
         disabled={updating}
       >
-        {updating ? "Mise à jour..." : "Enregistrer"}
+        {updating ? t("saving") : t("save")}
       </Button>
     </div>
   );

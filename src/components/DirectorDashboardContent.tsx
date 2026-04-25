@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { DashboardSection } from "../types/types";
 import { useMediaQuery } from "../app/hooks/useMediaQuery";
 
@@ -41,13 +42,13 @@ export type InvitedStaff = {
 };
 
 export default function DirectorDashboardContent() {
+  const t = useTranslations("Dashboard");
   const { data: session, status } = useSession();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [activeSection, setActiveSection] =
     useState<DashboardSection>("schoolYear");
   const [invitedStaffList, setInvitedStaffList] = useState<InvitedStaff[]>([]);
 
-  // Récupérer les staff invités
   useEffect(() => {
     const fetchStaff = async () => {
       try {
@@ -55,7 +56,7 @@ export default function DirectorDashboardContent() {
         const data = await res.json();
         setInvitedStaffList(data.staff || []);
       } catch (error) {
-        console.error("Erreur lors du chargement du staff invité :", error);
+        console.error("Invited-staff fetch error:", error);
       }
     };
 
@@ -64,7 +65,6 @@ export default function DirectorDashboardContent() {
     }
   }, [activeSection]);
 
-  // Charger depuis localStorage
   useEffect(() => {
     const savedSection = localStorage.getItem("directorActiveSection");
     if (savedSection) {
@@ -72,13 +72,14 @@ export default function DirectorDashboardContent() {
     }
   }, []);
 
-  // Sauvegarder dans localStorage à chaque changement
   useEffect(() => {
     localStorage.setItem("directorActiveSection", activeSection);
   }, [activeSection]);
 
-  if (status === "loading") return <CenteredSpinner label="Chargement..." />;
+  if (status === "loading") return <CenteredSpinner label={t("loading")} />;
   if (!session || session.user.role !== "DIRECTOR") redirect("/login");
+
+  const fullName = `${session.user.firstName} ${session.user.lastName}`.trim();
 
   return (
     <div className="flex min-h-screen">
@@ -95,9 +96,7 @@ export default function DirectorDashboardContent() {
       )}
 
       <main className="flex-1 p-6 mt-10 md:mt-0">
-        <p className="mb-6">
-          Bienvenue, {session.user.firstName} {session.user.lastName}
-        </p>
+        <p className="mb-6">{t("welcome", { name: fullName })}</p>
 
         {activeSection === "schoolYear" && (
           <>
@@ -159,7 +158,9 @@ export default function DirectorDashboardContent() {
 
         {activeSection === "settings" && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Paramètres du compte</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("accountSettings")}
+            </h2>
             <AccountSettings />
           </div>
         )}

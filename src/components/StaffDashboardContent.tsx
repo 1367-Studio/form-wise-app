@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { DashboardSection } from "../types/types";
 import { useMediaQuery } from "../app/hooks/useMediaQuery";
 
@@ -15,12 +16,12 @@ import CenteredSpinner from "./CenteredSpinner";
 import AccountSettings from "./AccountSettings";
 
 export default function StaffDashboardContent() {
+  const t = useTranslations("Dashboard");
   const { data: session, status } = useSession();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [activeSection, setActiveSection] =
     useState<DashboardSection>("eleves");
 
-  // Charger section sauvegardée
   useEffect(() => {
     const savedSection = localStorage.getItem("staffActiveSection");
     if (savedSection) {
@@ -28,13 +29,14 @@ export default function StaffDashboardContent() {
     }
   }, []);
 
-  // Sauvegarder la section active
   useEffect(() => {
     localStorage.setItem("staffActiveSection", activeSection);
   }, [activeSection]);
 
-  if (status === "loading") return <CenteredSpinner label="Chargement..." />;
+  if (status === "loading") return <CenteredSpinner label={t("loading")} />;
   if (!session || session.user.role !== "STAFF") redirect("/login");
+
+  const fullName = `${session.user.firstName} ${session.user.lastName}`.trim();
 
   return (
     <div className="flex min-h-screen">
@@ -51,19 +53,17 @@ export default function StaffDashboardContent() {
       )}
 
       <main className="flex-1 p-6 mt-10 md:mt-0">
-        <p className="mb-6">
-          Bienvenue, {session.user.firstName} {session.user.lastName}
-        </p>
+        <p className="mb-6">{t("welcome", { name: fullName })}</p>
 
         {activeSection === "notification" && <DirectorNotificationList />}
-
         {activeSection === "eleves" && <StudentListWithFilter />}
-
         {activeSection === "documents" && <DirectorDocumentList />}
 
         {activeSection === "settings" && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Paramètres du compte</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("accountSettings")}
+            </h2>
             <AccountSettings />
           </div>
         )}

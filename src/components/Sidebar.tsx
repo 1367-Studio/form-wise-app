@@ -1,6 +1,7 @@
 "use client";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import SidebarBtn from "./SidebarBtn";
 import { DashboardSection } from "../types/types";
 import {
@@ -28,6 +29,7 @@ export default function Sidebar({
   activeSection: DashboardSection;
   setActiveSectionAction: Dispatch<SetStateAction<DashboardSection>>;
 }) {
+  const t = useTranslations("Sidebar");
   const { data: session } = useSession();
   const role = session?.user?.role;
   const [hasUnreadNotifs, setHasUnreadNotifs] = useState<boolean | null>(null);
@@ -49,7 +51,7 @@ export default function Sidebar({
 
         setHasUnreadNotifs(hasUnread);
       } catch (error) {
-        console.error("Erreur lors du fetch des notifications :", error);
+        console.error("Error fetching notifications:", error);
       }
     };
 
@@ -61,91 +63,91 @@ export default function Sidebar({
       {role === "DIRECTOR" && (
         <>
           <SidebarBtn
-            label="Année scolaire"
+            label={t("schoolYear")}
             section="schoolYear"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<CalendarDays className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Classes"
+            label={t("classes")}
             section="classes"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<LayoutGrid className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Matières"
+            label={t("subjects")}
             section="subjects"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<BookOpen className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Professeurs"
+            label={t("teachers")}
             section="teachers"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<UserRound className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Notifications"
+            label={t("notifications")}
             section="notification"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Bell className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Éleves"
+            label={t("students")}
             section="eleves"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Users className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Élèves en attente"
+            label={t("pendingStudents")}
             section="pendingStudents"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<UserLock className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Inscriptions en attente"
+            label={t("pendingPreinscriptions")}
             section="pendingPreinscriptions"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<ShieldAlert className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Documents"
+            label={t("documents")}
             section="documents"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<FileText className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Graphiques"
+            label={t("charts")}
             section="charts"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<ChartPie className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Paramètres"
+            label={t("settings")}
             section="settings"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Settings className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Inviter Parents"
+            label={t("inviteParents")}
             section="inviteParent"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<User className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Inviter du personnels"
+            label={t("inviteStaff")}
             section="inviteStaff"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
@@ -156,21 +158,21 @@ export default function Sidebar({
       {role === "PARENT" && (
         <>
           <SidebarBtn
-            label="Mes enfants"
+            label={t("myChildren")}
             section="children"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Users className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Documents"
+            label={t("documents")}
             section="documents"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<FileText className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Notifications"
+            label={t("notifications")}
             section="notification"
             activeSection={activeSection}
             setActiveSection={(section) => {
@@ -181,14 +183,14 @@ export default function Sidebar({
             icon={<Bell className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Coordonnées bancaires"
+            label={t("bankDetails")}
             section="rib"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<CreditCard className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Paramètres"
+            label={t("settings")}
             section="settings"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
@@ -199,14 +201,14 @@ export default function Sidebar({
       {role === "TEACHER" && (
         <>
           <SidebarBtn
-            label="Mon Profil"
+            label={t("myProfile")}
             section="myProfile"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<User className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Notifications"
+            label={t("notifications")}
             section="notifications"
             activeSection={activeSection}
             setActiveSection={(section) => {
@@ -217,14 +219,14 @@ export default function Sidebar({
             icon={<Bell className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Éleves"
+            label={t("students")}
             section="eleves"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Users className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Paramètres"
+            label={t("settings")}
             section="settings"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
@@ -235,21 +237,21 @@ export default function Sidebar({
       {role === "SUPER_ADMIN" && (
         <>
           <SidebarBtn
-            label="Établissement"
+            label={t("schools")}
             section="tenants"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<LayoutGrid className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Statistiques"
+            label={t("statistics")}
             section="chartsAdmin"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<ChartPie className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="settings"
+            label={t("settings")}
             section="settingsAdmin"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
@@ -260,21 +262,21 @@ export default function Sidebar({
       {role === "STAFF" && (
         <>
           <SidebarBtn
-            label="Élèves"
+            label={t("students")}
             section="eleves"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Users className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Notifications"
+            label={t("notifications")}
             section="notification"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Bell className="w-4 h-4" />}
           />
           <SidebarBtn
-            label="Paramètres"
+            label={t("settings")}
             section="settings"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}

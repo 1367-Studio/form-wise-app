@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useMediaQuery } from "../app/hooks/useMediaQuery";
 import { DashboardSection } from "../types/types";
 
@@ -14,6 +15,7 @@ import AccountSettings from "./AccountSettings";
 import CenteredSpinner from "./CenteredSpinner";
 
 export default function SuperAdminDashboardContent() {
+  const t = useTranslations("Dashboard");
   const { data: session, status } = useSession();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [activeSection, setActiveSection] =
@@ -30,8 +32,10 @@ export default function SuperAdminDashboardContent() {
     localStorage.setItem("superAdminActiveSection", activeSection);
   }, [activeSection]);
 
-  if (status === "loading") return <CenteredSpinner label="Chargement..." />;
+  if (status === "loading") return <CenteredSpinner label={t("loading")} />;
   if (!session || session.user.role !== "SUPER_ADMIN") redirect("/login");
+
+  const fullName = `${session.user.firstName} ${session.user.lastName}`.trim();
 
   return (
     <div className="flex min-h-screen">
@@ -48,15 +52,15 @@ export default function SuperAdminDashboardContent() {
       )}
 
       <main className="flex-1 p-6 mt-10 md:mt-0">
-        <p className="mb-6">
-          Bienvenue, {session.user.firstName} {session.user.lastName}
-        </p>
+        <p className="mb-6">{t("welcome", { name: fullName })}</p>
 
         {activeSection === "tenants" && <AdminTenantList />}
         {activeSection === "chartsAdmin" && <AdminCharts />}
         {activeSection === "settingsAdmin" && (
           <>
-            <h2 className="text-xl font-semibold mb-4">Paramètres du compte</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("accountSettings")}
+            </h2>
             <AccountSettings />
           </>
         )}
