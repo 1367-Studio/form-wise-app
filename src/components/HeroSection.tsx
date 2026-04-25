@@ -38,7 +38,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="bg-white relative isolate pt-14"
+      className="paper-bg relative isolate pt-14"
       aria-label={t("introAriaLabel")}
     >
       <div className="py-24 sm:py-32 lg:pb-40">

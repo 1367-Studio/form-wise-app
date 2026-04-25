@@ -110,7 +110,7 @@ export default function PricingSection() {
   }, []);
 
   return (
-    <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+    <div className="relative isolate paper-bg px-6 py-24 sm:py-32 lg:px-8">
       <div className="mx-auto max-w-4xl text-center" ref={titleRef}>
         <h2 className="text-base/7 font-semibold text-black">
           {t("section")}
