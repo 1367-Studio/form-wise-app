@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import DocumentUploader from "./DocumentUploader";
 
 type Student = {
@@ -19,30 +20,31 @@ type Student = {
 };
 
 export default function DocumentManager() {
+  const t = useTranslations("Documents");
   const [students, setStudents] = useState<Student[]>([]);
   const [selectedStudentId, setSelectedStudentId] = useState<string>("");
 
   useEffect(() => {
     const fetchStudents = async () => {
       const res = await fetch("/api/students/me");
-      if (!res.ok) return toast.error("Erreur lors du chargement des élèves");
+      if (!res.ok) return toast.error(t("loadStudentsError"));
 
       const data = await res.json();
       setStudents(data.students || []);
     };
 
     fetchStudents();
-  }, []);
+  }, [t]);
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Documents des élèves</h2>
+      <h2 className="text-xl font-semibold">{t("managerTitle")}</h2>
 
       <div className="space-y-2">
-        <Label>Choisir un élève</Label>
+        <Label>{t("chooseStudent")}</Label>
         <Select onValueChange={setSelectedStudentId}>
           <SelectTrigger className="w-[300px]">
-            <SelectValue placeholder="Sélectionner un élève" />
+            <SelectValue placeholder={t("studentPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             {students.map((student) => (

@@ -12,6 +12,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { UserCheck, Clock } from "lucide-react";
+import { useTranslations } from "next-intl";
 import EmptyState from "./EmptyState";
 import { useDebounce } from "../../src/hooks/useDebounce";
 import EditStaffModal from "./EditStaffModal";
@@ -40,6 +41,7 @@ export default function InvitedStaffList({
   staffList,
   setStaffListAction,
 }: InvitedStaffListProps) {
+  const t = useTranslations("InvitedStaff");
   const [isMobile, setIsMobile] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
@@ -105,9 +107,11 @@ export default function InvitedStaffList({
   if (staffList.length === 0) {
     return (
       <EmptyState
-        message="Aucun staff invité pour le moment."
-        actionLabel="Inviter un staff"
-        onAction={() => console.log("Inviter un staff")}
+        message={t("emptyMessage")}
+        actionLabel={t("emptyAction")}
+        onAction={() => {
+          /* CTA hint only */
+        }}
       />
     );
   }
@@ -115,20 +119,19 @@ export default function InvitedStaffList({
   const renderBadge = (accepted: boolean) =>
     accepted ? (
       <Badge variant="default" className="flex items-center gap-1">
-        <UserCheck className="w-4 h-4" /> Validé
+        <UserCheck className="w-4 h-4" /> {t("validated")}
       </Badge>
     ) : (
       <Badge variant="outline" className="flex items-center gap-1">
-        <Clock className="w-4 h-4" /> En attente
+        <Clock className="w-4 h-4" /> {t("pending")}
       </Badge>
     );
 
   return (
     <div className="space-y-4">
-      {/* Filtres */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <Input
-          placeholder="Rechercher un membre (nom, email)..."
+          placeholder={t("searchPlaceholder")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full sm:max-w-xs"
@@ -138,14 +141,13 @@ export default function InvitedStaffList({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="created-desc">Plus récents</SelectItem>
-            <SelectItem value="created-asc">Plus anciens</SelectItem>
-            <SelectItem value="role">Fonction (A-Z)</SelectItem>
+            <SelectItem value="created-desc">{t("sortRecent")}</SelectItem>
+            <SelectItem value="created-asc">{t("sortOldest")}</SelectItem>
+            <SelectItem value="role">{t("sortRole")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
-      {/* Affichage */}
       {isMobile ? (
         <div className="grid gap-4">
           {paginatedList.map((staff) => (
@@ -196,12 +198,12 @@ export default function InvitedStaffList({
           <table className="min-w-full text-sm">
             <thead className="bg-gray-50 dark:bg-zinc-800">
               <tr className="text-left text-gray-500 dark:text-gray-300 uppercase text-xs">
-                <th className="px-4 py-3">Nom</th>
-                <th className="px-4 py-3">Fonction</th>
-                <th className="px-4 py-3">Email</th>
-                <th className="px-4 py-3">Téléphone</th>
-                <th className="px-4 py-3">Statut</th>
-                <th className="px-4 py-3 text-center">Actions</th>
+                <th className="px-4 py-3">{t("headerName")}</th>
+                <th className="px-4 py-3">{t("headerRole")}</th>
+                <th className="px-4 py-3">{t("headerEmail")}</th>
+                <th className="px-4 py-3">{t("headerPhone")}</th>
+                <th className="px-4 py-3">{t("headerStatus")}</th>
+                <th className="px-4 py-3 text-center">{t("headerActions")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-zinc-700">
@@ -247,7 +249,6 @@ export default function InvitedStaffList({
         </div>
       )}
 
-      {/* Pagination */}
       <div className="flex justify-end pt-4">
         <Pagination
           currentPage={currentPage}

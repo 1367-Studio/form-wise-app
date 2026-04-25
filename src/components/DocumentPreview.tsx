@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface DocumentPreviewProps {
   url: string;
@@ -12,6 +13,7 @@ export default function DocumentPreview({
   fileName,
   fileType,
 }: DocumentPreviewProps) {
+  const t = useTranslations("Documents");
   if (fileType.startsWith("image/")) {
     return (
       <div className="mt-2">
@@ -46,7 +48,7 @@ export default function DocumentPreview({
         rel="noopener noreferrer"
         className="text-blue-600 underline"
       >
-        Télécharger {fileName}
+        {t("downloadNamed", { name: fileName })}
       </a>
     </div>
   );

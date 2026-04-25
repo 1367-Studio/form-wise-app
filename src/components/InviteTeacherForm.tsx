@@ -4,12 +4,14 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useTranslations } from "next-intl";
 
 export default function InviteTeacherForm({
   onInvited,
 }: {
   onInvited?: () => void;
 }) {
+  const t = useTranslations("InviteTeacherForm");
   const [success, setSuccess] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -39,21 +41,21 @@ export default function InviteTeacherForm({
       try {
         data = await res.json();
       } catch (err) {
-        console.error("❌ Erreur parsing JSON:", err);
-        throw new Error("Réponse invalide du serveur");
+        console.error("JSON parse error:", err);
+        throw new Error("Invalid server response");
       }
       if (data.success) {
-        setSuccess(`Invitation envoyée à ${email}`);
+        setSuccess(t("successInvited", { email }));
         setEmail("");
         setFirstName("");
         setLastName("");
         if (onInvited) onInvited();
       } else {
-        setError(data.error || "Une erreur est survenue");
+        setError(data.error || t("errorGeneric"));
       }
     } catch (err) {
-      console.error("Erreur lors de l'envoi de l'invitation :", err);
-      setError("Une erreur est survenue.");
+      console.error("Invite teacher error:", err);
+      setError(t("errorGeneric"));
     } finally {
       setLoading(false);
     }
@@ -71,7 +73,7 @@ export default function InviteTeacherForm({
       )}
 
       <div className="flex flex-col gap-2">
-        <Label>Prénom</Label>
+        <Label>{t("firstNameLabel")}</Label>
         <Input
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -80,7 +82,7 @@ export default function InviteTeacherForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Nom</Label>
+        <Label>{t("lastNameLabel")}</Label>
         <Input
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
@@ -89,7 +91,7 @@ export default function InviteTeacherForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Email</Label>
+        <Label>{t("emailLabel")}</Label>
         <Input
           type="email"
           value={email}
@@ -99,7 +101,7 @@ export default function InviteTeacherForm({
       </div>
 
       <Button type="submit" disabled={loading} className="cursor-pointer">
-        {loading ? "Envoi..." : "Envoyer l’invitation"}
+        {loading ? t("sending") : t("submitButton")}
       </Button>
     </form>
   );

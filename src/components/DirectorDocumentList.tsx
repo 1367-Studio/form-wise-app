@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Eye } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -33,6 +34,7 @@ interface ClassItem {
 }
 
 export default function DirectorDocumentList() {
+  const t = useTranslations("Documents");
   const [students, setStudents] = useState<StudentWithDocuments[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDoc, setSelectedDoc] = useState<Document | null>(null);
@@ -72,7 +74,7 @@ export default function DirectorDocumentList() {
         setStudents(data.students || []);
         setTotal(data.total || 0);
       } catch (error) {
-        console.error("Erreur chargement docs:", error);
+        console.error("Documents fetch error:", error);
       } finally {
         setLoading(false);
       }
@@ -90,10 +92,9 @@ export default function DirectorDocumentList() {
 
   return (
     <div className="space-y-6">
-      {/* Filtres */}
       <div className="flex flex-wrap items-center gap-4">
         <Input
-          placeholder="Rechercher un élève..."
+          placeholder={t("searchPlaceholder")}
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -102,7 +103,7 @@ export default function DirectorDocumentList() {
           className="max-w-sm"
         />
         <Input
-          placeholder="Filtrer par code..."
+          placeholder={t("codeFilterPlaceholder")}
           value={code}
           onChange={(e) => {
             setCode(e.target.value);
@@ -118,7 +119,7 @@ export default function DirectorDocumentList() {
           }}
           className="border rounded px-3 py-2"
         >
-          <option value="">Toutes les classes</option>
+          <option value="">{t("allClasses")}</option>
           {classes.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
@@ -128,30 +129,37 @@ export default function DirectorDocumentList() {
       </div>
 
       {loading ? (
-        <p>Chargement des documents...</p>
+        <p>{t("loading")}</p>
       ) : (
         <>
           {students.map((student) => (
             <div key={student.id} className="border p-4 rounded shadow-sm">
               <h3 className="font-semibold mb-2">
-                Documents de {student.firstName} {student.lastName}
+                {t("studentDocsTitle", {
+                  name: `${student.firstName} ${student.lastName}`,
+                })}
               </h3>
 
               {student.documents.length === 0 ? (
-                <p className="text-sm text-gray-500">Aucun document</p>
+                <p className="text-sm text-gray-500">{t("noDocuments")}</p>
               ) : (
                 <>
-                  {/* TABLE - Desktop */}
                   <div className="hidden md:block overflow-x-auto">
                     <table className="w-full text-sm table-fixed">
                       <thead className="bg-gray-100">
                         <tr>
                           <th className="text-left p-2 w-1/3">
-                            Nom du fichier
+                            {t("headerFileName")}
                           </th>
-                          <th className="text-left p-2 w-1/4">Date</th>
-                          <th className="text-left p-2 w-1/4">Type</th>
-                          <th className="text-left p-2 w-1/6">Aperçu</th>
+                          <th className="text-left p-2 w-1/4">
+                            {t("headerDate")}
+                          </th>
+                          <th className="text-left p-2 w-1/4">
+                            {t("headerType")}
+                          </th>
+                          <th className="text-left p-2 w-1/6">
+                            {t("headerPreview")}
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -173,7 +181,6 @@ export default function DirectorDocumentList() {
                     </table>
                   </div>
 
-                  {/* CARDS - Mobile */}
                   <div className="block md:hidden space-y-4">
                     {student.documents.map((doc) => (
                       <div
@@ -190,7 +197,7 @@ export default function DirectorDocumentList() {
                           className="text-blue-500 text-sm mt-1 flex items-center cursor-pointer gap-1"
                         >
                           <Eye className="w-4 h-4" />
-                          Aperçu
+                          {t("previewMobile")}
                         </button>
                       </div>
                     ))}
@@ -200,7 +207,6 @@ export default function DirectorDocumentList() {
             </div>
           ))}
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-4 mt-4">
               <Button
@@ -208,34 +214,35 @@ export default function DirectorDocumentList() {
                 disabled={page === 1}
                 className="cursor-pointer"
               >
-                Précédent
+                {t("previousPage")}
               </Button>
               <span>
-                Page {page} / {totalPages}
+                {t("pageStatus", { current: page, total: totalPages })}
               </span>
               <Button
                 onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
                 className="cursor-pointer"
                 disabled={page === totalPages}
               >
-                Suivant
+                {t("nextPage")}
               </Button>
             </div>
           )}
         </>
       )}
 
-      {/* Modale */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent className="max-w-3xl">
           <DialogHeader>
-            <DialogTitle>Aperçu : {selectedDoc?.fileName}</DialogTitle>
+            <DialogTitle>
+              {t("previewTitle", { name: selectedDoc?.fileName ?? "" })}
+            </DialogTitle>
           </DialogHeader>
           {selectedDoc?.fileType.includes("pdf") ? (
             <iframe
               src={selectedDoc.url}
               className="w-full h-[70vh]"
-              title="Aperçu PDF"
+              title={t("pdfAlt")}
             />
           ) : (
             selectedDoc?.url && (

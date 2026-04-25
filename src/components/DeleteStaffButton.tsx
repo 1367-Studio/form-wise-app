@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 type DeleteStaffButtonProps = {
   staffId: string;
@@ -22,6 +23,7 @@ export default function DeleteStaffButton({
   staffName,
   onDeletedAction,
 }: DeleteStaffButtonProps) {
+  const t = useTranslations("DeleteStaffButton");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -36,10 +38,10 @@ export default function DeleteStaffButton({
         onDeletedAction(staffId);
         setOpen(false);
       } else {
-        console.error("Erreur lors de la suppression");
+        console.error("Delete error");
       }
     } catch (err) {
-      console.error("Erreur réseau", err);
+      console.error("Network error", err);
     } finally {
       setLoading(false);
     }
@@ -59,19 +61,16 @@ export default function DeleteStaffButton({
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Supprimer {staffName} ?</DialogTitle>
+          <DialogTitle>{t("title", { name: staffName })}</DialogTitle>
         </DialogHeader>
-        <p className="text-sm text-muted-foreground">
-          Cette action est irréversible. Voulez-vous vraiment supprimer ce
-          membre ?
-        </p>
+        <p className="text-sm text-muted-foreground">{t("warning")}</p>
         <div className="flex justify-end gap-2 pt-4">
           <Button
             className="cursor-pointer"
             variant="outline"
             onClick={() => setOpen(false)}
           >
-            Annuler
+            {t("cancel")}
           </Button>
           <Button
             variant="destructive"
@@ -79,7 +78,7 @@ export default function DeleteStaffButton({
             disabled={loading}
             className="cursor-pointer"
           >
-            {loading ? "Suppression..." : "Supprimer"}
+            {loading ? t("deleting") : t("delete")}
           </Button>
         </div>
       </DialogContent>

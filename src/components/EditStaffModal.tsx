@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export type Staff = {
   id: string;
@@ -31,6 +32,7 @@ export default function EditStaffModal({
   staff,
   onSaveAction,
 }: EditStaffModalProps) {
+  const t = useTranslations("EditStaffModal");
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState<Staff>(staff);
   const [loading, setLoading] = useState(false);
@@ -52,10 +54,10 @@ export default function EditStaffModal({
         onSaveAction(formData);
         setOpen(false);
       } else {
-        console.error("Erreur de mise à jour");
+        console.error("Update error");
       }
     } catch (error) {
-      console.error("Erreur réseau", error);
+      console.error("Network error", error);
     } finally {
       setLoading(false);
     }
@@ -71,26 +73,26 @@ export default function EditStaffModal({
 
       <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
-          <DialogTitle>Modifier le membre</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
           <div>
-            <Label>Prénom</Label>
+            <Label>{t("firstNameLabel")}</Label>
             <Input
               value={formData.firstName}
               onChange={(e) => handleChange("firstName", e.target.value)}
             />
           </div>
           <div>
-            <Label>Nom</Label>
+            <Label>{t("lastNameLabel")}</Label>
             <Input
               value={formData.lastName}
               onChange={(e) => handleChange("lastName", e.target.value)}
             />
           </div>
           <div>
-            <Label>Email</Label>
+            <Label>{t("emailLabel")}</Label>
             <Input
               value={formData.email}
               onChange={(e) => handleChange("email", e.target.value)}
@@ -98,14 +100,14 @@ export default function EditStaffModal({
             />
           </div>
           <div>
-            <Label>Téléphone</Label>
+            <Label>{t("phoneLabel")}</Label>
             <Input
               value={formData.phone}
               onChange={(e) => handleChange("phone", e.target.value)}
             />
           </div>
           <div>
-            <Label>Fonction</Label>
+            <Label>{t("roleLabel")}</Label>
             <Input
               value={formData.roleLabel}
               onChange={(e) => handleChange("roleLabel", e.target.value)}
@@ -117,7 +119,7 @@ export default function EditStaffModal({
             disabled={loading}
             className="w-full cursor-pointer"
           >
-            {loading ? "Sauvegarde..." : "Enregistrer"}
+            {loading ? t("saving") : t("saveButton")}
           </Button>
         </div>
       </DialogContent>

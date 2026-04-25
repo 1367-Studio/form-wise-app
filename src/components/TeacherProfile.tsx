@@ -1,22 +1,24 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 import { useMediaQuery } from "../app/hooks/useMediaQuery";
 import type { TeacherData } from "../types/teacher";
 
 export default function TeacherProfile({ teacher }: { teacher: TeacherData }) {
+  const t = useTranslations("TeacherProfile");
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const rows = [
     {
-      label: "Nom",
+      label: t("name"),
       value: `${teacher?.user?.firstName} ${teacher?.user?.lastName}`,
     },
-    { label: "Email", value: teacher?.user?.email },
-    { label: "Téléphone", value: teacher.phone || "Non renseigné" },
-    { label: "Adresse", value: teacher.address || "Non renseignée" },
-    { label: "Classe assignée", value: teacher.class?.name || "—" },
-    { label: "Matière", value: teacher.subject?.name || "—" },
+    { label: t("email"), value: teacher?.user?.email },
+    { label: t("phone"), value: teacher.phone || t("notProvided") },
+    { label: t("address"), value: teacher.address || t("notProvidedFem") },
+    { label: t("assignedClass"), value: teacher.class?.name || t("noValue") },
+    { label: t("subject"), value: teacher.subject?.name || t("noValue") },
   ];
 
   return isMobile ? (
@@ -35,8 +37,8 @@ export default function TeacherProfile({ teacher }: { teacher: TeacherData }) {
       <table className="min-w-full text-sm">
         <thead className="bg-muted text-muted-foreground uppercase text-xs">
           <tr>
-            <th className="px-4 py-3 text-left">Champ</th>
-            <th className="px-4 py-3 text-left">Valeur</th>
+            <th className="px-4 py-3 text-left">{t("headerField")}</th>
+            <th className="px-4 py-3 text-left">{t("headerValue")}</th>
           </tr>
         </thead>
         <tbody className="divide-y">

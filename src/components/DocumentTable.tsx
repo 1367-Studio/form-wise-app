@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Eye } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -24,18 +25,21 @@ interface Props {
 }
 
 export default function DocumentTable({ studentName, documents }: Props) {
+  const t = useTranslations("Documents");
   return (
     <div className="mb-8 mt-8 border rounded-md p-4">
-      <h3 className="font-semibold mb-4">Documents de {studentName}</h3>
+      <h3 className="font-semibold mb-4">
+        {t("studentDocsTitle", { name: studentName })}
+      </h3>
       {documents.length === 0 ? (
-        <p className="text-sm text-gray-500">Aucun document</p>
+        <p className="text-sm text-gray-500">{t("noDocuments")}</p>
       ) : (
         <table className="w-full text-sm table-fixed">
           <thead>
             <tr className="text-left text-gray-500">
-              <th className="w-1/2">Nom</th>
-              <th className="w-1/4 hidden sm:table-cell">Date</th>
-              <th className="w-1/4">Aperçu</th>
+              <th className="w-1/2">{t("headerName")}</th>
+              <th className="w-1/4 hidden sm:table-cell">{t("headerDate")}</th>
+              <th className="w-1/4">{t("headerPreview")}</th>
             </tr>
           </thead>
           <tbody>
@@ -49,7 +53,7 @@ export default function DocumentTable({ studentName, documents }: Props) {
                   <Dialog>
                     <DialogTrigger asChild>
                       <button className="cursor-pointer flex items-center gap-1">
-                        <Eye className="w-4 h-4" /> Voir
+                        <Eye className="w-4 h-4" /> {t("view")}
                       </button>
                     </DialogTrigger>
                     <DialogContent className="max-w-3xl">
@@ -78,7 +82,7 @@ export default function DocumentTable({ studentName, documents }: Props) {
                               rel="noopener noreferrer"
                               className="text-blue-600 underline"
                             >
-                              Télécharger le fichier
+                              {t("downloadFile")}
                             </a>
                           </p>
                         )}

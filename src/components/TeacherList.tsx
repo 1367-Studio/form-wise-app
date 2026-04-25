@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserPen, UserX } from "lucide-react";
+import { useTranslations } from "next-intl";
 import InviteTeacherForm from "./InviteTeacherForm";
 import TeacherForm from "./TeacherForm";
 import CenteredSpinner from "./CenteredSpinner";
@@ -30,6 +31,7 @@ export default function TeacherList({
 }: {
   visible?: boolean;
 }) {
+  const t = useTranslations("TeacherList");
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
@@ -44,7 +46,7 @@ export default function TeacherList({
       const data = await res.json();
       setTeachers(data.teachers || []);
     } catch (error) {
-      console.error("Erreur chargement enseignants:", error);
+      console.error("Teachers fetch error:", error);
     } finally {
       setLoading(false);
     }
@@ -72,10 +74,10 @@ export default function TeacherList({
       });
       const data = await res.json();
       if (data.success) {
-        setTeachers((prev) => prev.filter((t) => t.id !== id));
+        setTeachers((prev) => prev.filter((tch) => tch.id !== id));
       }
     } catch (error) {
-      console.error("Erreur suppression professeur:", error);
+      console.error("Teacher delete error:", error);
     }
   };
 
@@ -85,10 +87,10 @@ export default function TeacherList({
 
   const handleCreatedOrUpdated = (updatedTeacher: Teacher) => {
     setTeachers((prev) => {
-      const exists = prev.find((t) => t.id === updatedTeacher.id);
+      const exists = prev.find((tch) => tch.id === updatedTeacher.id);
       if (exists) {
-        return prev.map((t) =>
-          t.id === updatedTeacher.id ? updatedTeacher : t
+        return prev.map((tch) =>
+          tch.id === updatedTeacher.id ? updatedTeacher : tch
         );
       } else {
         return [...prev, updatedTeacher];
@@ -97,14 +99,12 @@ export default function TeacherList({
     setSelectedTeacher(null);
   };
 
-  if (loading) return <CenteredSpinner label="Chargement des professeurs..." />;
+  if (loading) return <CenteredSpinner label={t("loading")} />;
 
   return (
     <div className="mt-6 flex flex-col gap-6">
-      {/* Formulaire d’invitation */}
       <InviteTeacherForm onInvited={fetchTeachers} />
 
-      {/* Formulaire pour assigner classe/matière */}
       {selectedTeacher && (
         <TeacherForm
           teacher={selectedTeacher}
@@ -112,18 +112,14 @@ export default function TeacherList({
         />
       )}
 
-      {/* Toggle liste */}
       <Button
         className="cursor-pointer"
         onClick={() => setShowList(!showList)}
         variant="outline"
       >
-        {showList
-          ? "Masquer la liste des professeurs"
-          : "Voir tous les professeurs"}
+        {showList ? t("hideList") : t("showList")}
       </Button>
 
-      {/* Liste des professeurs */}
       {showList &&
         (isMobile ? (
           <div className="flex flex-col gap-4">
@@ -133,8 +129,9 @@ export default function TeacherList({
                   {teacher.user.firstName} {teacher.user.lastName}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Matière : {teacher.subject?.name || "—"} <br />
-                  Classe : {teacher.class?.name || "—"}
+                  {t("subjectLabel")} {teacher.subject?.name || t("noValue")}{" "}
+                  <br />
+                  {t("classLabel")} {teacher.class?.name || t("noValue")}
                 </p>
                 <div className="mt-3 flex justify-end gap-2">
                   <Button
@@ -144,7 +141,7 @@ export default function TeacherList({
                     className="cursor-pointer"
                   >
                     <UserPen className="h-4 w-4 mr-1" />
-                    Modifier
+                    {t("edit")}
                   </Button>
                   <Button
                     variant="destructive"
@@ -153,7 +150,7 @@ export default function TeacherList({
                     className="cursor-pointer"
                   >
                     <UserX className="h-4 w-4 mr-1" />
-                    Supprimer
+                    {t("delete")}
                   </Button>
                 </div>
               </div>
@@ -164,10 +161,10 @@ export default function TeacherList({
             <table className="min-w-full text-sm">
               <thead className="bg-gray-50 dark:bg-zinc-800">
                 <tr className="text-left text-gray-500 dark:text-gray-300 uppercase text-xs">
-                  <th className="px-4 py-3">Professeur</th>
-                  <th className="px-4 py-3">Matière</th>
-                  <th className="px-4 py-3">Classe</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
+                  <th className="px-4 py-3">{t("headerTeacher")}</th>
+                  <th className="px-4 py-3">{t("headerSubject")}</th>
+                  <th className="px-4 py-3">{t("headerClass")}</th>
+                  <th className="px-4 py-3 text-right">{t("headerActions")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 dark:divide-zinc-700">
@@ -180,10 +177,10 @@ export default function TeacherList({
                       {teacher.user?.firstName} {teacher.user?.lastName}
                     </td>
                     <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
-                      {teacher.subject?.name || "—"}
+                      {teacher.subject?.name || t("noValue")}
                     </td>
                     <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
-                      {teacher.class?.name || "—"}
+                      {teacher.class?.name || t("noValue")}
                     </td>
                     <td className="px-4 py-3 text-right space-x-2">
                       <Button
@@ -193,7 +190,7 @@ export default function TeacherList({
                         className="cursor-pointer"
                       >
                         <UserPen className="h-4 w-4 mr-1" />
-                        Modifier
+                        {t("edit")}
                       </Button>
                       <Button
                         variant="destructive"
@@ -202,7 +199,7 @@ export default function TeacherList({
                         className="cursor-pointer"
                       >
                         <UserX className="h-4 w-4 mr-1" />
-                        Supprimer
+                        {t("delete")}
                       </Button>
                     </td>
                   </tr>
