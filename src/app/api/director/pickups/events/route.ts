@@ -5,6 +5,7 @@ import {
   enforceSameOrigin,
   requireSession,
 } from "../../../../../lib/security";
+import { sendPushToUser } from "../../../../../lib/webpush";
 
 export async function POST(req: Request) {
   const csrf = enforceSameOrigin(req);
@@ -46,7 +47,7 @@ export async function POST(req: Request) {
 
   const student = await prisma.student.findFirst({
     where: { id: body.studentId, ...tenantWhere },
-    select: { id: true, tenantId: true },
+    select: { id: true, tenantId: true, firstName: true, parentId: true },
   });
   if (!student) {
     return NextResponse.json({ error: "Élève introuvable" }, { status: 404 });
@@ -99,6 +100,24 @@ export async function POST(req: Request) {
         select: { firstName: true, lastName: true, relationship: true },
       },
     },
+  });
+
+  // Fire-and-forget push to the parent. Failures are logged inside
+  // sendPushToUser; we don't want a push hiccup to fail the API call.
+  const pickupName =
+    event.authorization
+      ? `${event.authorization.firstName} ${event.authorization.lastName}`
+      : event.pickupName ?? null;
+  void sendPushToUser(student.parentId, {
+    title:
+      event.type === "ENTRY"
+        ? `${student.firstName} est arrivé(e) à l'école`
+        : `${student.firstName} a quitté l'école`,
+    body: pickupName
+      ? `Avec ${pickupName} · ${new Date(event.occurredAt).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}`
+      : new Date(event.occurredAt).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
+    tag: `pickup-${student.id}`,
+    url: "/dashboard/parent",
   });
 
   return NextResponse.json({ event });

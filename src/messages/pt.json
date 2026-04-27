@@ -902,7 +902,8 @@
     "subtitle": "Simplifique a gestão de alunos, pagamentos e documentos em uma única plataforma.",
     "ctaTrial": "Aproveite 20 dias grátis",
     "ctaDemo": "Agendar uma demo",
-    "introAriaLabel": "Apresentação Formwise"
+    "introAriaLabel": "Apresentação Formwise",
+    "mobileBadge": "Também disponível no telemóvel · Notificações push"
   },
   "Features": {
     "section": "Funcionalidades Formwise",
@@ -1037,6 +1038,15 @@
     "studentPlaceholder": "Selecionar um aluno",
     "chooseTeacher": "Escolher professor",
     "teacherPlaceholder": "Selecionar um professor",
+    "categoryLabel": "Categoria",
+    "categoryGeneral": "Geral",
+    "categoryAnnouncement": "Anúncio",
+    "categoryAcademic": "Académico",
+    "categoryAttendance": "Presença",
+    "categoryBilling": "Faturação",
+    "categoryEvent": "Evento",
+    "categoryHealth": "Saúde",
+    "categoryAdmin": "Administração",
     "submitButton": "Enviar",
     "successMessage": "Notificação enviada com sucesso",
     "errorMessage": "Erro ao enviar"
@@ -1174,7 +1184,10 @@
     "signOutAllSuccess": "Todas as outras sessões foram revogadas.",
     "preferencesTitle": "Preferências",
     "preferencesSubtitle": "Escolha o idioma da interface.",
-    "languageLabel": "Idioma da interface"
+    "languageLabel": "Idioma da interface",
+    "notificationsTitle": "Notificações push",
+    "notificationsSubtitle": "Receba alertas neste dispositivo quando o seu filho for buscado, quando chegar uma mensagem, etc.",
+    "notificationsLabel": "Ativar neste dispositivo"
   },
   "Dashboard": {
     "loading": "Carregando...",
@@ -1658,5 +1671,35 @@
   },
   "ChildSwitcher": {
     "all": "Todas as crianças"
+  },
+  "PushNotifications": {
+    "enable": "Ativar",
+    "enabling": "A ativar…",
+    "disable": "Desativar",
+    "enabled": "Notificações ativadas neste dispositivo.",
+    "disabled": "Notificações desativadas.",
+    "subscribeFailed": "Falha ao ativar notificações.",
+    "unsubscribeFailed": "Falha ao desativar.",
+    "denied": "As notificações estão bloqueadas nas definições do navegador. Reactive-as nas permissões do site.",
+    "unsupported": "As notificações push não são suportadas neste dispositivo ou navegador.",
+    "notConfigured": "As notificações push não estão configuradas."
+  },
+  "IOSInstall": {
+    "title": "Instalar o Formwise no ecrã inicial",
+    "subtitle": "Para receber notificações no iPhone, adicione a app ao ecrã inicial.",
+    "step1Before": "Toque em",
+    "step1After": "na barra do Safari",
+    "step2": "Selecione \"Adicionar ao ecrã inicial\"",
+    "dismiss": "Fechar"
+  },
+  "NotificationCategory": {
+    "GENERAL": "Geral",
+    "ANNOUNCEMENT": "Anúncio",
+    "ACADEMIC": "Académico",
+    "ATTENDANCE": "Presença",
+    "BILLING": "Faturação",
+    "EVENT": "Evento",
+    "HEALTH": "Saúde",
+    "ADMIN": "Administração"
   }
 }

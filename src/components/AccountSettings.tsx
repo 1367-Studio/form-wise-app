@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import CenteredSpinner from "./CenteredSpinner";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { EnableNotificationsButton } from "./EnableNotificationsButton";
 
 interface UserData {
   id: string;
@@ -442,6 +443,17 @@ function PreferencesTab() {
         <div className="mt-6 flex items-center justify-between max-w-md">
           <Label>{t("languageLabel")}</Label>
           <LanguageSwitcher />
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-black/10 bg-white p-6">
+        <h3 className="text-base font-semibold text-gray-900">
+          {t("notificationsTitle")}
+        </h3>
+        <p className="text-sm text-gray-500">{t("notificationsSubtitle")}</p>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 max-w-md">
+          <Label>{t("notificationsLabel")}</Label>
+          <EnableNotificationsButton />
         </div>
       </div>
 

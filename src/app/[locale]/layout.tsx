@@ -12,6 +12,8 @@ import {
 import { notFound } from "next/navigation";
 import ConditionalFooter from "components/ConditionalFooter";
 import ConditionalHeader from "components/ConditionalHeader";
+import { PWAInit } from "components/PWAInit";
+import { IOSInstallBanner } from "components/IOSInstallBanner";
 import { routing } from "../../i18n/routing";
 
 const geistSans = Inter({
@@ -44,6 +46,21 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
+    manifest: "/manifest.json",
+    themeColor: "#f84a00",
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "default",
+      title: "Formwise",
+    },
+    icons: {
+      icon: [
+        { url: "/icons/icon.svg", type: "image/svg+xml" },
+        { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+        { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: "/icons/icon-192.png",
+    },
   };
 }
 
@@ -67,6 +84,8 @@ export default async function LocaleLayout({
         className={`flex min-h-screen flex-col ${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <PWAInit />
+          <IOSInstallBanner />
           <ConditionalHeader />
           <AuthProvider>
             <main className="flex-1">{children}</main>

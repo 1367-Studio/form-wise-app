@@ -902,7 +902,8 @@
     "subtitle": "Simplifiez la gestion des élèves, des paiements et des documents en une seule plateforme.",
     "ctaTrial": "Profitez de 20 jours gratuitement",
     "ctaDemo": "Réserver une démo",
-    "introAriaLabel": "Introduction Formwise"
+    "introAriaLabel": "Introduction Formwise",
+    "mobileBadge": "Disponible aussi sur mobile · Notifications push"
   },
   "Features": {
     "section": "Fonctionnalités Formwise",
@@ -1037,6 +1038,15 @@
     "studentPlaceholder": "Sélectionner un élève",
     "chooseTeacher": "Choisir l'enseignant",
     "teacherPlaceholder": "Sélectionner un enseignant",
+    "categoryLabel": "Catégorie",
+    "categoryGeneral": "Général",
+    "categoryAnnouncement": "Annonce",
+    "categoryAcademic": "Pédagogie",
+    "categoryAttendance": "Présence",
+    "categoryBilling": "Facturation",
+    "categoryEvent": "Événement",
+    "categoryHealth": "Santé",
+    "categoryAdmin": "Administration",
     "submitButton": "Envoyer",
     "successMessage": "Notification envoyée avec succès",
     "errorMessage": "Erreur lors de l'envoi"
@@ -1174,7 +1184,10 @@
     "signOutAllSuccess": "Toutes les autres sessions ont été révoquées.",
     "preferencesTitle": "Préférences",
     "preferencesSubtitle": "Choisissez la langue de l'interface.",
-    "languageLabel": "Langue de l'interface"
+    "languageLabel": "Langue de l'interface",
+    "notificationsTitle": "Notifications push",
+    "notificationsSubtitle": "Recevez des alertes sur cet appareil quand votre enfant est récupéré, à l'arrivée d'un message, etc.",
+    "notificationsLabel": "Activer sur cet appareil"
   },
   "Dashboard": {
     "loading": "Chargement...",
@@ -1658,5 +1671,35 @@
   },
   "ChildSwitcher": {
     "all": "Tous les enfants"
+  },
+  "PushNotifications": {
+    "enable": "Activer",
+    "enabling": "Activation…",
+    "disable": "Désactiver",
+    "enabled": "Notifications activées sur cet appareil.",
+    "disabled": "Notifications désactivées.",
+    "subscribeFailed": "Échec de l'activation des notifications.",
+    "unsubscribeFailed": "Échec de la désactivation.",
+    "denied": "Les notifications sont bloquées dans les réglages du navigateur. Activez-les depuis les permissions du site.",
+    "unsupported": "Les notifications push ne sont pas prises en charge sur cet appareil ou ce navigateur.",
+    "notConfigured": "Les notifications push ne sont pas configurées."
+  },
+  "IOSInstall": {
+    "title": "Installer Formwise sur l'écran d'accueil",
+    "subtitle": "Pour recevoir des notifications sur iPhone, ajoutez l'app à l'écran d'accueil.",
+    "step1Before": "Appuyez sur",
+    "step1After": "dans la barre Safari",
+    "step2": "Sélectionnez « Sur l'écran d'accueil »",
+    "dismiss": "Fermer"
+  },
+  "NotificationCategory": {
+    "GENERAL": "Général",
+    "ANNOUNCEMENT": "Annonce",
+    "ACADEMIC": "Pédagogie",
+    "ATTENDANCE": "Présence",
+    "BILLING": "Facturation",
+    "EVENT": "Événement",
+    "HEALTH": "Santé",
+    "ADMIN": "Administration"
   }
 }

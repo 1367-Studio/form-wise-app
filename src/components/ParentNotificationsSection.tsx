@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SectionSkeleton } from "./SectionSkeleton";
+import { NotificationCategoryBadge } from "./NotificationCategoryBadge";
 import { ParentNotification } from "../types/notification";
 
 type Filter = "all" | "unread" | string;
@@ -281,7 +282,8 @@ function NotificationItem({
   onMarkRead: () => void;
   t: ReturnType<typeof useTranslations>;
 }) {
-  const { title, message, createdAt, isGlobal, student } = notification;
+  const { title, message, createdAt, isGlobal, student, category } =
+    notification;
   return (
     <li
       className={`group flex items-start gap-3 rounded-xl border p-4 transition-colors ${
@@ -311,6 +313,9 @@ function NotificationItem({
           <p className="truncate text-sm font-semibold text-gray-900">
             {title}
           </p>
+          {category && category !== "GENERAL" && (
+            <NotificationCategoryBadge category={category} size="xs" />
+          )}
           {isGlobal ? (
             <Badge
               variant="outline"

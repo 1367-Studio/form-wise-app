@@ -43,8 +43,23 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
     "global_parents" | "student" | "global_teachers" | "teacher"
   >("global_parents");
 
+  type Category =
+    | "GENERAL"
+    | "ANNOUNCEMENT"
+    | "ACADEMIC"
+    | "ATTENDANCE"
+    | "BILLING"
+    | "EVENT"
+    | "HEALTH"
+    | "ADMIN";
+  const [category, setCategory] = useState<Category>("GENERAL");
+
   const isDirty =
-    title !== "" || message !== "" || studentId !== null || teacherId !== null;
+    title !== "" ||
+    message !== "" ||
+    studentId !== null ||
+    teacherId !== null ||
+    category !== "GENERAL";
   useUnsavedChanges(isDirty);
 
   useEffect(() => {
@@ -73,6 +88,7 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
         title,
         message,
         targetType,
+        category,
         studentId: targetType === "student" ? studentId : null,
         teacherId: targetType === "teacher" ? teacherId : null,
       }),
@@ -94,6 +110,7 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
       setStudentId(null);
       setTeacherId(null);
       setTargetType("global_parents");
+      setCategory("GENERAL");
       onSent?.();
     }
   };
@@ -118,6 +135,30 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
           onChange={(e) => setMessage(e.target.value)}
           required
         />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <Label>{t("categoryLabel")}</Label>
+        <Select
+          value={category}
+          onValueChange={(value) => setCategory(value as Category)}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="GENERAL">{t("categoryGeneral")}</SelectItem>
+            <SelectItem value="ANNOUNCEMENT">
+              {t("categoryAnnouncement")}
+            </SelectItem>
+            <SelectItem value="ACADEMIC">{t("categoryAcademic")}</SelectItem>
+            <SelectItem value="ATTENDANCE">{t("categoryAttendance")}</SelectItem>
+            <SelectItem value="BILLING">{t("categoryBilling")}</SelectItem>
+            <SelectItem value="EVENT">{t("categoryEvent")}</SelectItem>
+            <SelectItem value="HEALTH">{t("categoryHealth")}</SelectItem>
+            <SelectItem value="ADMIN">{t("categoryAdmin")}</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="flex flex-col gap-2">

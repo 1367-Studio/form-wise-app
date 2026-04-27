@@ -902,7 +902,8 @@
     "subtitle": "Streamline student management, payments and documents on a single platform.",
     "ctaTrial": "Get 20 days free",
     "ctaDemo": "Book a demo",
-    "introAriaLabel": "Formwise introduction"
+    "introAriaLabel": "Formwise introduction",
+    "mobileBadge": "Also available on mobile · Push notifications"
   },
   "Features": {
     "section": "Formwise features",
@@ -1037,6 +1038,15 @@
     "studentPlaceholder": "Select a student",
     "chooseTeacher": "Choose teacher",
     "teacherPlaceholder": "Select a teacher",
+    "categoryLabel": "Category",
+    "categoryGeneral": "General",
+    "categoryAnnouncement": "Announcement",
+    "categoryAcademic": "Academic",
+    "categoryAttendance": "Attendance",
+    "categoryBilling": "Billing",
+    "categoryEvent": "Event",
+    "categoryHealth": "Health",
+    "categoryAdmin": "Admin",
     "submitButton": "Send",
     "successMessage": "Notification sent successfully",
     "errorMessage": "Error while sending"
@@ -1174,7 +1184,10 @@
     "signOutAllSuccess": "All other sessions revoked.",
     "preferencesTitle": "Preferences",
     "preferencesSubtitle": "Choose the interface language.",
-    "languageLabel": "Interface language"
+    "languageLabel": "Interface language",
+    "notificationsTitle": "Push notifications",
+    "notificationsSubtitle": "Get alerts on this device when your child is picked up, when a new message arrives, etc.",
+    "notificationsLabel": "Enable on this device"
   },
   "Dashboard": {
     "loading": "Loading...",
@@ -1658,5 +1671,35 @@
   },
   "ChildSwitcher": {
     "all": "All children"
+  },
+  "PushNotifications": {
+    "enable": "Enable",
+    "enabling": "Enabling…",
+    "disable": "Disable",
+    "enabled": "Notifications enabled on this device.",
+    "disabled": "Notifications disabled.",
+    "subscribeFailed": "Failed to enable notifications.",
+    "unsubscribeFailed": "Failed to disable.",
+    "denied": "Notifications are blocked in browser settings. Re-enable them in the site permissions.",
+    "unsupported": "Push notifications are not supported on this device or browser.",
+    "notConfigured": "Push notifications are not configured."
+  },
+  "IOSInstall": {
+    "title": "Install Formwise on your home screen",
+    "subtitle": "To get notifications on iPhone, add the app to your home screen.",
+    "step1Before": "Tap",
+    "step1After": "in the Safari toolbar",
+    "step2": "Select \"Add to Home Screen\"",
+    "dismiss": "Dismiss"
+  },
+  "NotificationCategory": {
+    "GENERAL": "General",
+    "ANNOUNCEMENT": "Announcement",
+    "ACADEMIC": "Academic",
+    "ATTENDANCE": "Attendance",
+    "BILLING": "Billing",
+    "EVENT": "Event",
+    "HEALTH": "Health",
+    "ADMIN": "Admin"
   }
 }
