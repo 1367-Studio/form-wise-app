@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import NotificationCardTeacher from "../components/NotificationCardTeacher";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -26,6 +27,7 @@ type Notification = {
 };
 
 export default function TeacherNotifications() {
+  const t = useTranslations("Notifications");
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -38,7 +40,7 @@ export default function TeacherNotifications() {
         const data = await res.json();
         setNotifications(data.notifications || []);
       } catch (err) {
-        console.error("Erreur fetch notifications:", err);
+        console.error("Notifications fetch error:", err);
       } finally {
         setLoading(false);
       }
@@ -78,13 +80,12 @@ export default function TeacherNotifications() {
               onMarkAsRead={handleMarkAsRead}
             />
           ))}
-
           {totalPages > 1 && (
-            <Pagination>
+            <Pagination className="mt-4">
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious
-                    onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                    onClick={() => setPage((p) => (p > 1 ? p - 1 : p))}
                     className={
                       page === 1 ? "pointer-events-none opacity-50" : ""
                     }
@@ -92,7 +93,7 @@ export default function TeacherNotifications() {
                 </PaginationItem>
 
                 <PaginationItem className="px-4 text-sm text-muted-foreground">
-                  Page {page} / {totalPages}
+                  {t("page", { current: page, total: totalPages })}
                 </PaginationItem>
 
                 <PaginationItem>

@@ -11,8 +11,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
-// Palette de couleurs réutilisables
 function getRandomColor(index: number) {
   const colors = [
     "#3b82f6",
@@ -34,20 +34,31 @@ function getRandomColor(index: number) {
   return colors[index % colors.length];
 }
 
+type Datum = { class: string; [key: string]: string | number };
+
 export default function StudentsByClassChart() {
-  const [data, setData] = useState<{ class: string; élèves: number }[]>([]);
+  const t = useTranslations("Charts");
+  const [data, setData] = useState<Datum[]>([]);
 
   useEffect(() => {
     fetch("/api/students/by-class")
       .then((res) => res.json())
-      .then((json) => setData(json));
-  }, []);
+      .then((json) => {
+        const remapped: Datum[] = (json || []).map(
+          (r: { class: string; élèves?: number; students?: number }) => ({
+            class: r.class,
+            [t("studentsKey")]: r.élèves ?? r.students ?? 0,
+          })
+        );
+        setData(remapped);
+      });
+  }, [t]);
 
   return (
     <Card>
       <CardContent className="p-6">
         <p className="text-lg font-semibold mb-4 text-center">
-          Élèves par classe
+          {t("studentsByClassTitle")}
         </p>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart width={350} height={250} data={data}>
@@ -55,7 +66,7 @@ export default function StudentsByClassChart() {
             <XAxis dataKey="class" />
             <YAxis allowDecimals={false} />
             <Tooltip />
-            <Bar dataKey="élèves">
+            <Bar dataKey={t("studentsKey")}>
               {data.map((_, index) => (
                 <Cell key={`cell-${index}`} fill={getRandomColor(index)} />
               ))}

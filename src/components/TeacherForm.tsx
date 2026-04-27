@@ -10,7 +10,9 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { useTranslations } from "next-intl";
 import { Teacher } from "./TeacherList";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 type Subject = {
   id: string;
@@ -29,6 +31,7 @@ export default function TeacherForm({
   teacher: Teacher | null;
   onCreated: (t: Teacher) => void;
 }) {
+  const t = useTranslations("TeacherForm");
   const [subjectId, setSubjectId] = useState("");
   const [classId, setClassId] = useState("");
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -36,7 +39,6 @@ export default function TeacherForm({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Pré-remplir si modification
     if (teacher) {
       setSubjectId(teacher.subject?.id || "");
       setClassId(teacher.class?.id || "");
@@ -45,6 +47,13 @@ export default function TeacherForm({
       setClassId("");
     }
   }, [teacher]);
+
+  const isDirty =
+    !!teacher &&
+    !loading &&
+    (subjectId !== (teacher?.subject?.id || "") ||
+      classId !== (teacher?.class?.id || ""));
+  useUnsavedChanges(isDirty);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +92,7 @@ export default function TeacherForm({
         onCreated(data.teacher);
       }
     } catch (err) {
-      console.error("Erreur modification enseignant :", err);
+      console.error("Teacher update error:", err);
     } finally {
       setLoading(false);
     }
@@ -97,14 +106,14 @@ export default function TeacherForm({
       className="space-y-4 max-w-md border p-4 rounded-md"
     >
       <h3 className="text-lg font-semibold">
-        Attribuer à {teacher.firstName} {teacher.lastName}
+        {t("title", { name: `${teacher.firstName} ${teacher.lastName}` })}
       </h3>
 
       <div className="flex flex-col gap-2">
-        <Label>Matière</Label>
+        <Label>{t("subjectLabel")}</Label>
         <Select value={subjectId} onValueChange={setSubjectId}>
           <SelectTrigger>
-            <SelectValue placeholder="Choisir une matière" />
+            <SelectValue placeholder={t("subjectPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             {subjects.map((s) => (
@@ -117,10 +126,10 @@ export default function TeacherForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Classe</Label>
+        <Label>{t("classLabel")}</Label>
         <Select value={classId} onValueChange={setClassId}>
           <SelectTrigger>
-            <SelectValue placeholder="Choisir une classe" />
+            <SelectValue placeholder={t("classPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             {classes.map((c) => (
@@ -133,7 +142,7 @@ export default function TeacherForm({
       </div>
 
       <Button className="cursor-pointer" type="submit" disabled={loading}>
-        {loading ? "Enregistrement..." : "Enregistrer"}
+        {loading ? t("saving") : t("saveButton")}
       </Button>
     </form>
   );

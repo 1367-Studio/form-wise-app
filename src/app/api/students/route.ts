@@ -31,6 +31,12 @@ export async function GET() {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      class: {
+        select: { id: true, name: true, monthlyFee: true },
+      },
+      _count: { select: { documents: true } },
+    },
   });
 
   return NextResponse.json({ students });

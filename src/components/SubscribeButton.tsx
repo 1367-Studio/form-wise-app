@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useTranslations } from "next-intl";
 
 export function SubscribeButton() {
+  const t = useTranslations("SubscribeButton");
   const [loading, setLoading] = useState(false);
   const [plan, setPlan] = useState<"monthly" | "yearly">("monthly");
 
@@ -18,7 +20,7 @@ export function SubscribeButton() {
     });
 
     if (!res.ok) {
-      console.error("Erreur de création de session Stripe");
+      console.error("Stripe session error");
       setLoading(false);
       return;
     }
@@ -35,11 +37,11 @@ export function SubscribeButton() {
       >
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="monthly" id="monthly" />
-          <Label htmlFor="monthly">Mensuel - 29€</Label>
+          <Label htmlFor="monthly">{t("monthlyOption")}</Label>
         </div>
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="yearly" id="yearly" />
-          <Label htmlFor="yearly">Annuel - 290€</Label>
+          <Label htmlFor="yearly">{t("yearlyOption")}</Label>
         </div>
       </RadioGroup>
 
@@ -48,7 +50,7 @@ export function SubscribeButton() {
         onClick={handleCheckout}
         disabled={loading}
       >
-        {loading ? "Redirection..." : "S'abonner"}
+        {loading ? t("redirecting") : t("subscribe")}
       </Button>
     </div>
   );

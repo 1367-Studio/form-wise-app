@@ -5,14 +5,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 export default function StaffForm() {
+  const t = useTranslations("StaffForm");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [roleLabel, setRoleLabel] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const isDirty =
+    !loading &&
+    (firstName !== "" ||
+      lastName !== "" ||
+      email !== "" ||
+      phone !== "" ||
+      roleLabel !== "");
+  useUnsavedChanges(isDirty);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,14 +43,14 @@ export default function StaffForm() {
     });
 
     if (res.ok) {
-      toast.success("Invitation envoyée au staff !");
+      toast.success(t("successMessage"));
       setFirstName("");
       setLastName("");
       setEmail("");
       setPhone("");
       setRoleLabel("");
     } else {
-      toast.error("Erreur lors de l'envoi de l'invitation.");
+      toast.error(t("errorMessage"));
     }
 
     setLoading(false);
@@ -47,57 +59,57 @@ export default function StaffForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mb-8">
       <div>
-        <Label>Prénom</Label>
+        <Label>{t("firstNameLabel")}</Label>
         <Input
           type="text"
-          placeholder="Jean"
+          placeholder={t("firstNamePlaceholder")}
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
 
       <div>
-        <Label>Nom</Label>
+        <Label>{t("lastNameLabel")}</Label>
         <Input
           type="text"
-          placeholder="Dupont"
+          placeholder={t("lastNamePlaceholder")}
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
       </div>
 
       <div>
-        <Label>Email</Label>
+        <Label>{t("emailLabel")}</Label>
         <Input
           type="email"
-          placeholder="exemple@ecole.com"
+          placeholder={t("emailPlaceholder")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
       <div>
-        <Label>Téléphone</Label>
+        <Label>{t("phoneLabel")}</Label>
         <Input
           type="tel"
-          placeholder="+33 6 12 34 56 78"
+          placeholder={t("phonePlaceholder")}
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
       </div>
 
       <div>
-        <Label>Fonction (libre)</Label>
+        <Label>{t("roleLabel")}</Label>
         <Input
           type="text"
-          placeholder="Secrétaire, Assistant, etc."
+          placeholder={t("rolePlaceholder")}
           value={roleLabel}
           onChange={(e) => setRoleLabel(e.target.value)}
         />
       </div>
 
       <Button type="submit" disabled={loading} className="cursor-pointer">
-        {loading ? "Envoi en cours..." : "Inviter le staff"}
+        {loading ? t("sending") : t("submitButton")}
       </Button>
     </form>
   );

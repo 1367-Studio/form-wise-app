@@ -1,8 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import SiteFooter from "./SiteFooter";
+
+const HIDDEN_PREFIXES = [
+  "/dashboard",
+  "/app",
+  "/login",
+  "/register",
+  "/preinscription-success",
+  "/preinscription",
+  "/admin",
+];
 
 export default function ConditionalFooter() {
   const pathname = usePathname();
@@ -13,17 +23,7 @@ export default function ConditionalFooter() {
   }, []);
 
   if (!mounted) return null;
-
-  const isDashboard =
-    pathname?.startsWith("/dashboard") ||
-    pathname?.startsWith("/app") ||
-    pathname?.startsWith("/login") ||
-    pathname?.startsWith("/register") ||
-    pathname?.startsWith("/preinscription-success") ||
-    pathname?.startsWith("/preinscription") ||
-    pathname?.startsWith("/admin");
-
-  if (isDashboard) return null;
+  if (HIDDEN_PREFIXES.some((p) => pathname?.startsWith(p))) return null;
 
   return <SiteFooter />;
 }

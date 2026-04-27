@@ -17,6 +17,7 @@ model User {
   password         String?
   role             Role
   createdAt        DateTime           @default(now())
+  tokenVersion     Int                @default(1)
   firstName        String
   lastName         String
   phone            String
@@ -51,6 +52,7 @@ model Student {
   createdAt       DateTime       @default(now())
   notifications   Notification[]
   documents       Document[]
+  attendance      Attendance[]
   code            String?        @unique @default(uuid())
   tenantId        String
   tenant          Tenant         @relation(fields: [tenantId], references: [id])
@@ -281,4 +283,78 @@ enum PreRegistrationStatus {
   PENDING
   ACCEPTED
   REJECTED
+}
+
+model ProcessedStripeEvent {
+  id          String   @id
+  type        String
+  processedAt DateTime @default(now())
+
+  @@index([processedAt])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorUserId String?
+  actorEmail  String?
+  actorRole   String?
+  action      String
+  targetType  String?
+  targetId    String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([actorUserId])
+  @@index([action])
+}
+
+model DailyJournal {
+  id           String        @id @default(cuid())
+  tenantId     String
+  classId      String
+  subjectId    String?
+  teacherId    String
+  date         DateTime
+  classSummary String
+  homework     String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  readBy       JournalRead[]
+
+  @@index([tenantId, classId, date])
+  @@index([teacherId, date])
+}
+
+model JournalRead {
+  id        String       @id @default(cuid())
+  journal   DailyJournal @relation(fields: [journalId], references: [id], onDelete: Cascade)
+  journalId String
+  parentId  String
+  readAt    DateTime     @default(now())
+
+  @@unique([journalId, parentId])
+  @@index([parentId])
+}
+
+model Attendance {
+  id                  String    @id @default(cuid())
+  tenantId            String
+  classId             String
+  studentId           String
+  student             Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  date                DateTime
+  status              String
+  notes               String?
+  markedByTeacherId   String
+  markedAt            DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  justificationNotes  String?
+  justificationDocId  String?
+  justifiedByParentId String?
+  justifiedAt         DateTime?
+
+  @@unique([studentId, date])
+  @@index([tenantId, classId, date])
+  @@index([studentId, date])
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 import CenteredSpinner from "./CenteredSpinner";
 
 type Student = {
@@ -16,6 +17,7 @@ type Student = {
 };
 
 export default function TeacherStudentList() {
+  const t = useTranslations("TeacherStudentList");
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +30,7 @@ export default function TeacherStudentList() {
       });
   }, []);
 
-  if (loading) return <CenteredSpinner label="Chargement..." />;
+  if (loading) return <CenteredSpinner label={t("loading")} />;
 
   return (
     <div className="mt-6 space-y-4">
@@ -39,13 +41,14 @@ export default function TeacherStudentList() {
               {student.firstName} {student.lastName}
             </p>
             <p className="text-sm text-muted-foreground">
-              Parent : {student.parent.firstName} {student.parent.lastName}
+              {t("parentLabel")} {student.parent.firstName}{" "}
+              {student.parent.lastName}
             </p>
             <p className="text-sm text-muted-foreground">
-              Email : {student.parent.email}
+              {t("emailLabel")} {student.parent.email}
             </p>
             <p className="text-sm text-muted-foreground">
-              Téléphone : {student.parent.phone}
+              {t("phoneLabel")} {student.parent.phone}
             </p>
           </CardContent>
         </Card>

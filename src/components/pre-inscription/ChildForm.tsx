@@ -3,6 +3,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UseFormRegister } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { PreRegistrationFormData } from "./schemas/preRegistration";
 
 interface ChildFormProps {
@@ -11,13 +12,16 @@ interface ChildFormProps {
 }
 
 export default function ChildForm({ index, registerAction }: ChildFormProps) {
+  const t = useTranslations("Preinscription");
   return (
     <div className="space-y-4">
-      <h4 className="text-md font-medium text-white">Élève {index + 1}</h4>
+      <h4 className="text-md font-medium text-white">
+        {t("studentN", { n: index + 1 })}
+      </h4>
 
       <div className="space-y-2">
         <Label htmlFor={`children.${index}.firstName`} className="text-white">
-          Prénom
+          {t("childFirstName")}
         </Label>
         <Input
           className="bg-white text-black"
@@ -28,7 +32,7 @@ export default function ChildForm({ index, registerAction }: ChildFormProps) {
 
       <div className="space-y-2">
         <Label htmlFor={`children.${index}.lastName`} className="text-white">
-          Nom
+          {t("childLastName")}
         </Label>
         <Input
           className="bg-white text-black"
@@ -39,21 +43,21 @@ export default function ChildForm({ index, registerAction }: ChildFormProps) {
 
       <div className="space-y-2">
         <Label htmlFor={`children.${index}.gender`} className="text-white">
-          Sexe
+          {t("childGender")}
         </Label>
         <select
           id={`children.${index}.gender`}
           {...registerAction(`children.${index}.gender`)}
           className="w-full border rounded-md p-2 bg-white text-black"
         >
-          <option value="FILLE">Fille</option>
-          <option value="GARÇON">Garçon</option>
+          <option value="FILLE">{t("childGenderGirl")}</option>
+          <option value="GARÇON">{t("childGenderBoy")}</option>
         </select>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor={`children.${index}.birthDate`} className="text-white">
-          Date de naissance
+          {t("childBirthDate")}
         </Label>
         <Input
           type="date"
@@ -65,7 +69,7 @@ export default function ChildForm({ index, registerAction }: ChildFormProps) {
 
       <div className="space-y-2">
         <Label htmlFor={`children.${index}.birthCity`} className="text-white">
-          Ville de naissance
+          {t("childBirthCity")}
         </Label>
         <Input
           className="bg-white text-black"
@@ -79,7 +83,7 @@ export default function ChildForm({ index, registerAction }: ChildFormProps) {
           htmlFor={`children.${index}.birthCountry`}
           className="text-white"
         >
-          Pays de naissance
+          {t("childBirthCountry")}
         </Label>
         <Input
           className="bg-white text-black"
@@ -93,7 +97,7 @@ export default function ChildForm({ index, registerAction }: ChildFormProps) {
           htmlFor={`children.${index}.currentSchool`}
           className="text-white"
         >
-          Établissement actuel
+          {t("childCurrentSchool")}
         </Label>
         <Input
           className="bg-white text-black"
@@ -107,7 +111,7 @@ export default function ChildForm({ index, registerAction }: ChildFormProps) {
           htmlFor={`children.${index}.desiredClass`}
           className="text-white"
         >
-          Classe souhaitée
+          {t("childDesiredClass")}
         </Label>
         <Input
           className="bg-white text-black"

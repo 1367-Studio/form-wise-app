@@ -3,11 +3,10 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../../lib/authOptions";
 import { prisma } from "../../../lib/prisma";
 
-// GET /api/me → retourne les infos de l'utilisateur connecté
 export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const user = await prisma.user.findUnique({
@@ -19,24 +18,31 @@ export async function GET() {
       lastName: true,
       phone: true,
       role: true,
+      civility: true,
+      createdAt: true,
+      tenant: {
+        select: {
+          name: true,
+          schoolCode: true,
+        },
+      },
     },
   });
 
   return NextResponse.json({ user });
 }
 
-// PUT /api/me → met à jour firstName, lastName, phone
 export async function PUT(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { firstName, lastName, phone } = await req.json();
+  const { firstName, lastName, phone, civility } = await req.json();
 
   if (!firstName || !lastName) {
     return NextResponse.json(
-      { error: "Prénom et nom requis" },
+      { error: "First name and last name are required" },
       { status: 400 }
     );
   }
@@ -47,6 +53,7 @@ export async function PUT(req: Request) {
       firstName,
       lastName,
       phone,
+      ...(civility !== undefined && { civility }),
     },
   });
 

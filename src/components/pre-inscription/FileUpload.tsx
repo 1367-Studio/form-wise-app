@@ -6,6 +6,7 @@ import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 interface FileUploadProps {
   onUploadCompleteAction: (uploadedUrls: {
@@ -18,6 +19,7 @@ interface FileUploadProps {
 export default function FileUpload({
   onUploadCompleteAction,
 }: FileUploadProps) {
+  const t = useTranslations("Preinscription");
   const [files, setFiles] = useState<{
     motivationLetter?: File;
     schoolResults?: File;
@@ -33,10 +35,10 @@ export default function FileUpload({
       if (!file) return null;
 
       const cleanFileName = file.name
-        .normalize("NFD") // enlève les accents
-        .replace(/[\u0300-\u036f]/g, "") // retire les caractères Unicode combinés
-        .replace(/\s+/g, "-") // remplace les espaces par des tirets
-        .replace(/[^a-zA-Z0-9.\-_]/g, ""); // enlève les caractères non valides
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/[^a-zA-Z0-9.\-_]/g, "");
 
       const path = `${folder}/${Date.now()}-${cleanFileName}`;
 
@@ -45,8 +47,8 @@ export default function FileUpload({
         .upload(path, file);
 
       if (error) {
-        console.error(`Erreur upload ${folder}:`, error.message);
-        toast.error(`Erreur pour ${folder} : ${error.message}`);
+        console.error(`Upload error ${folder}:`, error.message);
+        toast.error(t("uploadError", { folder, error: error.message }));
         return null;
       }
 
@@ -70,16 +72,16 @@ export default function FileUpload({
       familyBookUrl,
     });
 
-    toast.success("Les fichiers ont été correctement envoyés.");
+    toast.success(t("filesUploaded"));
     setUploading(false);
   };
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold">Pièces à fournir</h3>
+      <h3 className="text-lg font-semibold">{t("filesSectionTitle")}</h3>
 
       <div className="space-y-2">
-        <Label>Lettre de motivation</Label>
+        <Label>{t("fileMotivationLetter")}</Label>
         <Input
           type="file"
           accept=".pdf,.jpg,.png"
@@ -90,7 +92,7 @@ export default function FileUpload({
       </div>
 
       <div className="space-y-2">
-        <Label>Résultats scolaires</Label>
+        <Label>{t("fileSchoolResults")}</Label>
         <Input
           type="file"
           accept=".pdf,.jpg,.png"
@@ -101,7 +103,7 @@ export default function FileUpload({
       </div>
 
       <div className="space-y-2">
-        <Label>Livret de famille</Label>
+        <Label>{t("fileFamilyBook")}</Label>
         <Input
           type="file"
           accept=".pdf,.jpg,.png"
@@ -117,7 +119,7 @@ export default function FileUpload({
         disabled={uploading}
         className="cursor-pointer"
       >
-        {uploading ? "Envoi en cours..." : "Uploader les fichiers"}
+        {uploading ? t("uploading") : t("uploadButton")}
       </Button>
     </div>
   );

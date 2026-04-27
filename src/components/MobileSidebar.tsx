@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { DashboardSection } from "../types/types";
 import {
   CalendarDays,
@@ -26,6 +27,15 @@ import {
   LogOut,
   UserPlus,
   ShieldAlert,
+  Receipt,
+  AlertCircle,
+  Megaphone,
+  UserCheck,
+  History,
+  Home,
+  Wallet,
+  NotebookPen,
+  ClipboardCheck,
 } from "lucide-react";
 
 type Section = {
@@ -34,32 +44,54 @@ type Section = {
   icon: React.ReactNode;
 };
 
-const getSections = (role?: string): Section[] => {
+const useSections = (role?: string): Section[] => {
+  const t = useTranslations("Sidebar");
+
   if (role === "PARENT") {
     return [
       {
+        key: "overview",
+        label: t("overview"),
+        icon: <Home className="w-4 h-4" />,
+      },
+      {
         key: "children",
-        label: "Mes enfants",
+        label: t("myChildren"),
         icon: <Users className="w-4 h-4" />,
       },
       {
+        key: "journal",
+        label: t("dailyJournal"),
+        icon: <NotebookPen className="w-4 h-4" />,
+      },
+      {
+        key: "attendance",
+        label: t("attendance"),
+        icon: <ClipboardCheck className="w-4 h-4" />,
+      },
+      {
         key: "notification",
-        label: "Notifications",
+        label: t("notifications"),
         icon: <Bell className="w-4 h-4" />,
       },
       {
+        key: "billing",
+        label: t("billing"),
+        icon: <Wallet className="w-4 h-4" />,
+      },
+      {
         key: "rib",
-        label: "Coordonnées bancaires",
+        label: t("bankDetails"),
         icon: <CreditCard className="w-4 h-4" />,
       },
       {
         key: "documents",
-        label: "Documents",
+        label: t("documents"),
         icon: <FileText className="w-4 h-4" />,
       },
       {
         key: "settings",
-        label: "Paramètres",
+        label: t("settings"),
         icon: <Settings className="w-4 h-4" />,
       },
     ];
@@ -69,63 +101,67 @@ const getSections = (role?: string): Section[] => {
     return [
       {
         key: "schoolYear",
-        label: "Année scolaire",
+        label: t("schoolYear"),
         icon: <CalendarDays className="w-4 h-4" />,
       },
       {
         key: "classes",
-        label: "Classes",
+        label: t("classes"),
         icon: <LayoutGrid className="w-4 h-4" />,
       },
       {
         key: "subjects",
-        label: "Matières",
+        label: t("subjects"),
         icon: <BookOpen className="w-4 h-4" />,
       },
       {
         key: "teachers",
-        label: "Professeurs",
+        label: t("teachers"),
         icon: <UserRound className="w-4 h-4" />,
       },
       {
         key: "notification",
-        label: "Notifications",
+        label: t("notifications"),
         icon: <Bell className="w-4 h-4" />,
       },
-      { key: "eleves", label: "Éleves", icon: <Users className="w-4 h-4" /> },
+      {
+        key: "eleves",
+        label: t("students"),
+        icon: <Users className="w-4 h-4" />,
+      },
       {
         key: "pendingStudents",
-        label: "Élèves en attente",
+        label: t("pendingStudents"),
         icon: <UserLock className="w-4 h-4" />,
       },
       {
         key: "pendingPreinscriptions",
-        label: "Inscriptions en attente",
+        label: t("pendingPreinscriptions"),
         icon: <ShieldAlert className="w-4 h-4" />,
       },
       {
         key: "documents",
-        label: "Documents",
+        label: t("documents"),
         icon: <FileText className="w-4 h-4" />,
       },
       {
         key: "charts",
-        label: "Graphiques",
+        label: t("charts"),
         icon: <ChartPie className="w-4 h-4" />,
       },
       {
         key: "settings",
-        label: "Paramètres",
+        label: t("settings"),
         icon: <Settings className="w-4 h-4" />,
       },
       {
         key: "inviteParent",
-        label: "Inviter Parent",
+        label: t("inviteParents"),
         icon: <User className="w-4 h-4" />,
       },
       {
         key: "inviteStaff",
-        label: "Inviter du personnels",
+        label: t("inviteStaff"),
         icon: <UserPlus className="w-4 h-4" />,
       },
     ];
@@ -135,23 +171,37 @@ const getSections = (role?: string): Section[] => {
     return [
       {
         key: "myProfile",
-        label: "Mon Profil",
+        label: t("myProfile"),
         icon: <User className="w-4 h-4" />,
       },
       {
+        key: "journal",
+        label: t("dailyJournal"),
+        icon: <NotebookPen className="w-4 h-4" />,
+      },
+      {
+        key: "attendance",
+        label: t("attendance"),
+        icon: <ClipboardCheck className="w-4 h-4" />,
+      },
+      {
         key: "infos",
-        label: "Ma classe & matière",
+        label: t("myClassSubject"),
         icon: <LayoutGrid className="w-4 h-4" />,
       },
-      { key: "eleves", label: "Éleves", icon: <Users className="w-4 h-4" /> },
+      {
+        key: "eleves",
+        label: t("students"),
+        icon: <Users className="w-4 h-4" />,
+      },
       {
         key: "notifications",
-        label: "Notifications",
+        label: t("notifications"),
         icon: <Bell className="w-4 h-4" />,
       },
       {
         key: "settings",
-        label: "Paramètres",
+        label: t("settings"),
         icon: <Settings className="w-4 h-4" />,
       },
     ];
@@ -161,17 +211,42 @@ const getSections = (role?: string): Section[] => {
     return [
       {
         key: "tenants",
-        label: "Écoles",
+        label: t("schools"),
         icon: <LayoutGrid className="w-4 h-4" />,
       },
       {
         key: "chartsAdmin",
-        label: "Statistiques",
+        label: t("statistics"),
         icon: <ChartPie className="w-4 h-4" />,
       },
       {
+        key: "billingAdmin",
+        label: t("billing"),
+        icon: <Receipt className="w-4 h-4" />,
+      },
+      {
+        key: "failedPaymentsAdmin",
+        label: t("failedPayments"),
+        icon: <AlertCircle className="w-4 h-4" />,
+      },
+      {
+        key: "broadcastAdmin",
+        label: t("broadcast"),
+        icon: <Megaphone className="w-4 h-4" />,
+      },
+      {
+        key: "impersonateAdmin",
+        label: t("impersonate"),
+        icon: <UserCheck className="w-4 h-4" />,
+      },
+      {
+        key: "auditAdmin",
+        label: t("auditLog"),
+        icon: <History className="w-4 h-4" />,
+      },
+      {
         key: "settingsAdmin",
-        label: "Paramètres",
+        label: t("settings"),
         icon: <Settings className="w-4 h-4" />,
       },
     ];
@@ -179,20 +254,24 @@ const getSections = (role?: string): Section[] => {
 
   if (role === "STAFF") {
     return [
-      { key: "eleves", label: "Élèves", icon: <Users className="w-4 h-4" /> },
+      {
+        key: "eleves",
+        label: t("students"),
+        icon: <Users className="w-4 h-4" />,
+      },
       {
         key: "notification",
-        label: "Notifications",
+        label: t("notifications"),
         icon: <Bell className="w-4 h-4" />,
       },
       {
         key: "documents",
-        label: "Documents",
+        label: t("documents"),
         icon: <FileText className="w-4 h-4" />,
       },
       {
         key: "settings",
-        label: "Paramètres",
+        label: t("settings"),
         icon: <Settings className="w-4 h-4" />,
       },
     ];
@@ -208,9 +287,10 @@ export default function MobileSidebar({
   activeSection: DashboardSection;
   setActiveSectionAction: Dispatch<SetStateAction<DashboardSection>>;
 }) {
+  const t = useTranslations("Sidebar");
   const { data: session } = useSession();
   const role = session?.user?.role;
-  const sections = getSections(role);
+  const sections = useSections(role);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [hasScroll, setHasScroll] = useState(false);
 
@@ -223,13 +303,8 @@ export default function MobileSidebar({
     };
 
     checkScroll();
-
-    // Check scroll on resize
     window.addEventListener("resize", checkScroll);
-
-    return () => {
-      window.removeEventListener("resize", checkScroll);
-    };
+    return () => window.removeEventListener("resize", checkScroll);
   }, [sections]);
 
   return (
@@ -237,13 +312,13 @@ export default function MobileSidebar({
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" className="cursor-pointer">
-            ☰ Menu
+            {t("menuButton")}
           </Button>
         </SheetTrigger>
         <SheetContent className="p-4 pt-6 pr-2 h-screen" side="left">
           <div className="flex flex-col h-full">
             <SheetTitle className="text-lg font-semibold mb-4 px-2">
-              Menu
+              {t("menu")}
             </SheetTitle>
             <div
               className="flex-1 overflow-y-auto pr-1 relative"
@@ -277,7 +352,7 @@ export default function MobileSidebar({
               className="mt-4 flex items-center justify-start gap-2 px-4 py-2 w-full cursor-pointer"
             >
               <LogOut className="w-4 h-4" />
-              <span>Se déconnecter</span>
+              <span>{t("signOut")}</span>
             </Button>
           </div>
         </SheetContent>

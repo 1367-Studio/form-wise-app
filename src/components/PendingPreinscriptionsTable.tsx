@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface Child {
   id: string;
@@ -38,54 +39,54 @@ interface ParentEntry {
 }
 
 export default function PendingPreinscriptionsTable() {
+  const t = useTranslations("PendingPreinscriptions");
   const [preinscriptions, setPreinscriptions] = useState<ParentEntry[]>([]);
   const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("/api/pending-preinscriptions");
-      if (!res.ok)
-        return toast.error("Erreur lors du chargement des préinscriptions.");
+      if (!res.ok) return toast.error(t("loadError"));
       const data = await res.json();
       setPreinscriptions(data);
     };
 
     fetchData();
-  }, []);
+  }, [t]);
 
   const handleDecision = async (
     childId: string,
-
     decision: "ACCEPTED" | "REJECTED"
   ) => {
-    console.log("📦 Envoi décision pour enfant :", childId);
     const res = await fetch("/api/validate-preinscription", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ childId, decision }),
     });
 
-    if (!res.ok) return toast.error("Erreur lors de l'envoi de la décision");
-    toast.success(`Élève ${decision === "ACCEPTED" ? "accepté" : "refusé"}`);
+    if (!res.ok) return toast.error(t("decisionError"));
+    toast.success(
+      decision === "ACCEPTED" ? t("acceptedToast") : t("rejectedToast")
+    );
   };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast("Copié dans le presse-papiers");
+    toast(t("copiedToast"));
   };
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Inscriptions en attente</h2>
+      <h2 className="text-2xl font-bold mb-4">{t("title")}</h2>
 
       <table className="min-w-full text-sm border rounded overflow-hidden">
         <thead className="bg-gray-100 text-left">
           <tr>
-            <th className="p-3">Nom complet</th>
-            <th className="p-3">Email</th>
-            <th className="p-3">Téléphone</th>
-            <th className="p-3">Classe souhaitée</th>
-            <th className="p-3">Actions</th>
+            <th className="p-3">{t("headerName")}</th>
+            <th className="p-3">{t("headerEmail")}</th>
+            <th className="p-3">{t("headerPhone")}</th>
+            <th className="p-3">{t("headerDesiredClass")}</th>
+            <th className="p-3">{t("headerActions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -111,7 +112,7 @@ export default function PendingPreinscriptionsTable() {
                     />
                   </td>
                   <td className="p-3">
-                    {entry.children?.[0]?.desiredClass || "—"}
+                    {entry.children?.[0]?.desiredClass || t("noClass")}
                   </td>
                   <td className="p-3">
                     <Button
@@ -147,7 +148,7 @@ export default function PendingPreinscriptionsTable() {
                             )
                           }
                         >
-                          Accepter tous
+                          {t("acceptAll")}
                         </Button>
                       </div>
                       <ul className="space-y-4">
@@ -161,7 +162,9 @@ export default function PendingPreinscriptionsTable() {
                                 👦 {child.firstName} {child.lastName} (
                                 {child.gender})
                               </p>
-                              <p>Classe souhaitée : {child.desiredClass}</p>
+                              <p>
+                                {t("desiredClassLabel")} {child.desiredClass}
+                              </p>
                             </div>
                             <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
                               <Dialog>
@@ -175,27 +178,28 @@ export default function PendingPreinscriptionsTable() {
                                 </DialogTrigger>
                                 <DialogContent>
                                   <DialogTitle>
-                                    Détails de l&apos;élève
+                                    {t("studentDetails")}
                                   </DialogTitle>
                                   <div className="space-y-2 text-sm text-muted-foreground">
                                     <p>
-                                      <strong>Nom :</strong> {child.firstName}{" "}
-                                      {child.lastName}
+                                      <strong>{t("nameLabel")}</strong>{" "}
+                                      {child.firstName} {child.lastName}
                                     </p>
                                     <p>
-                                      <strong>Genre :</strong> {child.gender}
+                                      <strong>{t("genderLabel")}</strong>{" "}
+                                      {child.gender}
                                     </p>
                                     <p>
-                                      <strong>Classe :</strong>{" "}
+                                      <strong>{t("classLabel")}</strong>{" "}
                                       {child.desiredClass}
                                     </p>
                                     <div className="pt-2 border-t">
                                       <h4 className="font-semibold mb-1">
-                                        Documents :
+                                        {t("documentsLabel")}
                                       </h4>
                                       <ul className="list-disc pl-5 text-sm">
                                         <li>
-                                          Lettre de motivation :
+                                          {t("motivationLetter")}
                                           <a
                                             className="text-grey-600 underline ml-1"
                                             href={
@@ -205,11 +209,11 @@ export default function PendingPreinscriptionsTable() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                           >
-                                            Voir
+                                            {t("view")}
                                           </a>
                                         </li>
                                         <li>
-                                          Résultats scolaires :
+                                          {t("schoolResults")}
                                           <a
                                             className="text-grey-600 underline ml-1"
                                             href={
@@ -218,11 +222,11 @@ export default function PendingPreinscriptionsTable() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                           >
-                                            Voir
+                                            {t("view")}
                                           </a>
                                         </li>
                                         <li>
-                                          Livret de famille :
+                                          {t("familyBook")}
                                           <a
                                             className="text-grey-600 underline ml-1"
                                             href={
@@ -231,7 +235,7 @@ export default function PendingPreinscriptionsTable() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                           >
-                                            Voir
+                                            {t("view")}
                                           </a>
                                         </li>
                                       </ul>
@@ -266,8 +270,8 @@ export default function PendingPreinscriptionsTable() {
                               ) : (
                                 <span className="text-sm italic text-muted-foreground">
                                   {child.status === "ACCEPTED"
-                                    ? "Préinscription acceptée"
-                                    : "Préinscription refusée"}
+                                    ? t("preinscriptionAccepted")
+                                    : t("preinscriptionRejected")}
                                 </span>
                               )}
                             </div>

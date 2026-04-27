@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Zap } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import Logo from "./Logo";
 
-export default function ForgotPasswordPage() {
+export default function ForgotPasswordForm() {
+  const t = useTranslations("ForgotPassword");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -24,9 +26,9 @@ export default function ForgotPasswordPage() {
     setLoading(false);
 
     if (data.success) {
-      toast.success("Un email de réinitialisation a été envoyé !");
+      toast.success(t("successMessage"));
     } else {
-      toast.error(data.error || "Une erreur s’est produite");
+      toast.error(data.error || t("errorMessage"));
     }
   };
 
@@ -34,13 +36,12 @@ export default function ForgotPasswordPage() {
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 h-full pt-[300px] pb-[300px] relative">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center items-center gap-2">
-          <Link href={"/"} className="flex justify-center items-center gap-2">
-            <Zap className="text-indigo-600" />
-            <h1 className="text-xl font-bold text-gray-900">Formwise</h1>
+          <Link href="/" aria-label="formwise">
+            <Logo />
           </Link>
         </div>
         <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Mot de passe oublié
+          {t("formTitle")}
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -51,7 +52,7 @@ export default function ForgotPasswordPage() {
                 htmlFor="email"
                 className="block text-sm/6 font-medium text-gray-900"
               >
-                Adresse e-mail
+                {t("emailLabel")}
               </label>
               <div className="mt-2">
                 <input
@@ -62,7 +63,7 @@ export default function ForgotPasswordPage() {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-black sm:text-sm/6"
                 />
               </div>
             </div>
@@ -72,7 +73,7 @@ export default function ForgotPasswordPage() {
               disabled={loading}
               className="w-full cursor-pointer"
             >
-              {loading ? "Envoi en cours..." : "Envoyer le lien"}
+              {loading ? t("sending") : t("sendButton")}
             </Button>
           </form>
         </div>

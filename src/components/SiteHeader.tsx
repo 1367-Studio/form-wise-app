@@ -1,21 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Zap, Menu } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import NavDrawerMobile from "./NavDrawerMobile";
 import { Button } from "@/components/ui/button";
-
-// const navigation = [
-//   // { name: "Contactez-nous", href: "/contact" },
-//   // { name: "Fonctionnalités", href: "#" },
-// ];
+import LanguageSwitcher from "./LanguageSwitcher";
+import Logo from "./Logo";
 
 export default function SiteHeader() {
   const [showSticky, setShowSticky] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations("SiteHeader");
 
   useEffect(() => {
     const handleScroll = () => setShowSticky(window.scrollY > 100);
@@ -34,36 +32,34 @@ export default function SiteHeader() {
         {showSticky && (
           <div className="fixed top-4 left-1/2 z-40 -translate-x-1/2 w-[90%] max-w-6xl rounded-full bg-white/10 backdrop-blur-3xl backdrop-saturate-200 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.3)] ring-1 ring-white/20 transition-all duration-300">
             <div className="flex items-center justify-between px-6 py-1 lg:py-3">
-              <Link
-                href="/"
-                className="flex fancy-gradient-text items-center font-semibold text-gray-900"
-              >
-                <Zap className="h-5 w-5 mr-1" />
-                Form<span className="font-bold">wise</span>
+              <Link href="/" aria-label="formwise">
+                <Logo />
               </Link>
 
-              <div className="hidden lg:flex gap-6 items-center">
+              <div className="hidden lg:flex gap-3 items-center">
+                <LanguageSwitcher variant="ghost" />
                 <Link
                   href="/register/free-trial"
-                  className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
+                  className="text-sm flex font-semibold text-white-700 hover:text-black"
                 >
-                  <Button className="cursor-pointer">S&apos;inscrire</Button>
+                  <Button className="cursor-pointer">{t("signUp")}</Button>
                 </Link>
                 <Link
                   href="/login"
-                  className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
+                  className="text-sm flex font-semibold text-white-700 hover:text-black"
                 >
                   <Button className="cursor-pointer" variant={"outline"}>
-                    Se connecter
+                    {t("signIn")}
                   </Button>
                 </Link>
               </div>
-              <div className="flex lg:hidden">
+              <div className="flex lg:hidden items-center gap-2">
+                <LanguageSwitcher variant="ghost" />
                 <button
                   onClick={() => setMobileMenuOpen(true)}
                   className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 cursor-pointer hover:bg-white/10 transition"
                 >
-                  <span className="sr-only">Ouvrir le menu</span>
+                  <span className="sr-only">{t("openMenu")}</span>
                   <Menu className="h-6 w-6" />
                 </button>
               </div>
@@ -77,50 +73,37 @@ export default function SiteHeader() {
           style={{ maxWidth: "1200px", margin: "0 auto" }}
         >
           <div className="flex-shrink-0">
-            <Link
-              href="/"
-              className="flex font-semibold items-center fancy-gradient-text -m-1.5 p-1.5"
-            >
-              <Zap className="h-5 w-5 mr-1" />
-              Form<span className="font-bold">wise</span>
+            <Link href="/" aria-label="formwise" className="-m-1.5 p-1.5">
+              <Logo />
             </Link>
           </div>
 
-          <nav className="flex items-center gap-6">
-            {/* <div className="hidden lg:flex lg:gap-x-12">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm font-semibold text-gray-900 hover:text-indigo-600 transition-colors"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div> */}
-            <div className="hidden lg:flex gap-6 items-center">
+          <nav className="flex items-center gap-3">
+            <div className="hidden lg:flex gap-3 items-center">
+              <LanguageSwitcher />
               <Link
                 href="/register/free-trial"
-                className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
+                className="text-sm flex font-semibold text-white-700 hover:text-black"
               >
-                <Button className="cursor-pointer">S&apos;inscrire</Button>
+                <Button className="cursor-pointer">{t("signUp")}</Button>
               </Link>
               <Link
                 href="/login"
-                className="text-sm flex font-semibold text-white-700 hover:text-indigo-600"
+                className="text-sm flex font-semibold text-white-700 hover:text-black"
               >
                 <Button className="cursor-pointer" variant={"outline"}>
-                  Se connecter
+                  {t("signIn")}
                 </Button>
               </Link>
             </div>
 
-            <div className="flex lg:hidden">
+            <div className="flex lg:hidden items-center gap-2">
+              <LanguageSwitcher />
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 className="-m-2.5 inline-flex items-center justify-center rounded-md cursor-pointer p-2.5 text-gray-700"
               >
-                <span className="sr-only">Menu mobile</span>
+                <span className="sr-only">{t("mobileMenu")}</span>
                 <Menu className="h-6 w-6" />
               </button>
             </div>

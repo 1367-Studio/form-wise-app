@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type Notification = {
   id: string;
@@ -24,6 +25,7 @@ type Notification = {
 };
 
 export default function DirectorNotificationList() {
+  const t = useTranslations("Notifications");
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -43,9 +45,7 @@ export default function DirectorNotificationList() {
   }, []);
 
   if (notifications.length === 0) {
-    return (
-      <p className="text-muted-foreground mt-6">Aucune notification envoyée.</p>
-    );
+    return <p className="text-muted-foreground mt-6">{t("noneDirector")}</p>;
   }
 
   return (
@@ -64,13 +64,17 @@ export default function DirectorNotificationList() {
               </p>
               <p className="text-xs">
                 {n.isGlobal
-                  ? "Tous les parents"
-                  : `Élève : ${n.student?.firstName} ${n.student?.lastName}`}
+                  ? t("allParents")
+                  : t("studentLabel", {
+                      name: `${n.student?.firstName ?? ""} ${
+                        n.student?.lastName ?? ""
+                      }`.trim(),
+                    })}
               </p>
               <div className="text-xs">
                 {n.isGlobal ? (
                   <span className="text-gray-600">
-                    {n.readBy.length} parent(s) ont lu
+                    {t("parentsRead", { count: n.readBy.length })}
                   </span>
                 ) : (
                   <span
@@ -80,7 +84,7 @@ export default function DirectorNotificationList() {
                         : "bg-yellow-100 text-yellow-800"
                     }`}
                   >
-                    {n.readBy.length > 0 ? "Lue" : "Non lue"}
+                    {n.readBy.length > 0 ? t("read") : t("unread")}
                   </span>
                 )}
               </div>
@@ -92,10 +96,10 @@ export default function DirectorNotificationList() {
           <table className="min-w-full text-sm">
             <thead className="bg-muted text-muted-foreground uppercase text-xs">
               <tr>
-                <th className="px-4 py-3 text-left">Titre</th>
-                <th className="px-4 py-3 text-left">Destinataire</th>
-                <th className="px-4 py-3 text-left">Statut</th>
-                <th className="px-4 py-3 text-left">Date</th>
+                <th className="px-4 py-3 text-left">{t("headerTitle")}</th>
+                <th className="px-4 py-3 text-left">{t("headerRecipient")}</th>
+                <th className="px-4 py-3 text-left">{t("headerStatus")}</th>
+                <th className="px-4 py-3 text-left">{t("headerDate")}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -105,13 +109,13 @@ export default function DirectorNotificationList() {
                   <td className="px-4 py-2">
                     {n.isGlobal
                       ? n.teacherId
-                        ? "Tous les enseignants"
-                        : "Tous les parents"
+                        ? t("allTeachers")
+                        : t("allParents")
                       : n.student
                         ? `${n.student.firstName} ${n.student.lastName}`
                         : n.teacher?.user
                           ? `${n.teacher.user.firstName} ${n.teacher.user.lastName}`
-                          : "Notification privée"}
+                          : t("privateNotification")}
                   </td>
                   <td className="px-4 py-2">
                     {n.teacherId || n.teacher ? (
@@ -123,12 +127,12 @@ export default function DirectorNotificationList() {
                         }`}
                       >
                         {n.readByTeachers && n.readByTeachers.length > 0
-                          ? "Lue"
-                          : "Non lue"}
+                          ? t("read")
+                          : t("unread")}
                       </span>
                     ) : n.isGlobal ? (
                       <span className="text-xs text-gray-600">
-                        {n.readBy.length} parent(s) ont lu
+                        {t("parentsRead", { count: n.readBy.length })}
                       </span>
                     ) : (
                       <span
@@ -138,7 +142,7 @@ export default function DirectorNotificationList() {
                             : "bg-yellow-100 text-yellow-800"
                         }`}
                       >
-                        {n.readBy.length > 0 ? "Lue" : "Non lue"}
+                        {n.readBy.length > 0 ? t("read") : t("unread")}
                       </span>
                     )}
                   </td>

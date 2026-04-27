@@ -55,14 +55,32 @@
 }
 
 .fancy-gradient-span {
-  text-shadow:
-    -1.5px 3px 3px #9089fc30,
-    /* ombre violette douce */ 0 1px 1px #9089fc20;
-  -webkit-text-fill-color: transparent;
-  background-image:
-    linear-gradient(315deg, #0000, #ffffff40), linear-gradient(#a78bfa, #9089fc); /* dégradé violet */
-  -webkit-background-clip: text;
-  background-clip: text;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 600;
+  color: #f84a00;
+  -webkit-text-fill-color: #f84a00;
+}
+
+/* Warm paper-cream background with a subtle dot grid — used on marketing sections */
+.paper-bg {
+  background-color: #fdfbf6;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Brand accent utility — CTAs, icons, kickers */
+.brand {
+  color: #f84a00;
+}
+.bg-brand {
+  background-color: #f84a00;
+}
+.bg-brand:hover {
+  background-color: #d43e00;
+}
+.ring-brand {
+  --tw-ring-color: #f84a00;
 }
 
 :root {
@@ -73,7 +91,7 @@
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
+  --primary: oklch(0.61 0.216 38.89);
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);

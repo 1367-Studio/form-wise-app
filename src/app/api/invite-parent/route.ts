@@ -1,42 +1,76 @@
-// ✅ Multi-tenant: envoi du code école par mail avec support SUPER_ADMIN
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../lib/authOptions";
 import { prisma } from "../../../lib/prisma";
 import { resend } from "../../../lib/resend";
+import {
+  enforceRateLimit,
+  enforceSameOrigin,
+  requireSession,
+} from "../../../lib/security";
+
+const MAX_BATCH = 50;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
 
-  if (!user) {
-    return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
-  }
+  const auth = await requireSession({ roles: ["DIRECTOR", "SUPER_ADMIN"] });
+  if ("error" in auth) return auth.error;
+  const { session } = auth;
 
-  // Vérifier les permissions
-  const allowedRoles = ["SUPER_ADMIN", "DIRECTOR"];
-  if (!allowedRoles.includes(user.role)) {
-    return NextResponse.json(
-      { error: "Permissions insuffisantes" },
-      { status: 403 }
-    );
-  }
+  // Per-user rate limit so the batch-size cap can't be sidestepped by
+  // multiple smaller batches in quick succession.
+  const rl = enforceRateLimit(
+    req,
+    { name: "invite-parent", limit: 5, windowMs: 60 * 60 * 1000 },
+    session.user.id
+  );
+  if (rl) return rl;
 
-  const { emails, tenantId } = await req.json();
+  const { emails: rawEmails, tenantId } = (await req.json()) as {
+    emails?: unknown;
+    tenantId?: unknown;
+  };
 
-  if (!emails || !Array.isArray(emails) || emails.length === 0) {
+  if (!Array.isArray(rawEmails) || rawEmails.length === 0) {
     return NextResponse.json(
       { error: "Aucune adresse email fournie" },
       { status: 400 }
     );
   }
+  if (rawEmails.length > MAX_BATCH) {
+    return NextResponse.json(
+      { error: `Maximum ${MAX_BATCH} invitations par requête.` },
+      { status: 400 }
+    );
+  }
 
-  // Déterminer le tenantId à utiliser
+  // Dedupe + validate per-email shape; reject the whole batch if any are bad.
+  const seen = new Set<string>();
+  const emails: string[] = [];
+  for (const v of rawEmails) {
+    if (typeof v !== "string") {
+      return NextResponse.json(
+        { error: "Format d'email invalide" },
+        { status: 400 }
+      );
+    }
+    const e = v.trim().toLowerCase();
+    if (!EMAIL_RE.test(e) || e.length > 254) {
+      return NextResponse.json(
+        { error: `Email invalide: ${e.slice(0, 100)}` },
+        { status: 400 }
+      );
+    }
+    if (!seen.has(e)) {
+      seen.add(e);
+      emails.push(e);
+    }
+  }
+
   let targetTenantId: string;
-
-  if (user.role === "SUPER_ADMIN") {
-    // SUPER_ADMIN doit spécifier le tenantId dans le body
-    if (!tenantId) {
+  if (session.user.role === "SUPER_ADMIN") {
+    if (typeof tenantId !== "string" || !tenantId) {
       return NextResponse.json(
         { error: "tenantId requis pour les SUPER_ADMIN" },
         { status: 400 }
@@ -44,14 +78,13 @@ export async function POST(req: Request) {
     }
     targetTenantId = tenantId;
   } else {
-    // DIRECTOR utilise son propre tenantId
-    if (!user.tenantId) {
+    if (!session.user.tenantId) {
       return NextResponse.json(
         { error: "Utilisateur sans tenant" },
         { status: 403 }
       );
     }
-    targetTenantId = user.tenantId;
+    targetTenantId = session.user.tenantId;
   }
 
   const tenant = await prisma.tenant.findUnique({
@@ -60,14 +93,11 @@ export async function POST(req: Request) {
   });
 
   if (!tenant?.schoolCode) {
-    return NextResponse.json(
-      { error: "Code établissement introuvable" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Établissement introuvable" }, { status: 404 });
   }
 
   const results = await Promise.allSettled(
-    emails.map((email: string) =>
+    emails.map((email) =>
       resend.emails.send({
         from: "Formwise <onboarding@formwise.fr>",
         to: [email],
@@ -77,20 +107,15 @@ export async function POST(req: Request) {
           <p>Vous avez été invité à rejoindre <strong>${tenant.name}</strong> sur Formwise.</p>
           <p>Pour créer votre compte, utilisez ce code établissement :</p>
           <h2>${tenant.schoolCode}</h2>
-          <p>👉 <a href="https://formwise.fr/register">Cliquez ici pour vous inscrire</a></p>
+          <p><a href="https://formwise.fr/register">Cliquez ici pour vous inscrire</a></p>
         `,
       })
     )
   );
 
-  // Enregistre les invitations dans la DB
   await prisma.invitedParent.createMany({
-    data: emails.map((email: string) => ({
-      email,
-      tenantId: targetTenantId,
-      used: false,
-    })),
-    skipDuplicates: true, // évite les doublons
+    data: emails.map((email) => ({ email, tenantId: targetTenantId, used: false })),
+    skipDuplicates: true,
   });
 
   const successCount = results.filter((r) => r.status === "fulfilled").length;

@@ -1,31 +1,40 @@
-// ✅ Multi-tenant inscription via code école
 import { NextResponse } from "next/server";
 import { prisma } from "../../../lib/prisma";
 import bcrypt from "bcryptjs";
 import { resend } from "../../../lib/resend";
+import {
+  enforceRateLimit,
+  enforceSameOrigin,
+  validatePassword,
+  BCRYPT_COST,
+} from "../../../lib/security";
 
 export async function POST(req: Request) {
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
+
+  const rl = enforceRateLimit(req, {
+    name: "register",
+    limit: 10,
+    windowMs: 60 * 60 * 1000,
+  });
+  if (rl) return rl;
+
   try {
     const body = await req.json();
-
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      phone,
-      civility,
-      schoolCode,
-    } = body;
-
-    const role = "PARENT";
+    const { email, password, firstName, lastName, phone, civility, schoolCode } = body;
 
     if (
-      !email?.trim() ||
-      !password?.trim() ||
-      !firstName?.trim() ||
-      !lastName?.trim() ||
-      !phone?.trim()
+      typeof email !== "string" ||
+      !email.trim() ||
+      typeof firstName !== "string" ||
+      !firstName.trim() ||
+      typeof lastName !== "string" ||
+      !lastName.trim() ||
+      typeof phone !== "string" ||
+      !phone.trim() ||
+      typeof schoolCode !== "string" ||
+      !schoolCode.trim()
     ) {
       return NextResponse.json(
         { success: false, error: "Champs requis manquants" },
@@ -33,24 +42,16 @@ export async function POST(req: Request) {
       );
     }
 
-    // Vérifie si l'utilisateur existe déjà
-    const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
-        { success: false, error: "Cet email est déjà utilisé." },
+        { success: false, error: "Email invalide" },
         { status: 400 }
       );
     }
 
-    // Vérifie le code école
-    if (!schoolCode || schoolCode.trim() === "") {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Le code de l’école est requis pour créer un compte parent.",
-        },
-        { status: 400 }
-      );
+    const pwdCheck = validatePassword(password);
+    if (!pwdCheck.ok) {
+      return NextResponse.json({ success: false, error: pwdCheck.error }, { status: 400 });
     }
 
     const tenant = await prisma.tenant.findUnique({
@@ -64,13 +65,8 @@ export async function POST(req: Request) {
       );
     }
 
-    // 🔒 Vérifie que le parent a bien été invité
     const invited = await prisma.invitedParent.findFirst({
-      where: {
-        email,
-        tenantId: tenant.id,
-        used: false,
-      },
+      where: { email, tenantId: tenant.id, used: false },
     });
 
     if (!invited) {
@@ -84,8 +80,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // Hash du mot de passe
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Check existence after invite check so the unauthenticated path can't
+    // enumerate registered emails on this school.
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return NextResponse.json(
+        { success: false, error: "Cet email est déjà utilisé." },
+        { status: 400 }
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(password, BCRYPT_COST);
 
     await prisma.user.create({
       data: {
@@ -94,19 +99,17 @@ export async function POST(req: Request) {
         firstName,
         lastName,
         phone,
-        role,
+        role: "PARENT",
         civility,
         tenantId: tenant.id,
       },
     });
 
-    // ✅ Marque l'invitation comme utilisée
     await prisma.invitedParent.update({
       where: { id: invited.id },
       data: { used: true, firstName },
     });
 
-    // Envoi de l'email de bienvenue
     await resend.emails.send({
       from: "Formwise <onboarding@formwise.fr>",
       to: [email],
@@ -114,16 +117,15 @@ export async function POST(req: Request) {
       html: `
         <p>Bonjour ${firstName},</p>
         <p>Votre compte a été créé avec succès.</p>
-        <p><a href="https://formwise.fr/login?email=${encodeURIComponent(
-          email
-        )}">Cliquez ici pour vous connecter</a></p>
+        <p><a href="https://formwise.fr/login?email=${encodeURIComponent(email)}">Cliquez ici pour vous connecter</a></p>
         <p>À bientôt !</p>
       `,
     });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("❌ Erreur dans /api/register :", error);
+    console.error("Erreur dans /api/register");
+    void error;
     return NextResponse.json(
       { success: false, error: "Erreur serveur" },
       { status: 500 }

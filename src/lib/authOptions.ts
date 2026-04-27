@@ -16,7 +16,7 @@ interface AppUser {
   email: string;
   role: UserRole;
   phone: string;
-  tenantId: string | null; // Garder null pour les SUPER_ADMIN
+  tenantId: string | null;
   rememberMe?: boolean;
   firstName?: string;
   lastName?: string;
@@ -25,6 +25,7 @@ interface AppUser {
   billingPlan?: string;
   trialEndsAt?: string | null;
   schoolCode?: string | null;
+  tokenVersion?: number;
 }
 
 // ----- JWT Token Shape -----
@@ -50,7 +51,9 @@ export const authOptions: AuthOptions = {
         rememberMe: { label: "Rester connecté", type: "checkbox" },
       },
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
 
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
@@ -65,14 +68,17 @@ export const authOptions: AuthOptions = {
           "SUPER_ADMIN",
         ];
 
-        if (!user || !allowedRoles.includes(user.role)) return null;
-        if (!user.password) return null;
+        if (!user || !allowedRoles.includes(user.role) || !user.password) {
+          return null;
+        }
 
         const isValid = await bcrypt.compare(
           credentials.password,
           user.password
         );
-        if (!isValid) return null;
+        if (!isValid) {
+          return null;
+        }
 
         const rememberMe =
           credentials.rememberMe === "true" || credentials.rememberMe === "on";
@@ -90,8 +96,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
-      console.log("➡️ signIn callback:", user?.email);
+    async signIn() {
       return true;
     },
 
@@ -134,6 +139,7 @@ export const authOptions: AuthOptions = {
             dbUser.role === "SUPER_ADMIN" ? "ACTIVE" : subscriptionStatus,
           billingPlan: dbUser.tenant?.billingPlan ?? "MONTHLY",
           trialEndsAt: dbUser.tenant?.trialEndsAt?.toISOString() ?? null,
+          tokenVersion: dbUser.tokenVersion,
         };
 
         typedToken.user = userPayload;
@@ -143,6 +149,23 @@ export const authOptions: AuthOptions = {
 
         if (!typedToken.rememberMe) {
           typedToken.exp = Math.floor(Date.now() / 1000) + 4 * 60 * 60;
+        }
+      }
+
+      // On every JWT cycle: revalidate tokenVersion so "Sign out
+      // everywhere" actually invalidates other tabs/devices on next request.
+      if (typedToken.user?.id && typedToken.user?.tokenVersion !== undefined) {
+        const dbCheck = await prisma.user.findUnique({
+          where: { id: typedToken.user.id },
+          select: { tokenVersion: true },
+        });
+        if (
+          dbCheck &&
+          dbCheck.tokenVersion !== typedToken.user.tokenVersion
+        ) {
+          // Token was issued under an older version → invalidate.
+          typedToken.user = undefined;
+          typedToken.role = undefined;
         }
       }
 

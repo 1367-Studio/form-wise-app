@@ -22,9 +22,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { fr, enGB, ptBR, es } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
+import { useLocale, useTranslations } from "next-intl";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
+
+const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
 interface ClassOption {
   id: string;
@@ -49,6 +53,10 @@ export default function StudentForm({
 }: {
   onStudentAdded: (student: Student) => void;
 }) {
+  const t = useTranslations("StudentForm");
+  const locale = useLocale() as keyof typeof dateLocales;
+  const dfLocale = dateLocales[locale] ?? fr;
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -64,6 +72,18 @@ export default function StudentForm({
   const [loading, setLoading] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [formError, setFormError] = useState("");
+
+  const isDirty =
+    !loading &&
+    (formData.firstName !== "" ||
+      formData.lastName !== "" ||
+      formData.birthDate !== undefined ||
+      formData.address !== "" ||
+      formData.healthDetails !== "" ||
+      formData.classId !== "" ||
+      formData.hasHealthIssues !== "no" ||
+      formData.canLeaveAlone !== "no");
+  useUnsavedChanges(isDirty);
 
   useEffect(() => {
     fetch("/api/classes/public")
@@ -84,7 +104,7 @@ export default function StudentForm({
     setFormError("");
 
     if (!formData.classId) {
-      setFormError("Veuillez choisir une classe.");
+      setFormError(t("errorClassRequired"));
       return;
     }
 
@@ -107,10 +127,7 @@ export default function StudentForm({
 
     if (data.success) {
       onStudentAdded(data.student);
-
-      toast.success(
-        "Élève ajouté avec succès. Veuillez valider votre inscription auprès du secrétariat."
-      );
+      toast.success(t("successMessage"));
 
       setFormData({
         firstName: "",
@@ -125,21 +142,23 @@ export default function StudentForm({
     }
   };
 
+  const requiredHint = (
+    <span className="text-gray-400 text-xs italic">{t("requiredHint")}</span>
+  );
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Ajouter un enfant</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
       <CardContent>
         <form
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-4"
         >
-          {/* Prénom */}
           <div className="flex flex-col gap-2">
             <Label>
-              Prénom{" "}
-              <span className="text-gray-400 text-xs italic">obligatoire</span>
+              {t("firstNameLabel")} {requiredHint}
             </Label>
             <Input
               name="firstName"
@@ -149,11 +168,9 @@ export default function StudentForm({
             />
           </div>
 
-          {/* Nom */}
           <div className="flex flex-col gap-2">
             <Label>
-              Nom{" "}
-              <span className="text-gray-400 text-xs italic">obligatoire</span>
+              {t("lastNameLabel")} {requiredHint}
             </Label>
             <Input
               name="lastName"
@@ -163,11 +180,9 @@ export default function StudentForm({
             />
           </div>
 
-          {/* Date de naissance */}
           <div className="flex flex-col gap-2">
             <Label>
-              Date de naissance{" "}
-              <span className="text-gray-400 text-xs italic">obligatoire</span>
+              {t("birthDateLabel")} {requiredHint}
             </Label>
             <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
               <PopoverTrigger asChild>
@@ -177,9 +192,9 @@ export default function StudentForm({
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {formData.birthDate ? (
-                    format(formData.birthDate, "PPP", { locale: fr })
+                    format(formData.birthDate, "PPP", { locale: dfLocale })
                   ) : (
-                    <span>Sélectionner une date</span>
+                    <span>{t("selectDate")}</span>
                   )}
                 </Button>
               </PopoverTrigger>
@@ -191,7 +206,7 @@ export default function StudentForm({
                     setFormData({ ...formData, birthDate: date });
                     setCalendarOpen(false);
                   }}
-                  locale={fr}
+                  locale={dfLocale}
                   captionLayout="dropdown"
                   startMonth={new Date(1980, 0)}
                   endMonth={new Date(2025, 0)}
@@ -200,11 +215,9 @@ export default function StudentForm({
             </Popover>
           </div>
 
-          {/* Adresse */}
           <div className="flex flex-col gap-2">
             <Label>
-              Adresse{" "}
-              <span className="text-gray-400 text-xs italic">obligatoire</span>
+              {t("addressLabel")} {requiredHint}
             </Label>
             <Input
               name="address"
@@ -214,11 +227,9 @@ export default function StudentForm({
             />
           </div>
 
-          {/* Classe */}
           <div className="md:col-span-2 flex flex-col gap-2">
             <Label>
-              Classe{" "}
-              <span className="text-gray-400 text-xs italic">obligatoire</span>
+              {t("classLabel")} {requiredHint}
             </Label>
             <Select
               value={formData.classId}
@@ -227,7 +238,7 @@ export default function StudentForm({
               }
             >
               <SelectTrigger>
-                <SelectValue placeholder="Choisissez une classe" />
+                <SelectValue placeholder={t("classPlaceholder")} />
               </SelectTrigger>
               <SelectContent>
                 {classes.map((cls) => (
@@ -242,16 +253,16 @@ export default function StudentForm({
             )}
             {selectedClass && (
               <p className="text-sm text-muted-foreground mt-1">
-                Prix mensuel : {selectedClass.monthlyFee.toFixed(2)} €
+                {t("monthlyFee", {
+                  fee: selectedClass.monthlyFee.toFixed(2),
+                })}
               </p>
             )}
           </div>
 
-          {/* Problèmes de santé */}
           <div className="md:col-span-2 flex flex-col gap-2">
             <Label>
-              Problèmes de santé ?{" "}
-              <span className="text-gray-400 text-xs italic">obligatoire</span>
+              {t("healthIssuesLabel")} {requiredHint}
             </Label>
             <RadioGroup
               name="hasHealthIssues"
@@ -263,38 +274,33 @@ export default function StudentForm({
               <div className="flex gap-4">
                 <div className="flex items-center gap-2">
                   <RadioGroupItem value="no" id="no-health" />
-                  <Label htmlFor="no-health">Non</Label>
+                  <Label htmlFor="no-health">{t("no")}</Label>
                 </div>
                 <div className="flex items-center gap-2">
                   <RadioGroupItem value="yes" id="yes-health" />
-                  <Label htmlFor="yes-health">Oui</Label>
+                  <Label htmlFor="yes-health">{t("yes")}</Label>
                 </div>
               </div>
             </RadioGroup>
             {formData.hasHealthIssues === "yes" && (
               <div className="mt-2 flex flex-col gap-2">
                 <Label>
-                  Précisions{" "}
-                  <span className="text-gray-400 text-xs italic">
-                    obligatoire
-                  </span>
+                  {t("healthDetailsLabel")} {requiredHint}
                 </Label>
                 <Textarea
                   name="healthDetails"
                   value={formData.healthDetails}
                   onChange={handleChange}
-                  placeholder="Décrivez les problèmes de santé..."
+                  placeholder={t("healthDetailsPlaceholder")}
                   required
                 />
               </div>
             )}
           </div>
 
-          {/* Peut partir seul */}
           <div className="md:col-span-2 flex flex-col gap-2">
             <Label>
-              Peut partir seul ?{" "}
-              <span className="text-gray-400 text-xs italic">obligatoire</span>
+              {t("canLeaveAloneLabel")} {requiredHint}
             </Label>
             <RadioGroup
               name="canLeaveAlone"
@@ -306,17 +312,16 @@ export default function StudentForm({
               <div className="flex gap-4 flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <RadioGroupItem value="no" id="no-alone" />
-                  <Label htmlFor="no-alone">Non</Label>
+                  <Label htmlFor="no-alone">{t("no")}</Label>
                 </div>
                 <div className="flex items-center gap-2">
                   <RadioGroupItem value="yes" id="yes-alone" />
-                  <Label htmlFor="yes-alone">Oui</Label>
+                  <Label htmlFor="yes-alone">{t("yes")}</Label>
                 </div>
               </div>
             </RadioGroup>
           </div>
 
-          {/* CTA */}
           <div className="md:col-span-2">
             <Button
               type="submit"
@@ -324,7 +329,7 @@ export default function StudentForm({
               disabled={loading || !formData.classId}
             >
               {loading && <Loader2Icon className="animate-spin mr-2 h-4 w-4" />}
-              {loading ? "Ajout..." : "Ajouter l'élève"}
+              {loading ? t("submitting") : t("submitButton")}
             </Button>
           </div>
         </form>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import {
   Select,
   SelectContent,
@@ -44,13 +45,8 @@ type Student = {
   };
 };
 
-const classes = [
-  { id: "all", name: "Toutes les classes" },
-  { id: "class-1", name: "CP" },
-  { id: "class-2", name: "CE1" },
-];
-
 export default function StudentListWithFilter() {
+  const t = useTranslations("StudentListFilter");
   const [students, setStudents] = useState<Student[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
@@ -61,6 +57,12 @@ export default function StudentListWithFilter() {
   const [loading, setLoading] = useState(false);
   const pageSize = 10;
   const isMobile = useIsMobile();
+
+  const classes = [
+    { id: "all", name: t("allClasses") },
+    { id: "class-1", name: t("classCp") },
+    { id: "class-2", name: t("classCe1") },
+  ];
 
   const handleView = (student: Student) => {
     setSelectedStudent(student);
@@ -84,7 +86,7 @@ export default function StudentListWithFilter() {
         setStudents(data.students || []);
         setTotal(data.total || 0);
       } catch (error) {
-        console.error("Erreur lors du chargement des élèves", error);
+        console.error("Students fetch error:", error);
       } finally {
         setLoading(false);
       }
@@ -99,7 +101,7 @@ export default function StudentListWithFilter() {
     <div className="space-y-6 mt-8">
       <div className="flex flex-col md:flex-row items-center gap-4">
         <Input
-          placeholder="Rechercher un élève"
+          placeholder={t("searchPlaceholder")}
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -115,7 +117,7 @@ export default function StudentListWithFilter() {
           }}
         >
           <SelectTrigger className="w-full md:w-1/3">
-            <SelectValue placeholder="Filtrer par classe" />
+            <SelectValue placeholder={t("classPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             {classes.map((cls) => (
@@ -128,10 +130,10 @@ export default function StudentListWithFilter() {
       </div>
 
       {loading ? (
-        <p className="text-center py-8 text-muted-foreground">Chargement...</p>
+        <p className="text-center py-8 text-muted-foreground">{t("loading")}</p>
       ) : students.length === 0 ? (
         <p className="text-center py-8 text-muted-foreground">
-          Aucun élève trouvé.
+          {t("emptyState")}
         </p>
       ) : isMobile ? (
         <div className="space-y-4">
@@ -142,13 +144,15 @@ export default function StudentListWithFilter() {
                   {student.firstName} {student.lastName}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Classe : {student.class.name}
+                  {t("headerClass")} : {student.class.name}
                 </p>
                 <p className="text-sm">
-                  Problèmes de santé : {student.healthIssues || "Aucun"}
+                  {t("headerHealthIssues")} :{" "}
+                  {student.healthIssues || t("healthNone")}
                 </p>
                 <p className="text-sm">
-                  Peut partir seul : {student.canLeaveAlone ? "Oui" : "Non"}
+                  {t("headerCanLeaveAlone")} :{" "}
+                  {student.canLeaveAlone ? t("yes") : t("no")}
                 </p>
                 <p
                   className={`text-xs font-medium inline-block px-2 py-1 rounded-full ${
@@ -157,7 +161,7 @@ export default function StudentListWithFilter() {
                       : "bg-red-100 text-red-800"
                   }`}
                 >
-                  {student.parent.iban ? "RIB à jour" : "RIB non ajouté"}
+                  {student.parent.iban ? t("ribUpdated") : t("ribMissing")}
                 </p>
                 <Button
                   variant="secondary"
@@ -166,7 +170,7 @@ export default function StudentListWithFilter() {
                   className="cursor-pointer"
                 >
                   <Eye className="w-4 h-4 mr-1" />
-                  Voir plus
+                  {t("viewMore")}
                 </Button>
               </CardContent>
             </Card>
@@ -178,12 +182,20 @@ export default function StudentListWithFilter() {
             <table className="min-w-full text-sm">
               <thead className="bg-muted text-muted-foreground uppercase text-xs">
                 <tr>
-                  <th className="px-4 py-3 text-left">Élève</th>
-                  <th className="px-4 py-3 text-left">Classe</th>
-                  <th className="px-4 py-3 text-left">Problèmes de santé</th>
-                  <th className="px-4 py-3 text-left">Peut partir seul</th>
-                  <th className="px-4 py-3 text-left">Status RIB</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
+                  <th className="px-4 py-3 text-left">{t("headerStudent")}</th>
+                  <th className="px-4 py-3 text-left">{t("headerClass")}</th>
+                  <th className="px-4 py-3 text-left">
+                    {t("headerHealthIssues")}
+                  </th>
+                  <th className="px-4 py-3 text-left">
+                    {t("headerCanLeaveAlone")}
+                  </th>
+                  <th className="px-4 py-3 text-left">
+                    {t("headerRibStatus")}
+                  </th>
+                  <th className="px-4 py-3 text-right">
+                    {t("headerActions")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -194,19 +206,19 @@ export default function StudentListWithFilter() {
                     </td>
                     <td className="px-4 py-2">{student.class.name}</td>
                     <td className="px-4 py-2">
-                      {student.healthIssues || "Aucun"}
+                      {student.healthIssues || t("healthNone")}
                     </td>
                     <td className="px-4 py-2">
-                      {student.canLeaveAlone ? "Oui" : "Non"}
+                      {student.canLeaveAlone ? t("yes") : t("no")}
                     </td>
                     <td className="px-4 py-2">
                       {student.parent.iban ? (
                         <span className="inline-flex items-center rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#2fbf6c] ring-1 ring-inset ring-green-600/20">
-                          RIB à jour
+                          {t("ribUpdated")}
                         </span>
                       ) : (
                         <span className="inline-flex items-center rounded-full bg-[#fdecec] px-2 py-0.5 text-xs font-medium text-[#e3342f] ring-1 ring-inset ring-red-600/20">
-                          RIB non ajouté
+                          {t("ribMissing")}
                         </span>
                       )}
                     </td>
@@ -226,8 +238,9 @@ export default function StudentListWithFilter() {
             </table>
           </div>
           <div className="text-sm text-muted-foreground text-right mt-2">
-            Total : <span className="font-semibold">{total}</span> élève
-            {total > 1 ? "s" : ""}
+            {t("totalLabel")}{" "}
+            <span className="font-semibold">{total}</span>{" "}
+            {t("studentsLabel", { count: total })}
           </div>
         </>
       )}
@@ -243,7 +256,7 @@ export default function StudentListWithFilter() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogDescription>Fiche de l&apos;élève</DialogDescription>
+            <DialogDescription>{t("studentSheet")}</DialogDescription>
             <DialogTitle>
               {selectedStudent?.firstName} {selectedStudent?.lastName}
             </DialogTitle>
@@ -253,11 +266,13 @@ export default function StudentListWithFilter() {
             <Card className="mt-4">
               <CardContent className="space-y-3 pt-4 text-sm">
                 <p>
-                  <strong>Parent :</strong> {selectedStudent.parent.firstName}{" "}
+                  <strong>{t("parentLabel")}</strong>{" "}
+                  {selectedStudent.parent.firstName}{" "}
                   {selectedStudent.parent.lastName}
                 </p>
                 <p className="flex items-center gap-2">
-                  <strong>Email :</strong> {selectedStudent.parent.email}
+                  <strong>{t("emailLabel")}</strong>{" "}
+                  {selectedStudent.parent.email}
                   <Button
                     className="cursor-pointer"
                     variant="ghost"
@@ -266,14 +281,15 @@ export default function StudentListWithFilter() {
                       navigator.clipboard.writeText(
                         selectedStudent.parent.email
                       );
-                      toast.success("Email copié !");
+                      toast.success(t("emailCopied"));
                     }}
                   >
                     <Copy className="w-4 h-4" />
                   </Button>
                 </p>
                 <p className="flex items-center gap-2">
-                  <strong>Téléphone :</strong> {selectedStudent.parent.phone}
+                  <strong>{t("phoneLabel")}</strong>{" "}
+                  {selectedStudent.parent.phone}
                   <Button
                     className="cursor-pointer"
                     variant="ghost"
@@ -282,32 +298,32 @@ export default function StudentListWithFilter() {
                       navigator.clipboard.writeText(
                         selectedStudent.parent.phone
                       );
-                      toast.success("Téléphone copié !");
+                      toast.success(t("phoneCopied"));
                     }}
                   >
                     <Copy className="w-4 h-4" />
                   </Button>
                 </p>
                 <p>
-                  <strong>Banque :</strong>{" "}
-                  {selectedStudent.parent.bankName || "Non renseignée"}
+                  <strong>{t("bankLabel")}</strong>{" "}
+                  {selectedStudent.parent.bankName || t("notProvidedFem")}
                 </p>
                 <p>
-                  <strong>IBAN :</strong>{" "}
-                  {selectedStudent.parent.iban || "Non renseigné"}
+                  <strong>{t("ibanLabel")}</strong>{" "}
+                  {selectedStudent.parent.iban || t("notProvided")}
                 </p>
                 <p>
-                  <strong>BIC :</strong>{" "}
-                  {selectedStudent.parent.bic || "Non renseigné"}
+                  <strong>{t("bicLabel")}</strong>{" "}
+                  {selectedStudent.parent.bic || t("notProvided")}
                 </p>
                 <div>
                   {selectedStudent.parent.iban ? (
                     <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                      RIB à jour
+                      {t("ribUpdated")}
                     </span>
                   ) : (
                     <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">
-                      RIB non ajouté
+                      {t("ribMissing")}
                     </span>
                   )}
                 </div>

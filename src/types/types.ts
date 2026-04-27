@@ -1,4 +1,5 @@
 export type DashboardSection =
+  | "overview"
   | "schoolYear"
   | "classes"
   | "children"
@@ -18,7 +19,15 @@ export type DashboardSection =
   | "tenants"
   | "chartsAdmin"
   | "settingsAdmin"
+  | "billingAdmin"
+  | "failedPaymentsAdmin"
+  | "broadcastAdmin"
+  | "impersonateAdmin"
+  | "auditAdmin"
   | "inviteParent"
   | "inviteStaff"
   | "pendingPreinscriptions"
-  | "rib";
+  | "rib"
+  | "billing"
+  | "journal"
+  | "attendance";

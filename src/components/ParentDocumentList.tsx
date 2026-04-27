@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import DocumentTable from "./DocumentTable";
 
 type Document = {
@@ -19,6 +20,7 @@ type StudentWithDocuments = {
 };
 
 export default function ParentDocumentList() {
+  const t = useTranslations("Documents");
   const [students, setStudents] = useState<StudentWithDocuments[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +33,7 @@ export default function ParentDocumentList() {
       });
   }, []);
 
-  if (loading) return <p>Chargement des documents...</p>;
+  if (loading) return <p>{t("loading")}</p>;
 
   return (
     <div className="space-y-6">

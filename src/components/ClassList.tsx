@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { UserX } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type Class = {
   id: string;
@@ -14,6 +15,7 @@ type Class = {
 };
 
 export default function ClassList() {
+  const t = useTranslations("ClassList");
   const [classes, setClasses] = useState<Class[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -49,11 +51,7 @@ export default function ClassList() {
   };
 
   if (classes.length === 0) {
-    return (
-      <p className="text-muted-foreground mt-6">
-        Aucune classe créée pour l’instant.
-      </p>
-    );
+    return <p className="text-muted-foreground mt-6">{t("emptyState")}</p>;
   }
 
   return (
@@ -67,10 +65,10 @@ export default function ClassList() {
             >
               <p className="font-semibold">{cls.name}</p>
               <p className="text-sm text-muted-foreground">
-                Année : {cls.schoolYear.name}
+                {t("yearLabel")} {cls.schoolYear.name}
               </p>
               <p className="text-sm text-muted-foreground">
-                Tarif : {cls.monthlyFee} € / mois
+                {t("feeLabel")} {t("feePerMonth", { fee: cls.monthlyFee })}
               </p>
               <Button
                 className="cursor-pointer"
@@ -79,7 +77,7 @@ export default function ClassList() {
                 onClick={() => handleDelete(cls.id)}
               >
                 <UserX className="h-4 w-4 mr-1" />
-                Supprimer
+                {t("delete")}
               </Button>
             </div>
           ))}
@@ -89,10 +87,10 @@ export default function ClassList() {
           <table className="min-w-full text-sm">
             <thead className="bg-muted text-muted-foreground uppercase text-xs">
               <tr>
-                <th className="px-4 py-3 text-left">Classe</th>
-                <th className="px-4 py-3 text-left">Année scolaire</th>
-                <th className="px-4 py-3 text-left">Tarif mensuel</th>
-                <th className="px-4 py-3 text-right">Actions</th>
+                <th className="px-4 py-3 text-left">{t("headerClass")}</th>
+                <th className="px-4 py-3 text-left">{t("headerYear")}</th>
+                <th className="px-4 py-3 text-left">{t("headerFee")}</th>
+                <th className="px-4 py-3 text-right">{t("headerActions")}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -100,7 +98,9 @@ export default function ClassList() {
                 <tr key={cls.id} className="hover:bg-muted/20">
                   <td className="px-4 py-2 font-medium">{cls.name}</td>
                   <td className="px-4 py-2">{cls.schoolYear.name}</td>
-                  <td className="px-4 py-2">{cls.monthlyFee} €</td>
+                  <td className="px-4 py-2">
+                    {t("feeAmount", { fee: cls.monthlyFee })}
+                  </td>
                   <td className="px-4 py-2 text-right">
                     <Button
                       variant="destructive"
@@ -109,7 +109,7 @@ export default function ClassList() {
                       className="cursor-pointer"
                     >
                       <UserX className="h-4 w-4 mr-1 cursor-pointer" />
-                      Supprimer
+                      {t("delete")}
                     </Button>
                   </td>
                 </tr>

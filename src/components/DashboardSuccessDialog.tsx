@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 export default function DashboardSuccessDialog() {
+  const t = useTranslations("DashboardSuccessDialog");
   const router = useRouter();
   const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
@@ -39,14 +41,12 @@ export default function DashboardSuccessDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-md text-center">
         <DialogHeader>
-          <DialogTitle>Paiement validé ✅</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
-        <p className="text-muted-foreground mt-2">
-          Merci pour votre souscription à Formwise 🎉
-        </p>
+        <p className="text-muted-foreground mt-2">{t("body")}</p>
         <DialogFooter className="mt-4 justify-center">
           <Button className="cursor-pointer" onClick={handleRedirect}>
-            Accéder à mon dashboard
+            {t("goToDashboard")}
           </Button>
         </DialogFooter>
       </DialogContent>

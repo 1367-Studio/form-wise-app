@@ -1,57 +1,81 @@
 import React from "react";
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../lib/authOptions";
 import { prisma } from "../../../lib/prisma";
 import { resend } from "../../../lib/resend";
 import { render } from "@react-email/render";
 import ValidateEmailTemplate from "../../../components/emails/ValidateEmailTemplate";
+import { enforceSameOrigin, requireSession } from "../../../lib/security";
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
 
-  if (!session || session.user.role !== "DIRECTOR") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const auth = await requireSession({
+    roles: ["DIRECTOR", "SUPER_ADMIN"],
+    requireTenant: true,
+  });
+  if ("error" in auth) return auth.error;
+  const { session } = auth;
 
-  const { childId, decision } = await req.json();
+  const { childId, decision } = (await req.json()) as {
+    childId?: unknown;
+    decision?: unknown;
+  };
 
-  if (!childId || !["ACCEPTED", "REJECTED"].includes(decision)) {
+  if (
+    typeof childId !== "string" ||
+    (decision !== "ACCEPTED" && decision !== "REJECTED")
+  ) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  try {
-    const child = await prisma.preRegistrationChild.update({
-      where: { id: childId },
-      data: { status: decision },
-      include: {
-        parent: {
-          select: {
-            email: true,
-            firstName: true,
-            lastName: true,
-            tenantId: true,
-            tenant: {
-              select: {
-                schoolCode: true,
-              },
-            },
-          },
+  // Tenant guard: confirm the child belongs to the caller's tenant before
+  // any update. SUPER_ADMIN bypasses tenant scoping.
+  const child = await prisma.preRegistrationChild.findUnique({
+    where: { id: childId },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      parent: {
+        select: {
+          email: true,
+          firstName: true,
+          lastName: true,
+          tenantId: true,
+          tenant: { select: { schoolCode: true } },
         },
       },
+    },
+  });
+
+  if (!child) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  if (
+    session.user.role !== "SUPER_ADMIN" &&
+    child.parent.tenantId !== session.user.tenantId
+  ) {
+    // Same response shape as 404 to avoid telling an attacker that a child
+    // exists but belongs to a different school.
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  const schoolCode = child.parent.tenant?.schoolCode;
+  if (!schoolCode) {
+    return NextResponse.json(
+      { error: "Code établissement manquant" },
+      { status: 500 }
+    );
+  }
+
+  try {
+    await prisma.preRegistrationChild.update({
+      where: { id: childId },
+      data: { status: decision },
     });
 
-    const schoolCode = child.parent.tenant?.schoolCode;
-    const registrationLink = `https://formwise.fr/register`;
-
-    if (!schoolCode) {
-      return NextResponse.json(
-        { error: "Code établissement manquant" },
-        { status: 500 }
-      );
-    }
-
-    // 🔒 AJOUT : enregistrement de l'email dans invitedParent si ACCEPTED
     if (decision === "ACCEPTED") {
       const alreadyInvited = await prisma.invitedParent.findFirst({
         where: {
@@ -59,7 +83,6 @@ export async function POST(req: Request) {
           tenantId: child.parent.tenantId,
         },
       });
-
       if (!alreadyInvited) {
         await prisma.invitedParent.create({
           data: {
@@ -77,7 +100,7 @@ export async function POST(req: Request) {
         childName: `${child.firstName} ${child.lastName}`,
         parentName: `${child.parent.firstName} ${child.parent.lastName}`,
         schoolCode,
-        registrationLink,
+        registrationLink: "https://formwise.fr/register",
       })
     );
 
@@ -93,7 +116,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Erreur lors de l'envoi de l'email:", error);
+    console.error("Erreur validate-preinscription");
+    void error;
     return NextResponse.json(
       { error: "Une erreur est survenue." },
       { status: 500 }

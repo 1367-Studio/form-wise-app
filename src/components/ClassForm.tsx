@@ -12,6 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 interface SchoolYear {
   id: string;
@@ -19,6 +21,7 @@ interface SchoolYear {
 }
 
 export default function ClassForm({ onCreated }: { onCreated: () => void }) {
+  const t = useTranslations("ClassForm");
   const [formData, setFormData] = useState({
     name: "",
     monthlyFee: "",
@@ -28,6 +31,13 @@ export default function ClassForm({ onCreated }: { onCreated: () => void }) {
   const [schoolYears, setSchoolYears] = useState<SchoolYear[]>([]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+
+  const isDirty =
+    !loading &&
+    (formData.name !== "" ||
+      formData.monthlyFee !== "" ||
+      formData.schoolYearId !== "");
+  useUnsavedChanges(isDirty);
 
   useEffect(() => {
     const fetchSchoolYears = async () => {
@@ -59,7 +69,7 @@ export default function ClassForm({ onCreated }: { onCreated: () => void }) {
     setLoading(false);
 
     if (data.success) {
-      setSuccess(`✅ Classe "${data.class.name}" créée avec succès`);
+      setSuccess(t("successCreated", { name: data.class.name }));
       setFormData({ name: "", monthlyFee: "", schoolYearId: "" });
       onCreated();
     }
@@ -74,7 +84,7 @@ export default function ClassForm({ onCreated }: { onCreated: () => void }) {
       )}
 
       <div className="flex flex-col gap-2">
-        <Label>Nom de la classe</Label>
+        <Label>{t("nameLabel")}</Label>
         <Input
           name="name"
           value={formData.name}
@@ -84,7 +94,7 @@ export default function ClassForm({ onCreated }: { onCreated: () => void }) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Prix mensuel (€)</Label>
+        <Label>{t("monthlyFeeLabel")}</Label>
         <Input
           type="number"
           name="monthlyFee"
@@ -95,7 +105,7 @@ export default function ClassForm({ onCreated }: { onCreated: () => void }) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Année scolaire</Label>
+        <Label>{t("schoolYearLabel")}</Label>
         <Select
           onValueChange={(value) =>
             setFormData({ ...formData, schoolYearId: value })
@@ -103,7 +113,7 @@ export default function ClassForm({ onCreated }: { onCreated: () => void }) {
           value={formData.schoolYearId}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Choisir une année scolaire" />
+            <SelectValue placeholder={t("schoolYearPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             {schoolYears.map((year) => (
@@ -116,7 +126,7 @@ export default function ClassForm({ onCreated }: { onCreated: () => void }) {
       </div>
 
       <Button type="submit" disabled={loading} className="cursor-pointer">
-        {loading ? "Création..." : "Créer la classe"}
+        {loading ? t("creating") : t("createButton")}
         <Plus />
       </Button>
     </form>

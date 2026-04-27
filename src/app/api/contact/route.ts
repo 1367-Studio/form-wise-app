@@ -1,9 +1,7 @@
 // app/api/contact/route.ts
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { resend } from "../../../lib/resend";
 import { z } from "zod";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Validation schema
 const contactSchema = z.object({

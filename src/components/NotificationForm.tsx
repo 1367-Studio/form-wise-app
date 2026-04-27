@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import {
   Select,
   SelectTrigger,
@@ -13,6 +14,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 type Student = {
   id: string;
@@ -29,6 +31,7 @@ type Teacher = {
 };
 
 export default function NotificationForm({ onSent }: { onSent?: () => void }) {
+  const t = useTranslations("NotificationForm");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [students, setStudents] = useState<Student[]>([]);
@@ -39,6 +42,10 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
   const [targetType, setTargetType] = useState<
     "global_parents" | "student" | "global_teachers" | "teacher"
   >("global_parents");
+
+  const isDirty =
+    title !== "" || message !== "" || studentId !== null || teacherId !== null;
+  useUnsavedChanges(isDirty);
 
   useEffect(() => {
     if (targetType === "student") {
@@ -73,15 +80,15 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
 
     if (!res.ok) {
       const errorText = await res.text();
-      console.error("Erreur API:", errorText);
-      toast.error("Erreur lors de l'envoi");
+      console.error("API error:", errorText);
+      toast.error(t("errorMessage"));
       return;
     }
 
     const data = await res.json();
 
     if (data.success) {
-      toast.success("Notification envoyée avec succès");
+      toast.success(t("successMessage"));
       setTitle("");
       setMessage("");
       setStudentId(null);
@@ -94,9 +101,9 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
       <div className="flex flex-col gap-2">
-        <Label>Titre</Label>
+        <Label>{t("titleLabel")}</Label>
         <Input
-          placeholder="Titre de la notification"
+          placeholder={t("titlePlaceholder")}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
@@ -104,9 +111,9 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Message</Label>
+        <Label>{t("messageLabel")}</Label>
         <Input
-          placeholder="Entrez le message"
+          placeholder={t("messagePlaceholder")}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
@@ -114,34 +121,34 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Label>Type de notification</Label>
+        <Label>{t("typeLabel")}</Label>
         <Select
           value={targetType}
           onValueChange={(value) => setTargetType(value as typeof targetType)}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Choisir le type" />
+            <SelectValue placeholder={t("typePlaceholder")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="global_parents">Tous les parents</SelectItem>
-            <SelectItem value="student">Un élève spécifique</SelectItem>
+            <SelectItem value="global_parents">{t("typeAllParents")}</SelectItem>
+            <SelectItem value="student">{t("typeStudent")}</SelectItem>
             <SelectItem value="global_teachers">
-              Tous les enseignants
+              {t("typeAllTeachers")}
             </SelectItem>
-            <SelectItem value="teacher">Un enseignant spécifique</SelectItem>
+            <SelectItem value="teacher">{t("typeTeacher")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {targetType === "student" && (
         <div className="flex flex-col gap-2">
-          <Label>Choisir l’élève</Label>
+          <Label>{t("chooseStudent")}</Label>
           <Select
             value={studentId || ""}
             onValueChange={(value) => setStudentId(value)}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Sélectionner un élève" />
+              <SelectValue placeholder={t("studentPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
               {students.map((student) => (
@@ -156,13 +163,13 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
 
       {targetType === "teacher" && (
         <div className="flex flex-col gap-2">
-          <Label>Choisir l’enseignant</Label>
+          <Label>{t("chooseTeacher")}</Label>
           <Select
             value={teacherId || ""}
             onValueChange={(value) => setTeacherId(value)}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Sélectionner un enseignant" />
+              <SelectValue placeholder={t("teacherPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
               {teachers.map((teacher) => (
@@ -176,7 +183,7 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
       )}
 
       <Button type="submit" className="cursor-pointer">
-        Envoyer <Send />
+        {t("submitButton")} <Send />
       </Button>
     </form>
   );
