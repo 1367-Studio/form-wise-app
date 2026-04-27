@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 interface SchoolYear {
   id: string;
@@ -30,6 +31,13 @@ export default function ClassForm({ onCreated }: { onCreated: () => void }) {
   const [schoolYears, setSchoolYears] = useState<SchoolYear[]>([]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+
+  const isDirty =
+    !loading &&
+    (formData.name !== "" ||
+      formData.monthlyFee !== "" ||
+      formData.schoolYearId !== "");
+  useUnsavedChanges(isDirty);
 
   useEffect(() => {
     const fetchSchoolYears = async () => {

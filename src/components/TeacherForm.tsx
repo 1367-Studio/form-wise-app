@@ -12,6 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { useTranslations } from "next-intl";
 import { Teacher } from "./TeacherList";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 type Subject = {
   id: string;
@@ -46,6 +47,13 @@ export default function TeacherForm({
       setClassId("");
     }
   }, [teacher]);
+
+  const isDirty =
+    !!teacher &&
+    !loading &&
+    (subjectId !== (teacher?.subject?.id || "") ||
+      classId !== (teacher?.class?.id || ""));
+  useUnsavedChanges(isDirty);
 
   useEffect(() => {
     const fetchData = async () => {

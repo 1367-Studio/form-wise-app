@@ -2,6 +2,7 @@
 
 import useSWR from "swr";
 import { useTranslations } from "next-intl";
+import { useMoneyFormatter } from "../app/hooks/useMoneyFormatter";
 import {
   Building2,
   CheckCircle2,
@@ -171,10 +172,9 @@ function KpiCard({
   className?: string;
   format?: "number" | "currency";
 }) {
+  const fmtMoney = useMoneyFormatter();
   const display =
-    format === "currency"
-      ? `${value.toLocaleString()} €`
-      : value.toLocaleString();
+    format === "currency" ? fmtMoney(value) : value.toLocaleString();
   return (
     <div
       className={`rounded-xl border border-black/10 bg-white p-5 shadow-sm ${className}`}

@@ -14,6 +14,8 @@ import TeacherNotificationList from "./TeacherNotificationList";
 import TeacherProfile from "./TeacherProfile";
 import type { TeacherData } from "../types/teacher";
 import AccountSettings from "./AccountSettings";
+import TeacherJournalSection from "./TeacherJournalSection";
+import TeacherAttendanceSection from "./TeacherAttendanceSection";
 
 export default function TeacherDashboardContent() {
   const t = useTranslations("Dashboard");
@@ -105,6 +107,10 @@ export default function TeacherDashboardContent() {
             <TeacherNotificationList />
           </div>
         )}
+        {activeSection === "journal" && <TeacherJournalSection />}
+
+        {activeSection === "attendance" && <TeacherAttendanceSection />}
+
         {activeSection === "settings" && (
           <div>
             <h2 className="text-xl font-semibold mb-4">

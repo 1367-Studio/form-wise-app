@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dialog";
 import { Megaphone } from "lucide-react";
 import { toast } from "sonner";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 type Audience = "directors" | "all";
 
@@ -32,6 +33,9 @@ export default function AdminBroadcast() {
   const [body, setBody] = useState("");
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [sending, setSending] = useState(false);
+
+  const isDirty = !sending && (subject !== "" || body !== "");
+  useUnsavedChanges(isDirty);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -14,6 +14,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 type Student = {
   id: string;
@@ -41,6 +42,10 @@ export default function NotificationForm({ onSent }: { onSent?: () => void }) {
   const [targetType, setTargetType] = useState<
     "global_parents" | "student" | "global_teachers" | "teacher"
   >("global_parents");
+
+  const isDirty =
+    title !== "" || message !== "" || studentId !== null || teacherId !== null;
+  useUnsavedChanges(isDirty);
 
   useEffect(() => {
     if (targetType === "student") {

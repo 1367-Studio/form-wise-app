@@ -32,6 +32,10 @@ import {
   Megaphone,
   UserCheck,
   History,
+  Home,
+  Wallet,
+  NotebookPen,
+  ClipboardCheck,
 } from "lucide-react";
 
 type Section = {
@@ -46,14 +50,34 @@ const useSections = (role?: string): Section[] => {
   if (role === "PARENT") {
     return [
       {
+        key: "overview",
+        label: t("overview"),
+        icon: <Home className="w-4 h-4" />,
+      },
+      {
         key: "children",
         label: t("myChildren"),
         icon: <Users className="w-4 h-4" />,
       },
       {
+        key: "journal",
+        label: t("dailyJournal"),
+        icon: <NotebookPen className="w-4 h-4" />,
+      },
+      {
+        key: "attendance",
+        label: t("attendance"),
+        icon: <ClipboardCheck className="w-4 h-4" />,
+      },
+      {
         key: "notification",
         label: t("notifications"),
         icon: <Bell className="w-4 h-4" />,
+      },
+      {
+        key: "billing",
+        label: t("billing"),
+        icon: <Wallet className="w-4 h-4" />,
       },
       {
         key: "rib",
@@ -149,6 +173,16 @@ const useSections = (role?: string): Section[] => {
         key: "myProfile",
         label: t("myProfile"),
         icon: <User className="w-4 h-4" />,
+      },
+      {
+        key: "journal",
+        label: t("dailyJournal"),
+        icon: <NotebookPen className="w-4 h-4" />,
+      },
+      {
+        key: "attendance",
+        label: t("attendance"),
+        icon: <ClipboardCheck className="w-4 h-4" />,
       },
       {
         key: "infos",

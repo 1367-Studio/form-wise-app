@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 export default function StaffForm() {
   const t = useTranslations("StaffForm");
@@ -15,6 +16,15 @@ export default function StaffForm() {
   const [phone, setPhone] = useState("");
   const [roleLabel, setRoleLabel] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const isDirty =
+    !loading &&
+    (firstName !== "" ||
+      lastName !== "" ||
+      email !== "" ||
+      phone !== "" ||
+      roleLabel !== "");
+  useUnsavedChanges(isDirty);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

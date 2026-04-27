@@ -1,26 +1,43 @@
 import { prisma } from "../../../lib/prisma";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import {
+  enforceRateLimit,
+  enforceSameOrigin,
+  validatePassword,
+  BCRYPT_COST,
+} from "../../../lib/security";
 
 export async function POST(req: Request) {
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
+
+  const rl = enforceRateLimit(req, {
+    name: "register-staff",
+    limit: 10,
+    windowMs: 60 * 60 * 1000,
+  });
+  if (rl) return rl;
+
   const body = await req.json();
   const { email, password, schoolCode } = body;
 
-  if (!email || !password || !schoolCode) {
+  if (
+    typeof email !== "string" ||
+    typeof password !== "string" ||
+    typeof schoolCode !== "string"
+  ) {
     return NextResponse.json({ error: "Données manquantes" }, { status: 400 });
   }
 
-  // Cherche dans la table Staff si une invitation existe
+  const pwdCheck = validatePassword(password);
+  if (!pwdCheck.ok) {
+    return NextResponse.json({ error: pwdCheck.error }, { status: 400 });
+  }
+
   const staff = await prisma.staff.findFirst({
-    where: {
-      email,
-      schoolCode,
-      used: false,
-      accepted: false,
-    },
-    include: {
-      tenant: true,
-    },
+    where: { email, schoolCode, used: false, accepted: false },
+    include: { tenant: true },
   });
 
   if (!staff) {
@@ -30,9 +47,7 @@ export async function POST(req: Request) {
     );
   }
 
-  // Vérifie si un user existe déjà avec cet email
   const existingUser = await prisma.user.findUnique({ where: { email } });
-
   if (existingUser) {
     return NextResponse.json(
       { error: "Un compte existe déjà avec cet email." },
@@ -40,10 +55,8 @@ export async function POST(req: Request) {
     );
   }
 
-  // Hash du mot de passe
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, BCRYPT_COST);
 
-  // Création du user
   const user = await prisma.user.create({
     data: {
       email,
@@ -56,7 +69,6 @@ export async function POST(req: Request) {
     },
   });
 
-  // Mise à jour de l'entrée Staff pour marquer comme utilisé
   await prisma.staff.update({
     where: { id: staff.id },
     data: {

@@ -14,6 +14,7 @@ import { CalendarDays } from "lucide-react";
 import { format } from "date-fns";
 import { fr, enGB, ptBR, es } from "date-fns/locale";
 import { useLocale, useTranslations } from "next-intl";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
@@ -38,6 +39,16 @@ export default function SchoolYearForm({
 
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+
+  const isDirty =
+    !loading &&
+    (formData.name !== "" ||
+      formData.startDate !== undefined ||
+      formData.endDate !== undefined);
+  useUnsavedChanges(isDirty);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,9 +113,10 @@ export default function SchoolYearForm({
               selected={formData.startDate}
               onSelect={(date) => setFormData({ ...formData, startDate: date })}
               locale={dfLocale}
-              fromYear={2000}
+              fromYear={today.getFullYear()}
               toYear={2030}
               captionLayout="dropdown"
+              disabled={{ before: today }}
             />
           </PopoverContent>
         </Popover>
@@ -130,9 +142,10 @@ export default function SchoolYearForm({
               selected={formData.endDate}
               onSelect={(date) => setFormData({ ...formData, endDate: date })}
               locale={dfLocale}
-              fromYear={2000}
+              fromYear={today.getFullYear()}
               toYear={2030}
               captionLayout="dropdown"
+              disabled={{ before: formData.startDate ?? today }}
             />
           </PopoverContent>
         </Popover>

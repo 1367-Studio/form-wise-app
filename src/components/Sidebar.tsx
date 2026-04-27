@@ -24,6 +24,10 @@ import {
   Megaphone,
   UserCheck,
   History,
+  Home,
+  Wallet,
+  NotebookPen,
+  ClipboardCheck,
 } from "lucide-react";
 import { ParentNotification } from "../types/notification";
 
@@ -38,6 +42,9 @@ export default function Sidebar({
   const { data: session } = useSession();
   const role = session?.user?.role;
   const [hasUnreadNotifs, setHasUnreadNotifs] = useState<boolean | null>(null);
+  const [hasUnreadJournal, setHasUnreadJournal] = useState<boolean | null>(
+    null
+  );
 
   useEffect(() => {
     const checkUnread = async () => {
@@ -60,7 +67,20 @@ export default function Sidebar({
       }
     };
 
+    const checkJournal = async () => {
+      try {
+        if (!session?.user?.id || role !== "PARENT") return;
+        const res = await fetch("/api/parent/journal");
+        if (!res.ok) return;
+        const data: { entries: { isRead: boolean }[] } = await res.json();
+        setHasUnreadJournal(data.entries.some((e) => !e.isRead));
+      } catch {
+        // ignore
+      }
+    };
+
     checkUnread();
+    checkJournal();
   }, [role, session?.user?.id]);
 
   return (
@@ -163,11 +183,36 @@ export default function Sidebar({
       {role === "PARENT" && (
         <>
           <SidebarBtn
+            label={t("overview")}
+            section="overview"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<Home className="w-4 h-4" />}
+          />
+          <SidebarBtn
             label={t("myChildren")}
             section="children"
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Users className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("dailyJournal")}
+            section="journal"
+            activeSection={activeSection}
+            setActiveSection={(section) => {
+              setActiveSectionAction(section);
+              setHasUnreadJournal(false);
+            }}
+            hasNotification={hasUnreadJournal ?? undefined}
+            icon={<NotebookPen className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("attendance")}
+            section="attendance"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<ClipboardCheck className="w-4 h-4" />}
           />
           <SidebarBtn
             label={t("documents")}
@@ -186,6 +231,13 @@ export default function Sidebar({
             }}
             hasNotification={hasUnreadNotifs ?? undefined}
             icon={<Bell className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("billing")}
+            section="billing"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<Wallet className="w-4 h-4" />}
           />
           <SidebarBtn
             label={t("bankDetails")}
@@ -211,6 +263,20 @@ export default function Sidebar({
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<User className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("dailyJournal")}
+            section="journal"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<NotebookPen className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("attendance")}
+            section="attendance"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<ClipboardCheck className="w-4 h-4" />}
           />
           <SidebarBtn
             label={t("notifications")}

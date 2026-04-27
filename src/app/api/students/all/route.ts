@@ -41,9 +41,15 @@ export async function GET(req: Request) {
       ? {}
       : { tenantId: session.user.tenantId as string };
 
+  const statusParam = searchParams.get("status"); // Optional override
+  const statusFilter: Prisma.StudentWhereInput = statusParam
+    ? { status: statusParam }
+    : { status: "ACCEPTED" }; // Default: hide PENDING/REJECTED from the general list
+
   const where: Prisma.StudentWhereInput = {
     AND: [
       tenantFilter, // ✅ Filtrage multi-tenant conditionnel
+      statusFilter,
       search
         ? {
             OR: [

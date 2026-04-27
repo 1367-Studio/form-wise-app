@@ -31,7 +31,11 @@ interface Subject {
   }[];
 }
 
-export default function SubjectList() {
+export default function SubjectList({
+  refreshKey = 0,
+}: {
+  refreshKey?: number;
+}) {
   const t = useTranslations("SubjectList");
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [classes, setClasses] = useState<SchoolClass[]>([]);
@@ -52,7 +56,7 @@ export default function SubjectList() {
 
     fetchClasses();
     fetchSubjects();
-  }, []);
+  }, [refreshKey]);
 
   const filteredSubjects = subjects.filter(
     (s) => s.class?.id === selectedClassId

@@ -12,17 +12,27 @@ import {
 } from "@/components/ui/select";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 type Class = {
   id: string;
   name: string;
 };
 
-export default function SubjectForm() {
+export default function SubjectForm({
+  onCreated,
+}: {
+  onCreated?: () => void;
+}) {
   const t = useTranslations("SubjectForm");
   const [classes, setClasses] = useState<Class[]>([]);
   const [selectedClassId, setSelectedClassId] = useState<string>("");
   const [subjectName, setSubjectName] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const isDirty =
+    !submitting && (subjectName.trim() !== "" || selectedClassId !== "");
+  useUnsavedChanges(isDirty);
 
   const loadClasses = async () => {
     const res = await fetch("/api/classes");
@@ -36,18 +46,25 @@ export default function SubjectForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!subjectName.trim() || !selectedClassId) return;
 
-    await fetch("/api/subjects", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ name: subjectName, classId: selectedClassId }),
-    });
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/subjects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ name: subjectName, classId: selectedClassId }),
+      });
 
-    setSubjectName("");
-    setSelectedClassId("");
-
-    await loadClasses();
+      if (res.ok) {
+        setSubjectName("");
+        setSelectedClassId("");
+        onCreated?.();
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -73,7 +90,11 @@ export default function SubjectForm() {
           required
         />
       </div>
-      <Button type="submit" className="cursor-pointer">
+      <Button
+        type="submit"
+        className="cursor-pointer"
+        disabled={submitting || !subjectName.trim() || !selectedClassId}
+      >
         {t("submitButton")} <Plus />
       </Button>
     </form>

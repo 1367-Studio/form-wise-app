@@ -26,6 +26,7 @@ import { fr, enGB, ptBR, es } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { useLocale, useTranslations } from "next-intl";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
@@ -71,6 +72,18 @@ export default function StudentForm({
   const [loading, setLoading] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [formError, setFormError] = useState("");
+
+  const isDirty =
+    !loading &&
+    (formData.firstName !== "" ||
+      formData.lastName !== "" ||
+      formData.birthDate !== undefined ||
+      formData.address !== "" ||
+      formData.healthDetails !== "" ||
+      formData.classId !== "" ||
+      formData.hasHealthIssues !== "no" ||
+      formData.canLeaveAlone !== "no");
+  useUnsavedChanges(isDirty);
 
   useEffect(() => {
     fetch("/api/classes/public")

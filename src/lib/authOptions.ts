@@ -52,7 +52,6 @@ export const authOptions: AuthOptions = {
       },
       authorize: async (credentials) => {
         if (!credentials?.email || !credentials?.password) {
-          console.log("🔴 authorize: missing email or password");
           return null;
         }
 
@@ -69,16 +68,7 @@ export const authOptions: AuthOptions = {
           "SUPER_ADMIN",
         ];
 
-        if (!user) {
-          console.log("🔴 authorize: user not found for email", credentials.email);
-          return null;
-        }
-        if (!allowedRoles.includes(user.role)) {
-          console.log("🔴 authorize: role not allowed:", user.role);
-          return null;
-        }
-        if (!user.password) {
-          console.log("🔴 authorize: user has no password on record");
+        if (!user || !allowedRoles.includes(user.role) || !user.password) {
           return null;
         }
 
@@ -87,10 +77,8 @@ export const authOptions: AuthOptions = {
           user.password
         );
         if (!isValid) {
-          console.log("🔴 authorize: password does not match for", user.email);
           return null;
         }
-        console.log("🟢 authorize: success for", user.email, "role:", user.role);
 
         const rememberMe =
           credentials.rememberMe === "true" || credentials.rememberMe === "on";
@@ -108,8 +96,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
-      console.log("➡️ signIn callback:", user?.email);
+    async signIn() {
       return true;
     },
 

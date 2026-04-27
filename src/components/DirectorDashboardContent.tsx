@@ -13,8 +13,7 @@ import SchoolYearForm from "./SchoolYearForm";
 import SchoolYearList from "./SchoolYearList";
 import ClassForm from "./ClassForm";
 import ClassList from "./ClassList";
-import SubjectForm from "./SubjectForm";
-import SubjectList from "./SubjectList";
+import ClassesSubjectsManager from "./ClassesSubjectsManager";
 import TeacherList from "./TeacherList";
 import NotificationForm from "./NotificationForm";
 import DirectorNotificationList from "./DirectorNotificationList";
@@ -112,12 +111,7 @@ export default function DirectorDashboardContent() {
           </>
         )}
 
-        {activeSection === "subjects" && (
-          <div className="flex flex-col gap-4">
-            <SubjectForm />
-            <SubjectList />
-          </div>
-        )}
+        {activeSection === "subjects" && <ClassesSubjectsManager />}
 
         {activeSection === "teachers" && <TeacherList />}
 

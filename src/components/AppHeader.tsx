@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import SupportButton from "./SupportButton";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { format } from "date-fns";
 import { fr, enGB, ptBR, es } from "date-fns/locale";
 import { useEffect, useState } from "react";
@@ -214,8 +215,11 @@ export default function AppHeader() {
         </div>
       )}
 
-      <div className="hidden md:block">
-        <SupportButton />
+      <div className="flex items-center gap-2">
+        <LanguageSwitcher variant="ghost" />
+        <div className="hidden md:block">
+          <SupportButton />
+        </div>
       </div>
     </header>
   );
