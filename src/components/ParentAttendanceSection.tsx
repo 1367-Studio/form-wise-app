@@ -28,6 +28,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { SectionSkeleton } from "./SectionSkeleton";
+import { useOptionalSelectedChild } from "@/contexts/SelectedChildContext";
 
 const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
@@ -79,6 +80,12 @@ export default function ParentAttendanceSection() {
   const [justifyEntry, setJustifyEntry] = useState<Entry | null>(null);
   const [justifyText, setJustifyText] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  const childCtx = useOptionalSelectedChild();
+  useEffect(() => {
+    if (!childCtx) return;
+    setStudentFilter(childCtx.selectedChildId ?? "all");
+  }, [childCtx, childCtx?.selectedChildId]);
 
   const fetchData = async () => {
     setLoading(true);

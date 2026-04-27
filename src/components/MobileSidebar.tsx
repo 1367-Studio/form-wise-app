@@ -36,6 +36,7 @@ import {
   Wallet,
   NotebookPen,
   ClipboardCheck,
+  LogIn,
 } from "lucide-react";
 
 type Section = {
@@ -83,6 +84,11 @@ const useSections = (role?: string): Section[] => {
         key: "rib",
         label: t("bankDetails"),
         icon: <CreditCard className="w-4 h-4" />,
+      },
+      {
+        key: "pickup",
+        label: t("pickup"),
+        icon: <LogIn className="w-4 h-4" />,
       },
       {
         key: "documents",
@@ -163,6 +169,11 @@ const useSections = (role?: string): Section[] => {
         key: "inviteStaff",
         label: t("inviteStaff"),
         icon: <UserPlus className="w-4 h-4" />,
+      },
+      {
+        key: "pickup",
+        label: t("pickup"),
+        icon: <LogIn className="w-4 h-4" />,
       },
     ];
   }
@@ -258,6 +269,11 @@ const useSections = (role?: string): Section[] => {
         key: "eleves",
         label: t("students"),
         icon: <Users className="w-4 h-4" />,
+      },
+      {
+        key: "pickup",
+        label: t("pickup"),
+        icon: <LogIn className="w-4 h-4" />,
       },
       {
         key: "notification",

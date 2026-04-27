@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../lib/authOptions";
 import { prisma } from "../../../../lib/prisma";
 import { sendAbsenceEmail } from "../../../../lib/attendanceMail";
+import { sendPushToUser } from "../../../../lib/webpush";
 
 const VALID_STATUSES = new Set(["PRESENT", "ABSENT", "LATE", "EXCUSED"]);
 
@@ -178,6 +179,7 @@ export async function POST(req: Request) {
       title: string;
       message: string;
       isGlobal: boolean;
+      category: "ATTENDANCE";
       studentId: string;
       teacherId: string;
       tenantId: string;
@@ -197,6 +199,7 @@ export async function POST(req: Request) {
             ? "Votre enfant a été marqué absent aujourd'hui."
             : "Votre enfant a été marqué en retard aujourd'hui.",
         isGlobal: false,
+        category: "ATTENDANCE" as const,
         studentId: s.id,
         teacherId: teacher.id,
         tenantId,
@@ -204,6 +207,27 @@ export async function POST(req: Request) {
     }
     if (notifData.length > 0) {
       await prisma.notification.createMany({ data: notifData });
+    }
+
+    // Push notifications — same fire-and-forget pattern as emails. Coalesce
+    // by parent so two siblings flagged the same day don't double-buzz.
+    const seenParentsForPush = new Set<string>();
+    for (const e of newlyFlagged) {
+      const s = studentMap.get(e.studentId);
+      if (!s || seenParentsForPush.has(s.parentId)) continue;
+      seenParentsForPush.add(s.parentId);
+      void sendPushToUser(s.parentId, {
+        title:
+          e.status === "ABSENT"
+            ? `Absence — ${s.firstName}`
+            : `Retard — ${s.firstName}`,
+        body:
+          e.status === "ABSENT"
+            ? "Marqué(e) absent(e) aujourd'hui."
+            : "Marqué(e) en retard aujourd'hui.",
+        url: "/dashboard/parent",
+        tag: `attendance-${s.id}-${dayDate.toISOString().slice(0, 10)}`,
+      });
     }
 
     // Emails — fire and forget so we don't block the response on Resend latency.

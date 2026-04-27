@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../lib/authOptions";
 import { prisma } from "../../../../lib/prisma";
+import { sendPushToUser } from "../../../../lib/webpush";
 
 async function getTeacher(session: { user: { email: string; tenantId: string | null } }) {
   if (!session.user.tenantId) return null;
@@ -151,19 +152,34 @@ export async function POST(req: Request) {
     const titleSuffix = subjectName
       ? `${className} · ${subjectName}`
       : className;
+    const notifTitle = titleSuffix
+      ? `Journal de classe — ${titleSuffix}`
+      : "Journal de classe";
+    const notifMessage = "Nouveau résumé de classe et devoirs pour demain.";
 
     await prisma.notification.createMany({
       data: oneStudentPerParent.map((s) => ({
-        title: titleSuffix
-          ? `Journal de classe — ${titleSuffix}`
-          : "Journal de classe",
-        message: "Nouveau résumé de classe et devoirs pour demain.",
+        title: notifTitle,
+        message: notifMessage,
         isGlobal: false,
+        category: "ACADEMIC" as const,
         studentId: s.id,
         teacherId: teacher.id,
         tenantId: session.user.tenantId!,
       })),
     });
+
+    // Fire-and-forget push to each parent. tag=`journal-{classId}-{date}` so
+    // multiple updates to the same day's journal coalesce into one banner.
+    const tag = `journal-${teacherClassId}-${journal.date.toISOString().slice(0, 10)}`;
+    for (const s of oneStudentPerParent) {
+      void sendPushToUser(s.parentId, {
+        title: notifTitle,
+        body: notifMessage,
+        url: "/dashboard/parent",
+        tag,
+      });
+    }
   }
 
   return NextResponse.json({ success: true, journal });

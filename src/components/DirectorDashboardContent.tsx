@@ -28,6 +28,7 @@ import { InvitedParentList } from "./InvitedParentList";
 import StaffForm from "./StaffForm";
 import InvitedStaffList from "./InvitedStaffList";
 import PendingPreinscriptionsTable from "./PendingPreinscriptionsTable";
+import DirectorPickupSection from "./DirectorPickupSection";
 
 export type InvitedStaff = {
   id: string;
@@ -126,6 +127,7 @@ export default function DirectorDashboardContent() {
         {activeSection === "documents" && <DirectorDocumentList />}
         {activeSection === "pendingStudents" && <PendingStudents />}
         {activeSection === "charts" && <DashboardCharts />}
+        {activeSection === "pickup" && <DirectorPickupSection />}
 
         {activeSection === "inviteParent" && (
           <>

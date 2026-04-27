@@ -28,6 +28,7 @@ import {
   Wallet,
   NotebookPen,
   ClipboardCheck,
+  LogIn,
 } from "lucide-react";
 import { ParentNotification } from "../types/notification";
 
@@ -178,6 +179,13 @@ export default function Sidebar({
             setActiveSection={setActiveSectionAction}
             icon={<UserPlus className="w-4 h-4" />}
           />
+          <SidebarBtn
+            label={t("pickup")}
+            section="pickup"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<LogIn className="w-4 h-4" />}
+          />
         </>
       )}
       {role === "PARENT" && (
@@ -245,6 +253,13 @@ export default function Sidebar({
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<CreditCard className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("pickup")}
+            section="pickup"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<LogIn className="w-4 h-4" />}
           />
           <SidebarBtn
             label={t("settings")}
@@ -373,6 +388,13 @@ export default function Sidebar({
             activeSection={activeSection}
             setActiveSection={setActiveSectionAction}
             icon={<Users className="w-4 h-4" />}
+          />
+          <SidebarBtn
+            label={t("pickup")}
+            section="pickup"
+            activeSection={activeSection}
+            setActiveSection={setActiveSectionAction}
+            icon={<LogIn className="w-4 h-4" />}
           />
           <SidebarBtn
             label={t("notifications")}

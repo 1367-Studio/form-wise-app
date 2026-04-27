@@ -18,7 +18,21 @@ import ParentDocumentsSection from "./ParentDocumentsSection";
 import ParentBillingSection from "./ParentBillingSection";
 import ParentJournalSection from "./ParentJournalSection";
 import ParentAttendanceSection from "./ParentAttendanceSection";
+import ParentPickupSection from "./ParentPickupSection";
+import { SelectedChildProvider } from "@/contexts/SelectedChildContext";
+import { ChildSwitcher } from "./ChildSwitcher";
 export const dynamic = "force-dynamic";
+
+const SECTIONS_WITH_SWITCHER: ReadonlySet<DashboardSection> = new Set([
+  "overview",
+  "children",
+  "journal",
+  "attendance",
+  "pickup",
+  "documents",
+  "notification",
+  "billing",
+]);
 
 export default function ParentDashboardContent() {
   const t = useTranslations("Dashboard");
@@ -46,47 +60,72 @@ export default function ParentDashboardContent() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      {isMobile ? (
-        <MobileSidebar
-          activeSection={activeSection}
-          setActiveSectionAction={setActiveSection}
-        />
-      ) : (
-        <Sidebar
-          activeSection={activeSection}
-          setActiveSectionAction={setActiveSection}
-        />
+    <SelectedChildProvider>
+      <div className="flex min-h-screen">
+        {isMobile ? (
+          <MobileSidebar
+            activeSection={activeSection}
+            setActiveSectionAction={setActiveSection}
+          />
+        ) : (
+          <Sidebar
+            activeSection={activeSection}
+            setActiveSectionAction={setActiveSection}
+          />
+        )}
+        <main className="flex-1 p-6 mt-10 md:mt-0 space-y-4">
+          {SECTIONS_WITH_SWITCHER.has(activeSection) && <ChildSwitcher />}
+          <SectionRenderer
+            activeSection={activeSection}
+            setActiveSection={setActiveSection}
+            t={t}
+          />
+        </main>
+      </div>
+    </SelectedChildProvider>
+  );
+}
+
+function SectionRenderer({
+  activeSection,
+  setActiveSection,
+  t,
+}: {
+  activeSection: DashboardSection;
+  setActiveSection: React.Dispatch<React.SetStateAction<DashboardSection>>;
+  t: ReturnType<typeof useTranslations>;
+}) {
+  return (
+    <>
+      {activeSection === "overview" && (
+        <ParentOverview setActiveSectionAction={setActiveSection} />
       )}
-      <main className="flex-1 p-6 mt-10 md:mt-0">
-        {activeSection === "overview" && (
-          <ParentOverview setActiveSectionAction={setActiveSection} />
-        )}
 
-        {activeSection === "children" && <ParentChildrenSection />}
+      {activeSection === "children" && <ParentChildrenSection />}
 
-        {activeSection === "notification" && <ParentNotificationsSection />}
+      {activeSection === "notification" && <ParentNotificationsSection />}
 
-        {activeSection === "rib" && <RIBForm />}
-        {activeSection === "documents" && <ParentDocumentsSection />}
+      {activeSection === "rib" && <RIBForm />}
+      {activeSection === "documents" && <ParentDocumentsSection />}
 
-        {activeSection === "billing" && (
-          <ParentBillingSection setActiveSectionAction={setActiveSection} />
-        )}
+      {activeSection === "billing" && (
+        <ParentBillingSection setActiveSectionAction={setActiveSection} />
+      )}
 
-        {activeSection === "journal" && <ParentJournalSection />}
+      {activeSection === "journal" && <ParentJournalSection />}
 
-        {activeSection === "attendance" && <ParentAttendanceSection />}
+      {activeSection === "attendance" && <ParentAttendanceSection />}
 
-        {activeSection === "settings" && (
-          <div>
-            <h2 className="text-xl font-semibold mb-4">
-              {t("accountSettings")}
-            </h2>
-            <AccountSettings />
-          </div>
-        )}
-      </main>
-    </div>
+      {activeSection === "pickup" && <ParentPickupSection />}
+
+      {activeSection === "settings" && (
+        <div>
+          <h2 className="text-xl font-semibold mb-4">
+            {t("accountSettings")}
+          </h2>
+          <AccountSettings />
+        </div>
+      )}
+    </>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { Bell, CheckCheck, Megaphone, User2, Inbox } from "lucide-react";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SectionSkeleton } from "./SectionSkeleton";
+import { NotificationCategoryBadge } from "./NotificationCategoryBadge";
 import { ParentNotification } from "../types/notification";
 
 type Filter = "all" | "unread" | string;
@@ -56,12 +57,14 @@ export default function ParentNotificationsSection() {
     fetchNotifs();
   }, []);
 
-  const isReadByMe = (n: ParentNotification) =>
-    n.readBy.some((r) => r.parentId === userId);
+  const isReadByMe = useCallback(
+    (n: ParentNotification) => n.readBy.some((r) => r.parentId === userId),
+    [userId]
+  );
 
   const unreadCount = useMemo(
     () => notifications.filter((n) => !isReadByMe(n)).length,
-    [notifications, userId]
+    [notifications, isReadByMe]
   );
 
   const studentChips = useMemo(() => {
@@ -83,7 +86,7 @@ export default function ParentNotificationsSection() {
       (n) =>
         n.student && `${n.student.firstName}-${n.student.lastName}` === filter
     );
-  }, [notifications, filter, userId]);
+  }, [notifications, filter, isReadByMe]);
 
   const grouped = useMemo(() => {
     const groups: Record<string, ParentNotification[]> = {
@@ -281,7 +284,8 @@ function NotificationItem({
   onMarkRead: () => void;
   t: ReturnType<typeof useTranslations>;
 }) {
-  const { title, message, createdAt, isGlobal, student } = notification;
+  const { title, message, createdAt, isGlobal, student, category } =
+    notification;
   return (
     <li
       className={`group flex items-start gap-3 rounded-xl border p-4 transition-colors ${
@@ -311,6 +315,9 @@ function NotificationItem({
           <p className="truncate text-sm font-semibold text-gray-900">
             {title}
           </p>
+          {category && category !== "GENERAL" && (
+            <NotificationCategoryBadge category={category} size="xs" />
+          )}
           {isGlobal ? (
             <Badge
               variant="outline"
