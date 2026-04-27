@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { Bell, CheckCheck, Megaphone, User2, Inbox } from "lucide-react";
@@ -57,12 +57,14 @@ export default function ParentNotificationsSection() {
     fetchNotifs();
   }, []);
 
-  const isReadByMe = (n: ParentNotification) =>
-    n.readBy.some((r) => r.parentId === userId);
+  const isReadByMe = useCallback(
+    (n: ParentNotification) => n.readBy.some((r) => r.parentId === userId),
+    [userId]
+  );
 
   const unreadCount = useMemo(
     () => notifications.filter((n) => !isReadByMe(n)).length,
-    [notifications, userId]
+    [notifications, isReadByMe]
   );
 
   const studentChips = useMemo(() => {
@@ -84,7 +86,7 @@ export default function ParentNotificationsSection() {
       (n) =>
         n.student && `${n.student.firstName}-${n.student.lastName}` === filter
     );
-  }, [notifications, filter, userId]);
+  }, [notifications, filter, isReadByMe]);
 
   const grouped = useMemo(() => {
     const groups: Record<string, ParentNotification[]> = {
