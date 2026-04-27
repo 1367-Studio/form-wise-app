@@ -38,6 +38,7 @@ import {
 import StudentForm from "./StudentForm";
 import { SectionSkeleton } from "./SectionSkeleton";
 import { useMoneyFormatter } from "../app/hooks/useMoneyFormatter";
+import { useOptionalSelectedChild } from "@/contexts/SelectedChildContext";
 
 const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
@@ -74,6 +75,11 @@ export default function ParentChildrenSection() {
   const [detailStudent, setDetailStudent] = useState<Student | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Student | null>(null);
   const [deleting, setDeleting] = useState(false);
+
+  const childCtx = useOptionalSelectedChild();
+  const filteredStudents = childCtx?.selectedChildId
+    ? students.filter((s) => s.id === childCtx.selectedChildId)
+    : students;
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -126,7 +132,7 @@ export default function ParentChildrenSection() {
             {t("title")}
           </h1>
           <p className="text-sm text-gray-500">
-            {t("subtitle", { count: students.length })}
+            {t("subtitle", { count: filteredStudents.length })}
           </p>
         </div>
         <Dialog open={addOpen} onOpenChange={setAddOpen}>
@@ -150,7 +156,7 @@ export default function ParentChildrenSection() {
 
       {loading ? (
         <SectionSkeleton variant="cards" rows={3} />
-      ) : students.length === 0 ? (
+      ) : filteredStudents.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#fef1ea] text-[#f84a00]">
             <GraduationCap className="h-6 w-6" />
@@ -171,7 +177,7 @@ export default function ParentChildrenSection() {
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {students.map((s) => (
+          {filteredStudents.map((s) => (
             <ChildCard
               key={s.id}
               student={s}

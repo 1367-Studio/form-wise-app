@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { SectionSkeleton } from "./SectionSkeleton";
+import { useOptionalSelectedChild } from "@/contexts/SelectedChildContext";
 
 const dateLocales = { fr, en: enGB, pt: ptBR, es } as const;
 
@@ -55,6 +56,13 @@ export default function ParentJournalSection() {
   const [data, setData] = useState<Response | null>(null);
   const [loading, setLoading] = useState(true);
   const [studentFilter, setStudentFilter] = useState<string>("all");
+
+  // Sync local filter with the global child switcher (if available).
+  const childCtx = useOptionalSelectedChild();
+  useEffect(() => {
+    if (!childCtx) return;
+    setStudentFilter(childCtx.selectedChildId ?? "all");
+  }, [childCtx, childCtx?.selectedChildId]);
 
   const fetchData = async () => {
     setLoading(true);

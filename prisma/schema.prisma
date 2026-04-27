@@ -33,6 +33,8 @@ model User {
   tenant           Tenant?            @relation(fields: [tenantId], references: [id])
   address          String?
   Staff            Staff[]
+  createdPickupAuthorizations PickupAuthorization[] @relation("PickupAuthorizationCreatedBy")
+  loggedPickupEvents          PickupEvent[]         @relation("PickupEventLoggedBy")
 }
 
 model Student {
@@ -56,6 +58,8 @@ model Student {
   code            String?        @unique @default(uuid())
   tenantId        String
   tenant          Tenant         @relation(fields: [tenantId], references: [id])
+  pickupAuthorizations PickupAuthorization[]
+  pickupEvents    PickupEvent[]
 }
 
 model Class {
@@ -182,6 +186,8 @@ model Tenant {
   stripeSubscriptionId String?
   staff                Staff[]
   preRegistrations     PreRegistrationParent[]
+  pickupAuthorizations PickupAuthorization[]
+  pickupEvents         PickupEvent[]
 }
 
 model InvitedParent {
@@ -283,6 +289,66 @@ enum PreRegistrationStatus {
   PENDING
   ACCEPTED
   REJECTED
+}
+
+model PickupAuthorization {
+  id              String    @id @default(cuid())
+  studentId       String
+  student         Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  tenantId        String
+  tenant          Tenant    @relation(fields: [tenantId], references: [id])
+
+  firstName       String
+  lastName        String
+  relationship    String?
+  phone           String?
+  notes           String?
+  photoUrl        String?
+
+  // null = permanent authorization. Non-null = expires at this datetime
+  // (e.g. one-day "today only my friend Sarah picks up").
+  expiresAt       DateTime?
+
+  createdByUserId String
+  createdBy       User      @relation("PickupAuthorizationCreatedBy", fields: [createdByUserId], references: [id])
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  events          PickupEvent[]
+
+  @@index([studentId])
+  @@index([tenantId])
+  @@index([expiresAt])
+}
+
+model PickupEvent {
+  id              String    @id @default(cuid())
+  studentId       String
+  student         Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  tenantId        String
+  tenant          Tenant    @relation(fields: [tenantId], references: [id])
+
+  // "ENTRY" (drop-off) | "EXIT" (pickup)
+  type            String
+  occurredAt      DateTime  @default(now())
+
+  // Selected authorization (preferred) — describes who actually picked up.
+  authorizationId String?
+  authorization   PickupAuthorization? @relation(fields: [authorizationId], references: [id])
+
+  // Free-text fallback for ad-hoc / non-authorized entries (e.g. parent's
+  // own drop-off; the school logs the parent's name even though there's no
+  // formal authorization row for the parent themselves).
+  pickupName      String?
+
+  loggedByUserId  String
+  loggedBy        User      @relation("PickupEventLoggedBy", fields: [loggedByUserId], references: [id])
+
+  notes           String?
+
+  @@index([studentId, occurredAt])
+  @@index([tenantId, occurredAt])
 }
 
 model ProcessedStripeEvent {

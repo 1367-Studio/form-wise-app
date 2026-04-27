@@ -30,4 +30,5 @@ export type DashboardSection =
   | "rib"
   | "billing"
   | "journal"
-  | "attendance";
+  | "attendance"
+  | "pickup";
