@@ -11,6 +11,7 @@
     "postinstall": "prisma generate",
     "postbuild": "next-sitemap",
     "prisma:seed": "tsx --env-file=.env prisma/seed-super-admin.ts",
+    "prisma:seed-demo": "tsx --env-file=.env prisma/seed-demo.ts",
     "encrypt-pii": "tsx --env-file=.env prisma/scripts/encrypt-pii.ts"
   },
   "dependencies": {
