@@ -3,17 +3,16 @@
 import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
-import Image from "next/image";
+import { Eye, EyeOff, Loader2, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import Logo from "@/components/Logo";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import AuthShell from "@/components/auth/AuthShell";
 
 export default function LoginForm() {
   const t = useTranslations("LoginPage");
@@ -105,115 +104,113 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex min-h-full flex-1">
-      <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-        <div className="mx-auto w-full max-w-sm lg:w-96">
-          <Link href="/" aria-label="formwise">
-            <Logo />
+    <AuthShell
+      title={t("formTitle")}
+      subtitle={
+        <>
+          {t("signupPrompt")}{" "}
+          <Link
+            href="/register"
+            className="font-semibold text-[#f84a00] hover:underline"
+          >
+            {t("signupLink")}
           </Link>
-
-          <h2 className="mt-8 text-2xl font-bold tracking-tight text-gray-900">
-            {t("formTitle")}
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t("signupPrompt")}{" "}
-            <Link
-              href="/register"
-              className="font-semibold text-primary hover:underline"
-            >
-              {t("signupLink")}
-            </Link>
-          </p>
-
-          <form onSubmit={handleSubmit} className="mt-10 space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="email">{t("emailLabel")}</Label>
-              <Input
-                id="email"
-                type="email"
-                required
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">{t("passwordLabel")}</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pr-10"
-                  disabled={loading}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((p) => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground cursor-pointer"
-                  disabled={loading}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5" />
-                  ) : (
-                    <Eye className="h-5 w-5" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="remember"
-                  checked={rememberMe}
-                  onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
-                  disabled={loading}
-                />
-                <Label htmlFor="remember">{t("rememberMe")}</Label>
-              </div>
-              <Link
-                href="/forgot-password"
-                className="text-sm font-medium text-muted-foreground hover:underline"
-              >
-                {t("forgotPassword")}
-              </Link>
-            </div>
-
-            {error && (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-
-            <Button
-              type="submit"
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+        <div className="space-y-2">
+          <Label htmlFor="email">{t("emailLabel")}</Label>
+          <div className="relative">
+            <Mail
+              aria-hidden
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+            />
+            <Input
+              id="email"
+              type="email"
+              required
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
-              className="w-full cursor-pointer"
-            >
-              {loading ? t("signingIn") : t("signInButton")}
-            </Button>
-          </form>
+              placeholder="vous@exemple.com"
+              className="pl-9"
+            />
+          </div>
         </div>
-      </div>
 
-      <div className="relative hidden w-0 flex-1 lg:block">
-        <div className="absolute inset-0 my-auto -m-2 flex items-center justify-center rounded-xl bg-white-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl lg:p-4">
-          <Image
-            alt="Formwise illustration"
-            src="https://cdn.sanity.io/media-libraries/mllo1PEUbcwG/images/2fd0af2464672b561c6723175f359c3274473381-2868x1598.png"
-            width={1500}
-            height={1598}
-            priority
-            className="rounded-md shadow-2xl ring-1 ring-gray-900/10 object-contain max-h-[90vh]"
-          />
+        <div className="space-y-2">
+          <Label htmlFor="password">{t("passwordLabel")}</Label>
+          <div className="relative">
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              required
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="pr-10"
+              disabled={loading}
+              placeholder="••••••••"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((p) => !p)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground cursor-pointer"
+              disabled={loading}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? (
+                <EyeOff className="h-5 w-5" />
+              ) : (
+                <Eye className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </div>
-      </div>
-    </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="remember"
+              checked={rememberMe}
+              onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
+              disabled={loading}
+            />
+            <Label htmlFor="remember" className="cursor-pointer text-sm font-normal text-gray-700">
+              {t("rememberMe")}
+            </Label>
+          </div>
+          <Link
+            href="/forgot-password"
+            className="text-sm font-medium text-gray-600 hover:text-[#f84a00] hover:underline"
+          >
+            {t("forgotPassword")}
+          </Link>
+        </div>
+
+        {error && (
+          <Alert variant="destructive">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
+        <Button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-[#f84a00] text-white hover:bg-[#d43e00] cursor-pointer h-11 text-base font-semibold"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              {t("signingIn")}
+            </>
+          ) : (
+            t("signInButton")
+          )}
+        </Button>
+      </form>
+    </AuthShell>
   );
 }
