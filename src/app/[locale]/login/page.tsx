@@ -20,10 +20,8 @@ export default async function LoginPage({
   const { locale } = await params;
   setRequestLocale(locale);
   return (
-    <section style={{ height: "100vh" }}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <LoginForm />
-      </Suspense>
-    </section>
+    <Suspense fallback={<div className="min-h-svh" />}>
+      <LoginForm />
+    </Suspense>
   );
 }

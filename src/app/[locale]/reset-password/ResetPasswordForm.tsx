@@ -2,17 +2,21 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2, ArrowLeft, Check, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import Logo from "@/components/Logo";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import AuthShell from "@/components/auth/AuthShell";
 
 export const dynamic = "force-dynamic";
 
 export default function ResetPasswordForm() {
   const t = useTranslations("ResetPassword");
+  const tLogin = useTranslations("LoginPage");
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams?.get("token") ?? "";
@@ -22,6 +26,9 @@ export default function ResetPasswordForm() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const passwordsMatch = password.length > 0 && password === confirm;
+  const passwordsMismatch = confirm.length > 0 && password !== confirm;
 
   const handleReset = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,77 +58,109 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 h-full relative">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center items-center gap-2">
-          <Link href="/" aria-label="formwise">
-            <Logo />
-          </Link>
-        </div>
-        <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
-          {t("formTitle")}
-        </h2>
-      </div>
-
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-        <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-          <form onSubmit={handleReset} className="space-y-6">
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder={t("newPasswordPlaceholder")}
-                className="w-full px-3 py-2 border rounded pr-10"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
-                disabled={loading}
-              >
-                {showPassword ? (
-                  <EyeOff className="w-5 h-5" />
-                ) : (
-                  <Eye className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-
-            <div className="relative">
-              <input
-                type={showConfirm ? "text" : "password"}
-                placeholder={t("confirmPasswordPlaceholder")}
-                className="w-full px-3 py-2 border rounded pr-10"
-                value={confirm}
-                onChange={(e) => setConfirm(e.target.value)}
-                disabled={loading}
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
-                onClick={() => setShowConfirm(!showConfirm)}
-                disabled={loading}
-              >
-                {showConfirm ? (
-                  <EyeOff className="w-5 h-5" />
-                ) : (
-                  <Eye className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-
-            <Button
-              type="submit"
+    <AuthShell
+      title={t("formTitle")}
+      footer={
+        <Link
+          href="/login"
+          className="inline-flex items-center gap-1.5 font-medium text-gray-700 hover:text-[#f84a00] hover:underline"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {tLogin("signInButton")}
+        </Link>
+      }
+    >
+      <form onSubmit={handleReset} className="space-y-5" noValidate>
+        <div className="space-y-2">
+          <Label htmlFor="new-password">{t("newPasswordPlaceholder")}</Label>
+          <div className="relative">
+            <Input
+              id="new-password"
+              type={showPassword ? "text" : "password"}
+              required
+              autoComplete="new-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
-              className="w-full cursor-pointer"
+              placeholder="••••••••"
+              className="pr-10"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+              disabled={loading}
+              aria-label={showPassword ? "Hide password" : "Show password"}
             >
-              {loading ? t("submitting") : t("submitButton")}
-            </Button>
-          </form>
+              {showPassword ? (
+                <EyeOff className="w-5 h-5" />
+              ) : (
+                <Eye className="w-5 h-5" />
+              )}
+            </button>
+          </div>
         </div>
-      </div>
-    </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="confirm-password">
+            {t("confirmPasswordPlaceholder")}
+          </Label>
+          <div className="relative">
+            <Input
+              id="confirm-password"
+              type={showConfirm ? "text" : "password"}
+              required
+              autoComplete="new-password"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              disabled={loading}
+              placeholder="••••••••"
+              className="pr-10"
+              aria-invalid={passwordsMismatch}
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground cursor-pointer"
+              onClick={() => setShowConfirm(!showConfirm)}
+              disabled={loading}
+              aria-label={showConfirm ? "Hide password" : "Show password"}
+            >
+              {showConfirm ? (
+                <EyeOff className="w-5 h-5" />
+              ) : (
+                <Eye className="w-5 h-5" />
+              )}
+            </button>
+          </div>
+          {passwordsMatch && (
+            <p className="flex items-center gap-1.5 text-xs text-green-700">
+              <Check className="h-3.5 w-3.5" />
+              OK
+            </p>
+          )}
+          {passwordsMismatch && (
+            <p className="flex items-center gap-1.5 text-xs text-red-600">
+              <X className="h-3.5 w-3.5" />
+              {t("passwordsDontMatch")}
+            </p>
+          )}
+        </div>
+
+        <Button
+          type="submit"
+          disabled={loading || !passwordsMatch}
+          className="w-full bg-[#f84a00] text-white hover:bg-[#d43e00] cursor-pointer h-11 text-base font-semibold"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              {t("submitting")}
+            </>
+          ) : (
+            t("submitButton")
+          )}
+        </Button>
+      </form>
+    </AuthShell>
   );
 }

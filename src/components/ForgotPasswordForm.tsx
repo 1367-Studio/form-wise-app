@@ -1,16 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Loader2, Mail, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import Logo from "./Logo";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import AuthShell from "@/components/auth/AuthShell";
 
 export default function ForgotPasswordForm() {
   const t = useTranslations("ForgotPassword");
+  const tLogin = useTranslations("LoginPage");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,57 +33,74 @@ export default function ForgotPasswordForm() {
 
     if (data.success) {
       toast.success(t("successMessage"));
+      setSubmitted(true);
     } else {
       toast.error(data.error || t("errorMessage"));
     }
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 h-full pt-[300px] pb-[300px] relative">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center items-center gap-2">
-          <Link href="/" aria-label="formwise">
-            <Logo />
-          </Link>
+    <AuthShell
+      title={t("formTitle")}
+      subtitle={t("emailLabel")}
+      footer={
+        <Link
+          href="/login"
+          className="inline-flex items-center gap-1.5 font-medium text-gray-700 hover:text-[#f84a00] hover:underline"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {tLogin("signInButton")}
+        </Link>
+      }
+    >
+      {submitted ? (
+        <div className="flex flex-col items-center text-center">
+          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#fef1ea] text-[#f84a00]">
+            <Mail className="h-7 w-7" />
+          </div>
+          <p className="text-sm text-gray-700">{t("successMessage")}</p>
+          <p className="mt-1 text-xs text-gray-500 break-all">{email}</p>
         </div>
-        <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          {t("formTitle")}
-        </h2>
-      </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-        <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                {t("emailLabel")}
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-black sm:text-sm/6"
-                />
-              </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+          <div className="space-y-2">
+            <Label htmlFor="email">{t("emailLabel")}</Label>
+            <div className="relative">
+              <Mail
+                aria-hidden
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+              />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+                placeholder="vous@exemple.com"
+                className="pl-9"
+              />
             </div>
+          </div>
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full cursor-pointer"
-            >
-              {loading ? t("sending") : t("sendButton")}
-            </Button>
-          </form>
-        </div>
-      </div>
-    </div>
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-[#f84a00] text-white hover:bg-[#d43e00] cursor-pointer h-11 text-base font-semibold"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t("sending")}
+              </>
+            ) : (
+              t("sendButton")
+            )}
+          </Button>
+        </form>
+      )}
+    </AuthShell>
   );
 }
