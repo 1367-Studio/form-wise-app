@@ -63,7 +63,7 @@ export default function AdminCharts() {
                 <Bar
                   dataKey="monthly"
                   stackId="a"
-                  fill="#f84a00"
+                  fill="#2563EB"
                   name="Monthly"
                 />
                 <Bar
@@ -94,9 +94,9 @@ export default function AdminCharts() {
                 </span>
                 <span className="font-semibold text-gray-900">{totalTrial}</span>
               </li>
-              <li className="flex items-center justify-between rounded-lg border border-black/10 bg-[#fef1ea] px-4 py-3">
+              <li className="flex items-center justify-between rounded-lg border border-black/10 bg-[#EFF6FF] px-4 py-3">
                 <span className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#f84a00]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#2563EB]" />
                   {t("monthlyDistribution", { count: totalMonthly })}
                 </span>
                 <span className="font-semibold text-gray-900">

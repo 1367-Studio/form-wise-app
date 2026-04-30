@@ -124,14 +124,14 @@ export default function RIBForm() {
         className={`flex items-start gap-3 rounded-2xl border p-4 ${
           isComplete && savedIban
             ? "border-emerald-100 bg-emerald-50"
-            : "border-[#f84a00]/20 bg-[#fef1ea]"
+            : "border-[#2563EB]/20 bg-[#EFF6FF]"
         }`}
       >
         <span
           className={`flex h-9 w-9 flex-none items-center justify-center rounded-full ${
             isComplete && savedIban
               ? "bg-emerald-100 text-emerald-700"
-              : "bg-[#fef1ea] text-[#f84a00]"
+              : "bg-[#EFF6FF] text-[#2563EB]"
           }`}
         >
           {isComplete && savedIban ? (
@@ -146,7 +146,7 @@ export default function RIBForm() {
               className={`text-sm font-semibold ${
                 isComplete && savedIban
                   ? "text-emerald-800"
-                  : "text-[#7a2700]"
+                  : "text-[#1E3A8A]"
               }`}
             >
               {isComplete && savedIban
@@ -163,7 +163,7 @@ export default function RIBForm() {
             className={`mt-0.5 text-xs ${
               isComplete && savedIban
                 ? "text-emerald-700"
-                : "text-[#7a2700]/80"
+                : "text-[#1E3A8A]/80"
             }`}
           >
             {isComplete && savedIban

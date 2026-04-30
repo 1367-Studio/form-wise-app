@@ -125,13 +125,13 @@ export default function ParentOverview({
   return (
     <div className="space-y-6">
       {/* Hero */}
-      <div className="rounded-2xl border border-black/10 bg-gradient-to-br from-[#fef1ea] via-white to-white p-6 sm:p-8">
+      <div className="rounded-2xl border border-black/10 bg-white p-6 sm:p-8">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex h-14 w-14 flex-none items-center justify-center rounded-full bg-black text-base font-semibold text-white">
             {initials || "·"}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-xs uppercase tracking-wide text-[#f84a00]">
+            <p className="text-xs uppercase tracking-wide text-[#2563EB]">
               {t(timeOfDayKey())}
             </p>
             <h1 className="text-2xl font-semibold text-gray-900 sm:text-3xl">
@@ -188,7 +188,7 @@ export default function ParentOverview({
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="rounded-2xl border border-black/10 bg-white p-6 lg:col-span-2">
           <div className="mb-4 flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-[#f84a00]" />
+            <Sparkles className="h-4 w-4 text-[#2563EB]" />
             <h2 className="text-base font-semibold text-gray-900">
               {t("nextStepsTitle")}
             </h2>
@@ -204,13 +204,13 @@ export default function ParentOverview({
                 <li key={step.id}>
                   <button
                     onClick={() => setActiveSectionAction(step.section)}
-                    className="group flex w-full items-center justify-between rounded-lg border border-black/5 bg-gray-50 px-3 py-3 text-left text-sm hover:border-[#f84a00]/30 hover:bg-[#fef1ea] cursor-pointer transition-colors"
+                    className="group flex w-full items-center justify-between rounded-lg border border-black/5 bg-gray-50 px-3 py-3 text-left text-sm cursor-pointer"
                   >
                     <span className="flex items-center gap-2 text-gray-900">
-                      <AlertCircle className="h-4 w-4 text-[#f84a00]" />
+                      <AlertCircle className="h-4 w-4 text-[#2563EB]" />
                       {step.label}
                     </span>
-                    <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-[#f84a00]" />
+                    <ArrowRight className="h-4 w-4 text-gray-400" />
                   </button>
                 </li>
               ))}
@@ -255,7 +255,7 @@ export default function ParentOverview({
             </h2>
             <button
               onClick={() => setActiveSectionAction("children")}
-              className="flex items-center gap-1 text-xs font-medium text-[#f84a00] hover:underline cursor-pointer"
+              className="flex items-center gap-1 text-xs font-medium text-[#2563EB] hover:underline cursor-pointer"
             >
               {t("seeAll")}
               <ArrowRight className="h-3 w-3" />
@@ -303,7 +303,7 @@ export default function ParentOverview({
             </h2>
             <button
               onClick={() => setActiveSectionAction("notification")}
-              className="flex items-center gap-1 text-xs font-medium text-[#f84a00] hover:underline cursor-pointer"
+              className="flex items-center gap-1 text-xs font-medium text-[#2563EB] hover:underline cursor-pointer"
             >
               {t("seeAll")}
               <ArrowRight className="h-3 w-3" />
@@ -322,12 +322,12 @@ export default function ParentOverview({
                   className={`rounded-lg border p-3 ${
                     n.isRead
                       ? "border-black/5 bg-gray-50"
-                      : "border-[#f84a00]/20 bg-[#fef1ea]"
+                      : "border-[#2563EB]/20 bg-[#EFF6FF]"
                   }`}
                 >
                   <div className="flex items-start gap-2">
                     {!n.isRead && (
-                      <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-[#f84a00]" />
+                      <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-[#2563EB]" />
                     )}
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-gray-900">
@@ -379,12 +379,12 @@ function KpiCard({
     neutral: "text-gray-900",
     success: "text-emerald-600",
     warning: "text-amber-600",
-    alert: "text-[#f84a00]",
+    alert: "text-[#2563EB]",
   }[tone];
   return (
     <button
       onClick={onClick}
-      className="rounded-2xl border border-black/10 bg-white p-5 text-left hover:border-[#f84a00]/30 hover:shadow-sm cursor-pointer transition-all"
+      className="rounded-2xl border border-black/10 bg-white p-5 text-left cursor-pointer"
     >
       <div className="flex items-center justify-between">
         <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-700">

@@ -22,18 +22,8 @@ export default function AuthShell({
   footer,
 }: AuthShellProps) {
   return (
-    <div className="relative min-h-svh w-full overflow-hidden bg-[#fdf8f3]">
-      {/* Subtle decorative background blobs */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 -left-40 h-[28rem] w-[28rem] rounded-full bg-[#f84a00]/10 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-40 -right-32 h-[32rem] w-[32rem] rounded-full bg-[#ffb37a]/20 blur-3xl"
-      />
-
-      <div className="relative grid min-h-svh lg:grid-cols-2">
+    <div className="relative min-h-svh w-full overflow-hidden bg-[#F8FAFC]">
+      <div className="grid min-h-svh lg:grid-cols-2">
         {/* Left: form column */}
         <div className="flex flex-col px-4 py-8 sm:px-8 sm:py-12 lg:px-12 lg:py-16">
           <div className="flex items-center justify-between">
@@ -44,7 +34,7 @@ export default function AuthShell({
 
           <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-10">
             {eyebrow && (
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#f84a00]">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#2563EB]">
                 {eyebrow}
               </p>
             )}
@@ -55,7 +45,7 @@ export default function AuthShell({
               <p className="mt-3 text-sm text-gray-600">{subtitle}</p>
             )}
 
-            <div className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_32px_-12px_rgba(248,74,0,0.10)] sm:p-8">
+            <div className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_32px_-12px_rgba(15,23,42,0.08)] sm:p-8">
               {children}
             </div>
 
@@ -69,27 +59,7 @@ export default function AuthShell({
 
         {/* Right: brand panel (desktop only) */}
         <aside className="relative hidden overflow-hidden lg:block">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#f84a00] via-[#ff7a3d] to-[#ffb37a]" />
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-30 mix-blend-overlay"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.5) 0, transparent 40%), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.35) 0, transparent 45%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, rgba(255,255,255,0.18) 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
-              maskImage:
-                "radial-gradient(ellipse at center, black 50%, transparent 80%)",
-            }}
-          />
-
+          <div className="absolute inset-0 bg-[#0F172A]" />
           <div className="relative flex h-full flex-col justify-between p-12 text-white">
             <Logo tone="light" size="lg" />
 

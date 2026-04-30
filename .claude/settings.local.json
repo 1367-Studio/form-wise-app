@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(find /Users/leandro/form-wise-app/src/app/[locale]/dashboard -type f -name \"page.tsx\")",
+      "Bash(xargs ls:*)",
+      "Bash(npx next:*)",
+      "Bash(npx prisma:*)",
+      "Bash(mkdir -p \"/Users/leandro/form-wise-app/src/app/api/conversations/[id]/messages\")",
+      "Bash(mkdir -p \"/Users/leandro/form-wise-app/src/app/api/teacher/evaluations/[id]\")",
+      "Bash(mkdir -p \"/Users/leandro/form-wise-app/src/app/api/teacher/evaluations/[id]/grades\")",
+      "Bash(npx tsx:*)"
+    ]
+  }
+}

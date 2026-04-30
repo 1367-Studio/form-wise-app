@@ -104,7 +104,7 @@ export default function RegisterForm() {
           {t("signinPrompt")}{" "}
           <Link
             href="/login"
-            className="font-semibold text-[#f84a00] hover:underline"
+            className="font-semibold text-[#2563EB] hover:underline"
           >
             {t("signinLink")}
           </Link>
@@ -218,9 +218,9 @@ export default function RegisterForm() {
         </div>
 
         {/* School code */}
-        <div className="space-y-2 rounded-xl border border-dashed border-[#f84a00]/30 bg-[#fef1ea]/50 p-4">
+        <div className="space-y-2 rounded-xl border border-dashed border-[#2563EB]/30 bg-[#EFF6FF]/50 p-4">
           <div className="flex items-center gap-2 text-sm font-medium text-gray-900">
-            <ShieldCheck className="h-4 w-4 text-[#f84a00]" />
+            <ShieldCheck className="h-4 w-4 text-[#2563EB]" />
             <Label htmlFor="schoolCode" className="text-sm font-medium">
               {t("schoolCodeLabel")}
             </Label>
@@ -274,7 +274,7 @@ export default function RegisterForm() {
         <Button
           type="submit"
           disabled={loading || (Boolean(schoolCode) && !schoolCheck?.valid)}
-          className="w-full bg-[#f84a00] text-white hover:bg-[#d43e00] cursor-pointer h-11 text-base font-semibold"
+          className="w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] cursor-pointer h-11 text-base font-semibold"
         >
           {loading ? (
             <>

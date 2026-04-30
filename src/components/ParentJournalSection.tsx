@@ -126,7 +126,7 @@ export default function ParentJournalSection() {
   if (data.students.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#fef1ea] text-[#f84a00]">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
           <GraduationCap className="h-6 w-6" />
         </div>
         <h2 className="text-lg font-semibold text-gray-900">
@@ -200,18 +200,18 @@ export default function ParentJournalSection() {
                     className={`relative cursor-pointer rounded-2xl border p-5 transition-colors ${
                       e.isRead
                         ? "border-black/10 bg-white"
-                        : "border-[#f84a00]/30 bg-[#fef1ea]/40"
+                        : "border-[#2563EB]/30 bg-[#EFF6FF]/40"
                     }`}
                   >
                     {!e.isRead && (
-                      <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#f84a00] px-2 py-0.5 text-[10px] font-semibold text-white">
+                      <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#2563EB] px-2 py-0.5 text-[10px] font-semibold text-white">
                         <Sparkles className="h-3 w-3" />
                         {t("newTag")}
                       </span>
                     )}
                     <div className="flex flex-wrap items-center gap-2 pr-16">
                       {e.subjectName ? (
-                        <Badge className="bg-[#fef1ea] text-[#f84a00] hover:bg-[#fef1ea]">
+                        <Badge className="bg-[#EFF6FF] text-[#2563EB] hover:bg-[#EFF6FF]">
                           {e.subjectName}
                         </Badge>
                       ) : (
@@ -247,8 +247,8 @@ export default function ParentJournalSection() {
                           {e.classSummary}
                         </p>
                       </div>
-                      <div className="rounded-lg border border-[#f84a00]/20 bg-[#fef1ea]/60 p-4">
-                        <div className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-[#f84a00]">
+                      <div className="rounded-lg border border-[#2563EB]/20 bg-[#EFF6FF]/60 p-4">
+                        <div className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-[#2563EB]">
                           <ClipboardList className="h-3.5 w-3.5" />
                           {t("homework")}
                         </div>
@@ -282,8 +282,8 @@ function FilterPill({
       onClick={onClick}
       className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors ${
         active
-          ? "border-[#f84a00] bg-[#f84a00] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-[#f84a00]/30 hover:text-[#f84a00]"
+          ? "border-[#2563EB] bg-[#2563EB] text-white"
+          : "border-black/10 bg-white text-gray-700 hover:border-[#2563EB]/30 hover:text-[#2563EB]"
       }`}
     >
       {children}

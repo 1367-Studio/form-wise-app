@@ -111,7 +111,7 @@ export default function LoginForm() {
           {t("signupPrompt")}{" "}
           <Link
             href="/register"
-            className="font-semibold text-[#f84a00] hover:underline"
+            className="font-semibold text-[#2563EB] hover:underline"
           >
             {t("signupLink")}
           </Link>
@@ -184,7 +184,7 @@ export default function LoginForm() {
           </div>
           <Link
             href="/forgot-password"
-            className="text-sm font-medium text-gray-600 hover:text-[#f84a00] hover:underline"
+            className="text-sm font-medium text-gray-600 hover:text-[#2563EB] hover:underline"
           >
             {t("forgotPassword")}
           </Link>
@@ -199,7 +199,7 @@ export default function LoginForm() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full bg-[#f84a00] text-white hover:bg-[#d43e00] cursor-pointer h-11 text-base font-semibold"
+          className="w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] cursor-pointer h-11 text-base font-semibold"
         >
           {loading ? (
             <>

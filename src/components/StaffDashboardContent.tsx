@@ -14,13 +14,18 @@ import StudentListWithFilter from "./StudentListWithFilter";
 import DirectorDocumentList from "./DirectorDocumentList";
 import CenteredSpinner from "./CenteredSpinner";
 import AccountSettings from "./AccountSettings";
+import DirectorPickupSection from "./DirectorPickupSection";
+import StaffHome from "./staff/StaffHome";
+import StaffAttendancePage from "./staff/StaffAttendancePage";
+import StaffDocumentsPage from "./staff/StaffDocumentsPage";
+import StaffMessagesPage from "./staff/StaffMessagesPage";
 
 export default function StaffDashboardContent() {
   const t = useTranslations("Dashboard");
   const { data: session, status } = useSession();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [activeSection, setActiveSection] =
-    useState<DashboardSection>("eleves");
+    useState<DashboardSection>("staffHome");
 
   useEffect(() => {
     const savedSection = localStorage.getItem("staffActiveSection");
@@ -54,6 +59,12 @@ export default function StaffDashboardContent() {
 
       <main className="flex-1 p-6 mt-10 md:mt-0">
         <p className="mb-6">{t("welcome", { name: fullName })}</p>
+
+        {activeSection === "staffHome" && <StaffHome />}
+        {activeSection === "staffPickup" && <DirectorPickupSection />}
+        {activeSection === "staffDocuments" && <StaffDocumentsPage />}
+        {activeSection === "staffAttendance" && <StaffAttendancePage />}
+        {activeSection === "staffMessages" && <StaffMessagesPage />}
 
         {activeSection === "notification" && <DirectorNotificationList />}
         {activeSection === "eleves" && <StudentListWithFilter />}

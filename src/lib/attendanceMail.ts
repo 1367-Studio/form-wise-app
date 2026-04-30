@@ -28,8 +28,8 @@ export async function sendAbsenceEmail(opts: {
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto;">
-      <div style="background:#fef1ea;border:1px solid rgba(248,74,0,0.2);border-radius:12px;padding:16px;margin-bottom:16px;">
-        <p style="margin:0;color:#7a2700;font-size:14px;font-weight:600;">${subjectByStatus[opts.status]}</p>
+      <div style="background:#EFF6FF;border:1px solid rgba(37,99,235,0.2);border-radius:12px;padding:16px;margin-bottom:16px;">
+        <p style="margin:0;color:#1E3A8A;font-size:14px;font-weight:600;">${subjectByStatus[opts.status]}</p>
       </div>
       <p style="font-size:15px;color:#111;">Bonjour,</p>
       <p style="font-size:15px;color:#111;line-height:1.6;">

@@ -18,6 +18,7 @@ const DEMO_PASSWORD = "Demo2026!";
 const DIRECTOR_EMAIL = "director@demo.formwise.fr";
 const TEACHER_EMAIL = "teacher@demo.formwise.fr";
 const PARENT_EMAIL = "parent@demo.formwise.fr";
+const STAFF_EMAIL = "staff@demo.formwise.fr";
 
 const FIRST_NAMES_FR_M = [
   "Jean", "Pierre", "Hugo", "Louis", "Antoine", "Julien", "Théo", "Lucas",
@@ -106,6 +107,23 @@ async function clearExistingDemoTenant() {
 
   // Order matters — delete leaves first (respect FK).
   await prisma.$transaction([
+    // Grades & Evaluations
+    prisma.grade.deleteMany({ where: { evaluation: { tenantId } } }),
+    prisma.evaluation.deleteMany({ where: { tenantId } }),
+    // Messaging
+    prisma.message.deleteMany({ where: { conversation: { tenantId } } }),
+    prisma.conversationParticipant.deleteMany({ where: { conversation: { tenantId } } }),
+    prisma.conversation.deleteMany({ where: { tenantId } }),
+    // Finance
+    prisma.reminder.deleteMany({ where: { tenantId } }),
+    prisma.payment.deleteMany({ where: { tenantId } }),
+    prisma.invoice.deleteMany({ where: { tenantId } }),
+    // HR
+    prisma.staffHoursLog.deleteMany({ where: { tenantId } }),
+    prisma.staffContract.deleteMany({ where: { tenantId } }),
+    // Events
+    prisma.schoolEvent.deleteMany({ where: { tenantId } }),
+    // Existing
     prisma.pickupEvent.deleteMany({ where: { tenantId } }),
     prisma.pickupAuthorization.deleteMany({ where: { tenantId } }),
     prisma.attendance.deleteMany({ where: { tenantId } }),
@@ -238,7 +256,7 @@ async function main() {
     const s = staffDefs[i];
     const u = await prisma.user.create({
       data: {
-        email: `staff${i + 1}@demo.formwise.fr`,
+        email: i === 0 ? STAFF_EMAIL : `staff${i + 1}@demo.formwise.fr`,
         password,
         role: "STAFF",
         firstName: s.firstName,
@@ -511,6 +529,256 @@ async function main() {
     });
   }
 
+  // ─── Invoices & Payments ───────────────────────────────────────────
+  const invoiceStatuses = ["PAID", "PAID", "PAID", "PENDING", "OVERDUE"] as const;
+  const paymentMethods = ["BANK_TRANSFER", "CHEQUE", "CASH", "DIRECT_DEBIT"] as const;
+  const now2 = new Date();
+  const currentMonth = now2.getMonth();
+  const currentYear = now2.getFullYear();
+  let invoiceSeq = 0;
+
+  for (let i = 0; i < Math.min(students.length, 50); i++) {
+    const stu = students[i];
+    const cls = classes.find((c) => c.id === stu.classId);
+    if (!cls) continue;
+
+    invoiceSeq++;
+    const status = invoiceStatuses[i % invoiceStatuses.length];
+    const dueDate = new Date(Date.UTC(currentYear, currentMonth, 15));
+    if (status === "OVERDUE") dueDate.setMonth(dueDate.getMonth() - 1);
+
+    const inv = await prisma.invoice.create({
+      data: {
+        tenantId: tenant.id,
+        studentId: stu.id,
+        number: `INV-${currentYear}-${invoiceSeq.toString().padStart(3, "0")}`,
+        amount: cls.monthlyFee,
+        status,
+        dueDate,
+        paidAt: status === "PAID" ? new Date(Date.now() - Math.random() * 1000 * 60 * 60 * 24 * 20) : null,
+        description: `Frais de scolarité - ${cls.name}`,
+      },
+    });
+
+    // Create payment for paid invoices
+    if (status === "PAID") {
+      await prisma.payment.create({
+        data: {
+          tenantId: tenant.id,
+          invoiceId: inv.id,
+          amount: cls.monthlyFee,
+          method: paymentMethods[i % paymentMethods.length],
+          reference: `REF-${(10000 + i).toString()}`,
+          paidAt: inv.paidAt!,
+        },
+      });
+    }
+
+    // Create reminders for overdue invoices
+    if (status === "OVERDUE") {
+      await prisma.reminder.create({
+        data: {
+          tenantId: tenant.id,
+          invoiceId: inv.id,
+          channel: "EMAIL",
+          notes: "Relance automatique envoyée.",
+          sentAt: new Date(Date.now() - Math.random() * 1000 * 60 * 60 * 24 * 5),
+        },
+      });
+    }
+  }
+  console.log(`💰 ${invoiceSeq} invoices seeded`);
+
+  // ─── Staff Contracts ─────────────────────────────────────────────
+  const allStaff = await prisma.staff.findMany({ where: { tenantId: tenant.id } });
+  const contractTypes = ["CDI", "CDD", "CDD", "STAGE"] as const;
+  for (let i = 0; i < allStaff.length; i++) {
+    const s = allStaff[i];
+    const type = contractTypes[i % contractTypes.length];
+    const startDate = new Date(Date.UTC(currentYear - 1, 8, 1));
+    const endDate = type === "CDI" ? null : new Date(Date.UTC(currentYear, 6 + (i % 3), 31));
+    const isExpiring = endDate && endDate.getTime() - Date.now() < 30 * 24 * 60 * 60 * 1000;
+
+    await prisma.staffContract.create({
+      data: {
+        tenantId: tenant.id,
+        staffId: s.id,
+        type,
+        startDate,
+        endDate,
+        hoursPerWeek: 35 + (i % 4),
+        salary: 2200 + i * 150,
+        status: isExpiring ? "EXPIRING_SOON" : "ACTIVE",
+        notes: type === "STAGE" ? "Stage de 6 mois" : null,
+      },
+    });
+  }
+
+  // Also create contracts for teachers (via their staff-like entries)
+  // Teachers don't have Staff records, so we create contracts referencing the first 3 staff
+  console.log(`📄 ${allStaff.length} staff contracts seeded`);
+
+  // ─── Staff Hours Logs ────────────────────────────────────────────
+  const hoursWeekdays: Date[] = [];
+  {
+    const d2 = new Date();
+    while (hoursWeekdays.length < 15) {
+      d2.setUTCDate(d2.getUTCDate() - 1);
+      const dow = d2.getUTCDay();
+      if (dow !== 0 && dow !== 6) {
+        hoursWeekdays.push(new Date(d2));
+      }
+    }
+  }
+  for (const s of allStaff) {
+    for (let di = 0; di < hoursWeekdays.length; di++) {
+      const baseHours = 7 + (di % 3);
+      const overtime = di % 5 === 0 ? 1.5 : 0;
+      await prisma.staffHoursLog.create({
+        data: {
+          tenantId: tenant.id,
+          staffId: s.id,
+          date: hoursWeekdays[di],
+          hours: baseHours,
+          overtime,
+          notes: overtime > 0 ? "Réunion tardive" : null,
+        },
+      });
+    }
+  }
+  console.log(`⏰ Staff hours seeded (${allStaff.length} staff × ${hoursWeekdays.length} days)`);
+
+  // ─── School Events ───────────────────────────────────────────────
+  const eventDefs = [
+    { title: "Réunion parents-professeurs", type: "MEETING", daysFromNow: 7, durationHours: 3, location: "Salle polyvalente" },
+    { title: "Sortie scolaire au musée", type: "TRIP", daysFromNow: 14, durationHours: 8, location: "Musée d'Orsay" },
+    { title: "Vacances de printemps", type: "HOLIDAY", daysFromNow: 21, durationHours: 24 * 14, location: null },
+    { title: "Conseil de classe — CE1", type: "MEETING", daysFromNow: 5, durationHours: 2, location: "Bureau du directeur" },
+    { title: "Fête de l'école", type: "GENERAL", daysFromNow: 30, durationHours: 6, location: "Cour de récréation" },
+    { title: "Examen de fin de trimestre", type: "EXAM", daysFromNow: 10, durationHours: 4, location: "Salles de classe" },
+    { title: "Journée sportive", type: "GENERAL", daysFromNow: 18, durationHours: 7, location: "Stade municipal" },
+    { title: "Atelier lecture avec les parents", type: "MEETING", daysFromNow: 3, durationHours: 2, location: "Bibliothèque" },
+  ];
+  for (const ev of eventDefs) {
+    const startDate = new Date(Date.now() + ev.daysFromNow * 24 * 60 * 60 * 1000);
+    startDate.setUTCHours(9, 0, 0, 0);
+    const endDate = new Date(startDate.getTime() + ev.durationHours * 60 * 60 * 1000);
+    await prisma.schoolEvent.create({
+      data: {
+        tenantId: tenant.id,
+        title: ev.title,
+        description: `${ev.title} — Détails à venir.`,
+        startDate,
+        endDate,
+        location: ev.location,
+        type: ev.type,
+      },
+    });
+  }
+  console.log(`📅 ${eventDefs.length} school events seeded`);
+
+  // ─── Conversations & Messages ────────────────────────────────────
+  // Create conversations between the demo teacher and some parents
+  const demoTeacherUser = await prisma.user.findUnique({ where: { email: TEACHER_EMAIL } });
+  const demoParentUser = await prisma.user.findUnique({ where: { email: PARENT_EMAIL } });
+  const directorUser = await prisma.user.findUnique({ where: { email: DIRECTOR_EMAIL } });
+
+  if (demoTeacherUser && demoParentUser && directorUser) {
+    const conv1 = await prisma.conversation.create({
+      data: {
+        tenantId: tenant.id,
+        subject: "Question sur les devoirs de mathématiques",
+        participants: {
+          create: [
+            { userId: demoTeacherUser.id, lastReadAt: new Date() },
+            { userId: demoParentUser.id, lastReadAt: new Date(Date.now() - 1000 * 60 * 30) },
+          ],
+        },
+      },
+    });
+    const messages1 = [
+      { senderId: demoParentUser.id, body: "Bonjour, mon fils a du mal avec les exercices page 24. Pourriez-vous m'expliquer la méthode ?", ago: 60 * 60 * 3 },
+      { senderId: demoTeacherUser.id, body: "Bonjour ! Bien sûr. L'exercice 3 utilise la méthode de la soustraction posée. Je vous conseille de revoir la leçon du lundi.", ago: 60 * 60 * 2 },
+      { senderId: demoParentUser.id, body: "Merci beaucoup, nous allons revoir ça ce soir.", ago: 60 * 60 },
+      { senderId: demoTeacherUser.id, body: "Parfait. N'hésitez pas si vous avez d'autres questions !", ago: 60 * 30 },
+    ];
+    for (const m of messages1) {
+      await prisma.message.create({
+        data: { conversationId: conv1.id, senderId: m.senderId, body: m.body, createdAt: new Date(Date.now() - m.ago * 1000) },
+      });
+    }
+
+    const conv2 = await prisma.conversation.create({
+      data: {
+        tenantId: tenant.id,
+        subject: "Absence prévue la semaine prochaine",
+        participants: {
+          create: [
+            { userId: demoParentUser.id, lastReadAt: new Date() },
+            { userId: directorUser.id, lastReadAt: new Date() },
+          ],
+        },
+      },
+    });
+    await prisma.message.create({
+      data: { conversationId: conv2.id, senderId: demoParentUser.id, body: "Bonjour, je souhaitais vous prévenir que mon fils sera absent mardi et mercredi pour un rendez-vous médical.", createdAt: new Date(Date.now() - 60 * 60 * 1000) },
+    });
+    await prisma.message.create({
+      data: { conversationId: conv2.id, senderId: directorUser.id, body: "Bien noté, merci de nous avoir prévenus. N'oubliez pas de transmettre le justificatif à votre retour.", createdAt: new Date(Date.now() - 60 * 30 * 1000) },
+    });
+
+    console.log("💬 2 conversations seeded");
+  }
+
+  // ─── Evaluations & Grades ────────────────────────────────────────
+  const demoTeacher = await prisma.teacher.findUnique({ where: { userId: demoTeacherUser?.id ?? "" } });
+  if (demoTeacher && demoTeacher.classId) {
+    const classStudents = await prisma.student.findMany({
+      where: { classId: demoTeacher.classId, tenantId: tenant.id },
+      select: { id: true },
+    });
+
+    const evalDefs = [
+      { title: "Dictée n°5", type: "EXAM", daysAgo: 3, maxScore: 20 },
+      { title: "Quiz tables de multiplication", type: "QUIZ", daysAgo: 7, maxScore: 10 },
+      { title: "Exposé sur les animaux", type: "ORAL", daysAgo: 14, maxScore: 20 },
+      { title: "Exercices fractions", type: "HOMEWORK", daysAgo: 5, maxScore: 20 },
+      { title: "Projet sciences", type: "PROJECT", daysAgo: 21, maxScore: 20 },
+    ];
+
+    for (const ed of evalDefs) {
+      const evaluation = await prisma.evaluation.create({
+        data: {
+          tenantId: tenant.id,
+          classId: demoTeacher.classId,
+          subjectId: demoTeacher.subjectId,
+          teacherId: demoTeacher.id,
+          title: ed.title,
+          date: new Date(Date.now() - ed.daysAgo * 24 * 60 * 60 * 1000),
+          maxScore: ed.maxScore,
+          coefficient: ed.type === "EXAM" ? 2 : 1,
+          type: ed.type,
+        },
+      });
+
+      // Grade each student
+      for (let si = 0; si < classStudents.length; si++) {
+        const isAbsent = si === classStudents.length - 1 && ed.type === "EXAM";
+        const score = isAbsent ? null : Math.round((Math.random() * 0.6 + 0.4) * ed.maxScore * 10) / 10;
+        await prisma.grade.create({
+          data: {
+            evaluationId: evaluation.id,
+            studentId: classStudents[si].id,
+            score,
+            absent: isAbsent,
+            comment: score !== null && score < ed.maxScore * 0.5 ? "Peut mieux faire" : null,
+          },
+        });
+      }
+    }
+    console.log(`📝 ${evalDefs.length} evaluations with grades seeded`);
+  }
+
   console.log("\n✅ Demo seed complete!\n");
   console.log("─────────────────────────────────────────────");
   console.log(`🏫 School:    ${tenant.name}`);
@@ -520,6 +788,7 @@ async function main() {
   console.log(`   Director: ${DIRECTOR_EMAIL}`);
   console.log(`   Teacher:  ${TEACHER_EMAIL}`);
   console.log(`   Parent:   ${PARENT_EMAIL}  (has 2 children)`);
+  console.log(`   Staff:    ${STAFF_EMAIL}`);
   console.log("─────────────────────────────────────────────");
 }
 

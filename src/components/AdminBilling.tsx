@@ -108,7 +108,7 @@ export default function AdminBilling() {
             <span className="text-xs font-medium uppercase tracking-[0.12em] text-gray-500">
               {t("mrrLive")}
             </span>
-            <Euro className="h-5 w-5 text-[#f84a00]" />
+            <Euro className="h-5 w-5 text-[#2563EB]" />
           </div>
           <div className="mt-3 text-3xl font-semibold tracking-tight text-gray-900">
             {formatCurrency(data.mrr * 100, data.currency)}
@@ -199,7 +199,7 @@ export default function AdminBilling() {
                           href={inv.hostedInvoiceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-gray-600 hover:text-[#f84a00]"
+                          className="inline-flex items-center gap-1 text-xs text-gray-600 hover:text-[#2563EB]"
                         >
                           {t("openInStripe")}
                           <ExternalLink className="h-3 w-3" />

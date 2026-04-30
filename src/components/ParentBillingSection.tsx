@@ -96,8 +96,8 @@ export default function ParentBillingSection({
 
       {/* Top summary */}
       <div className="grid gap-4 lg:grid-cols-3">
-        <div className="rounded-2xl border border-black/10 bg-gradient-to-br from-[#fef1ea] via-white to-white p-6 lg:col-span-2">
-          <p className="text-xs uppercase tracking-wide text-[#f84a00]">
+        <div className="rounded-2xl border border-black/10 bg-white p-6 lg:col-span-2">
+          <p className="text-xs uppercase tracking-wide text-[#2563EB]">
             {t("monthlyLabel")}
           </p>
           <p className="mt-1 text-4xl font-semibold text-gray-900">
@@ -135,7 +135,7 @@ export default function ParentBillingSection({
                 {t("ribActive")}
               </Badge>
             ) : (
-              <Badge className="bg-[#fef1ea] text-[#f84a00] hover:bg-[#fef1ea]">
+              <Badge className="bg-[#EFF6FF] text-[#2563EB] hover:bg-[#EFF6FF]">
                 <AlertCircle className="mr-1 h-3 w-3" />
                 {t("ribMissing")}
               </Badge>
@@ -199,7 +199,7 @@ export default function ParentBillingSection({
           </div>
           <div className="mt-4 h-2 overflow-hidden rounded-full bg-gray-100">
             <div
-              className="h-full rounded-full bg-[#f84a00] transition-all"
+              className="h-full rounded-full bg-[#2563EB] transition-all"
               style={{ width: `${progressPct}%` }}
             />
           </div>

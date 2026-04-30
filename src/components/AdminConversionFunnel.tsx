@@ -41,7 +41,7 @@ export default function AdminConversionFunnel() {
     },
   ];
 
-  const colors = ["bg-gray-900", "bg-amber-500", "bg-[#f84a00]", "bg-red-500"];
+  const colors = ["bg-gray-900", "bg-amber-500", "bg-[#2563EB]", "bg-red-500"];
 
   return (
     <div className="rounded-xl border border-black/10 bg-white p-6">
@@ -74,7 +74,7 @@ export default function AdminConversionFunnel() {
           <div className="text-xs uppercase tracking-[0.12em] text-gray-500">
             {t("rateTrialToPaid")}
           </div>
-          <div className="mt-1 text-2xl font-semibold text-[#f84a00]">
+          <div className="mt-1 text-2xl font-semibold text-[#2563EB]">
             {trialToPaid}%
           </div>
         </div>

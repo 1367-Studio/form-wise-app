@@ -119,7 +119,7 @@ export default function AdminKpiCards() {
       <KpiCard
         label={t("mrr")}
         value={data.revenue.mrr}
-        icon={<Euro className="h-5 w-5 text-[#f84a00]" />}
+        icon={<Euro className="h-5 w-5 text-[#2563EB]" />}
         sub={t("mrrSub", {
           monthly: data.revenue.activeMonthly,
           yearly: data.revenue.activeYearly,

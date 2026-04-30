@@ -138,7 +138,7 @@ export default function TenantDetailCard({ tenant, stats }: Props) {
         <div className="rounded-xl border border-black/10 bg-white p-4 flex flex-wrap gap-2">
           <a
             href={`mailto:${director.email}`}
-            className="inline-flex items-center gap-2 rounded-md bg-[#f84a00] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#d43e00]"
+            className="inline-flex items-center gap-2 rounded-md bg-[#2563EB] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1D4ED8]"
           >
             <Mail className="h-4 w-4" />
             {t("contactDirector")}
@@ -146,7 +146,7 @@ export default function TenantDetailCard({ tenant, stats }: Props) {
           {director.phone && (
             <a
               href={`tel:${director.phone}`}
-              className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:border-[#f84a00] hover:text-[#f84a00]"
+              className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:border-[#2563EB] hover:text-[#2563EB]"
             >
               <Phone className="h-4 w-4" />
               {director.phone}

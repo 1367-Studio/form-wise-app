@@ -118,7 +118,7 @@ export default function AdminAuditLog() {
                     )}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center rounded-full bg-[#fef1ea] px-2 py-0.5 text-xs font-medium text-[#f84a00]">
+                    <span className="inline-flex items-center rounded-full bg-[#EFF6FF] px-2 py-0.5 text-xs font-medium text-[#2563EB]">
                       {t(actionKey(evt.action))}
                     </span>
                   </td>

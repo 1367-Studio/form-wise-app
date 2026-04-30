@@ -288,7 +288,7 @@ export default function ParentDocumentsSection() {
                     href={previewDoc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-[#f84a00] underline"
+                    className="inline-flex items-center gap-2 text-sm text-[#2563EB] underline"
                   >
                     <Download className="h-4 w-4" />
                     {t("download")}
@@ -319,8 +319,8 @@ function FilterPill({
       onClick={onClick}
       className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors ${
         active
-          ? "border-[#f84a00] bg-[#f84a00] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-[#f84a00]/30 hover:text-[#f84a00]"
+          ? "border-[#2563EB] bg-[#2563EB] text-white"
+          : "border-black/10 bg-white text-gray-700 hover:border-[#2563EB]/30 hover:text-[#2563EB]"
       }`}
     >
       {children}
@@ -347,9 +347,9 @@ function DocCard({
   t: ReturnType<typeof useTranslations>;
 }) {
   return (
-    <div className="group relative flex flex-col gap-2 rounded-xl border border-black/10 bg-white p-4 transition-all hover:border-[#f84a00]/30 hover:shadow-sm">
+    <div className="group relative flex flex-col gap-2 rounded-xl border border-black/10 bg-white p-4">
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-[#fef1ea] text-[#f84a00]">
+        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-[#EFF6FF] text-[#2563EB]">
           {fileIcon(doc.fileType)}
         </span>
         <div className="min-w-0 flex-1">
