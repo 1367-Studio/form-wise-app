@@ -19,6 +19,12 @@ import ParentBillingSection from "./ParentBillingSection";
 import ParentJournalSection from "./ParentJournalSection";
 import ParentAttendanceSection from "./ParentAttendanceSection";
 import ParentPickupSection from "./ParentPickupSection";
+import ParentProgress from "./parent/ParentProgress";
+import ParentGrades from "./parent/ParentGrades";
+import ParentCalendar from "./parent/ParentCalendar";
+import ParentMessagesSection from "./parent/ParentMessagesSection";
+import ParentCanteen from "./parent/ParentCanteen";
+import ParentTransport from "./parent/ParentTransport";
 import { SelectedChildProvider } from "@/contexts/SelectedChildContext";
 import { ChildSwitcher } from "./ChildSwitcher";
 export const dynamic = "force-dynamic";
@@ -117,6 +123,18 @@ function SectionRenderer({
       {activeSection === "attendance" && <ParentAttendanceSection />}
 
       {activeSection === "pickup" && <ParentPickupSection />}
+
+      {activeSection === "parentProgress" && <ParentProgress />}
+
+      {activeSection === "parentGrades" && <ParentGrades />}
+
+      {activeSection === "parentCalendar" && <ParentCalendar />}
+
+      {activeSection === "parentMessages" && <ParentMessagesSection />}
+
+      {activeSection === "parentCanteen" && <ParentCanteen />}
+
+      {activeSection === "parentTransport" && <ParentTransport />}
 
       {activeSection === "settings" && (
         <div>

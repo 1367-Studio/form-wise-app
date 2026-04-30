@@ -12,8 +12,8 @@ export default function AdminImpersonate() {
         <p className="text-sm text-gray-500">{t("subtitle")}</p>
       </div>
       <div className="rounded-xl border border-dashed border-black/15 bg-white p-10 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#fef1ea]">
-          <UserCheck className="h-6 w-6 text-[#f84a00]" />
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF]">
+          <UserCheck className="h-6 w-6 text-[#2563EB]" />
         </div>
         <h3 className="mt-4 text-base font-semibold text-gray-900">
           {t("comingSoon")}

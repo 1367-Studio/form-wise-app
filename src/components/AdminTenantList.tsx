@@ -66,7 +66,7 @@ export default function AdminTenantList() {
     switch (plan) {
       case "MONTHLY":
         return (
-          <Badge className="bg-[#f84a00] text-white">{t("monthly")}</Badge>
+          <Badge className="bg-[#2563EB] text-white">{t("monthly")}</Badge>
         );
       case "YEARLY":
         return <Badge className="bg-black text-white">{t("annual")}</Badge>;
@@ -160,7 +160,7 @@ export default function AdminTenantList() {
             }
           }}
           disabled={exporting}
-          className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[#f84a00] hover:text-[#f84a00] disabled:opacity-60 cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[#2563EB] hover:text-[#2563EB] disabled:opacity-60 cursor-pointer"
         >
           <Download className="h-4 w-4" />
           {exporting ? tExport("exporting") : tExport("csv")}
@@ -248,7 +248,7 @@ export default function AdminTenantList() {
                 <td className="px-4 py-3 text-center">
                   <a
                     href={`/admin/tenant/${tenant.id}`}
-                    className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs text-gray-700 transition-colors hover:border-[#f84a00] hover:text-[#f84a00]"
+                    className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs text-gray-700 transition-colors hover:border-[#2563EB] hover:text-[#2563EB]"
                   >
                     <Eye className="h-3.5 w-3.5" />
                   </a>
@@ -264,7 +264,7 @@ export default function AdminTenantList() {
           <a
             key={tenant.id}
             href={`/admin/tenant/${tenant.id}`}
-            className="rounded-xl border border-black/10 bg-white p-4 transition-colors hover:border-[#f84a00]"
+            className="rounded-xl border border-black/10 bg-white p-4"
           >
             <div className="text-xs text-gray-500">
               {t("schoolNumberLabel")} <strong>{tenant.uniqueNumber}</strong>

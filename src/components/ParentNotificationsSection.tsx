@@ -251,8 +251,8 @@ function FilterPill({
       onClick={onClick}
       className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors ${
         active
-          ? "border-[#f84a00] bg-[#f84a00] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-[#f84a00]/30 hover:text-[#f84a00]"
+          ? "border-[#2563EB] bg-[#2563EB] text-white"
+          : "border-black/10 bg-white text-gray-700 hover:border-[#2563EB]/30 hover:text-[#2563EB]"
       }`}
     >
       {children}
@@ -262,7 +262,7 @@ function FilterPill({
             active
               ? "bg-white/20 text-white"
               : highlight
-              ? "bg-[#fef1ea] text-[#f84a00]"
+              ? "bg-[#EFF6FF] text-[#2563EB]"
               : "bg-gray-100 text-gray-600"
           }`}
         >
@@ -291,14 +291,14 @@ function NotificationItem({
       className={`group flex items-start gap-3 rounded-xl border p-4 transition-colors ${
         isRead
           ? "border-black/10 bg-white"
-          : "border-[#f84a00]/20 bg-[#fef1ea]/40"
+          : "border-[#2563EB]/20 bg-[#EFF6FF]/40"
       }`}
     >
       <div
         className={`mt-1 flex h-8 w-8 flex-none items-center justify-center rounded-full ${
           isGlobal
             ? "bg-blue-50 text-blue-600"
-            : "bg-[#fef1ea] text-[#f84a00]"
+            : "bg-[#EFF6FF] text-[#2563EB]"
         }`}
       >
         {isGlobal ? (
@@ -310,7 +310,7 @@ function NotificationItem({
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           {!isRead && (
-            <span className="h-2 w-2 rounded-full bg-[#f84a00]" />
+            <span className="h-2 w-2 rounded-full bg-[#2563EB]" />
           )}
           <p className="truncate text-sm font-semibold text-gray-900">
             {title}
@@ -343,7 +343,7 @@ function NotificationItem({
         <Button
           size="sm"
           variant="ghost"
-          className="cursor-pointer text-[#f84a00] hover:bg-[#fef1ea] hover:text-[#f84a00]"
+          className="cursor-pointer text-[#2563EB] hover:bg-[#EFF6FF] hover:text-[#2563EB]"
           onClick={onMarkRead}
         >
           <Bell className="mr-1 h-3.5 w-3.5" />

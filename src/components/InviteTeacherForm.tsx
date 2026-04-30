@@ -154,7 +154,7 @@ export default function InviteTeacherForm({
       className="rounded-2xl border border-black/10 bg-white p-6 max-w-2xl"
     >
       <div className="mb-4 flex items-center gap-2">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#fef1ea] text-[#f84a00]">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#EFF6FF] text-[#2563EB]">
           <Mail className="h-4 w-4" />
         </span>
         <div>

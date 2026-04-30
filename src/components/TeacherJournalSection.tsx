@@ -248,7 +248,7 @@ export default function TeacherJournalSection() {
 
       {data.journals.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#fef1ea] text-[#f84a00]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
             <BookOpen className="h-6 w-6" />
           </div>
           <h2 className="text-lg font-semibold text-gray-900">
@@ -314,7 +314,7 @@ export default function TeacherJournalSection() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-[#f84a00]">
+                  <p className="text-xs font-medium uppercase tracking-wide text-[#2563EB]">
                     {t("homework")}
                   </p>
                   <p className="mt-1 whitespace-pre-wrap text-sm text-gray-800">

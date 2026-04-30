@@ -11,6 +11,11 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { DashboardSection } from "../types/types";
+import AdminMobileSidebar from "./AdminMobileSidebar";
+import DirectorMobileSidebar from "./DirectorMobileSidebar";
+import ParentMobileSidebar from "./ParentMobileSidebar";
+import StaffMobileSidebar from "./StaffMobileSidebar";
+import TeacherMobileSidebar from "./TeacherMobileSidebar";
 import {
   CalendarDays,
   LayoutGrid,
@@ -322,6 +327,48 @@ export default function MobileSidebar({
     window.addEventListener("resize", checkScroll);
     return () => window.removeEventListener("resize", checkScroll);
   }, [sections]);
+
+  // Director and Teacher use dedicated grouped mobile sidebars
+  if (role === "DIRECTOR") {
+    return (
+      <DirectorMobileSidebar
+        activeSection={activeSection}
+        setActiveSectionAction={setActiveSectionAction}
+      />
+    );
+  }
+  if (role === "TEACHER") {
+    return (
+      <TeacherMobileSidebar
+        activeSection={activeSection}
+        setActiveSectionAction={setActiveSectionAction}
+      />
+    );
+  }
+  if (role === "PARENT") {
+    return (
+      <ParentMobileSidebar
+        activeSection={activeSection}
+        setActiveSectionAction={setActiveSectionAction}
+      />
+    );
+  }
+  if (role === "SUPER_ADMIN") {
+    return (
+      <AdminMobileSidebar
+        activeSection={activeSection}
+        setActiveSectionAction={setActiveSectionAction}
+      />
+    );
+  }
+  if (role === "STAFF") {
+    return (
+      <StaffMobileSidebar
+        activeSection={activeSection}
+        setActiveSectionAction={setActiveSectionAction}
+      />
+    );
+  }
 
   return (
     <div className="fixed top-4 right-4 z-50 md:hidden">

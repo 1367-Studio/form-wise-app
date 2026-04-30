@@ -36,6 +36,8 @@ model User {
   createdPickupAuthorizations PickupAuthorization[] @relation("PickupAuthorizationCreatedBy")
   loggedPickupEvents          PickupEvent[]         @relation("PickupEventLoggedBy")
   pushSubscriptions           PushSubscription[]
+  conversationParticipants    ConversationParticipant[]
+  sentMessages                Message[]
 }
 
 model Student {
@@ -61,6 +63,9 @@ model Student {
   tenant          Tenant         @relation(fields: [tenantId], references: [id])
   pickupAuthorizations PickupAuthorization[]
   pickupEvents    PickupEvent[]
+  invoices        Invoice[]
+  conversations   Conversation[]
+  grades          Grade[]
 }
 
 model Class {
@@ -73,6 +78,7 @@ model Class {
   subjects     Subject[]
   teachers     Teacher[]
   Student      Student[]
+  evaluations  Evaluation[]
   tenantId     String
   tenant       Tenant     @relation(fields: [tenantId], references: [id])
 }
@@ -93,9 +99,10 @@ model Subject {
   class     Class     @relation(fields: [classId], references: [id])
   classId   String
   createdAt DateTime  @default(now())
-  teachers  Teacher[]
-  tenantId  String
-  tenant    Tenant    @relation(fields: [tenantId], references: [id])
+  teachers    Teacher[]
+  evaluations Evaluation[]
+  tenantId    String
+  tenant      Tenant    @relation(fields: [tenantId], references: [id])
 }
 
 model Teacher {
@@ -108,6 +115,7 @@ model Teacher {
   classId           String?
   Notification      Notification[]
   notificationsRead NotificationReadTeacher[]
+  evaluations       Evaluation[]
   tenantId          String
   tenant            Tenant                    @relation(fields: [tenantId], references: [id])
 }
@@ -205,6 +213,14 @@ model Tenant {
   preRegistrations     PreRegistrationParent[]
   pickupAuthorizations PickupAuthorization[]
   pickupEvents         PickupEvent[]
+  invoices             Invoice[]
+  payments             Payment[]
+  reminders            Reminder[]
+  staffContracts       StaffContract[]
+  staffHoursLogs       StaffHoursLog[]
+  schoolEvents         SchoolEvent[]
+  conversations        Conversation[]
+  evaluations          Evaluation[]
 }
 
 model InvitedParent {
@@ -233,6 +249,9 @@ model Staff {
   accepted    Boolean   @default(false)
   user        User?     @relation(fields: [userId], references: [id])
   userId      String?
+
+  contracts      StaffContract[]
+  hoursLogs      StaffHoursLog[]
 
   @@unique([email, tenantId])
 }
@@ -453,4 +472,240 @@ model Attendance {
   @@unique([studentId, date])
   @@index([tenantId, classId, date])
   @@index([studentId, date])
+}
+
+// ---------------------------------------------------------------------------
+// Finance — Invoices & Payments
+// ---------------------------------------------------------------------------
+
+model Invoice {
+  id          String        @id @default(cuid())
+  tenantId    String
+  tenant      Tenant        @relation(fields: [tenantId], references: [id])
+  studentId   String
+  student     Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  number      String        // e.g. "INV-2026-001"
+  amount      Float
+  status      InvoiceStatus @default(PENDING)
+  dueDate     DateTime
+  paidAt      DateTime?
+  description String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  payments    Payment[]
+  reminders   Reminder[]
+
+  @@unique([tenantId, number])
+  @@index([tenantId, status])
+  @@index([tenantId, dueDate])
+  @@index([studentId])
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+model Payment {
+  id        String        @id @default(cuid())
+  tenantId  String
+  tenant    Tenant        @relation(fields: [tenantId], references: [id])
+  invoiceId String
+  invoice   Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  amount    Float
+  method    PaymentMethod
+  reference String?       // bank ref, cheque number, etc.
+  paidAt    DateTime      @default(now())
+  notes     String?
+  createdAt DateTime      @default(now())
+
+  @@index([tenantId, paidAt])
+  @@index([invoiceId])
+}
+
+enum PaymentMethod {
+  BANK_TRANSFER
+  CHEQUE
+  CASH
+  DIRECT_DEBIT
+  OTHER
+}
+
+model Reminder {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  invoiceId String
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  sentAt    DateTime @default(now())
+  channel   String   @default("EMAIL") // EMAIL, SMS
+  notes     String?
+
+  @@index([tenantId, sentAt])
+  @@index([invoiceId])
+}
+
+// ---------------------------------------------------------------------------
+// HR — Contracts & Staff Hours
+// ---------------------------------------------------------------------------
+
+model StaffContract {
+  id          String             @id @default(cuid())
+  tenantId    String
+  tenant      Tenant             @relation(fields: [tenantId], references: [id])
+  staffId     String
+  staff       Staff              @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  type        ContractType
+  startDate   DateTime
+  endDate     DateTime?
+  hoursPerWeek Float?
+  salary      Float?
+  status      ContractStatus     @default(ACTIVE)
+  notes       String?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([tenantId, status])
+  @@index([staffId])
+}
+
+enum ContractType {
+  CDI
+  CDD
+  STAGE
+  FREELANCE
+  OTHER
+}
+
+enum ContractStatus {
+  ACTIVE
+  EXPIRING_SOON
+  EXPIRED
+  TERMINATED
+}
+
+model StaffHoursLog {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  staffId   String
+  staff     Staff    @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  date      DateTime
+  hours     Float
+  overtime  Float    @default(0)
+  notes     String?
+  createdAt DateTime @default(now())
+
+  @@unique([staffId, date])
+  @@index([tenantId, date])
+  @@index([staffId, date])
+}
+
+// ---------------------------------------------------------------------------
+// Planning — Events
+// ---------------------------------------------------------------------------
+
+model SchoolEvent {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  location    String?
+  type        String   @default("GENERAL") // GENERAL, MEETING, HOLIDAY, EXAM, TRIP
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId, startDate])
+}
+
+// ---------------------------------------------------------------------------
+// Messaging — Conversations & Messages
+// ---------------------------------------------------------------------------
+
+model Conversation {
+  id          String    @id @default(cuid())
+  tenantId    String
+  tenant      Tenant    @relation(fields: [tenantId], references: [id])
+  subject     String
+  studentId   String?
+  student     Student?  @relation(fields: [studentId], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  messages    Message[]
+  participants ConversationParticipant[]
+
+  @@index([tenantId, updatedAt])
+  @@index([studentId])
+}
+
+model ConversationParticipant {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  lastReadAt     DateTime?
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
+  body           String
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId, createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Grades & Evaluations
+// ---------------------------------------------------------------------------
+
+model Evaluation {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  classId     String
+  class       Class    @relation(fields: [classId], references: [id])
+  subjectId   String?
+  subject     Subject? @relation(fields: [subjectId], references: [id])
+  teacherId   String
+  teacher     Teacher  @relation(fields: [teacherId], references: [id])
+  title       String
+  description String?
+  date        DateTime
+  maxScore    Float    @default(20)
+  coefficient Float   @default(1)
+  type        String   @default("EXAM") // EXAM, QUIZ, HOMEWORK, ORAL, PROJECT
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  grades      Grade[]
+
+  @@index([tenantId, classId, date])
+  @@index([teacherId, date])
+}
+
+model Grade {
+  id           String     @id @default(cuid())
+  evaluationId String
+  evaluation   Evaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+  studentId    String
+  student      Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  score        Float?
+  absent       Boolean    @default(false)
+  comment      String?
+  createdAt    DateTime   @default(now())
+
+  @@unique([evaluationId, studentId])
+  @@index([studentId])
 }

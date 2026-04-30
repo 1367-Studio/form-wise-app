@@ -21,13 +21,20 @@ import AdminImpersonate from "./AdminImpersonate";
 import AdminAuditLog from "./AdminAuditLog";
 import AccountSettings from "./AccountSettings";
 import CenteredSpinner from "./CenteredSpinner";
+import AdminHome from "./admin/AdminHome";
+import AdminReports from "./admin/AdminReports";
+import AdminActivityPage from "./admin/AdminActivityPage";
+import AdminFunnelPage from "./admin/AdminFunnelPage";
+import AdminHealthPage from "./admin/AdminHealthPage";
+import AdminSecurityPage from "./admin/AdminSecurityPage";
+import AdminConfigPage from "./admin/AdminConfigPage";
 
 export default function SuperAdminDashboardContent() {
   const t = useTranslations("Dashboard");
   const { data: session, status } = useSession();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [activeSection, setActiveSection] =
-    useState<DashboardSection>("tenants");
+    useState<DashboardSection>("adminHome");
 
   useEffect(() => {
     const savedSection = localStorage.getItem("superAdminActiveSection");
@@ -61,6 +68,14 @@ export default function SuperAdminDashboardContent() {
 
       <main className="flex-1 p-6 mt-10 md:mt-0">
         <p className="mb-6">{t("welcome", { name: fullName })}</p>
+
+        {activeSection === "adminHome" && <AdminHome />}
+        {activeSection === "adminReports" && <AdminReports />}
+        {activeSection === "adminActivity" && <AdminActivityPage />}
+        {activeSection === "adminFunnel" && <AdminFunnelPage />}
+        {activeSection === "adminHealth" && <AdminHealthPage />}
+        {activeSection === "adminSecurity" && <AdminSecurityPage />}
+        {activeSection === "adminConfig" && <AdminConfigPage />}
 
         {activeSection === "tenants" && (
           <div className="space-y-8">

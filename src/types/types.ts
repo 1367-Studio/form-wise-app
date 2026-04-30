@@ -1,4 +1,5 @@
 export type DashboardSection =
+  // Shared / legacy
   | "overview"
   | "schoolYear"
   | "classes"
@@ -31,4 +32,84 @@ export type DashboardSection =
   | "billing"
   | "journal"
   | "attendance"
-  | "pickup";
+  | "pickup"
+  // Director — Pilotage
+  | "directorHome"
+  | "directorKpi"
+  | "directorReports"
+  // Director — Élèves & Familles
+  | "directorFamilies"
+  | "directorInscriptions"
+  | "directorAttendance"
+  // Director — Pédagogie
+  | "directorJournal"
+  | "directorEvaluations"
+  | "directorCompetences"
+  | "directorBulletins"
+  // Director — Planning & Opérations
+  | "directorPlanning"
+  | "directorTeacherAttendance"
+  | "directorRooms"
+  | "directorEvents"
+  // Director — Finance
+  | "directorFinanceOverview"
+  | "directorInvoices"
+  | "directorPayments"
+  | "directorLatePayments"
+  | "directorReminders"
+  | "directorPricing"
+  | "directorBankDetails"
+  // Director — RH & Équipe
+  | "directorContracts"
+  | "directorStaffAttendance"
+  | "directorStaffHours"
+  | "directorPayroll"
+  // Director — Communication
+  | "directorMessages"
+  | "directorCampaigns"
+  | "directorTemplates"
+  // Director — Administration
+  | "directorUsers"
+  | "directorRoles"
+  | "directorSchoolSettings"
+  // Teacher — Ma classe
+  | "teacherHome"
+  | "teacherClassOverview"
+  | "teacherGroups"
+  // Teacher — Pédagogie
+  | "teacherEvaluations"
+  | "teacherCompetences"
+  | "teacherReportCards"
+  | "teacherResources"
+  // Teacher — Suivi quotidien
+  | "teacherBehavior"
+  | "teacherIncidents"
+  // Teacher — Communication
+  | "teacherMessages"
+  // Teacher — Planning
+  | "teacherSchedule"
+  | "teacherEvents"
+  // Parent — Enfants
+  | "parentProgress"
+  // Parent — Vie scolaire
+  | "parentGrades"
+  | "parentCalendar"
+  // Parent — Communication
+  | "parentMessages"
+  // Parent — Logistique
+  | "parentCanteen"
+  | "parentTransport"
+  // SuperAdmin
+  | "adminHome"
+  | "adminReports"
+  | "adminActivity"
+  | "adminFunnel"
+  | "adminHealth"
+  | "adminSecurity"
+  | "adminConfig"
+  // Staff
+  | "staffHome"
+  | "staffPickup"
+  | "staffDocuments"
+  | "staffAttendance"
+  | "staffMessages";

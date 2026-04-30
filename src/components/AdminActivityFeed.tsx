@@ -31,7 +31,7 @@ const iconForType: Record<ActivityType, React.ReactNode> = {
   tenant_signup: <Building2 className="h-4 w-4" />,
   subscription_active: <CheckCircle2 className="h-4 w-4 text-green-600" />,
   preregistration_submitted: <FileText className="h-4 w-4 text-amber-600" />,
-  user_joined: <UserPlus className="h-4 w-4 text-[#f84a00]" />,
+  user_joined: <UserPlus className="h-4 w-4 text-[#2563EB]" />,
 };
 
 export default function AdminActivityFeed() {

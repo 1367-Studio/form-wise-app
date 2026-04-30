@@ -158,7 +158,7 @@ export default function ParentChildrenSection() {
         <SectionSkeleton variant="cards" rows={3} />
       ) : filteredStudents.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#fef1ea] text-[#f84a00]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
             <GraduationCap className="h-6 w-6" />
           </div>
           <h2 className="text-lg font-semibold text-gray-900">
@@ -338,7 +338,7 @@ function ChildCard({
   onDelete: () => void;
 }) {
   return (
-    <div className="rounded-2xl border border-black/10 bg-white p-5 transition-all hover:border-[#f84a00]/30 hover:shadow-sm">
+    <div className="rounded-2xl border border-black/10 bg-white p-5">
       <div className="flex items-start gap-3">
         <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-black text-sm font-semibold text-white">
           {(student.firstName[0] ?? "") + (student.lastName[0] ?? "")}

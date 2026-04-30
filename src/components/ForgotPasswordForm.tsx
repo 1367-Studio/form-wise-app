@@ -46,7 +46,7 @@ export default function ForgotPasswordForm() {
       footer={
         <Link
           href="/login"
-          className="inline-flex items-center gap-1.5 font-medium text-gray-700 hover:text-[#f84a00] hover:underline"
+          className="inline-flex items-center gap-1.5 font-medium text-gray-700 hover:text-[#2563EB] hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           {tLogin("signInButton")}
@@ -55,7 +55,7 @@ export default function ForgotPasswordForm() {
     >
       {submitted ? (
         <div className="flex flex-col items-center text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#fef1ea] text-[#f84a00]">
+          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
             <Mail className="h-7 w-7" />
           </div>
           <p className="text-sm text-gray-700">{t("successMessage")}</p>
@@ -88,7 +88,7 @@ export default function ForgotPasswordForm() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#f84a00] text-white hover:bg-[#d43e00] cursor-pointer h-11 text-base font-semibold"
+            className="w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] cursor-pointer h-11 text-base font-semibold"
           >
             {loading ? (
               <>

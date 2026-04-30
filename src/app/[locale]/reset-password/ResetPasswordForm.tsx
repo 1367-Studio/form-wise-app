@@ -63,7 +63,7 @@ export default function ResetPasswordForm() {
       footer={
         <Link
           href="/login"
-          className="inline-flex items-center gap-1.5 font-medium text-gray-700 hover:text-[#f84a00] hover:underline"
+          className="inline-flex items-center gap-1.5 font-medium text-gray-700 hover:text-[#2563EB] hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           {tLogin("signInButton")}
@@ -149,7 +149,7 @@ export default function ResetPasswordForm() {
         <Button
           type="submit"
           disabled={loading || !passwordsMatch}
-          className="w-full bg-[#f84a00] text-white hover:bg-[#d43e00] cursor-pointer h-11 text-base font-semibold"
+          className="w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] cursor-pointer h-11 text-base font-semibold"
         >
           {loading ? (
             <>

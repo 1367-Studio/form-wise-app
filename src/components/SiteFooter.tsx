@@ -60,7 +60,7 @@ export default function SiteFooter() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-500 transition-colors hover:text-[#f84a00]"
+                  className="text-gray-500 transition-colors hover:text-[#2563EB]"
                 >
                   <span className="sr-only">{item.name}</span>
                   <item.icon aria-hidden="true" className="size-5" />
@@ -80,7 +80,7 @@ export default function SiteFooter() {
                   <li key={item.key}>
                     <Link
                       href={item.href}
-                      className="text-sm text-gray-900 transition-colors hover:text-[#f84a00]"
+                      className="text-sm text-gray-900 transition-colors hover:text-[#2563EB]"
                     >
                       {t(item.key)}
                     </Link>
@@ -97,7 +97,7 @@ export default function SiteFooter() {
                   <li key={item.key}>
                     <Link
                       href={item.href}
-                      className="text-sm text-gray-900 transition-colors hover:text-[#f84a00]"
+                      className="text-sm text-gray-900 transition-colors hover:text-[#2563EB]"
                     >
                       {t(item.key)}
                     </Link>
@@ -117,7 +117,7 @@ export default function SiteFooter() {
             })}
           </p>
           <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#f84a00]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#2563EB]" />
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-gray-500">
               Made in Marseille
             </span>

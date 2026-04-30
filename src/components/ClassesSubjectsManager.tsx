@@ -246,7 +246,7 @@ export default function ClassesSubjectsManager() {
                 <button
                   key={c.id}
                   onClick={() => setOpenClassId(c.id)}
-                  className="group rounded-2xl border border-black/10 bg-white p-5 text-left transition-all hover:border-[#f84a00]/30 hover:shadow-sm cursor-pointer"
+                  className="group rounded-2xl border border-black/10 bg-white p-5 text-left cursor-pointer"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
@@ -257,7 +257,7 @@ export default function ClassesSubjectsManager() {
                         {c.schoolYearName ?? t("noYear")}
                       </p>
                     </div>
-                    <Badge className="bg-[#fef1ea] text-[#f84a00] hover:bg-[#fef1ea]">
+                    <Badge className="bg-[#EFF6FF] text-[#2563EB] hover:bg-[#EFF6FF]">
                       {fmtMoney(c.monthlyFee)} / {t("perMonth")}
                     </Badge>
                   </div>

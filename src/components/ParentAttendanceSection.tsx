@@ -417,8 +417,8 @@ function FilterPill({
       onClick={onClick}
       className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors ${
         active
-          ? "border-[#f84a00] bg-[#f84a00] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-[#f84a00]/30 hover:text-[#f84a00]"
+          ? "border-[#2563EB] bg-[#2563EB] text-white"
+          : "border-black/10 bg-white text-gray-700 hover:border-[#2563EB]/30 hover:text-[#2563EB]"
       }`}
     >
       {children}

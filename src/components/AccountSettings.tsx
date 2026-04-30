@@ -91,7 +91,7 @@ export default function AccountSettings() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 border-b-2 px-1 py-3 text-sm font-medium transition-colors cursor-pointer ${
                 activeTab === tab.id
-                  ? "border-[#f84a00] text-[#f84a00]"
+                  ? "border-[#2563EB] text-[#2563EB]"
                   : "border-transparent text-gray-500 hover:text-gray-900"
               }`}
             >
@@ -195,7 +195,7 @@ function ProfileTab({
               <h3 className="truncate text-lg font-semibold text-gray-900">
                 {user.firstName} {user.lastName}
               </h3>
-              <Badge className="bg-[#fef1ea] text-[#f84a00] hover:bg-[#fef1ea]">
+              <Badge className="bg-[#EFF6FF] text-[#2563EB] hover:bg-[#EFF6FF]">
                 {t(roleKey)}
               </Badge>
             </div>

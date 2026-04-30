@@ -145,7 +145,7 @@ export default function AdminFailedPayments() {
                       <button
                         onClick={() => runAction(inv.id, "retry")}
                         disabled={busyId === inv.id}
-                        className="inline-flex items-center gap-1 rounded-md bg-[#f84a00] px-2 py-1 text-xs font-medium text-white hover:bg-[#d43e00] disabled:opacity-60"
+                        className="inline-flex items-center gap-1 rounded-md bg-[#2563EB] px-2 py-1 text-xs font-medium text-white hover:bg-[#1D4ED8] disabled:opacity-60"
                       >
                         <RefreshCw className="h-3 w-3" />
                         {t("retry")}
@@ -163,7 +163,7 @@ export default function AdminFailedPayments() {
                           href={inv.hostedInvoiceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs font-medium text-gray-700 hover:border-[#f84a00] hover:text-[#f84a00]"
+                          className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs font-medium text-gray-700 hover:border-[#2563EB] hover:text-[#2563EB]"
                         >
                           {t("open")}
                           <ExternalLink className="h-3 w-3" />
