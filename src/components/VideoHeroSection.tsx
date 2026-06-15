@@ -10,7 +10,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
 export default function VideoHeroSection() {
   const t = useTranslations("Hero");
 
@@ -41,42 +40,55 @@ export default function VideoHeroSection() {
       videoRef.current.play().catch(() => {});
     }
 
-    // Set initial state for side panels
-    gsap.set(leftPanelRef.current, { opacity: 0, x: -24 });
-    gsap.set(rightPanelRef.current, { opacity: 0, x: 24 });
+    const mm = gsap.matchMedia();
 
-    // Entrance animation
-    const tl = gsap.timeline({ delay: 0.3 });
-    tl.fromTo(titleRef.current, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" })
-      .fromTo(subtitleRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.4")
-      .fromTo(ctaRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
-      .fromTo(videoCardRef.current, { opacity: 0, y: 40, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, "-=0.2")
-      .fromTo(questionRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3");
+    mm.add("(max-width: 1279px)", () => {
+      const tl = gsap.timeline({ delay: 0.3 });
+      tl.fromTo(titleRef.current, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" })
+        .fromTo(subtitleRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.4")
+        .fromTo(ctaRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
+        .fromTo(videoCardRef.current, { opacity: 0, y: 40, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, "-=0.2")
+        .fromTo(questionRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3");
 
-    // How much to lift the video = exact height of the text block
-    const textBlockHeight = (textRef.current?.offsetHeight ?? 0) + 24; // +24 = mb-6
-
-    // Scroll-driven animation
-    const scrollTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=600",
-        scrub: 1,
-        pin: true,
-      },
+      return () => tl.kill();
     });
 
-    scrollTl
-      .to(textRef.current, { opacity: 0, y: -40, ease: "none" }, 0)
-      .to(videoRowRef.current, { y: -textBlockHeight, ease: "none" }, 0)
-      .to(leftPanelRef.current, { opacity: 1, x: 0, ease: "none" }, 0.35)
-      .to(rightPanelRef.current, { opacity: 1, x: 0, ease: "none" }, 0.35);
+    mm.add("(min-width: 1280px)", () => {
+      gsap.set(leftPanelRef.current, { opacity: 0, x: -24 });
+      gsap.set(rightPanelRef.current, { opacity: 0, x: 24 });
 
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
+      const tl = gsap.timeline({ delay: 0.3 });
+      tl.fromTo(titleRef.current, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" })
+        .fromTo(subtitleRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.4")
+        .fromTo(ctaRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
+        .fromTo(videoCardRef.current, { opacity: 0, y: 40, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, "-=0.2")
+        .fromTo(questionRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3");
+
+      const textBlockHeight = (textRef.current?.offsetHeight ?? 0) + 24;
+
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=600",
+          scrub: 1,
+          pin: true,
+        },
+      });
+
+      scrollTl
+        .to(textRef.current, { opacity: 0, y: -40, ease: "none" }, 0)
+        .to(videoRowRef.current, { y: -textBlockHeight, ease: "none" }, 0)
+        .to(leftPanelRef.current, { opacity: 1, x: 0, ease: "none" }, 0.35)
+        .to(rightPanelRef.current, { opacity: 1, x: 0, ease: "none" }, 0.35);
+
+      return () => {
+        tl.kill();
+        ScrollTrigger.getAll().forEach((st) => st.kill());
+      };
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -85,7 +97,7 @@ export default function VideoHeroSection() {
       data-hero
       role="banner"
       aria-label={t("introAriaLabel")}
-      className="relative w-full h-screen bg-black flex flex-col items-center justify-start pt-20 px-4"
+      className="relative w-full xl:h-screen bg-black flex flex-col items-center justify-start pt-20 px-4 pb-6 xl:pb-0 overflow-hidden"
     >
       {/* Background glow blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -95,7 +107,10 @@ export default function VideoHeroSection() {
       </div>
 
       {/* Text content */}
-      <div ref={textRef} className="relative z-20 text-center max-w-3xl w-full mb-6">
+      <div
+        ref={textRef}
+        className="relative z-20 text-center max-w-3xl w-full mb-6 pt-5"
+      >
         <h1
           ref={titleRef}
           className="text-3xl md:text-5xl font-bold leading-tight text-white opacity-0"
@@ -119,7 +134,10 @@ export default function VideoHeroSection() {
               {t("ctaTrial")}
             </Button>
           </Link>
-          <Link href="https://calendly.com/hello1367studio/30min" target="_blank">
+          <Link
+            href="https://calendly.com/hello1367studio/30min"
+            target="_blank"
+          >
             <Button
               variant="outline"
               className="cursor-pointer w-full sm:w-auto border-white/30 text-white hover:bg-white/10 hover:text-white bg-transparent"
@@ -132,15 +150,21 @@ export default function VideoHeroSection() {
 
       {/* Video row */}
       <div ref={videoRowRef} className="relative z-20 w-full max-w-5xl mx-auto">
-
         {/* Left panel */}
-        <div ref={leftPanelRef} className="hidden xl:flex flex-col gap-5 absolute right-full top-8 mr-8 w-44 opacity-0">
+        <div
+          ref={leftPanelRef}
+          className="hidden xl:flex flex-col gap-5 absolute right-full top-8 mr-8 w-44 opacity-0"
+        >
           {leftFeatures.map((f) => (
             <div key={f.title} className="flex items-start gap-3">
               <div className="mt-1.5 w-2 h-2 rounded-full bg-blue-400 shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-white leading-snug">{f.title}</p>
-                <p className="mt-0.5 text-xs text-gray-400 leading-relaxed">{f.description}</p>
+                <p className="text-sm font-semibold text-white leading-snug">
+                  {f.title}
+                </p>
+                <p className="mt-0.5 text-xs text-gray-400 leading-relaxed">
+                  {f.description}
+                </p>
               </div>
             </div>
           ))}
@@ -155,7 +179,9 @@ export default function VideoHeroSection() {
               <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
               <div className="w-3 h-3 rounded-full bg-green-500/60" />
               <div className="flex-1 mx-4 bg-white/5 rounded-md h-5 flex items-center px-3">
-                <span className="text-xs text-white/20 truncate">app.formwise.io</span>
+                <span className="text-xs text-white/20 truncate">
+                  app.formwise.io
+                </span>
               </div>
             </div>
             <div className="w-full aspect-video overflow-hidden">
@@ -174,27 +200,35 @@ export default function VideoHeroSection() {
         </div>
 
         {/* Right panel */}
-        <div ref={rightPanelRef} className="hidden xl:flex flex-col gap-5 absolute left-full top-8 ml-8 w-44 opacity-0">
+        <div
+          ref={rightPanelRef}
+          className="hidden xl:flex flex-col gap-5 absolute left-full top-8 ml-8 w-44 opacity-0"
+        >
           {rightFeatures.map((f) => (
             <div key={f.title} className="flex items-start gap-3">
               <div className="mt-1.5 w-2 h-2 rounded-full bg-blue-400 shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-white leading-snug">{f.title}</p>
-                <p className="mt-0.5 text-xs text-gray-400 leading-relaxed">{f.description}</p>
+                <p className="text-sm font-semibold text-white leading-snug">
+                  {f.title}
+                </p>
+                <p className="mt-0.5 text-xs text-gray-400 leading-relaxed">
+                  {f.description}
+                </p>
               </div>
             </div>
           ))}
         </div>
-
       </div>
-            <div ref={questionRef} className="text-center w-full mt-[-190px] px-4 opacity-0">
+
+      <div
+        ref={questionRef}
+        className="text-center w-full mt-4 xl:mt-[-190px] px-4 opacity-0"
+      >
         <p className="text-2xl md:text-3xl font-semibold text-white/60 tracking-tight">
           {t("questionPrefix")}{" "}
           <span className="text-white/90">{t("questionSuffix")}</span>
         </p>
       </div>
-
-
     </section>
   );
 }
