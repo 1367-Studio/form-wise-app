@@ -30,7 +30,7 @@ export default function FeatureSection() {
   ];
 
   return (
-    <div className="paper-bg py-24 sm:py-32">
+    <div className="paper-bg pt-40 pb-24 sm:pb-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base/7 font-semibold text-[#2563EB]">

@@ -16,8 +16,10 @@ import { routing, type Locale } from "@/i18n/routing";
 
 export default function LanguageSwitcher({
   variant = "default",
+  className = "",
 }: {
   variant?: "default" | "ghost";
+  className?: string;
 }) {
   const t = useTranslations("Languages");
   const tCommon = useTranslations("Common");
@@ -44,7 +46,7 @@ export default function LanguageSwitcher({
         <Button
           variant={variant === "ghost" ? "ghost" : "outline"}
           size="sm"
-          className="gap-2 cursor-pointer"
+          className={`gap-2 cursor-pointer ${className}`}
           disabled={isPending}
           aria-label={tCommon("language")}
         >

@@ -1,147 +1,122 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { Check, Minus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-type BillingCycle = "monthly" | "annual";
+gsap.registerPlugin(ScrollTrigger);
+
+const WHATSAPP_NUMBER = ""; // fill in your number e.g. "33612345678"
 
 interface Tier {
   id: string;
   href: string;
   name: string;
   price: string;
-  period: string;
+  period?: string;
+  note?: string;
   description: string;
   features: string[];
   featured: boolean;
   cta: string;
+  isWhatsApp?: boolean;
 }
 
 interface ComparisonFeature {
   label: string;
-  trial: boolean;
   monthly: boolean;
   annual: boolean;
+  custom: boolean;
 }
 
 export default function PricingSection() {
   const t = useTranslations("Pricing");
-  const [billing, setBilling] = useState<BillingCycle>("annual");
+  const titleRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      gsap.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 1, ease: "power2.out",
+          scrollTrigger: { trigger: titleRef.current, start: "top 90%", toggleActions: "play none none none" },
+        }
+      );
+    }
+
+    cardsRef.current.forEach((el, i) => {
+      if (!el) return;
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0, duration: 0.8, delay: i * 0.15, ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" },
+        }
+      );
+    });
+  }, []);
 
   const tiers: Tier[] = [
     {
-      id: "tier-freemium",
+      id: "tier-monthly",
       href: "/register/free-trial",
-      name: t("trialName"),
-      price: t("trialPrice"),
-      period: t("trialCycle"),
-      description: t("trialDescription"),
-      features: [
-        t("trialFeature1"),
-        t("trialFeature2"),
-        t("trialFeature3"),
-        t("trialFeature4"),
-        t("trialFeature5"),
-      ],
-      featured: false,
-      cta: t("ctaTrial"),
-    },
-    {
-      id: "tier-annuel",
-      href: "/contact",
-      name: t("annualName"),
-      price: billing === "annual" ? t("annualPrice") : t("monthlyPrice"),
-      period: billing === "annual" ? t("annualCycle") : t("monthlyCycle"),
-      description: t("annualDescription"),
-      features: [
-        t("annualFeature1"),
-        t("annualFeature2"),
-        t("annualFeature3"),
-        t("annualFeature4"),
-        t("annualFeature5"),
-      ],
-      featured: true,
-      cta: t("ctaTrial"),
-    },
-    {
-      id: "tier-mensuel",
-      href: "/contact",
       name: t("monthlyName"),
       price: t("monthlyPrice"),
       period: t("monthlyCycle"),
       description: t("monthlyDescription"),
-      features: [
-        t("monthlyFeature1"),
-        t("monthlyFeature2"),
-        t("monthlyFeature3"),
-        t("monthlyFeature4"),
-        t("monthlyFeature5"),
-      ],
+      features: [t("monthlyFeature1"), t("monthlyFeature2"), t("monthlyFeature3"), t("monthlyFeature4"), t("monthlyFeature5")],
       featured: false,
       cta: t("ctaTrial"),
+    },
+    {
+      id: "tier-annual",
+      href: "/register/free-trial",
+      name: t("annualName"),
+      price: t("annualPrice"),
+      period: t("annualCycle"),
+      note: t("annualNote"),
+      description: t("annualDescription"),
+      features: [t("annualFeature1"), t("annualFeature2"), t("annualFeature3"), t("annualFeature4"), t("annualFeature5")],
+      featured: true,
+      cta: t("ctaTrial"),
+    },
+    {
+      id: "tier-custom",
+      href: WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}` : "/contact",
+      name: t("customName"),
+      price: t("customPrice"),
+      description: t("customDescription"),
+      features: [t("customFeature1"), t("customFeature2"), t("customFeature3"), t("customFeature4"), t("customFeature5")],
+      featured: false,
+      cta: t("ctaContact"),
+      isWhatsApp: true,
     },
   ];
 
   const comparisonFeatures: ComparisonFeature[] = [
-    { label: t("compareStudents"), trial: true, monthly: true, annual: true },
-    { label: t("compareDashboards"), trial: true, monthly: true, annual: true },
-    {
-      label: t("compareNotifications"),
-      trial: true,
-      monthly: true,
-      annual: true,
-    },
-    {
-      label: t("comparePaymentTracking"),
-      trial: false,
-      monthly: true,
-      annual: true,
-    },
-    {
-      label: t("comparePrioritySupport"),
-      trial: false,
-      monthly: false,
-      annual: true,
-    },
-    {
-      label: t("compareOnlineTraining"),
-      trial: false,
-      monthly: false,
-      annual: true,
-    },
-    {
-      label: t("compareGdprCertificate"),
-      trial: false,
-      monthly: false,
-      annual: true,
-    },
-    {
-      label: t("compareCustomBranding"),
-      trial: false,
-      monthly: false,
-      annual: true,
-    },
-    {
-      label: t("compareDedicatedManager"),
-      trial: false,
-      monthly: false,
-      annual: true,
-    },
-    {
-      label: t("compareDataExport"),
-      trial: false,
-      monthly: true,
-      annual: true,
-    },
+    { label: t("compareStudents"),        monthly: true,  annual: true,  custom: true },
+    { label: t("compareDashboards"),      monthly: true,  annual: true,  custom: true },
+    { label: t("compareNotifications"),   monthly: true,  annual: true,  custom: true },
+    { label: t("comparePaymentTracking"), monthly: true,  annual: true,  custom: true },
+    { label: t("comparePrioritySupport"), monthly: false, annual: true,  custom: true },
+    { label: t("compareEarlyAccess"),     monthly: false, annual: true,  custom: true },
+    { label: t("compareAI"),              monthly: false, annual: false, custom: true },
+    { label: t("compareWhatsApp"),        monthly: false, annual: false, custom: true },
+    { label: t("compareDedicatedSupport"),monthly: false, annual: false, custom: true },
+    { label: t("compareDataExport"),      monthly: true,  annual: true,  custom: true },
   ];
 
   return (
     <section className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
       {/* Header */}
-      <div className="mx-auto max-w-4xl text-center">
+      <div ref={titleRef} className="mx-auto max-w-4xl text-center">
         <h2 className="text-base/7 font-semibold text-[#2563EB]">
           {t("section")}
         </h2>
@@ -153,101 +128,78 @@ export default function PricingSection() {
         </p>
       </div>
 
-      {/* Billing toggle */}
-      <div className="mt-12 flex items-center justify-center gap-3">
-        <div className="inline-flex items-center rounded-full bg-gray-100 p-1">
-          <button
-            type="button"
-            onClick={() => setBilling("monthly")}
-            className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-              billing === "monthly"
-                ? "bg-[#0F172A] text-white shadow-sm"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            {t("toggleMonthly")}
-          </button>
-          <button
-            type="button"
-            onClick={() => setBilling("annual")}
-            className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-              billing === "annual"
-                ? "bg-[#0F172A] text-white shadow-sm"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            {t("toggleAnnual")}
-          </button>
-        </div>
-        <span className="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-          {t("savePercent")}
-        </span>
-      </div>
-
       {/* Pricing cards */}
       <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 items-start gap-8 sm:mt-20 md:grid-cols-2 lg:grid-cols-3">
-        {tiers.map((tier) => (
+        {tiers.map((tier, index) => (
           <div
             key={tier.id}
+            ref={(el) => { cardsRef.current[index] = el; }}
             className={`relative rounded-2xl bg-white p-8 ${
               tier.featured
                 ? "border-2 border-[#2563EB]"
                 : "border border-gray-200"
             }`}
           >
-            {/* Most popular badge */}
             {tier.featured && (
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#2563EB] px-3 py-1 text-xs font-medium text-white">
                 {t("mostPopular")}
               </span>
             )}
 
-            {/* Plan name */}
-            <h3 className="text-lg font-semibold text-gray-900">
-              {tier.name}
-            </h3>
+            <h3 className="text-lg font-semibold text-gray-900">{tier.name}</h3>
 
-            {/* Price */}
             <div className="mt-4 flex items-baseline gap-x-2">
               <span className="text-5xl font-bold tracking-tight text-gray-900">
                 {tier.price}
               </span>
-              <span className="text-base text-gray-500">/{tier.period}</span>
+              {tier.period && (
+                <span className="text-base text-gray-500">/{tier.period}</span>
+              )}
             </div>
 
-            {/* Description */}
+            {tier.note && (
+              <p className="mt-1 text-xs font-medium text-green-600">{tier.note}</p>
+            )}
+
             <p className="mt-4 text-sm text-gray-500">{tier.description}</p>
 
-            {/* Divider */}
             <div className="my-6 border-t border-gray-100" />
 
-            {/* Feature list */}
             <ul role="list" className="space-y-3 text-sm">
               {tier.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-x-3">
-                  <Check
-                    aria-hidden="true"
-                    className="h-5 w-5 flex-none text-[#2563EB]"
-                  />
+                  <Check aria-hidden="true" className="h-5 w-5 flex-none text-[#2563EB]" />
                   <span className="text-gray-700">{feature}</span>
                 </li>
               ))}
             </ul>
 
-            {/* CTA */}
             <div className="mt-8">
-              <Button
-                asChild
-                variant={tier.featured ? "default" : "outline"}
-                className={`w-full ${
-                  tier.featured
-                    ? "bg-[#2563EB] hover:bg-[#1D4ED8]"
-                    : "border-gray-300 text-gray-700 hover:border-[#2563EB] hover:text-[#2563EB]"
-                }`}
-                size="lg"
-              >
-                <Link href={tier.href}>{tier.cta}</Link>
-              </Button>
+              {tier.isWhatsApp ? (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full border-gray-300 text-gray-700 hover:border-[#2563EB] hover:text-[#2563EB]"
+                  size="lg"
+                >
+                  <a href={tier.href} target="_blank" rel="noopener noreferrer">
+                    {tier.cta}
+                  </a>
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  variant={tier.featured ? "default" : "outline"}
+                  className={`w-full ${
+                    tier.featured
+                      ? "bg-[#2563EB] hover:bg-[#1D4ED8]"
+                      : "border-gray-300 text-gray-700 hover:border-[#2563EB] hover:text-[#2563EB]"
+                  }`}
+                  size="lg"
+                >
+                  <Link href={tier.href}>{tier.cta}</Link>
+                </Button>
+              )}
             </div>
           </div>
         ))}
@@ -266,13 +218,13 @@ export default function PricingSection() {
                   {t("compareFeatureHeader")}
                 </th>
                 <th className="pb-4 text-center font-semibold text-gray-900">
-                  {t("trialName")}
-                </th>
-                <th className="pb-4 text-center font-semibold text-gray-900">
                   {t("monthlyName")}
                 </th>
                 <th className="pb-4 text-center font-semibold text-[#2563EB]">
                   {t("annualName")}
+                </th>
+                <th className="pb-4 text-center font-semibold text-gray-900">
+                  {t("customName")}
                 </th>
               </tr>
             </thead>
@@ -284,42 +236,24 @@ export default function PricingSection() {
                 >
                   <td className="py-3 pr-6 text-gray-700">{feature.label}</td>
                   <td className="py-3 text-center">
-                    {feature.trial ? (
-                      <Check
-                        aria-hidden="true"
-                        className="mx-auto h-5 w-5 text-[#2563EB]"
-                      />
-                    ) : (
-                      <Minus
-                        aria-hidden="true"
-                        className="mx-auto h-5 w-5 text-gray-300"
-                      />
-                    )}
-                  </td>
-                  <td className="py-3 text-center">
                     {feature.monthly ? (
-                      <Check
-                        aria-hidden="true"
-                        className="mx-auto h-5 w-5 text-[#2563EB]"
-                      />
+                      <Check aria-hidden="true" className="mx-auto h-5 w-5 text-[#2563EB]" />
                     ) : (
-                      <Minus
-                        aria-hidden="true"
-                        className="mx-auto h-5 w-5 text-gray-300"
-                      />
+                      <Minus aria-hidden="true" className="mx-auto h-5 w-5 text-gray-300" />
                     )}
                   </td>
                   <td className="py-3 text-center">
                     {feature.annual ? (
-                      <Check
-                        aria-hidden="true"
-                        className="mx-auto h-5 w-5 text-[#2563EB]"
-                      />
+                      <Check aria-hidden="true" className="mx-auto h-5 w-5 text-[#2563EB]" />
                     ) : (
-                      <Minus
-                        aria-hidden="true"
-                        className="mx-auto h-5 w-5 text-gray-300"
-                      />
+                      <Minus aria-hidden="true" className="mx-auto h-5 w-5 text-gray-300" />
+                    )}
+                  </td>
+                  <td className="py-3 text-center">
+                    {feature.custom ? (
+                      <Check aria-hidden="true" className="mx-auto h-5 w-5 text-[#2563EB]" />
+                    ) : (
+                      <Minus aria-hidden="true" className="mx-auto h-5 w-5 text-gray-300" />
                     )}
                   </td>
                 </tr>
