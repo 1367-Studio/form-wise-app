@@ -44,11 +44,35 @@ export default function VideoHeroSection() {
 
     mm.add("(max-width: 1279px)", () => {
       const tl = gsap.timeline({ delay: 0.3 });
-      tl.fromTo(titleRef.current, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" })
-        .fromTo(subtitleRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.4")
-        .fromTo(ctaRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
-        .fromTo(videoCardRef.current, { opacity: 0, y: 40, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, "-=0.2")
-        .fromTo(questionRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3");
+      tl.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
+      )
+        .fromTo(
+          subtitleRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.4",
+        )
+        .fromTo(
+          ctaRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+          "-=0.3",
+        )
+        .fromTo(
+          videoCardRef.current,
+          { opacity: 0, y: 40, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" },
+          "-=0.2",
+        )
+        .fromTo(
+          questionRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.3",
+        );
 
       return () => tl.kill();
     });
@@ -58,11 +82,35 @@ export default function VideoHeroSection() {
       gsap.set(rightPanelRef.current, { opacity: 0, x: 24 });
 
       const tl = gsap.timeline({ delay: 0.3 });
-      tl.fromTo(titleRef.current, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" })
-        .fromTo(subtitleRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.4")
-        .fromTo(ctaRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
-        .fromTo(videoCardRef.current, { opacity: 0, y: 40, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, "-=0.2")
-        .fromTo(questionRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3");
+      tl.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
+      )
+        .fromTo(
+          subtitleRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.4",
+        )
+        .fromTo(
+          ctaRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+          "-=0.3",
+        )
+        .fromTo(
+          videoCardRef.current,
+          { opacity: 0, y: 40, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" },
+          "-=0.2",
+        )
+        .fromTo(
+          questionRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.3",
+        );
 
       const textBlockHeight = (textRef.current?.offsetHeight ?? 0) + 24;
 
@@ -97,7 +145,7 @@ export default function VideoHeroSection() {
       data-hero
       role="banner"
       aria-label={t("introAriaLabel")}
-      className="relative w-full xl:h-screen bg-black flex flex-col items-center justify-start pt-20 px-4 pb-6 xl:pb-0 overflow-hidden"
+      className="relative w-full xl:min-h-screen bg-black flex flex-col items-center justify-start pt-20 px-4 pb-6 xl:pb-0 overflow-hidden"
     >
       {/* Background glow blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -222,7 +270,7 @@ export default function VideoHeroSection() {
 
       <div
         ref={questionRef}
-        className="text-center w-full mt-4 xl:mt-[-190px] px-4 opacity-0"
+        className="text-center w-full mt-4 xl:mt-[-190px] px-4 opacity-0 mb-7"
       >
         <p className="text-2xl md:text-3xl font-semibold text-white/60 tracking-tight">
           {t("questionPrefix")}{" "}
