@@ -2,9 +2,11 @@
 
 import { UserPlus, MessagesSquare, Bot, Landmark } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useAudience } from "@/contexts/AudienceContext";
 
 export default function FeatureSection() {
-  const t = useTranslations("Features");
+  const { audience } = useAudience();
+  const t = useTranslations(`Features.${audience}`);
 
   const features = [
     {

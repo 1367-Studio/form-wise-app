@@ -5,13 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useAudience } from "@/contexts/AudienceContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function VideoHeroSection() {
-  const t = useTranslations("Hero");
+  const { audience, setAudience } = useAudience();
+  const t = useTranslations(`Hero.${audience}`);
+  const tToggle = useTranslations("Hero");
 
   const leftFeatures = [1, 2, 3].map((i) => ({
     title: t(`leftFeature${i}Title` as Parameters<typeof t>[0]),
@@ -159,6 +162,38 @@ export default function VideoHeroSection() {
         ref={textRef}
         className="relative z-20 text-center max-w-3xl w-full mb-6 pt-5"
       >
+        {/* Audience switch */}
+        <div
+          role="group"
+          aria-label={tToggle("toggleAriaLabel")}
+          className="mx-auto mb-8 inline-flex items-center gap-1 rounded-lg border border-white/15 bg-white/5 p-1 backdrop-blur-sm"
+        >
+          <button
+            type="button"
+            onClick={() => setAudience("associations")}
+            aria-pressed={audience === "associations"}
+            className={`cursor-pointer rounded-md px-5 py-2 text-sm font-medium transition-colors ${
+              audience === "associations"
+                ? "bg-blue-600 text-white"
+                : "text-gray-300 hover:text-white"
+            }`}
+          >
+            {tToggle("toggleAssociations")}
+          </button>
+          <button
+            type="button"
+            onClick={() => setAudience("schools")}
+            aria-pressed={audience === "schools"}
+            className={`cursor-pointer rounded-md px-5 py-2 text-sm font-medium transition-colors ${
+              audience === "schools"
+                ? "bg-blue-600 text-white"
+                : "text-gray-300 hover:text-white"
+            }`}
+          >
+            {tToggle("toggleSchools")}
+          </button>
+        </div>
+
         <h1
           ref={titleRef}
           className="text-3xl md:text-5xl font-bold leading-tight text-white opacity-0"
@@ -266,16 +301,6 @@ export default function VideoHeroSection() {
             </div>
           ))}
         </div>
-      </div>
-
-      <div
-        ref={questionRef}
-        className="text-center w-full mt-4 xl:mt-[-190px] px-4 opacity-0 mb-7"
-      >
-        <p className="text-2xl md:text-3xl font-semibold text-white/60 tracking-tight">
-          {t("questionPrefix")}{" "}
-          <span className="text-white/90">{t("questionSuffix")}</span>
-        </p>
       </div>
     </section>
   );

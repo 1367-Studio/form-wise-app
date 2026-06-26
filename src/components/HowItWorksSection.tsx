@@ -1,9 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useAudience } from "@/contexts/AudienceContext";
 
 export default function HowItWorksSection() {
-  const t = useTranslations("HowItWorks");
+  const { audience } = useAudience();
+  const t = useTranslations(`HowItWorks.${audience}`);
 
   const steps = [
     { number: "1", title: t("step1Title"), description: t("step1Description") },
