@@ -4,9 +4,11 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { Zap } from "lucide-react";
+import { useAudience } from "@/contexts/AudienceContext";
 
 export default function CTASection() {
-  const t = useTranslations("CTA");
+  const { audience } = useAudience();
+  const t = useTranslations(`CTA.${audience}`);
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-24 sm:py-32">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useAudience } from "@/contexts/AudienceContext";
 import {
   Accordion,
   AccordionItem,
@@ -18,7 +19,8 @@ const FAQ_KEYS = [
 ] as const;
 
 export default function FAQSection() {
-  const t = useTranslations("FAQ");
+  const { audience } = useAudience();
+  const t = useTranslations(`FAQ.${audience}`);
 
   return (
     <section className="bg-white py-24 sm:py-32">

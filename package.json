@@ -36,6 +36,7 @@
     "date-fns": "^4.1.0",
     "gsap": "^3.13.0",
     "jsonwebtoken": "^9.0.2",
+    "liquid-glass-web-react": "^0.1.1",
     "lucide-react": "^0.513.0",
     "micro": "^10.0.1",
     "next": "^15.3.6",

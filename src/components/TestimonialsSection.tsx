@@ -2,9 +2,11 @@
 
 import { Star, Quote } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useAudience } from "@/contexts/AudienceContext";
 
 export default function TestimonialsSection() {
-  const t = useTranslations("Testimonials");
+  const { audience } = useAudience();
+  const t = useTranslations(`Testimonials.${audience}`);
 
   const testimonials = [
     {
