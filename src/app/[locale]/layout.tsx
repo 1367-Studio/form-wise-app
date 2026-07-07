@@ -15,6 +15,7 @@ import ConditionalHeader from "components/ConditionalHeader";
 import { PWAInit } from "components/PWAInit";
 import { IOSInstallBanner } from "components/IOSInstallBanner";
 import { routing } from "../../i18n/routing";
+// import TrialBanner from "@/components/TrialBanner";
 
 const geistSans = Inter({
   variable: "--font-geist-sans",
@@ -87,6 +88,7 @@ export default async function LocaleLayout({
           <PWAInit />
           <IOSInstallBanner />
           <ConditionalHeader />
+          {/* <TrialBanner /> */}
           <AuthProvider>
             <main className="flex-1">{children}</main>
           </AuthProvider>
