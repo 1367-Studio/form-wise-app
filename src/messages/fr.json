@@ -899,6 +899,19 @@
     "screenshotAlt": "Capture d'écran - {label}"
   },
   "Hero": {
+    "badge": "Les outils IA pour associations sont disponibles",
+    "title": "Gérez votre association, vos membres et vos paiements depuis une seule plateforme.",
+    "subtitle": "Formwise aide les associations à centraliser les adhésions, les inscriptions, les paiements, les documents et la communication afin de gagner du temps et éviter les fichiers Excel, les emails dispersés et les outils compliqués.",
+    "ctaTrial": "Commencer gratuitement",
+    "ctaDemo": "Réserver une démo",
+    "reassurance1": "20 jours gratuits",
+    "reassurance2": "Sans engagement",
+    "feature1": "Configuration simple",
+    "feature2": "Gestion des membres",
+    "feature3": "Paiements en ligne",
+    "feature4": "Notifications ciblées",
+    "feature5": "Assistance IA",
+    "introAriaLabel": "Présentation de Formwise",
     "toggleAssociations": "Associations",
     "toggleSchools": "Écoles",
     "toggleAriaLabel": "Choisir votre profil",
@@ -959,7 +972,7 @@
       "paymentsName": "Cotisations simplifiées",
       "paymentsDescription": "Chaque membre reçoit une notification automatique pour régler sa cotisation. Paiement par virement, chèque ou prélèvement à venir.",
       "communicationName": "Communication fluide",
-      "communicationDescription": "Envoyez un message à tous vos membres, ou à un seul groupe (« Rendez-vous samedi pour l'événement ») — tout est possible depuis le tableau de bord.",
+      "communicationDescription": "Envoyez un message à tous vos membres, ou à un seul groupe (« Rendez-vous samedi pour l'événement ») tout est possible depuis le tableau de bord.",
       "aiName": "Assistant intelligent (IA)",
       "aiDescription": "Un chatbot intégré guide chacun pas à pas : membres, bureau ou bénévoles trouvent rapidement les réponses à leurs questions."
     },
@@ -972,7 +985,7 @@
       "paymentsName": "Paiements simplifiés",
       "paymentsDescription": "Chaque parent reçoit une notification automatique pour régler les frais scolaires. Paiement par virement, chèque ou prélèvement à venir.",
       "communicationName": "Communication fluide",
-      "communicationDescription": "Envoyez un message à tous les parents, ou à un seul élève (« Prenez une gourde demain ») — tout est possible depuis le tableau de bord directeur.",
+      "communicationDescription": "Envoyez un message à tous les parents, ou à un seul élève (« Prenez une gourde demain ») tout est possible depuis le tableau de bord directeur.",
       "aiName": "Assistant intelligent (IA)",
       "aiDescription": "Un chatbot intégré vous guide pas à pas : parents, direction ou professeurs, chacun trouve rapidement les réponses à ses questions."
     }

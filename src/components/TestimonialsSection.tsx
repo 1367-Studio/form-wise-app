@@ -1,6 +1,6 @@
 "use client";
 
-import { Star, Quote } from "lucide-react";
+import { Star, Quotes } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { useAudience } from "@/contexts/AudienceContext";
 
@@ -30,7 +30,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="paper-bg py-24 sm:py-32">
+    <section className="paper-bg">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-base/7 font-semibold text-[#2563EB]">
@@ -50,7 +50,8 @@ export default function TestimonialsSection() {
             >
               <div>
                 <div className="mb-4 flex items-center justify-between">
-                  <Quote
+                  <Quotes
+                    weight="fill"
                     aria-hidden="true"
                     className="h-6 w-6 text-[#2563EB]/20"
                   />
@@ -58,8 +59,9 @@ export default function TestimonialsSection() {
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star
                         key={i}
+                        weight="fill"
                         aria-hidden="true"
-                        className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                        className="h-4 w-4 text-yellow-400"
                       />
                     ))}
                   </div>

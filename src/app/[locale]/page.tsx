@@ -1,6 +1,6 @@
 import VideoHeroSection from "../../components/VideoHeroSection";
 import FeatureSection from "../../components/FeatureSection";
-import HowItWorksSection from "../../components/HowItWorksSection";
+// import HowItWorksSection from "../../components/HowItWorksSection";
 // import StatsSection from "../../components/StatsSection";
 import TestimonialsSection from "../../components/TestimonialsSection";
 import PricingSection from "../../components/PricingSection";
@@ -17,7 +17,7 @@ export default function HomePage() {
         </div>
         <div className="relative z-10">
           <FeatureSection />
-          <HowItWorksSection />
+          {/* <HowItWorksSection /> */}
           {/* <StatsSection /> */}
           <TestimonialsSection />
           <PricingSection />

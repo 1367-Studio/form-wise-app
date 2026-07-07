@@ -1,6 +1,6 @@
 "use client";
 
-import { UserPlus, MessagesSquare, Bot, Landmark } from "lucide-react";
+import { UserPlus, ChatCircleDots, Robot, Bank } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { useAudience } from "@/contexts/AudienceContext";
 
@@ -17,17 +17,17 @@ export default function FeatureSection() {
     {
       name: t("paymentsName"),
       description: t("paymentsDescription"),
-      icon: Landmark,
+      icon: Bank,
     },
     {
       name: t("communicationName"),
       description: t("communicationDescription"),
-      icon: MessagesSquare,
+      icon: ChatCircleDots,
     },
     {
       name: t("aiName"),
       description: t("aiDescription"),
-      icon: Bot,
+      icon: Robot,
     },
   ];
 

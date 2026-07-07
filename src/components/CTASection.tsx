@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { Zap } from "lucide-react";
+import { Lightning } from "@phosphor-icons/react";
 import { useAudience } from "@/contexts/AudienceContext";
 
 export default function CTASection() {
@@ -11,33 +11,44 @@ export default function CTASection() {
   const t = useTranslations(`CTA.${audience}`);
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 sm:py-32">
-      <div className="rounded-3xl bg-[#0F172A] p-8 text-center sm:p-12">
-        <h2 className="text-3xl font-bold text-white sm:text-4xl">
-          {t("title")}
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-400">
-          {t("subtitle")}
-        </p>
+    <section className="relative overflow-hidden bg-black">
+      {/* Subtle geometric decoration */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute -right-24 top-1/2 h-[130%] w-[45%] -translate-y-1/2 rotate-6 rounded-3xl bg-gradient-to-br from-white/[0.04] to-transparent" />
+        <div className="absolute -right-10 top-1/2 h-[110%] w-[38%] -translate-y-1/2 rotate-6 rounded-3xl bg-gradient-to-br from-white/[0.03] to-transparent" />
+      </div>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-x-4">
-          <Link href="/register/free-trial">
-            <Button className="cursor-pointer bg-[#2563EB] px-6 py-3 font-semibold text-white hover:bg-[#1D4ED8]">
-              <Zap className="mr-2 h-4 w-4" />
-              {t("primaryButton")}
-            </Button>
-          </Link>
-          <Link href="/contact">
-            <Button
-              variant="outline"
-              className="cursor-pointer border-gray-500 bg-transparent px-6 py-3 font-semibold text-gray-300 hover:border-gray-300 hover:text-white"
-            >
-              {t("secondaryButton")}
-            </Button>
-          </Link>
+      <div className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+        <div className="grid grid-cols-1 items-end gap-x-8 gap-y-10 lg:grid-cols-2">
+          {/* Headline */}
+          <h2 className="max-w-xl text-balance text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            {t("title")}
+          </h2>
+
+          {/* Subtitle + actions */}
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between lg:justify-end lg:gap-12">
+            {/* <p className="max-w-sm text-lg text-gray-400">{t("subtitle")}</p> */}
+
+            <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
+              <Link href="/register/free-trial">
+                <Button className="w-full cursor-pointer rounded-full bg-white px-6 py-3 font-semibold text-black hover:bg-gray-200">
+                  <Lightning className="mr-2 h-4 w-4" />
+                  {t("primaryButton")}
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button
+                  variant="outline"
+                  className="w-full cursor-pointer rounded-full border-white/15 bg-white/5 px-6 py-3 font-semibold text-white hover:bg-white/10 hover:text-white"
+                >
+                  {t("secondaryButton")}
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <p className="mt-6 text-sm text-gray-500">{t("trustBadge")}</p>
+        <p className="mt-10 text-sm text-gray-500">{t("trustBadge")}</p>
       </div>
     </section>
   );

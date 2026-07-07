@@ -34,7 +34,7 @@ const overrides = {
       registrationsDescription: "Gagnez du temps avec un système d'adhésion moderne, simple et sécurisé. Vos membres s'inscrivent en ligne, le bureau valide en un seul endroit.",
       paymentsName: "Cotisations simplifiées",
       paymentsDescription: "Chaque membre reçoit une notification automatique pour régler sa cotisation. Paiement par virement, chèque ou prélèvement à venir.",
-      communicationDescription: "Envoyez un message à tous vos membres, ou à un seul groupe (« Rendez-vous samedi pour l'événement ») — tout est possible depuis le tableau de bord.",
+      communicationDescription: "Envoyez un message à tous vos membres, ou à un seul groupe (« Rendez-vous samedi pour l'événement ») tout est possible depuis le tableau de bord.",
       aiDescription: "Un chatbot intégré guide chacun pas à pas : membres, bureau ou bénévoles trouvent rapidement les réponses à leurs questions.",
     },
     HowItWorks: {
