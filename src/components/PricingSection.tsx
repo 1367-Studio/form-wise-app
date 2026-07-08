@@ -124,7 +124,8 @@ export default function PricingSection({
       name: t("customName"),
       price: t("customPrice"),
       description: t("customDescription"),
-      features: [t("customFeature1"), t("customFeature2"), t("customFeature3"), t("customFeature4"), t("customFeature5")],
+      // customFeature3 (WhatsApp integration) is left out — not shipped yet.
+      features: [t("customFeature1"), t("customFeature2"), t("customFeature4"), t("customFeature5")],
       featured: false,
       cta: t("ctaContact"),
       isWhatsApp: true,
@@ -139,7 +140,7 @@ export default function PricingSection({
     { label: t("comparePrioritySupport"), monthly: false, annual: true,  custom: true },
     { label: t("compareEarlyAccess"),     monthly: false, annual: true,  custom: true },
     { label: t("compareAI"),              monthly: false, annual: false, custom: true },
-    { label: t("compareWhatsApp"),        monthly: false, annual: false, custom: true },
+    // compareWhatsApp row is left out — not shipped yet.
     { label: t("compareDedicatedSupport"),monthly: false, annual: false, custom: true },
     { label: t("compareDataExport"),      monthly: true,  annual: true,  custom: true },
   ];
