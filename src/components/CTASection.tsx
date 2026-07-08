@@ -6,7 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { Lightning } from "@phosphor-icons/react";
 import { useAudience } from "@/contexts/AudienceContext";
 
-export default function CTASection() {
+export default function CTASection({ trialDays }: { trialDays: number }) {
   const { audience } = useAudience();
   const t = useTranslations(`CTA.${audience}`);
 
@@ -48,7 +48,7 @@ export default function CTASection() {
           </div>
         </div>
 
-        <p className="mt-10 text-sm text-gray-500">{t("trustBadge")}</p>
+        <p className="mt-10 text-sm text-gray-500">{t("trustBadge", { days: trialDays })}</p>
       </div>
     </section>
   );

@@ -14,7 +14,7 @@ import {
 
 const featureIcons = [GearSix, Users, CreditCard, Bell, Sparkle];
 
-export default function VideoHeroSection() {
+export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
   const t = useTranslations("Hero");
   const features = featureIcons.map((icon, i) => ({
     label: t(`feature${i + 1}` as Parameters<typeof t>[0]),
@@ -81,7 +81,7 @@ export default function VideoHeroSection() {
         <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-300">
           <span className="inline-flex items-center gap-2">
             <CheckCircle className="h-4 w-4 text-white" />
-            {t("reassurance1")}
+            {t("reassurance1", { days: trialDays })}
           </span>
           <span className="inline-flex items-center gap-2">
             <CheckCircle className="h-4 w-4 text-white" />

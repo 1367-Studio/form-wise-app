@@ -18,7 +18,7 @@ const FAQ_KEYS = [
   "support",
 ] as const;
 
-export default function FAQSection() {
+export default function FAQSection({ trialDays }: { trialDays: number }) {
   const { audience } = useAudience();
   const t = useTranslations(`FAQ.${audience}`);
 
@@ -43,7 +43,7 @@ export default function FAQSection() {
                   {t(`${key}Question`)}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm leading-relaxed text-gray-400">
-                  {t(`${key}Answer`)}
+                  {t(`${key}Answer`, { days: trialDays })}
                 </AccordionContent>
               </AccordionItem>
             ))}

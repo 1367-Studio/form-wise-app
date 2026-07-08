@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { AdheraPricingInfo } from "@/lib/adhera-pricing";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,10 +34,40 @@ interface ComparisonFeature {
   custom: boolean;
 }
 
-export default function PricingSection() {
+function formatAmount(cents: number, currency: string): string {
+  return (cents / 100).toLocaleString("fr-FR", {
+    style: "currency",
+    currency: currency.toUpperCase(),
+  });
+}
+
+export default function PricingSection({
+  pricing,
+  trialDays,
+}: {
+  pricing: AdheraPricingInfo | null;
+  trialDays: number;
+}) {
   const t = useTranslations("Pricing");
   const titleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Live Stripe values when configured, otherwise the static translated copy —
+  // see src/lib/adhera-pricing.ts for why this isn't hardcoded.
+  const monthlyPrice = pricing
+    ? formatAmount(pricing.monthlyAmountCents, pricing.currency)
+    : t("monthlyPrice");
+  const annualPrice = pricing
+    ? formatAmount(Math.round(pricing.yearlyAmountCents / 12), pricing.currency)
+    : t("annualPrice");
+  const annualNote = pricing
+    ? t("annualNote", {
+        amount: formatAmount(
+          pricing.monthlyAmountCents * 12 - pricing.yearlyAmountCents,
+          pricing.currency
+        ),
+      })
+    : t("annualNote", { amount: "120€" });
 
   useEffect(() => {
     if (titleRef.current) {
@@ -68,24 +99,24 @@ export default function PricingSection() {
       id: "tier-monthly",
       href: "/register/free-trial",
       name: t("monthlyName"),
-      price: t("monthlyPrice"),
+      price: monthlyPrice,
       period: t("monthlyCycle"),
       description: t("monthlyDescription"),
       features: [t("monthlyFeature1"), t("monthlyFeature2"), t("monthlyFeature3"), t("monthlyFeature4"), t("monthlyFeature5")],
       featured: false,
-      cta: t("ctaTrial"),
+      cta: t("ctaTrial", { days: trialDays }),
     },
     {
       id: "tier-annual",
       href: "/register/free-trial",
       name: t("annualName"),
-      price: t("annualPrice"),
+      price: annualPrice,
       period: t("annualCycle"),
-      note: t("annualNote"),
+      note: annualNote,
       description: t("annualDescription"),
       features: [t("annualFeature1"), t("annualFeature2"), t("annualFeature3"), t("annualFeature4"), t("annualFeature5")],
       featured: true,
-      cta: t("ctaTrial"),
+      cta: t("ctaTrial", { days: trialDays }),
     },
     {
       id: "tier-custom",
