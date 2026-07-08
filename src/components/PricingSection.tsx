@@ -132,7 +132,7 @@ export default function PricingSection({
   ];
 
   const comparisonFeatures: ComparisonFeature[] = [
-    { label: t("compareStudents"),        monthly: true,  annual: true,  custom: true },
+    { label: t("compareMembers"),         monthly: true,  annual: true,  custom: true },
     { label: t("compareDashboards"),      monthly: true,  annual: true,  custom: true },
     { label: t("compareNotifications"),   monthly: true,  annual: true,  custom: true },
     { label: t("comparePaymentTracking"), monthly: true,  annual: true,  custom: true },
