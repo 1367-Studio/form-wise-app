@@ -17,7 +17,7 @@ export default async function HomePage() {
   return (
     <main>
       <AudienceProvider defaultAudience="associations">
-        <div className="relative z-20 mb-[-100px]">
+        <div id="hero" data-header-dark className="relative z-20 mb-[-100px]">
           <VideoHeroSection trialDays={ADHERA_TRIAL_DAYS} />
         </div>
         <div className="relative z-10">
