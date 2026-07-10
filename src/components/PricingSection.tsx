@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { AdheraPricingInfo } from "@/lib/adhera-pricing";
+import type { AdheraPricingInfo, PlanTier } from "@/lib/adhera-pricing";
 import BillingSelector, { type BillingPeriod } from "./pricing/BillingSelector";
 import PricingCard, { type PricingPlan } from "./pricing/PricingCard";
 
@@ -14,11 +14,11 @@ gsap.registerPlugin(ScrollTrigger);
 // plan's CTA straight to WhatsApp; empty keeps it pointing at the contact page.
 const WHATSAPP_NUMBER = "";
 
-// Prices are defined here rather than pulled from Stripe: the association
-// pricing now spans two paid tiers (Essentiel / Pro), which no longer maps to
-// the single live product behind `AdheraPricingInfo`. Amounts are in euros and
-// the annual figures are pre-computed so the UI never shows float rounding.
-const PLAN_PRICES = {
+// Used only if ADHERA_STRIPE_PRICE_* env vars aren't configured for this deployment
+// (getAdheraPricing() then resolves to null — see src/app/[locale]/page.tsx) — never the
+// primary source. Amounts are in euros, kept in sync with adhera's own
+// scripts/stripe-setup-tiers.ts so a misconfigured env doesn't show wildly wrong numbers.
+const FALLBACK_PLAN_PRICES = {
   essential: {
     monthlyPrice: 39.9,
     annualPrice: 399,
@@ -33,6 +33,29 @@ const PLAN_PRICES = {
   },
 } as const;
 
+type TierAmounts = {
+  monthlyPrice: number;
+  annualPrice: number;
+  annualMonthlyEquivalent: number;
+  annualSavings: number;
+};
+
+// Live Stripe values when configured, otherwise FALLBACK_PLAN_PRICES — same "never
+// hardcode, Stripe is the source of truth" reasoning as adhera's own src/lib/stripe.ts.
+function tierAmounts(tier: PlanTier, pricing: AdheraPricingInfo | null | undefined): TierAmounts {
+  const live = pricing?.[tier];
+  if (!live) return FALLBACK_PLAN_PRICES[tier];
+
+  const monthlyPrice = live.monthlyAmountCents / 100;
+  const annualPrice = live.yearlyAmountCents / 100;
+  return {
+    monthlyPrice,
+    annualPrice,
+    annualMonthlyEquivalent: Math.round((annualPrice / 12) * 100) / 100,
+    annualSavings: Math.round((monthlyPrice * 12 - annualPrice) * 100) / 100,
+  };
+}
+
 function formatEuro(value: number): string {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",
@@ -43,10 +66,9 @@ function formatEuro(value: number): string {
 }
 
 export default function PricingSection({
+  pricing,
   trialDays,
 }: {
-  // Kept for compatibility with the page's live-Stripe wiring; the association
-  // tiers use fixed pricing, so the value is intentionally unused here.
   pricing?: AdheraPricingInfo | null;
   trialDays: number;
 }) {
@@ -105,7 +127,7 @@ export default function PricingSection({
       id: "essential",
       name: t("plans.essential.name"),
       description: t("plans.essential.description"),
-      ...PLAN_PRICES.essential,
+      ...tierAmounts("essential", pricing),
       features: t.raw("plans.essential.features") as string[],
       ctaLabel: ctaTrial,
       ctaHref: freeTrialHref,
@@ -114,7 +136,7 @@ export default function PricingSection({
       id: "pro",
       name: t("plans.pro.name"),
       description: t("plans.pro.description"),
-      ...PLAN_PRICES.pro,
+      ...tierAmounts("pro", pricing),
       features: t.raw("plans.pro.features") as string[],
       highlighted: true,
       badge: t("plans.pro.badge"),
