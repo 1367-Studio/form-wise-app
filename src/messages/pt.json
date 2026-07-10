@@ -91,7 +91,8 @@
     "sending": "Enviando...",
     "successMessage": "Sua mensagem foi enviada!",
     "errorMessage": "Ocorreu um erro. Tente novamente.",
-    "serverError": "Erro de servidor. Tente novamente mais tarde."
+    "serverError": "Erro de servidor. Tente novamente mais tarde.",
+    "connectTitle": "Fale connosco"
   },
   "LoginPage": {
     "metadata": {
@@ -878,7 +879,11 @@
   },
   "NavDrawer": {
     "contactUs": "Fale conosco",
-    "signIn": "Entrar"
+    "signIn": "Entrar",
+    "pricing": "Preços",
+    "about": "Sobre",
+    "bookDemo": "Agendar uma demo",
+    "signUp": "Cadastrar-se"
   },
   "Support": {
     "getSupport": "Obter ajuda",
@@ -1036,7 +1041,79 @@
     "compareAI": "Integração com IA",
     "compareWhatsApp": "Integração com WhatsApp",
     "compareDedicatedSupport": "Suporte dedicado",
-    "compareDataExport": "Exportação de dados"
+    "compareDataExport": "Exportação de dados",
+    "associations": {
+      "section": "Preços da Formwise",
+      "title": "Preços adaptados ao tamanho da sua associação",
+      "subtitle": "Escolha a fórmula que corresponde ao seu número de membros e centralize as adesões, contribuições e comunicação sem multiplicar as ferramentas.",
+      "billing": {
+        "label": "Escolher o período de faturação",
+        "monthly": "Mensal",
+        "annual": "Anual",
+        "annualBadge": "2 meses grátis"
+      },
+      "perMonth": "/mês",
+      "perYear": "/ano",
+      "monthlyBillingNote": "Faturação mensal, sem compromisso.",
+      "annualEquivalent": "Ou seja, {amount} por mês",
+      "annualBilled": "Faturado {amount} uma vez por ano",
+      "annualSavings": "2 meses grátis · Economize {amount} por ano",
+      "mostPopular": "Mais popular",
+      "featureIncluded": "Incluído",
+      "ctaTrial": "Experimente grátis durante {days} dias",
+      "ctaQuote": "Pedir um orçamento",
+      "plans": {
+        "essential": {
+          "name": "Essencial",
+          "description": "Para pequenas associações que querem centralizar a sua gestão.",
+          "features": [
+            "Até 150 membros ativos",
+            "Adesões e inscrições online",
+            "Acompanhamento de contribuições e pagamentos",
+            "Lembretes automáticos",
+            "Documentos centralizados",
+            "Comunicações segmentadas",
+            "Acesso para a direção e os voluntários",
+            "Resposta do suporte em 1 dia útil"
+          ]
+        },
+        "pro": {
+          "name": "Pro",
+          "badge": "Mais popular",
+          "description": "Para associações que querem automatizar a sua gestão e acompanhar mais membros.",
+          "features": [
+            "Até 600 membros ativos",
+            "Todas as funcionalidades do Essencial",
+            "Assistente de IA integrado",
+            "Notificações e lembretes avançados",
+            "Painéis detalhados",
+            "Gestão avançada de grupos",
+            "Suporte prioritário",
+            "Apoio na importação de dados"
+          ]
+        },
+        "custom": {
+          "name": "Sob medida",
+          "price": "Sob orçamento",
+          "description": "Para grandes associações, federações e redes com necessidades específicas.",
+          "features": [
+            "Mais de 600 membros ativos",
+            "Apoio na implementação",
+            "Importação e migração de dados",
+            "Configuração personalizada",
+            "Gestão avançada de funções",
+            "Compromisso de disponibilidade reforçado",
+            "Suporte dedicado",
+            "Funcionalidades e integrações específicas"
+          ]
+        }
+      },
+      "roi": {
+        "title": "Rentabilizado desde as primeiras horas ganhas",
+        "description": "A partir de 39,90 € por mês, a Formwise pode ser rentabilizada assim que a sua equipa poupar cerca de 1 h 36 de trabalho administrativo por mês, com base num custo horário estimado de 25 €.",
+        "disclaimer": "Estimativa indicativa conforme o tempo realmente poupado pela sua organização."
+      }
+    }
   },
   "Newsletter": {
     "title": "Assine nossa newsletter para ficar por dentro das atualizações e novos recursos do Formwise.",
@@ -1957,36 +2034,40 @@
     "associations": {
       "section": "FAQ",
       "title": "Perguntas frequentes",
-      "subtitle": "Encontre respostas para as perguntas mais comuns sobre o Formwise.",
-      "pricingQuestion": "Quanto custa o Formwise?",
+      "subtitle": "Encontre rapidamente as respostas às perguntas mais comuns sobre a Formwise.",
+      "pricingQuestion": "Quais são os preços da Formwise?",
       "pricingAnswer": "O Formwise oferece um plano mensal ou anual (com desconto) — veja os valores atualizados na seção acima. Um teste gratuito de {days} dias está disponível sem cartão de crédito.",
       "trialQuestion": "Como funciona o teste gratuito?",
       "trialAnswer": "O teste gratuito dá acesso a todas as funcionalidades durante {days} dias. Não é necessário cartão de crédito e você pode migrar para um plano pago a qualquer momento.",
-      "dataSecurityQuestion": "Os meus dados estão seguros?",
+      "dataSecurityQuestion": "Os dados da minha associação estão seguros?",
       "dataSecurityAnswer": "Sim. O Formwise está hospedado na Europa e é totalmente compatível com o RGPD. Todos os dados são criptografados em trânsito e em repouso. Assinantes anuais recebem um certificado RGPD anual.",
-      "multiSchoolQuestion": "Posso gerir várias associações?",
+      "multiSchoolQuestion": "É possível gerir várias associações com a Formwise?",
       "multiSchoolAnswer": "Sim. O Formwise suporta configurações multi-organização por padrão. Cada associação tem o seu próprio espaço isolado com funções e permissões dedicadas.",
-      "mobileQuestion": "A aplicação está disponível no telemóvel?",
+      "mobileQuestion": "A Formwise está disponível no telemóvel?",
       "mobileAnswer": "O Formwise é uma aplicação web progressiva (PWA) que funciona em todos os dispositivos. Pode instalá-la no ecrã inicial e receber notificações push em tempo real.",
-      "supportQuestion": "Como contactar o suporte?",
-      "supportAnswer": "A nossa equipa de suporte está disponível por email e chat. Assinantes mensais recebem resposta em 24h; assinantes anuais têm acesso prioritário."
+      "supportQuestion": "Como contactar o suporte da Formwise?",
+      "supportAnswer": "A nossa equipa de suporte está disponível por email e chat. Os assinantes mensais recebem resposta em 1 dia útil, e os anuais têm acesso prioritário.",
+      "supportText": "Ainda tem alguma questão?",
+      "supportLink": "Fale connosco"
     },
     "schools": {
       "section": "FAQ",
       "title": "Perguntas frequentes",
-      "subtitle": "Encontre respostas para as perguntas mais comuns sobre o Formwise.",
-      "pricingQuestion": "Quanto custa o Formwise?",
+      "subtitle": "Encontre rapidamente as respostas às perguntas mais comuns sobre a Formwise.",
+      "pricingQuestion": "Quais são os preços da Formwise?",
       "pricingAnswer": "O Formwise oferece um plano mensal ou anual (com desconto) — veja os valores atualizados na seção acima. Um teste gratuito de {days} dias está disponível sem cartão de crédito.",
       "trialQuestion": "Como funciona o teste gratuito?",
       "trialAnswer": "O teste gratuito dá acesso a todas as funcionalidades durante {days} dias. Não é necessário cartão de crédito e você pode migrar para um plano pago a qualquer momento.",
-      "dataSecurityQuestion": "Os meus dados estão seguros?",
+      "dataSecurityQuestion": "Os dados da minha instituição estão seguros?",
       "dataSecurityAnswer": "Sim. O Formwise está hospedado na Europa e é totalmente compatível com o RGPD. Todos os dados são criptografados em trânsito e em repouso. Assinantes anuais recebem um certificado RGPD anual.",
-      "multiSchoolQuestion": "Posso gerir várias escolas?",
+      "multiSchoolQuestion": "É possível gerir várias instituições com a Formwise?",
       "multiSchoolAnswer": "Sim. O Formwise suporta configurações multi-escola por padrão. Cada escola tem o seu próprio espaço isolado com funções e permissões dedicadas.",
-      "mobileQuestion": "A aplicação está disponível no telemóvel?",
+      "mobileQuestion": "A Formwise está disponível no telemóvel?",
       "mobileAnswer": "O Formwise é uma aplicação web progressiva (PWA) que funciona em todos os dispositivos. Pode instalá-la no ecrã inicial e receber notificações push em tempo real.",
-      "supportQuestion": "Como contactar o suporte?",
-      "supportAnswer": "A nossa equipa de suporte está disponível por email e chat. Assinantes mensais recebem resposta em 24h; assinantes anuais têm acesso prioritário."
+      "supportQuestion": "Como contactar o suporte da Formwise?",
+      "supportAnswer": "A nossa equipa de suporte está disponível por email e chat. Os assinantes mensais recebem resposta em 1 dia útil, e os anuais têm acesso prioritário.",
+      "supportText": "Ainda tem alguma questão?",
+      "supportLink": "Fale connosco"
     }
   },
   "CTA": {

@@ -91,7 +91,8 @@
     "sending": "Enviando...",
     "successMessage": "¡Tu mensaje ha sido enviado!",
     "errorMessage": "Ha ocurrido un error. Inténtalo de nuevo.",
-    "serverError": "Error del servidor. Inténtalo de nuevo más tarde."
+    "serverError": "Error del servidor. Inténtalo de nuevo más tarde.",
+    "connectTitle": "Conecta con nosotros"
   },
   "LoginPage": {
     "metadata": {
@@ -878,7 +879,11 @@
   },
   "NavDrawer": {
     "contactUs": "Contáctanos",
-    "signIn": "Iniciar sesión"
+    "signIn": "Iniciar sesión",
+    "pricing": "Precios",
+    "about": "Acerca de",
+    "bookDemo": "Reservar una demo",
+    "signUp": "Registrarse"
   },
   "Support": {
     "getSupport": "Obtener ayuda",
@@ -998,7 +1003,7 @@
     "ctaTrial": "Disfruta de {days} días gratis",
     "monthlyName": "Mensual",
     "monthlyCycle": "mes",
-    "monthlyPrice": "49,90€",
+    "monthlyPrice": "39,90€",
     "monthlyDescription": "Una fórmula simple, sin permanencia, cancela cuando quieras.",
     "monthlyFeature1": "Hasta 60 socios",
     "monthlyFeature2": "Paneles: directiva, socios, voluntarios",
@@ -1007,7 +1012,7 @@
     "monthlyFeature5": "Soporte en 24h",
     "annualName": "Anual",
     "annualCycle": "mes",
-    "annualPrice": "39,90€",
+    "annualPrice": "29,90€",
     "annualNote": "Facturado anualmente · Ahorra {amount}/año",
     "annualDescription": "Ahorra 120€/año con la fórmula anual. Facturado una vez al año.",
     "annualFeature1": "Hasta 60 socios",
@@ -1036,7 +1041,79 @@
     "compareAI": "Integración con IA",
     "compareWhatsApp": "Integración con WhatsApp",
     "compareDedicatedSupport": "Soporte dedicado",
-    "compareDataExport": "Exportación de datos"
+    "compareDataExport": "Exportación de datos",
+    "associations": {
+      "section": "Precios de Formwise",
+      "title": "Precios adaptados al tamaño de tu asociación",
+      "subtitle": "Elige la fórmula que corresponde a tu número de miembros y centraliza tus afiliaciones, cuotas y comunicación sin multiplicar las herramientas.",
+      "billing": {
+        "label": "Elegir el período de facturación",
+        "monthly": "Mensual",
+        "annual": "Anual",
+        "annualBadge": "2 meses gratis"
+      },
+      "perMonth": "/mes",
+      "perYear": "/año",
+      "monthlyBillingNote": "Facturación mensual, sin compromiso.",
+      "annualEquivalent": "Es decir, {amount} al mes",
+      "annualBilled": "Facturado {amount} una vez al año",
+      "annualSavings": "2 meses gratis · Ahorra {amount} al año",
+      "mostPopular": "Lo más popular",
+      "featureIncluded": "Incluido",
+      "ctaTrial": "Prueba gratis durante {days} días",
+      "ctaQuote": "Solicitar presupuesto",
+      "plans": {
+        "essential": {
+          "name": "Esencial",
+          "description": "Para pequeñas asociaciones que quieren centralizar su gestión.",
+          "features": [
+            "Hasta 150 miembros activos",
+            "Afiliaciones e inscripciones en línea",
+            "Seguimiento de cuotas y pagos",
+            "Recordatorios automáticos",
+            "Documentos centralizados",
+            "Comunicaciones segmentadas",
+            "Acceso para la junta y los voluntarios",
+            "Respuesta del soporte en 1 día hábil"
+          ]
+        },
+        "pro": {
+          "name": "Pro",
+          "badge": "Lo más popular",
+          "description": "Para asociaciones que quieren automatizar su gestión y acompañar a más miembros.",
+          "features": [
+            "Hasta 600 miembros activos",
+            "Todas las funcionalidades de Esencial",
+            "Asistente de IA integrado",
+            "Notificaciones y recordatorios avanzados",
+            "Paneles detallados",
+            "Gestión avanzada de grupos",
+            "Soporte prioritario",
+            "Acompañamiento en la importación de datos"
+          ]
+        },
+        "custom": {
+          "name": "A medida",
+          "price": "Presupuesto personalizado",
+          "description": "Para grandes asociaciones, federaciones y redes con necesidades específicas.",
+          "features": [
+            "Más de 600 miembros activos",
+            "Acompañamiento en el despliegue",
+            "Importación y migración de datos",
+            "Configuración personalizada",
+            "Gestión avanzada de roles",
+            "Compromiso de disponibilidad reforzado",
+            "Soporte dedicado",
+            "Funcionalidades e integraciones específicas"
+          ]
+        }
+      },
+      "roi": {
+        "title": "Rentabilizado desde las primeras horas ganadas",
+        "description": "A partir de 39,90 € al mes, Formwise puede rentabilizarse en cuanto tu equipo ahorra alrededor de 1 h 36 de trabajo administrativo al mes, sobre la base de un coste por hora estimado en 25 €.",
+        "disclaimer": "Estimación indicativa según el tiempo realmente ahorrado por tu organización."
+      }
+    }
   },
   "Newsletter": {
     "title": "Suscríbete a nuestra newsletter para estar al día de las novedades y nuevas funcionalidades de Formwise.",
@@ -1957,36 +2034,40 @@
     "associations": {
       "section": "FAQ",
       "title": "Preguntas frecuentes",
-      "subtitle": "Encuentra respuestas a las preguntas más habituales sobre Formwise.",
-      "pricingQuestion": "¿Cuánto cuesta Formwise?",
+      "subtitle": "Encuentra rápidamente las respuestas a las preguntas más frecuentes sobre Formwise.",
+      "pricingQuestion": "¿Cuáles son las tarifas de Formwise?",
       "pricingAnswer": "Formwise ofrece un plan mensual o anual (con descuento) — consulta los precios actualizados en la sección de arriba. Hay una prueba gratuita de {days} días sin tarjeta bancaria.",
       "trialQuestion": "¿Cómo funciona la prueba gratuita?",
       "trialAnswer": "La prueba gratuita te da acceso a todas las funcionalidades durante {days} días. No se requiere tarjeta bancaria y puedes pasar a un plan de pago en cualquier momento.",
-      "dataSecurityQuestion": "¿Mis datos están seguros?",
+      "dataSecurityQuestion": "¿Están seguros los datos de mi asociación?",
       "dataSecurityAnswer": "Sí. Formwise está alojado en Europa y cumple con el RGPD. Todos los datos están cifrados en tránsito y en reposo. Los suscriptores anuales reciben un certificado RGPD anual.",
-      "multiSchoolQuestion": "¿Se pueden gestionar varias asociaciones?",
+      "multiSchoolQuestion": "¿Se pueden gestionar varias asociaciones con Formwise?",
       "multiSchoolAnswer": "Sí. Formwise soporta configuraciones multi-organización por defecto. Cada asociación tiene su propio espacio aislado con roles y permisos dedicados.",
-      "mobileQuestion": "¿La aplicación está disponible en móvil?",
+      "mobileQuestion": "¿Formwise está disponible en el móvil?",
       "mobileAnswer": "Formwise es una aplicación web progresiva (PWA) que funciona en todos los dispositivos. Puedes instalarla en tu pantalla de inicio y recibir notificaciones push en tiempo real.",
-      "supportQuestion": "¿Cómo contactar con soporte?",
-      "supportAnswer": "Nuestro equipo de soporte está disponible por email y chat. Los suscriptores mensuales obtienen respuesta en 24h; los anuales tienen acceso prioritario."
+      "supportQuestion": "¿Cómo contactar con el soporte de Formwise?",
+      "supportAnswer": "Nuestro equipo de soporte está disponible por correo electrónico y chat. Los suscriptores mensuales reciben respuesta en 1 día hábil, y los suscriptores anuales tienen acceso prioritario.",
+      "supportText": "¿Todavía tienes alguna pregunta?",
+      "supportLink": "Contáctanos"
     },
     "schools": {
       "section": "FAQ",
       "title": "Preguntas frecuentes",
-      "subtitle": "Encuentra respuestas a las preguntas más habituales sobre Formwise.",
-      "pricingQuestion": "¿Cuánto cuesta Formwise?",
+      "subtitle": "Encuentra rápidamente las respuestas a las preguntas más frecuentes sobre Formwise.",
+      "pricingQuestion": "¿Cuáles son las tarifas de Formwise?",
       "pricingAnswer": "Formwise ofrece un plan mensual o anual (con descuento) — consulta los precios actualizados en la sección de arriba. Hay una prueba gratuita de {days} días sin tarjeta bancaria.",
       "trialQuestion": "¿Cómo funciona la prueba gratuita?",
       "trialAnswer": "La prueba gratuita te da acceso a todas las funcionalidades durante {days} días. No se requiere tarjeta bancaria y puedes pasar a un plan de pago en cualquier momento.",
-      "dataSecurityQuestion": "¿Mis datos están seguros?",
+      "dataSecurityQuestion": "¿Están seguros los datos de mi centro?",
       "dataSecurityAnswer": "Sí. Formwise está alojado en Europa y cumple con el RGPD. Todos los datos están cifrados en tránsito y en reposo. Los suscriptores anuales reciben un certificado RGPD anual.",
-      "multiSchoolQuestion": "¿Se pueden gestionar varios centros?",
+      "multiSchoolQuestion": "¿Se pueden gestionar varios centros con Formwise?",
       "multiSchoolAnswer": "Sí. Formwise soporta configuraciones multi-centro por defecto. Cada centro tiene su propio espacio aislado con roles y permisos dedicados.",
-      "mobileQuestion": "¿La aplicación está disponible en móvil?",
+      "mobileQuestion": "¿Formwise está disponible en el móvil?",
       "mobileAnswer": "Formwise es una aplicación web progresiva (PWA) que funciona en todos los dispositivos. Puedes instalarla en tu pantalla de inicio y recibir notificaciones push en tiempo real.",
-      "supportQuestion": "¿Cómo contactar con soporte?",
-      "supportAnswer": "Nuestro equipo de soporte está disponible por email y chat. Los suscriptores mensuales obtienen respuesta en 24h; los anuales tienen acceso prioritario."
+      "supportQuestion": "¿Cómo contactar con el soporte de Formwise?",
+      "supportAnswer": "Nuestro equipo de soporte está disponible por correo electrónico y chat. Los suscriptores mensuales reciben respuesta en 1 día hábil, y los suscriptores anuales tienen acceso prioritario.",
+      "supportText": "¿Todavía tienes alguna pregunta?",
+      "supportLink": "Contáctanos"
     }
   },
   "CTA": {

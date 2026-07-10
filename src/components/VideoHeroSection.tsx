@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import {
-  CheckCircle,
+  // CheckCircle,
   GearSix,
   Users,
   CreditCard,
@@ -14,7 +14,7 @@ import {
 
 const featureIcons = [GearSix, Users, CreditCard, Bell, Sparkle];
 
-export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
+export default function VideoHeroSection({ }: { trialDays: number }) {
   const t = useTranslations("Hero");
   const features = featureIcons.map((icon, i) => ({
     label: t(`feature${i + 1}` as Parameters<typeof t>[0]),
@@ -78,7 +78,7 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
         </div>
 
         {/* Trust line */}
-        <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-300">
+        {/* <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-300">
           <span className="inline-flex items-center gap-2">
             <CheckCircle className="h-4 w-4 text-white" />
             {t("reassurance1", { days: trialDays })}
@@ -87,7 +87,7 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
             <CheckCircle className="h-4 w-4 text-white" />
             {t("reassurance2")}
           </span>
-        </div>
+        </div> */}
 
         {/* Feature pills */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

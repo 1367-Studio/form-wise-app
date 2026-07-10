@@ -91,7 +91,8 @@
     "sending": "Sending...",
     "successMessage": "Your message has been sent!",
     "errorMessage": "Something went wrong. Please try again.",
-    "serverError": "Server error. Please try again later."
+    "serverError": "Server error. Please try again later.",
+    "connectTitle": "Connect with us"
   },
   "LoginPage": {
     "metadata": {
@@ -878,7 +879,11 @@
   },
   "NavDrawer": {
     "contactUs": "Contact us",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "pricing": "Pricing",
+    "about": "About",
+    "bookDemo": "Book a demo",
+    "signUp": "Sign up"
   },
   "Support": {
     "getSupport": "Get support",
@@ -1036,7 +1041,79 @@
     "compareAI": "AI integration",
     "compareWhatsApp": "WhatsApp integration",
     "compareDedicatedSupport": "Dedicated support",
-    "compareDataExport": "Data export"
+    "compareDataExport": "Data export",
+    "associations": {
+      "section": "Formwise pricing",
+      "title": "Pricing that fits the size of your association",
+      "subtitle": "Choose the plan that matches your number of members and centralize your memberships, dues and communication without juggling multiple tools.",
+      "billing": {
+        "label": "Choose billing period",
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "annualBadge": "2 months free"
+      },
+      "perMonth": "/mo",
+      "perYear": "/yr",
+      "monthlyBillingNote": "Monthly billing, no commitment.",
+      "annualEquivalent": "That’s {amount} per month",
+      "annualBilled": "Billed {amount} once a year",
+      "annualSavings": "2 months free · Save {amount} per year",
+      "mostPopular": "Most popular",
+      "featureIncluded": "Included",
+      "ctaTrial": "Try free for {days} days",
+      "ctaQuote": "Request a quote",
+      "plans": {
+        "essential": {
+          "name": "Essential",
+          "description": "For small associations that want to centralize their management.",
+          "features": [
+            "Up to 150 active members",
+            "Online memberships and registrations",
+            "Dues and payment tracking",
+            "Automatic reminders",
+            "Centralized documents",
+            "Targeted communications",
+            "Access for the board and volunteers",
+            "Support response within 1 business day"
+          ]
+        },
+        "pro": {
+          "name": "Pro",
+          "badge": "Most popular",
+          "description": "For associations that want to automate their management and support more members.",
+          "features": [
+            "Up to 600 active members",
+            "All Essential features",
+            "Built-in AI assistant",
+            "Advanced notifications and reminders",
+            "Detailed dashboards",
+            "Advanced group management",
+            "Priority support",
+            "Data import assistance"
+          ]
+        },
+        "custom": {
+          "name": "Custom",
+          "price": "Custom quote",
+          "description": "For large associations, federations and networks with specific needs.",
+          "features": [
+            "More than 600 active members",
+            "Deployment support",
+            "Data import and migration",
+            "Custom configuration",
+            "Advanced role management",
+            "Enhanced availability commitment",
+            "Dedicated support",
+            "Specific features and integrations"
+          ]
+        }
+      },
+      "roi": {
+        "title": "Pays for itself from the first hours saved",
+        "description": "Starting at €39.90 per month, Formwise can pay for itself as soon as your team saves about 1h36 of administrative work per month, based on an estimated hourly cost of €25.",
+        "disclaimer": "Indicative estimate based on the time actually saved by your organization."
+      }
+    }
   },
   "Newsletter": {
     "title": "Subscribe to our newsletter to stay informed about updates and new Formwise features.",
@@ -1957,36 +2034,40 @@
     "associations": {
       "section": "FAQ",
       "title": "Frequently asked questions",
-      "subtitle": "Find answers to the most common questions about Formwise.",
-      "pricingQuestion": "How much does Formwise cost?",
+      "subtitle": "Quickly find answers to the most common questions about Formwise.",
+      "pricingQuestion": "What are Formwise's pricing plans?",
       "pricingAnswer": "Formwise offers a monthly or annual plan (with a discount) — see current pricing in the section above. A {days}-day free trial is available with no credit card required.",
       "trialQuestion": "How does the free trial work?",
       "trialAnswer": "The free trial gives you full access to all features for {days} days. No credit card is required, and you can upgrade to a paid plan at any time.",
-      "dataSecurityQuestion": "Is my data secure?",
+      "dataSecurityQuestion": "Is my association's data secure?",
       "dataSecurityAnswer": "Yes. Formwise is hosted in Europe and fully GDPR compliant. All data is encrypted in transit and at rest. Annual subscribers receive a yearly GDPR certificate.",
-      "multiSchoolQuestion": "Can I manage multiple associations?",
+      "multiSchoolQuestion": "Can I manage several associations with Formwise?",
       "multiSchoolAnswer": "Yes. Formwise supports multi-organisation setups by default. Each association has its own isolated workspace with dedicated roles and permissions.",
-      "mobileQuestion": "Is the app available on mobile?",
+      "mobileQuestion": "Is Formwise available on mobile?",
       "mobileAnswer": "Formwise is a progressive web app (PWA) that works on all devices. You can install it on your home screen and receive real-time push notifications.",
-      "supportQuestion": "How do I reach support?",
-      "supportAnswer": "Our support team is available via email and chat. Monthly subscribers get a response within 24 hours; annual subscribers get priority access."
+      "supportQuestion": "How do I contact Formwise support?",
+      "supportAnswer": "Our support team is available by email and chat. Monthly subscribers get a response within 1 business day, and annual subscribers get priority access.",
+      "supportText": "Still have a question?",
+      "supportLink": "Contact us"
     },
     "schools": {
       "section": "FAQ",
       "title": "Frequently asked questions",
-      "subtitle": "Find answers to the most common questions about Formwise.",
-      "pricingQuestion": "How much does Formwise cost?",
+      "subtitle": "Quickly find answers to the most common questions about Formwise.",
+      "pricingQuestion": "What are Formwise's pricing plans?",
       "pricingAnswer": "Formwise offers a monthly or annual plan (with a discount) — see current pricing in the section above. A {days}-day free trial is available with no credit card required.",
       "trialQuestion": "How does the free trial work?",
       "trialAnswer": "The free trial gives you full access to all features for {days} days. No credit card is required, and you can upgrade to a paid plan at any time.",
-      "dataSecurityQuestion": "Is my data secure?",
+      "dataSecurityQuestion": "Is my school's data secure?",
       "dataSecurityAnswer": "Yes. Formwise is hosted in Europe and fully GDPR compliant. All data is encrypted in transit and at rest. Annual subscribers receive a yearly GDPR certificate.",
-      "multiSchoolQuestion": "Can I manage multiple schools?",
+      "multiSchoolQuestion": "Can I manage several schools with Formwise?",
       "multiSchoolAnswer": "Yes. Formwise supports multi-school setups by default. Each school has its own isolated workspace with dedicated roles and permissions.",
-      "mobileQuestion": "Is the app available on mobile?",
+      "mobileQuestion": "Is Formwise available on mobile?",
       "mobileAnswer": "Formwise is a progressive web app (PWA) that works on all devices. You can install it on your home screen and receive real-time push notifications.",
-      "supportQuestion": "How do I reach support?",
-      "supportAnswer": "Our support team is available via email and chat. Monthly subscribers get a response within 24 hours; annual subscribers get priority access."
+      "supportQuestion": "How do I contact Formwise support?",
+      "supportAnswer": "Our support team is available by email and chat. Monthly subscribers get a response within 1 business day, and annual subscribers get priority access.",
+      "supportText": "Still have a question?",
+      "supportLink": "Contact us"
     }
   },
   "CTA": {

@@ -1,73 +1,60 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Check, Minus } from "@phosphor-icons/react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { AdheraPricingInfo } from "@/lib/adhera-pricing";
+import BillingSelector, { type BillingPeriod } from "./pricing/BillingSelector";
+import PricingCard, { type PricingPlan } from "./pricing/PricingCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const WHATSAPP_NUMBER = ""; // fill in your number e.g. "33612345678"
+// Set to a bare international number (e.g. "33612345678") to route the custom
+// plan's CTA straight to WhatsApp; empty keeps it pointing at the contact page.
+const WHATSAPP_NUMBER = "";
 
-interface Tier {
-  id: string;
-  href: string;
-  name: string;
-  price: string;
-  period?: string;
-  note?: string;
-  description: string;
-  features: string[];
-  featured: boolean;
-  cta: string;
-  isWhatsApp?: boolean;
-}
+// Prices are defined here rather than pulled from Stripe: the association
+// pricing now spans two paid tiers (Essentiel / Pro), which no longer maps to
+// the single live product behind `AdheraPricingInfo`. Amounts are in euros and
+// the annual figures are pre-computed so the UI never shows float rounding.
+const PLAN_PRICES = {
+  essential: {
+    monthlyPrice: 39.9,
+    annualPrice: 399,
+    annualMonthlyEquivalent: 33.25,
+    annualSavings: 79.8,
+  },
+  pro: {
+    monthlyPrice: 69.9,
+    annualPrice: 699,
+    annualMonthlyEquivalent: 58.25,
+    annualSavings: 139.8,
+  },
+} as const;
 
-interface ComparisonFeature {
-  label: string;
-  monthly: boolean;
-  annual: boolean;
-  custom: boolean;
-}
-
-function formatAmount(cents: number, currency: string): string {
-  return (cents / 100).toLocaleString("fr-FR", {
+function formatEuro(value: number): string {
+  return new Intl.NumberFormat("fr-FR", {
     style: "currency",
-    currency: currency.toUpperCase(),
-  });
+    currency: "EUR",
+    minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(value);
 }
 
 export default function PricingSection({
-  pricing,
   trialDays,
 }: {
-  pricing: AdheraPricingInfo | null;
+  // Kept for compatibility with the page's live-Stripe wiring; the association
+  // tiers use fixed pricing, so the value is intentionally unused here.
+  pricing?: AdheraPricingInfo | null;
   trialDays: number;
 }) {
-  const t = useTranslations("Pricing");
-  const titleRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const t = useTranslations("Pricing.associations");
+  const [period, setPeriod] = useState<BillingPeriod>("annual");
 
-  // Live Stripe values when configured, otherwise the static translated copy —
-  // see src/lib/adhera-pricing.ts for why this isn't hardcoded.
-  const monthlyPrice = pricing
-    ? formatAmount(pricing.monthlyAmountCents, pricing.currency)
-    : t("monthlyPrice");
-  const annualPrice = pricing
-    ? formatAmount(Math.round(pricing.yearlyAmountCents / 12), pricing.currency)
-    : t("annualPrice");
-  const annualNote = pricing
-    ? t("annualNote", {
-        amount: formatAmount(
-          pricing.monthlyAmountCents * 12 - pricing.yearlyAmountCents,
-          pricing.currency
-        ),
-      })
-    : t("annualNote", { amount: "120€" });
+  const titleRef = useRef<HTMLDivElement>(null);
+  const cardsWrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (titleRef.current) {
@@ -75,83 +62,94 @@ export default function PricingSection({
         titleRef.current,
         { opacity: 0, y: 30 },
         {
-          opacity: 1, y: 0, duration: 1, ease: "power2.out",
-          scrollTrigger: { trigger: titleRef.current, start: "top 90%", toggleActions: "play none none none" },
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
         }
       );
     }
 
-    cardsRef.current.forEach((el, i) => {
-      if (!el) return;
+    const cards = cardsWrapRef.current?.querySelectorAll("[data-pricing-card]");
+    cards?.forEach((el, i) => {
       gsap.fromTo(
         el,
         { opacity: 0, y: 40 },
         {
-          opacity: 1, y: 0, duration: 0.8, delay: i * 0.15, ease: "power2.out",
-          scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" },
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: i * 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
         }
       );
     });
   }, []);
 
-  const tiers: Tier[] = [
+  const freeTrialHref = "/register/free-trial";
+  const customHref = WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}` : "/contact";
+  const ctaTrial = t("ctaTrial", { days: trialDays });
+
+  const plans: PricingPlan[] = [
     {
-      id: "tier-monthly",
-      href: "/register/free-trial",
-      name: t("monthlyName"),
-      price: monthlyPrice,
-      period: t("monthlyCycle"),
-      description: t("monthlyDescription"),
-      features: [t("monthlyFeature1"), t("monthlyFeature2"), t("monthlyFeature3"), t("monthlyFeature4"), t("monthlyFeature5")],
-      featured: false,
-      cta: t("ctaTrial", { days: trialDays }),
+      id: "essential",
+      name: t("plans.essential.name"),
+      description: t("plans.essential.description"),
+      ...PLAN_PRICES.essential,
+      features: t.raw("plans.essential.features") as string[],
+      ctaLabel: ctaTrial,
+      ctaHref: freeTrialHref,
     },
     {
-      id: "tier-annual",
-      href: "/register/free-trial",
-      name: t("annualName"),
-      price: annualPrice,
-      period: t("annualCycle"),
-      note: annualNote,
-      description: t("annualDescription"),
-      features: [t("annualFeature1"), t("annualFeature2"), t("annualFeature3"), t("annualFeature4"), t("annualFeature5")],
-      featured: true,
-      cta: t("ctaTrial", { days: trialDays }),
+      id: "pro",
+      name: t("plans.pro.name"),
+      description: t("plans.pro.description"),
+      ...PLAN_PRICES.pro,
+      features: t.raw("plans.pro.features") as string[],
+      highlighted: true,
+      badge: t("plans.pro.badge"),
+      ctaLabel: ctaTrial,
+      ctaHref: freeTrialHref,
     },
     {
-      id: "tier-custom",
-      href: WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}` : "/contact",
-      name: t("customName"),
-      price: t("customPrice"),
-      description: t("customDescription"),
-      // customFeature3 (WhatsApp integration) is left out — not shipped yet.
-      features: [t("customFeature1"), t("customFeature2"), t("customFeature4"), t("customFeature5")],
-      featured: false,
-      cta: t("ctaContact"),
-      isWhatsApp: true,
+      id: "custom",
+      name: t("plans.custom.name"),
+      description: t("plans.custom.description"),
+      quotePrice: t("plans.custom.price"),
+      features: t.raw("plans.custom.features") as string[],
+      ctaLabel: t("ctaQuote"),
+      ctaHref: customHref,
+      ctaExternal: Boolean(WHATSAPP_NUMBER),
     },
   ];
 
-  const comparisonFeatures: ComparisonFeature[] = [
-    { label: t("compareMembers"),         monthly: true,  annual: true,  custom: true },
-    { label: t("compareDashboards"),      monthly: true,  annual: true,  custom: true },
-    { label: t("compareNotifications"),   monthly: true,  annual: true,  custom: true },
-    { label: t("comparePaymentTracking"), monthly: true,  annual: true,  custom: true },
-    { label: t("comparePrioritySupport"), monthly: false, annual: true,  custom: true },
-    { label: t("compareEarlyAccess"),     monthly: false, annual: true,  custom: true },
-    { label: t("compareAI"),              monthly: false, annual: false, custom: true },
-    // compareWhatsApp row is left out — not shipped yet.
-    { label: t("compareDedicatedSupport"),monthly: false, annual: false, custom: true },
-    { label: t("compareDataExport"),      monthly: true,  annual: true,  custom: true },
-  ];
+  const cardLabels = {
+    perMonth: t("perMonth"),
+    perYear: t("perYear"),
+    monthlyBillingNote: t("monthlyBillingNote"),
+    annualEquivalent: (amount: string) => t("annualEquivalent", { amount }),
+    annualBilled: (amount: string) => t("annualBilled", { amount }),
+    annualSavings: (amount: string) => t("annualSavings", { amount }),
+  };
 
   return (
-    <section className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+    <section
+      id="pricing"
+      className="relative isolate scroll-mt-24 bg-white px-6 py-24 sm:py-32 lg:px-8"
+    >
       {/* Header */}
       <div ref={titleRef} className="mx-auto max-w-4xl text-center">
-        <h2 className="text-base/7 font-semibold text-[#2563EB]">
-          {t("section")}
-        </h2>
+        <h2 className="text-base/7 font-semibold text-[#2563EB]">{t("section")}</h2>
         <p className="mt-2 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
           {t("title")}
         </p>
@@ -160,138 +158,41 @@ export default function PricingSection({
         </p>
       </div>
 
+      {/* Billing selector */}
+      <div className="mx-auto mt-10 max-w-md px-2">
+        <BillingSelector
+          value={period}
+          onChange={setPeriod}
+          label={t("billing.label")}
+          monthlyLabel={t("billing.monthly")}
+          annualLabel={t("billing.annual")}
+          annualBadge={t("billing.annualBadge")}
+        />
+      </div>
+
       {/* Pricing cards */}
-      <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 items-start gap-8 sm:mt-20 md:grid-cols-2 lg:grid-cols-3">
-        {tiers.map((tier, index) => (
-          <div
-            key={tier.id}
-            ref={(el) => { cardsRef.current[index] = el; }}
-            className={`relative rounded-2xl bg-white p-8 ${
-              tier.featured
-                ? "border-2 border-[#2563EB]"
-                : "border border-gray-200"
-            }`}
-          >
-            {tier.featured && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#2563EB] px-3 py-1 text-xs font-medium text-white">
-                {t("mostPopular")}
-              </span>
-            )}
-
-            <h3 className="text-lg font-semibold text-gray-900">{tier.name}</h3>
-
-            <div className="mt-4 flex items-baseline gap-x-2">
-              <span className="text-5xl font-bold tracking-tight text-gray-900">
-                {tier.price}
-              </span>
-              {tier.period && (
-                <span className="text-base text-gray-500">/{tier.period}</span>
-              )}
-            </div>
-
-            {tier.note && (
-              <p className="mt-1 text-xs font-medium text-green-600">{tier.note}</p>
-            )}
-
-            <p className="mt-4 text-sm text-gray-500">{tier.description}</p>
-
-            <div className="my-6 border-t border-gray-100" />
-
-            <ul role="list" className="space-y-3 text-sm">
-              {tier.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-x-3">
-                  <Check aria-hidden="true" className="h-5 w-5 flex-none text-[#2563EB]" />
-                  <span className="text-gray-700">{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8">
-              {tier.isWhatsApp ? (
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-gray-300 text-gray-700 hover:border-[#2563EB] hover:text-[#2563EB]"
-                  size="lg"
-                >
-                  <a href={tier.href} target="_blank" rel="noopener noreferrer">
-                    {tier.cta}
-                  </a>
-                </Button>
-              ) : (
-                <Button
-                  asChild
-                  variant={tier.featured ? "default" : "outline"}
-                  className={`w-full ${
-                    tier.featured
-                      ? "bg-[#2563EB] hover:bg-[#1D4ED8]"
-                      : "border-gray-300 text-gray-700 hover:border-[#2563EB] hover:text-[#2563EB]"
-                  }`}
-                  size="lg"
-                >
-                  <Link href={tier.href}>{tier.cta}</Link>
-                </Button>
-              )}
-            </div>
+      <div
+        ref={cardsWrapRef}
+        className="mx-auto mt-12 grid max-w-6xl grid-cols-1 items-stretch gap-8 sm:mt-14 md:grid-cols-2 lg:grid-cols-3"
+      >
+        {plans.map((plan) => (
+          <div key={plan.id} data-pricing-card className="h-full">
+            <PricingCard
+              plan={plan}
+              period={period}
+              formatPrice={formatEuro}
+              labels={cardLabels}
+            />
           </div>
         ))}
       </div>
 
-      {/* Comparison table */}
-      <div className="mx-auto mt-24 max-w-5xl">
-        <h3 className="mb-8 text-center text-2xl font-semibold text-gray-900">
-          {t("comparisonTitle")}
-        </h3>
-        <div className="-mx-6 overflow-x-auto px-6">
-          <table className="w-full min-w-[600px] text-left text-sm">
-            <thead>
-              <tr className="border-b border-gray-200">
-                <th className="pb-4 pr-6 font-medium text-gray-500">
-                  {t("compareFeatureHeader")}
-                </th>
-                <th className="pb-4 text-center font-semibold text-gray-900">
-                  {t("monthlyName")}
-                </th>
-                <th className="pb-4 text-center font-semibold text-[#2563EB]">
-                  {t("annualName")}
-                </th>
-                <th className="pb-4 text-center font-semibold text-gray-900">
-                  {t("customName")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonFeatures.map((feature, idx) => (
-                <tr
-                  key={feature.label}
-                  className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
-                >
-                  <td className="py-3 pr-6 text-gray-700">{feature.label}</td>
-                  <td className="py-3 text-center">
-                    {feature.monthly ? (
-                      <Check aria-hidden="true" className="mx-auto h-5 w-5 text-[#2563EB]" />
-                    ) : (
-                      <Minus aria-hidden="true" className="mx-auto h-5 w-5 text-gray-300" />
-                    )}
-                  </td>
-                  <td className="py-3 text-center">
-                    {feature.annual ? (
-                      <Check aria-hidden="true" className="mx-auto h-5 w-5 text-[#2563EB]" />
-                    ) : (
-                      <Minus aria-hidden="true" className="mx-auto h-5 w-5 text-gray-300" />
-                    )}
-                  </td>
-                  <td className="py-3 text-center">
-                    {feature.custom ? (
-                      <Check aria-hidden="true" className="mx-auto h-5 w-5 text-[#2563EB]" />
-                    ) : (
-                      <Minus aria-hidden="true" className="mx-auto h-5 w-5 text-gray-300" />
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* ROI / reassurance block */}
+      <div className="mx-auto mt-16 max-w-3xl">
+        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-8">
+          <h3 className="text-lg font-semibold text-gray-900">{t("roi.title")}</h3>
+          <p className="mt-3 text-sm/6 text-gray-600">{t("roi.description")}</p>
+          <p className="mt-4 text-xs text-gray-400">{t("roi.disclaimer")}</p>
         </div>
       </div>
     </section>

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -14,8 +13,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import Logo from "./Logo";
+import { AsteriskIcon } from "@phosphor-icons/react";
 
 export default function ContactFormPage() {
   const t = useTranslations("ContactForm");
@@ -65,30 +63,55 @@ export default function ContactFormPage() {
     }
   };
 
-  return (
-    <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8 h-full pt-[300px] pb-[300px] relative">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center items-center gap-2">
-          <Link href="/" aria-label="formwise">
-            <Logo />
-          </Link>
-        </div>
-        <h2 className="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          {t("title")}
-        </h2>
-      </div>
+  // Outlined fields: transparent (black) background, light-grey borders,
+  // white text and white placeholders — the field name acts as the label.
+  const fieldClass =
+    "h-14 rounded-lg border-white/25 bg-transparent px-4 text-base text-white placeholder:text-white/55 focus-visible:border-white/50 focus-visible:ring-0 md:text-base";
+  const selectClass =
+    "h-14 w-full rounded-lg border-white/25 bg-transparent px-4 text-base text-white data-[placeholder]:text-white/55 data-[size=default]:h-14 focus-visible:border-white/50 focus-visible:ring-0 md:text-base";
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-        <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Label>{t("iAmLabel")}</Label>
+  return (
+    <section className="min-h-screen bg-black pb-24 pt-40 text-white sm:pt-48">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 lg:grid-cols-[1.5fr_0.8fr] lg:gap-16 lg:px-8">
+        {/* Left — title + form */}
+        <div>
+          <h1 className="max-w-xl text-balance text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            {t("title")}
+          </h1>
+
+          <form onSubmit={handleSubmit} className="mt-12 lg:mt-16">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Input
+                aria-label={t("nameLabel")}
+                placeholder={t("nameLabel")}
+                className={fieldClass}
+                value={formData.name}
+                onChange={(e) => handleChange("name", e.target.value)}
+                required
+              />
+              <Input
+                aria-label={t("emailLabel")}
+                type="email"
+                placeholder={t("emailLabel")}
+                className={fieldClass}
+                value={formData.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                required
+              />
+              <Input
+                aria-label={t("phoneLabel")}
+                placeholder={t("phoneLabel")}
+                className={fieldClass}
+                value={formData.phone}
+                onChange={(e) => handleChange("phone", e.target.value)}
+                required
+              />
               <Select
                 value={formData.role}
                 onValueChange={(val) => handleChange("role", val)}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder={t("profilePlaceholder")} />
+                <SelectTrigger aria-label={t("iAmLabel")} className={selectClass}>
+                  <SelectValue placeholder={t("iAmLabel")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="parent">{t("profileParent")}</SelectItem>
@@ -101,46 +124,15 @@ export default function ContactFormPage() {
                   <SelectItem value="autre">{t("profileOther")}</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="name">{t("nameLabel")}</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email">{t("emailLabel")}</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleChange("email", e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="phone">{t("phoneLabel")}</Label>
-              <Input
-                id="phone"
-                value={formData.phone}
-                onChange={(e) => handleChange("phone", e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>{t("subjectLabel")}</Label>
               <Select
                 value={formData.subject}
                 onValueChange={(val) => handleChange("subject", val)}
               >
-                <SelectTrigger>
+                <SelectTrigger
+                  aria-label={t("subjectLabel")}
+                  className={`${selectClass} sm:col-span-2`}
+                >
                   <SelectValue placeholder={t("subjectPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -155,29 +147,72 @@ export default function ContactFormPage() {
                   </SelectItem>
                 </SelectContent>
               </Select>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="message">{t("messageLabel")}</Label>
               <Textarea
-                id="message"
+                aria-label={t("messageLabel")}
+                placeholder={t("messageLabel")}
+                className="min-h-44 rounded-lg border-white/25 bg-transparent px-4 py-3 text-base text-white placeholder:text-white/55 focus-visible:border-white/50 focus-visible:ring-0 sm:col-span-2"
                 value={formData.message}
                 onChange={(e) => handleChange("message", e.target.value)}
                 required
-                rows={5}
+                rows={6}
               />
-            </div>
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full cursor-pointer"
-            >
-              {loading ? t("sending") : t("sendButton")}
-            </Button>
+              <div className="sm:col-span-2">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="h-12 w-full cursor-pointer rounded-lg bg-white px-10 text-xs font-semibold uppercase tracking-wider text-black hover:bg-white/90 sm:w-auto"
+                >
+                  {loading ? t("sending") : t("sendButton")}
+                </Button>
+              </div>
+            </div>
           </form>
         </div>
+
+        {/* Right — contact info */}
+        <div className="lg:border-l lg:border-white/15 lg:pl-12">
+          <AsteriskIcon
+            aria-hidden="true"
+            weight="bold"
+            className="h-12 w-12 text-white"
+          />
+
+          <div className="mt-10 space-y-8 text-sm">
+            <div>
+              <p className="font-semibold text-white">Marseille, France</p>
+              <p className="mt-2 leading-relaxed text-white/60">
+                11 Rue Étienne Henry Gouin,
+                <br />
+                13011 Marseille
+              </p>
+            </div>
+
+            <div>
+              <p className="font-semibold text-white">Email</p>
+              <a
+                href="mailto:formwisecontact@gmail.com"
+                className="mt-2 inline-block text-white/70 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-white"
+              >
+                formwisecontact@gmail.com
+              </a>
+            </div>
+
+            <div>
+              <p className="font-semibold text-white">Instagram</p>
+              <a
+                href="https://www.instagram.com/formwise.fr/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-block text-white/70 transition-colors hover:text-white"
+              >
+                @formwise.fr
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

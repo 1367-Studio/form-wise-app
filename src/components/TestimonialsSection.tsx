@@ -30,7 +30,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="paper-bg">
+    <section className="paper-bg py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-base/7 font-semibold text-[#2563EB]">

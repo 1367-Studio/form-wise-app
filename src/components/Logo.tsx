@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+import { AsteriskIcon } from "@phosphor-icons/react";
 
 type Tone = "dark" | "light";
 type Size = "sm" | "md" | "lg";
@@ -30,7 +30,7 @@ export default function Logo({
     <span
       className={`inline-flex items-center gap-1 font-semibold tracking-tight ${className}`}
     >
-      <Zap className={`${s.icon} ${c.icon}`} strokeWidth={2.5} />
+      <AsteriskIcon weight="bold" className={`${s.icon} ${c.icon}`} />
       <span className={`${s.word} ${c.word} leading-none`}>
         form<span className="font-bold">wise</span>
       </span>

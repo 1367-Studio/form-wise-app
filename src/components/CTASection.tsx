@@ -11,7 +11,7 @@ export default function CTASection({ trialDays }: { trialDays: number }) {
   const t = useTranslations(`CTA.${audience}`);
 
   return (
-    <section className="relative overflow-hidden bg-black">
+    <section data-header-dark className="relative overflow-hidden bg-black">
       {/* Subtle geometric decoration */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div className="absolute -right-24 top-1/2 h-[130%] w-[45%] -translate-y-1/2 rotate-6 rounded-3xl bg-gradient-to-br from-white/[0.04] to-transparent" />
