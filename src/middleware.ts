@@ -4,11 +4,10 @@ import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
-const ADHERA_LOGIN_URL = "https://adhera-ebon.vercel.app/login";
-const ADHERA_REGISTER_URL = "https://adhera-ebon.vercel.app/register";
+const ADHERA_URL = process.env.ADHERA_URL ?? "https://adhera-ebon.vercel.app";
 
-// Strips a leading locale segment (e.g. "/en/login" -> "/login") so the redirect
-// below applies regardless of which locale prefix the request came in with.
+// Strips a leading locale segment (e.g. "/en/login" -> "/login") so the checks
+// below apply regardless of which locale prefix the request came in with.
 function stripLocale(pathname: string): string {
   const [, maybeLocale, ...rest] = pathname.split("/");
   if ((routing.locales as readonly string[]).includes(maybeLocale)) {
@@ -20,22 +19,32 @@ function stripLocale(pathname: string): string {
 export default function middleware(request: NextRequest) {
   const pathname = stripLocale(request.nextUrl.pathname) || "/";
 
-  // Auth now lives on adhera — catch every way of reaching these routes (nav
-  // links, bookmarks, a user typing the URL directly) and send them there,
-  // instead of only updating the on-site links. "/register-staff" is a
-  // different flow (staff accepting an invite to an existing tenant) and is
-  // intentionally left alone.
+  // Auth now lives on adhera, embedded on this domain under /app (its own
+  // next.config.ts sets basePath: "/app" to match) — same pattern as 1367studio's
+  // /hub proxy. Covers assets/API requests too since it's matched before locale
+  // routing and independently of the dotted-filename exclusion below.
+  if (pathname === "/app" || pathname.startsWith("/app/")) {
+    const target = new URL(pathname + request.nextUrl.search, ADHERA_URL);
+    return NextResponse.rewrite(target);
+  }
+
+  // Legacy direct links to /login and /register (nav links, bookmarks, a user
+  // typing the URL) now live under /app. "/register-staff" is a different flow
+  // (staff accepting an invite to an existing tenant) and is intentionally left alone.
   if (pathname === "/login") {
-    return NextResponse.redirect(ADHERA_LOGIN_URL);
+    return NextResponse.redirect(new URL("/app/login", request.url));
   }
   if (pathname === "/register" || pathname.startsWith("/register/")) {
-    return NextResponse.redirect(ADHERA_REGISTER_URL);
+    return NextResponse.redirect(new URL("/app/register", request.url));
   }
 
   return intlMiddleware(request);
 }
 
 export const config = {
-  // Match everything except API routes, Next internals, and static files
-  matcher: "/((?!api|_next|_vercel|.*\\..*).*)",
+  matcher: [
+    "/app/:path*",
+    // Match everything else except API routes, Next internals, static files, and /app
+    "/((?!api|_next|_vercel|app|.*\\..*).*)",
+  ],
 };
