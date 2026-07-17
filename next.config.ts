@@ -22,7 +22,7 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "img-src 'self' data: blob: https://cdn.sanity.io https://axldybsfbwwcwjekojpw.supabase.co https://tailwindcss.com",
+      "img-src 'self' data: blob: https://cdn.sanity.io https://axldybsfbwwcwjekojpw.supabase.co https://tailwindcss.com https://pub-51fbbca95280424ab8caeadcd1f90c1d.r2.dev",
       "font-src 'self' data:",
       "style-src 'self' 'unsafe-inline'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com",
