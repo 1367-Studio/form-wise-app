@@ -26,7 +26,7 @@ const securityHeaders = [
       "font-src 'self' data:",
       "style-src 'self' 'unsafe-inline'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com",
-      "connect-src 'self' https://api.stripe.com https://api.brevo.com https://*.supabase.co",
+      "connect-src 'self' https://api.stripe.com https://api.brevo.com https://*.supabase.co https://*.pusher.com wss://*.pusher.com https://*.livekit.cloud wss://*.livekit.cloud",
       "frame-src https://js.stripe.com https://hooks.stripe.com",
       "frame-ancestors 'none'",
       "form-action 'self'",
