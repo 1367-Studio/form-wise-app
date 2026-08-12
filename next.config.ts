@@ -13,7 +13,7 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
     key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), payment=(self)",
+    value: "camera=(self), microphone=(self), geolocation=(), payment=(self)",
   },
   // Conservative CSP — relax script-src/connect-src as needed for new
   // third-party widgets. 'unsafe-inline'/'unsafe-eval' on script-src are
