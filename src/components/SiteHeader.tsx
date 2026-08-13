@@ -10,13 +10,13 @@ import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [overDark, setOverDark] = useState(true);
+  const [overDark, setOverDark] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("SiteHeader");
   const isHome = pathname === "/";
 
-  // The homepage fixed header passes over alternating dark (hero, FAQ, CTA) and
-  // light (features, testimonials, pricing) sections. Detect which section is
+  // The homepage fixed header passes over alternating light (hero, features,
+  // testimonials, pricing) and dark (FAQ, CTA) sections. Detect which section is
   // currently behind the header bar so the logo/nav flip to stay readable —
   // white text over dark sections, dark text over light ones.
   useEffect(() => {
@@ -46,10 +46,10 @@ export default function SiteHeader() {
     return null;
   }
 
-  // The landing page and the contact page have a dark (black) hero, so the
-  // header uses white text there. Other pages (legal, about, auth) are on a
-  // light/white background — as is the homepage once scrolled past the hero —
-  // so we switch to a dark-text ("light") variant.
+  // The contact page has a dark (black) hero, so the header uses white text
+  // there. Other pages (legal, about, auth) and the homepage hero are on a
+  // light/white background, so we use the dark-text ("light") variant unless
+  // a [data-header-dark] section (FAQ, CTA) is behind the bar.
   const isContact = pathname === "/contact";
   const light = isContact ? false : isHome ? !overDark : true;
 
@@ -91,13 +91,13 @@ export default function SiteHeader() {
             <div className="hidden lg:flex gap-3 items-center">
               <LanguageSwitcher variant="ghost" className={langSwitcher} />
               <Link href="/register/free-trial">
-                <Button className="min-w-[8rem] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white">
+                <Button className="min-w-[8rem] cursor-pointer rounded-full bg-[#003EA3] hover:bg-[#002E7A] text-white">
                   {t("signUp")}
                 </Button>
               </Link>
               <Link href="/login">
                 <Button
-                  className={`min-w-[9rem] cursor-pointer ${signInBtn}`}
+                  className={`min-w-[9rem] cursor-pointer rounded-full ${signInBtn}`}
                   variant="outline"
                 >
                   {t("signIn")}

@@ -61,12 +61,12 @@ export default function PricingCard({
       className={cn(
         "relative flex h-full flex-col rounded-2xl bg-white p-8",
         plan.highlighted
-          ? "border-2 border-[#2563EB] shadow-lg shadow-[#2563EB]/5"
+          ? "border-2 border-[#003EA3] shadow-lg shadow-[#003EA3]/5"
           : "border border-gray-200"
       )}
     >
       {plan.highlighted && plan.badge && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#2563EB] px-3 py-1 text-xs font-medium text-white">
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#003EA3] px-3 py-1 text-xs font-medium text-white">
           {plan.badge}
         </span>
       )}
@@ -121,7 +121,7 @@ export default function PricingCard({
           <li key={feature} className="flex items-start gap-x-3">
             <Check
               aria-hidden="true"
-              className="h-5 w-5 flex-none text-[#2563EB]"
+              className="h-5 w-5 flex-none text-[#003EA3]"
             />
             <span className="text-gray-700">{feature}</span>
           </li>
@@ -134,10 +134,10 @@ export default function PricingCard({
           variant={plan.highlighted ? "default" : "outline"}
           size="lg"
           className={cn(
-            "w-full",
+            "w-full rounded-full",
             plan.highlighted
-              ? "bg-[#2563EB] hover:bg-[#1D4ED8]"
-              : "border-gray-300 text-gray-700 hover:border-[#2563EB] hover:text-[#2563EB]"
+              ? "bg-[#003EA3] hover:bg-[#002E7A]"
+              : "border-gray-300 text-gray-700 hover:border-[#003EA3] hover:text-[#003EA3]"
           )}
         >
           {plan.ctaExternal ? (

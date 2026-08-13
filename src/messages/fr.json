@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "Formwise",
-    "description": "Formwise — Simplifier la gestion, pour tous les établissements."
+    "title": "Formwise — Logiciel de gestion d'association : membres, cotisations et paiements",
+    "description": "Gérez votre association en ligne avec Formwise : adhésions, cotisations, paiements, documents et communication centralisés sur une seule plateforme. Essai gratuit de 15 jours, sans carte bancaire."
   },
   "Common": {
     "loading": "Chargement...",
@@ -905,8 +905,8 @@
   },
   "Hero": {
     "badge": "Les outils IA pour associations sont disponibles",
-    "title": "Gérez votre association, vos membres et vos paiements depuis une seule plateforme.",
-    "subtitle": "Formwise aide les associations à centraliser les adhésions, les inscriptions, les paiements, les documents et la communication afin de gagner du temps et éviter les fichiers Excel, les emails dispersés et les outils compliqués.",
+    "title": "Gagnez jusqu'à 10 heures par mois sur la gestion de votre association.",
+    "subtitle": "Adhésions, cotisations, paiements et communication centralisés sur une seule plateforme. Fini les fichiers Excel dispersés et les relances à la main.",
     "ctaTrial": "Commencer gratuitement",
     "ctaDemo": "Réserver une démo",
     "reassurance1": "{days} jours gratuits",
@@ -3033,5 +3033,55 @@
     "sentThisWeek": "Envoyés cette semaine",
     "comingSoonTitle": "Bientôt disponible",
     "comingSoonDescription": "Cette fonctionnalité est en cours de développement."
+  },
+  "Problem": {
+    "associations": {
+      "section": "Le problème",
+      "title": "Gérer votre association ne devrait pas être un second emploi",
+      "subtitle": "Relances de cotisations le soir, tableurs à recopier le week-end, e-mails qui se perdent : si c'est votre quotidien, vous n'êtes pas seul. C'est celui de milliers de responsables associatifs.",
+      "pain1Title": "Des heures bénévoles perdues",
+      "pain1Text": "Chaque adhésion saisie à la main et chaque relance envoyée une par une, ce sont des heures prises sur votre temps libre.",
+      "pain2Title": "Des informations éparpillées",
+      "pain2Text": "Entre fichiers Excel, boîtes mail et messageries, personne ne sait où se trouve la version à jour.",
+      "pain3Title": "Des bénévoles qui s'épuisent",
+      "pain3Text": "L'administratif retombe toujours sur les mêmes épaules, et la motivation s'use bien avant la fin de la saison.",
+      "whyTitle": "Pourquoi Excel et les e-mails ne suffisent plus",
+      "whyText": "Ces outils n'ont pas été conçus pour gérer des membres : rien n'est relié, tout se fait en double, les relances s'oublient et les erreurs passent inaperçues.",
+      "idealTitle": "Imaginez plutôt",
+      "idealText": "Les adhésions se remplissent en ligne, les cotisations sont encaissées et relancées automatiquement, et chacun trouve l'information sans vous solliciter. C'est exactement ce que Formwise rend possible."
+    },
+    "schools": {
+      "section": "Le problème",
+      "title": "Gérer votre établissement ne devrait pas épuiser votre équipe",
+      "subtitle": "Relances de paiements, dossiers d'inscription incomplets, e-mails de parents sans fin : si c'est votre quotidien, vous n'êtes pas seul. C'est celui de nombreuses équipes administratives.",
+      "pain1Title": "Des heures administratives perdues",
+      "pain1Text": "Chaque inscription saisie à la main et chaque relance envoyée une par une, ce sont des heures prises sur votre équipe.",
+      "pain2Title": "Des informations éparpillées",
+      "pain2Text": "Entre fichiers Excel, boîtes mail et messageries, personne ne sait où se trouve la version à jour.",
+      "pain3Title": "Une équipe qui s'épuise",
+      "pain3Text": "L'administratif retombe toujours sur les mêmes personnes, et la charge s'accumule au fil de l'année scolaire.",
+      "whyTitle": "Pourquoi Excel et les e-mails ne suffisent plus",
+      "whyText": "Ces outils n'ont pas été conçus pour gérer des inscriptions : rien n'est relié, tout se fait en double, les relances s'oublient et les erreurs passent inaperçues.",
+      "idealTitle": "Imaginez plutôt",
+      "idealText": "Les inscriptions se remplissent en ligne, les paiements sont encaissés et relancés automatiquement, et les parents trouvent l'information sans solliciter le secrétariat. C'est exactement ce que Formwise rend possible."
+    }
+  },
+  "MidCTA": {
+    "associations": {
+      "afterFeaturesTitle": "Prêt à gagner des heures chaque mois sur la gestion de votre association ?",
+      "beforePricingTitle": "Rejoignez les associations qui ont dit adieu aux fichiers Excel",
+      "button": "Commencer gratuitement",
+      "reassurance": "{days} jours d'essai gratuit · Sans carte bancaire · Sans engagement",
+      "demoText": "Besoin d'en voir plus avant de vous lancer ?",
+      "demoLink": "Réservez une démo de 30 minutes"
+    },
+    "schools": {
+      "afterFeaturesTitle": "Prêt à gagner des heures chaque mois sur la gestion de votre établissement ?",
+      "beforePricingTitle": "Rejoignez les établissements qui ont dit adieu aux fichiers Excel",
+      "button": "Commencer gratuitement",
+      "reassurance": "{days} jours d'essai gratuit · Sans carte bancaire · Sans engagement",
+      "demoText": "Besoin d'en voir plus avant de vous lancer ?",
+      "demoLink": "Réservez une démo de 30 minutes"
+    }
   }
 }

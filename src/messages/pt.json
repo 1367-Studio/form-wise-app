@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "Formwise",
-    "description": "Formwise — Simplificando a gestão escolar para todas as instituições."
+    "title": "Formwise — Software de gestão de associações: sócios, quotas e pagamentos",
+    "description": "Faça a gestão da sua associação online com a Formwise: adesões, quotas, pagamentos, documentos e comunicação numa única plataforma. Teste gratuito de 15 dias, sem cartão."
   },
   "Common": {
     "loading": "Carregando...",
@@ -905,8 +905,8 @@
   },
   "Hero": {
     "badge": "As ferramentas de IA para associações já estão disponíveis",
-    "title": "Faça a gestão da sua associação, dos sócios e dos pagamentos numa única plataforma.",
-    "subtitle": "A Formwise ajuda as associações a centralizar as adesões, as inscrições, os pagamentos, os documentos e a comunicação, para poupar tempo e evitar gerir tudo com Excel, emails e ferramentas dispersas.",
+    "title": "Poupe até 10 horas por mês na gestão da sua associação.",
+    "subtitle": "Adesões, quotas, pagamentos e comunicação centralizados numa única plataforma. Acabaram-se as planilhas dispersas e as cobranças manuais.",
     "ctaTrial": "Comece o teste gratuito",
     "ctaDemo": "Agendar uma demo",
     "reassurance1": "Teste gratuito de {days} dias",
@@ -3039,5 +3039,55 @@
     "sentThisWeek": "Enviadas esta semana",
     "comingSoonTitle": "Em breve",
     "comingSoonDescription": "Esta funcionalidade está em desenvolvimento."
+  },
+  "Problem": {
+    "associations": {
+      "section": "O problema",
+      "title": "Gerir a sua associação não devia ser um segundo emprego",
+      "subtitle": "Cobrar quotas à noite, copiar planilhas ao fim de semana, e-mails que se perdem: se este é o seu dia a dia, não está sozinho. É a realidade de milhares de responsáveis associativos.",
+      "pain1Title": "Horas de voluntariado perdidas",
+      "pain1Text": "Cada adesão inserida à mão e cada lembrete enviado um a um são horas tiradas ao seu tempo livre.",
+      "pain2Title": "Informação espalhada por todo o lado",
+      "pain2Text": "Entre planilhas, caixas de e-mail e mensagens, ninguém sabe onde está a versão atualizada.",
+      "pain3Title": "Voluntários que se esgotam",
+      "pain3Text": "O trabalho administrativo cai sempre sobre os mesmos ombros, e a motivação desgasta-se muito antes do fim da temporada.",
+      "whyTitle": "Porque é que o Excel e o e-mail já não chegam",
+      "whyText": "Essas ferramentas não foram criadas para gerir sócios: nada está ligado, tudo é feito em duplicado, os lembretes esquecem-se e os erros passam despercebidos.",
+      "idealTitle": "Imagine antes",
+      "idealText": "As adesões preenchem-se online, as quotas são cobradas e relembradas automaticamente, e todos encontram a informação sem o solicitar. É exatamente isso que a Formwise torna possível."
+    },
+    "schools": {
+      "section": "O problema",
+      "title": "Gerir a sua escola não devia esgotar a sua equipa",
+      "subtitle": "Lembretes de pagamento, processos de matrícula incompletos, e-mails de pais sem fim: se este é o seu dia a dia, não está sozinho. É a realidade de muitas equipas administrativas.",
+      "pain1Title": "Horas administrativas perdidas",
+      "pain1Text": "Cada matrícula inserida à mão e cada lembrete enviado um a um são horas tiradas à sua equipa.",
+      "pain2Title": "Informação espalhada por todo o lado",
+      "pain2Text": "Entre planilhas, caixas de e-mail e mensagens, ninguém sabe onde está a versão atualizada.",
+      "pain3Title": "Uma equipa que se esgota",
+      "pain3Text": "O trabalho administrativo cai sempre sobre as mesmas pessoas, e a carga acumula-se ao longo do ano letivo.",
+      "whyTitle": "Porque é que o Excel e o e-mail já não chegam",
+      "whyText": "Essas ferramentas não foram criadas para gerir matrículas: nada está ligado, tudo é feito em duplicado, os lembretes esquecem-se e os erros passam despercebidos.",
+      "idealTitle": "Imagine antes",
+      "idealText": "As matrículas preenchem-se online, os pagamentos são cobrados e relembrados automaticamente, e os pais encontram a informação sem contactar a secretaria. É exatamente isso que a Formwise torna possível."
+    }
+  },
+  "MidCTA": {
+    "associations": {
+      "afterFeaturesTitle": "Pronto para poupar horas todos os meses na gestão da sua associação?",
+      "beforePricingTitle": "Junte-se às associações que disseram adeus às planilhas",
+      "button": "Comece gratuitamente",
+      "reassurance": "{days} dias de teste gratuito · Sem cartão · Sem compromisso",
+      "demoText": "Quer ver mais antes de decidir?",
+      "demoLink": "Agende uma demo de 30 minutos"
+    },
+    "schools": {
+      "afterFeaturesTitle": "Pronto para poupar horas todos os meses na gestão da sua escola?",
+      "beforePricingTitle": "Junte-se às escolas que disseram adeus às planilhas",
+      "button": "Comece gratuitamente",
+      "reassurance": "{days} dias de teste gratuito · Sem cartão · Sem compromisso",
+      "demoText": "Quer ver mais antes de decidir?",
+      "demoLink": "Agende uma demo de 30 minutos"
+    }
   }
 }

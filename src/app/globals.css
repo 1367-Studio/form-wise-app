@@ -53,16 +53,16 @@
 
 /* Brand accent utility — CTAs, icons, kickers */
 .brand {
-  color: #2563EB;
+  color: #003EA3;
 }
 .bg-brand {
-  background-color: #2563EB;
+  background-color: #003EA3;
 }
 .bg-brand:hover {
-  background-color: #1D4ED8;
+  background-color: #002E7A;
 }
 .ring-brand {
-  --tw-ring-color: #2563EB;
+  --tw-ring-color: #003EA3;
 }
 
 @keyframes fadeInLong {

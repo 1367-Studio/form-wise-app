@@ -53,7 +53,7 @@ export default function FAQSection({ trialDays }: { trialDays: number }) {
                 asChild
                 variant="outline"
                 size="sm"
-                className="border-white/20 bg-transparent text-white hover:border-white/40 hover:bg-white/10 hover:text-white"
+                className="rounded-full border-white/20 bg-transparent text-white hover:border-white/40 hover:bg-white/10 hover:text-white"
               >
                 <Link href="/contact">
                   <ChatCircle aria-hidden="true" className="h-4 w-4" />

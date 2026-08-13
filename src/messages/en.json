@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "Formwise",
-    "description": "Formwise — Simplifying school management, for every institution."
+    "title": "Formwise — Association management software: members, dues & payments",
+    "description": "Manage your association online with Formwise: memberships, dues, payments, documents and communication centralized on one platform. Free 15-day trial, no credit card required."
   },
   "Common": {
     "loading": "Loading...",
@@ -905,8 +905,8 @@
   },
   "Hero": {
     "badge": "AI tools for associations are now live",
-    "title": "Manage your association, members and payments in one simple platform.",
-    "subtitle": "Formwise helps associations centralize memberships, registrations, payments, documents and communication, so you save time and avoid managing everything through Excel, emails and scattered tools.",
+    "title": "Save up to 10 hours a month managing your association.",
+    "subtitle": "Memberships, dues, payments and communication centralized on one platform. No more scattered spreadsheets and manual follow-ups.",
     "ctaTrial": "Start your free trial",
     "ctaDemo": "Book a demo",
     "reassurance1": "{days}-day free trial",
@@ -3039,5 +3039,55 @@
     "sentThisWeek": "Sent this week",
     "comingSoonTitle": "Coming soon",
     "comingSoonDescription": "This feature is under development."
+  },
+  "Problem": {
+    "associations": {
+      "section": "The problem",
+      "title": "Running your association shouldn't feel like a second job",
+      "subtitle": "Chasing dues at night, copying spreadsheets on weekends, emails falling through the cracks: if that's your day-to-day, you're not alone — it's the reality for thousands of association leaders.",
+      "pain1Title": "Volunteer hours lost",
+      "pain1Text": "Every membership typed in by hand and every reminder sent one by one is time taken from your evenings.",
+      "pain2Title": "Information scattered everywhere",
+      "pain2Text": "Between spreadsheets, inboxes and chat apps, nobody knows where the up-to-date version lives.",
+      "pain3Title": "Volunteers burning out",
+      "pain3Text": "Admin work always lands on the same shoulders, and motivation wears out long before the season ends.",
+      "whyTitle": "Why spreadsheets and email aren't enough",
+      "whyText": "Those tools were never designed to manage members: nothing is connected, everything is done twice, reminders get forgotten and mistakes go unnoticed.",
+      "idealTitle": "Now imagine",
+      "idealText": "Memberships fill themselves in online, dues are collected and chased automatically, and everyone finds the information they need without asking you. That's exactly what Formwise makes possible."
+    },
+    "schools": {
+      "section": "The problem",
+      "title": "Running your school shouldn't wear out your team",
+      "subtitle": "Payment reminders, incomplete enrolment files, endless parent emails: if that's your day-to-day, you're not alone — it's the reality for many school administration teams.",
+      "pain1Title": "Admin hours lost",
+      "pain1Text": "Every enrolment typed in by hand and every reminder sent one by one is time taken from your team.",
+      "pain2Title": "Information scattered everywhere",
+      "pain2Text": "Between spreadsheets, inboxes and chat apps, nobody knows where the up-to-date version lives.",
+      "pain3Title": "A team burning out",
+      "pain3Text": "Admin work always lands on the same people, and the load piles up as the school year goes on.",
+      "whyTitle": "Why spreadsheets and email aren't enough",
+      "whyText": "Those tools were never designed to manage enrolments: nothing is connected, everything is done twice, reminders get forgotten and mistakes go unnoticed.",
+      "idealTitle": "Now imagine",
+      "idealText": "Enrolments fill themselves in online, payments are collected and chased automatically, and parents find the information they need without calling the office. That's exactly what Formwise makes possible."
+    }
+  },
+  "MidCTA": {
+    "associations": {
+      "afterFeaturesTitle": "Ready to save hours every month running your association?",
+      "beforePricingTitle": "Join the associations that said goodbye to spreadsheets",
+      "button": "Start for free",
+      "reassurance": "{days}-day free trial · No credit card · No commitment",
+      "demoText": "Want to see more before you decide?",
+      "demoLink": "Book a 30-minute demo"
+    },
+    "schools": {
+      "afterFeaturesTitle": "Ready to save hours every month running your school?",
+      "beforePricingTitle": "Join the schools that said goodbye to spreadsheets",
+      "button": "Start for free",
+      "reassurance": "{days}-day free trial · No credit card · No commitment",
+      "demoText": "Want to see more before you decide?",
+      "demoLink": "Book a 30-minute demo"
+    }
   }
 }
