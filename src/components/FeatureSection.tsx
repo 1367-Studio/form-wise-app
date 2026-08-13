@@ -32,10 +32,10 @@ export default function FeatureSection() {
   ];
 
   return (
-    <div className="bg-white pt-40 pb-24 sm:pb-32">
+    <div className="bg-white pt-12 pb-24 sm:pb-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-[#2563EB]">
+          <h2 className="text-base/7 font-semibold text-[#003EA3]">
             {t("section")}
           </h2>
           <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
@@ -51,7 +51,7 @@ export default function FeatureSection() {
                 className="relative pl-16"
               >
                 <dt className="text-base/7 font-semibold text-gray-900">
-                  <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-[#2563EB]">
+                  <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-[#003EA3]">
                     <feature.icon
                       aria-hidden="true"
                       className="size-6 text-white"

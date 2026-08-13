@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Lightning } from "@phosphor-icons/react";
 
 export default function MinimalFooter() {
   return (
@@ -9,7 +8,6 @@ export default function MinimalFooter() {
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1 text-gray-900">
-          <Lightning className="h-4 w-4 text-primary" />
           <span className="font-semibold">Formwise</span>
         </Link>
 

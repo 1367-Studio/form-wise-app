@@ -59,12 +59,12 @@ export default function NewsletterSection() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="min-w-0 flex-auto rounded-md bg-white/5 px-4 py-2.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/15 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-[#2563EB] sm:text-sm/6"
+                className="min-w-0 flex-auto rounded-md bg-white/5 px-4 py-2.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/15 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-[#003EA3] sm:text-sm/6"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-none rounded-md bg-[#2563EB] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#1D4ED8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB] cursor-pointer disabled:opacity-60"
+                className="flex-none rounded-md bg-[#003EA3] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#002E7A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#003EA3] cursor-pointer disabled:opacity-60"
               >
                 {loading ? t("submitting") : t("submitButton")}
               </button>
@@ -74,7 +74,7 @@ export default function NewsletterSection() {
               {t("privacyNote")}{" "}
               <Link
                 href="/politique-de-confidentialite"
-                className="underline underline-offset-2 hover:text-[#2563EB]"
+                className="underline underline-offset-2 hover:text-[#003EA3]"
               >
                 {t("privacyLink")}
               </Link>

@@ -17,7 +17,7 @@ export default function HowItWorksSection() {
     <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[#2563EB]">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[#003EA3]">
             {t("section")}
           </h2>
           <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
@@ -37,7 +37,7 @@ export default function HowItWorksSection() {
                   />
                 )}
 
-                <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-lg font-bold text-[#2563EB]">
+                <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-lg font-bold text-[#003EA3]">
                   {step.number}
                 </div>
 

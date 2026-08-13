@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { Lightning } from "@phosphor-icons/react";
 import { useAudience } from "@/contexts/AudienceContext";
 
 export default function CTASection({ trialDays }: { trialDays: number }) {
@@ -32,7 +31,6 @@ export default function CTASection({ trialDays }: { trialDays: number }) {
             <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
               <Link href="/register/free-trial">
                 <Button className="w-full cursor-pointer rounded-full bg-white px-6 py-3 font-semibold text-black hover:bg-gray-200">
-                  <Lightning className="mr-2 h-4 w-4" />
                   {t("primaryButton")}
                 </Button>
               </Link>

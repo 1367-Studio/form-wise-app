@@ -29,7 +29,7 @@ export default function BillingSelector({
   annualBadge,
 }: BillingSelectorProps) {
   const optionBase =
-    "flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100";
+    "flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003EA3] focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100";
   const selected = "bg-white text-gray-900 shadow-sm font-semibold";
   const unselected = "text-gray-500 hover:text-gray-900";
 
@@ -65,7 +65,7 @@ export default function BillingSelector({
           className={cn(
             "whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-semibold",
             value === "annual"
-              ? "bg-[#2563EB]/10 text-[#2563EB]"
+              ? "bg-[#003EA3]/10 text-[#003EA3]"
               : "bg-gray-200 text-gray-600"
           )}
         >

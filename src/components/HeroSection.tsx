@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import TabsShowcase from "./TabsShowcase";
-import { Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
@@ -35,7 +34,6 @@ export default function HeroSection() {
             <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-x-6">
               <Link href="/register/free-trial">
                 <Button className="cursor-pointer w-full sm:w-auto">
-                  <Zap className="mr-2 h-4 w-4" />
                   {t("ctaTrial")}
                 </Button>
               </Link>

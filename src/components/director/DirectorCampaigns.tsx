@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Megaphone, Zap, CalendarClock, Send } from "lucide-react";
+import { Megaphone, CalendarClock, Send } from "lucide-react";
 
 export default function DirectorCampaigns() {
   const t = useTranslations("DirectorCampaigns");
@@ -16,7 +16,6 @@ export default function DirectorCampaigns() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
-            <Zap className="h-4 w-4" />
             {t("activeCampaigns")}
           </div>
           <p className="mt-2 text-2xl font-semibold text-gray-900">3</p>

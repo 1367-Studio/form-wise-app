@@ -171,7 +171,7 @@ export default function PricingSection({
     >
       {/* Header */}
       <div ref={titleRef} className="mx-auto max-w-4xl text-center">
-        <h2 className="text-base/7 font-semibold text-[#2563EB]">{t("section")}</h2>
+        <h2 className="text-base/7 font-semibold text-[#003EA3]">{t("section")}</h2>
         <p className="mt-2 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
           {t("title")}
         </p>

@@ -33,7 +33,7 @@ export default function TestimonialsSection() {
     <section className="paper-bg py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-base/7 font-semibold text-[#2563EB]">
+          <h2 className="text-base/7 font-semibold text-[#003EA3]">
             {t("section")}
           </h2>
           <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
@@ -53,7 +53,7 @@ export default function TestimonialsSection() {
                   <Quotes
                     weight="fill"
                     aria-hidden="true"
-                    className="h-6 w-6 text-[#2563EB]/20"
+                    className="h-6 w-6 text-[#003EA3]/20"
                   />
                   <div className="flex gap-0.5">
                     {Array.from({ length: 5 }).map((_, i) => (
