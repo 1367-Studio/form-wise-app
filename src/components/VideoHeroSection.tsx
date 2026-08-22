@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import LogoIcon from "./LogoIcon";
 import { useTranslations } from "next-intl";
 import {
   CheckCircle,
@@ -27,16 +28,14 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
       aria-label={t("introAriaLabel")}
       className="relative w-full bg-white flex flex-col items-center justify-start pt-28 px-4 pb-6 overflow-hidden"
     >
-      {/* Subtle geometric decoration — skewed parallelogram panels */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        {/* Right side */}
-        <div className="absolute -right-16 top-[8%] h-[16%] w-[22%] skew-x-[-18deg] bg-gradient-to-l from-black/[0.05] to-black/[0.015]" />
-        <div className="absolute -right-8 top-[28%] h-[16%] w-[26%] skew-x-[-18deg] bg-gradient-to-l from-black/[0.04] to-transparent" />
-        <div className="absolute -right-24 top-[48%] h-[12%] w-[30%] skew-x-[-18deg] bg-gradient-to-l from-black/[0.025] to-transparent" />
-        {/* Left side — mirrored */}
-        <div className="absolute -left-16 top-[8%] h-[16%] w-[22%] skew-x-[18deg] bg-gradient-to-r from-black/[0.05] to-black/[0.015]" />
-        <div className="absolute -left-8 top-[28%] h-[16%] w-[26%] skew-x-[18deg] bg-gradient-to-r from-black/[0.04] to-transparent" />
-        <div className="absolute -left-24 top-[48%] h-[12%] w-[30%] skew-x-[18deg] bg-gradient-to-r from-black/[0.025] to-transparent" />
+      {/* Background — a single brand mark bleeding off the top-right corner,
+          rotated and very faint. It's a subtle reminder of the brand, not
+          something meant to be read as a logo. */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+        aria-hidden="true"
+      >
+        <LogoIcon className="absolute -right-32 -top-28 h-[32rem] w-[32rem] rotate-[18deg] text-[#003EA3] opacity-[0.03] sm:-right-44 sm:-top-40 sm:h-[48rem] sm:w-[48rem] lg:-right-56 lg:-top-52 lg:h-[64rem] lg:w-[64rem]" />
       </div>
 
       {/* Text content */}
@@ -90,8 +89,9 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
 
       {/* Preview card */}
       <div className="relative z-20 w-full max-w-5xl mx-auto">
-        <div className="relative">
-          <div className="relative rounded-xl overflow-hidden border border-black/10 shadow-2xl shadow-black/15">
+        {/* Frosted-glass frame around the browser mockup */}
+        <div className="relative rounded-2xl border border-black/[0.06] bg-black/[0.035] p-2 backdrop-blur-xl sm:rounded-3xl sm:p-3">
+          <div className="relative rounded-lg overflow-hidden border border-black/10 shadow-2xl shadow-black/15 sm:rounded-xl">
             <div className="flex items-center gap-2 bg-gray-100 px-4 py-3 border-b border-black/[0.06]">
               <div className="w-3 h-3 rounded-full bg-red-500/60" />
               <div className="w-3 h-3 rounded-full bg-yellow-500/60" />

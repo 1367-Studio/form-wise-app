@@ -1,36 +1,55 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { List, AsteriskIcon } from "@phosphor-icons/react";
+import { List } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import NavDrawerMobile from "./NavDrawerMobile";
+import LogoFull from "./LogoFull";
+import LogoIcon from "./LogoIcon";
 import { Button } from "@/components/ui/button";
 import LanguageSwitcher from "./LanguageSwitcher";
+
+// Scroll distance after which the desktop header collapses the full logo to
+// the compact icon mark.
+const COMPACT_LOGO_SCROLL_Y = 32;
+// Rendered logo height (Tailwind h-8) and the SVG's intrinsic aspect ratios,
+// used to animate the full logo's width down to just the icon mark.
+const LOGO_HEIGHT = "2rem";
+const LOGO_FULL_ASPECT = 580 / 93;
+const LOGO_ICON_ASPECT = 92 / 93;
 
 export default function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [overDark, setOverDark] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("SiteHeader");
   const isHome = pathname === "/";
 
-  // The homepage fixed header passes over alternating light (hero, features,
-  // testimonials, pricing) and dark (FAQ, CTA) sections. Detect which section is
-  // currently behind the header bar so the logo/nav flip to stay readable —
-  // white text over dark sections, dark text over light ones.
+  // One scroll listener drives two things:
+  // 1. `scrolled` — the desktop header shows the full logo at the top of the
+  //    page and the compact icon mark once the user scrolls (all pages).
+  // 2. `overDark` — on the homepage the fixed header passes over alternating
+  //    light (hero, features, testimonials, pricing) and dark (FAQ, CTA)
+  //    sections. Detect which section is currently behind the header bar so
+  //    the logo/nav flip to stay readable.
   useEffect(() => {
-    if (!isHome) {
-      setOverDark(false);
-      return;
-    }
     const onScroll = () => {
+      setScrolled(window.scrollY > COMPACT_LOGO_SCROLL_Y);
+
+      if (!isHome) {
+        setOverDark(false);
+        return;
+      }
       const probeY = 40; // inside the header bar
       let dark = false;
-      document.querySelectorAll<HTMLElement>("[data-header-dark]").forEach((el) => {
-        const r = el.getBoundingClientRect();
-        if (r.top <= probeY && r.bottom > probeY) dark = true;
-      });
+      document
+        .querySelectorAll<HTMLElement>("[data-header-dark]")
+        .forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.top <= probeY && r.bottom > probeY) dark = true;
+        });
       setOverDark(dark);
     };
     onScroll();
@@ -56,7 +75,8 @@ export default function SiteHeader() {
   const bar = light
     ? "border-white/20 bg-white/10"
     : "border-white/20 bg-white/10";
-  const logoText = light ? "text-gray-900" : "text-white";
+  // Brand blue over light sections, white over dark ones.
+  const logoColor = light ? "text-[#003EA3]" : "text-white";
 
   const langSwitcher = light
     ? "text-gray-900 hover:text-gray-900 hover:bg-transparent"
@@ -65,7 +85,7 @@ export default function SiteHeader() {
   const signInBtn = light
     ? "border-black/20 text-gray-900 hover:bg-black/5 hover:text-gray-900 bg-transparent"
     : "border-white/30 text-white hover:bg-transparen hover:text-white bg-transparent";
-    
+
   const menuIcon = light ? "text-gray-900" : "text-white";
 
   return (
@@ -80,10 +100,30 @@ export default function SiteHeader() {
             <Link
               href="/"
               aria-label="formwise"
-              className={`-m-1.5 p-1.5 flex items-center gap-2 font-bold text-lg transition-colors duration-300 ${logoText}`}
+              className="-m-1.5 flex items-center p-1.5"
             >
-              <AsteriskIcon size={32} />
-              <span>formwise</span>
+              {/* Mobile: always the compact icon mark */}
+              <LogoIcon
+                className={`h-8 w-8 transition-colors duration-300 lg:hidden ${logoColor}`}
+              />
+              {/* Desktop: full logo at the top of the page; once scrolled the
+                  wrapper's width animates down to the icon mark while the
+                  wordmark fades, so the mark itself never moves or resizes. */}
+              <span
+                className="hidden overflow-hidden transition-[width] duration-500 ease-in-out motion-reduce:transition-none lg:block"
+                style={{
+                  width: `calc(${LOGO_HEIGHT} * ${
+                    scrolled ? LOGO_ICON_ASPECT : LOGO_FULL_ASPECT
+                  })`,
+                }}
+              >
+                <LogoFull
+                  className={`h-8 w-auto max-w-none transition-colors duration-300 ${logoColor}`}
+                  wordmarkClassName={`transition-opacity duration-300 motion-reduce:transition-none ${
+                    scrolled ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+              </span>
             </Link>
           </div>
 

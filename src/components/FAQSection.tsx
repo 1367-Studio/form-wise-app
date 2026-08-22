@@ -1,7 +1,8 @@
 "use client";
 
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { AsteriskIcon, CaretDown, ChatCircle } from "@phosphor-icons/react";
+import { CaretDown, ChatCircle } from "@phosphor-icons/react";
+import LogoIcon from "./LogoIcon";
 import { useTranslations } from "next-intl";
 import { useAudience } from "@/contexts/AudienceContext";
 import { Link } from "@/i18n/navigation";
@@ -30,11 +31,7 @@ export default function FAQSection({ trialDays }: { trialDays: number }) {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
           {/* Left column — brand mark, title, support link */}
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <AsteriskIcon
-              aria-hidden="true"
-              weight="bold"
-              className="h-14 w-14 text-gray-300 sm:h-20 sm:w-20"
-            />
+            <LogoIcon className="h-14 w-14 text-white sm:h-20 sm:w-20" />
 
             <h2 className="mt-6 text-balance text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl">
               {titleWords.length === 2 ? (
