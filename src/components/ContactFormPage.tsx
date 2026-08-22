@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import { AsteriskIcon } from "@phosphor-icons/react";
+import LogoIcon from "./LogoIcon";
 
 export default function ContactFormPage() {
   const t = useTranslations("ContactForm");
@@ -173,11 +173,7 @@ export default function ContactFormPage() {
 
         {/* Right — contact info */}
         <div className="lg:border-l lg:border-white/15 lg:pl-12">
-          <AsteriskIcon
-            aria-hidden="true"
-            weight="bold"
-            className="h-12 w-12 text-white"
-          />
+          <LogoIcon className="h-12 w-12 text-white" />
 
           <div className="mt-10 space-y-8 text-sm">
             <div>
