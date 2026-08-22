@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import Logo from "./Logo";
+import LogoFull from "./LogoFull";
 
 
 export default function SiteFooter() {
@@ -25,7 +25,7 @@ export default function SiteFooter() {
           {/* Brand column */}
           <div className="lg:col-span-5 space-y-6">
             <Link href="/" aria-label="formwise" className="inline-block">
-              <Logo size="lg" />
+              <LogoFull className="h-8 w-auto" />
             </Link>
             <p className="max-w-sm text-balance text-sm/6 text-gray-600">
               {t("tagline")}

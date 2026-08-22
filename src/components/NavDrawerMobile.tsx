@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import Logo from "./Logo";
+import LogoIcon from "./LogoIcon";
 
 interface Props {
   open: boolean;
@@ -29,7 +29,7 @@ export default function NavDrawerMobile({ open, onClose }: Props) {
       <div className="fixed w-full h-full bg-black/80 backdrop-blur-xl shadow-xl p-6 z-50 flex flex-col">
         <div className="flex justify-between items-center">
           <Link href="/" aria-label="formwise" onClick={close}>
-            <Logo tone="light" />
+            <LogoIcon className="h-8 w-8 text-white" />
           </Link>
           <button onClick={close} aria-label="Close menu">
             <X className="h-6 w-6 text-white cursor-pointer" />

@@ -1,19 +1,25 @@
-import { AsteriskIcon } from "@phosphor-icons/react";
+import LogoFull from "./LogoFull";
+import { cn } from "@/lib/utils";
 
 type Tone = "dark" | "light";
 type Size = "sm" | "md" | "lg";
 
-const toneClasses: Record<Tone, { icon: string; word: string }> = {
-  dark: { icon: "text-black", word: "text-gray-900" },
-  light: { icon: "text-white", word: "text-white" },
+// Brand blue on light surfaces, white on dark ones.
+const toneClasses: Record<Tone, string> = {
+  dark: "text-[#003EA3]",
+  light: "text-white",
 };
 
-const sizeClasses: Record<Size, { icon: string; word: string }> = {
-  sm: { icon: "h-4 w-4", word: "text-base" },
-  md: { icon: "h-5 w-5", word: "text-xl" },
-  lg: { icon: "h-6 w-6", word: "text-2xl" },
+const sizeClasses: Record<Size, string> = {
+  sm: "h-5",
+  md: "h-6",
+  lg: "h-8",
 };
 
+/**
+ * Legacy wrapper kept for existing call sites (auth shell). Renders the full
+ * SVG logo — prefer importing `LogoFull` / `LogoIcon` directly in new code.
+ */
 export default function Logo({
   tone = "dark",
   size = "md",
@@ -23,17 +29,9 @@ export default function Logo({
   size?: Size;
   className?: string;
 }) {
-  const c = toneClasses[tone];
-  const s = sizeClasses[size];
-
   return (
-    <span
-      className={`inline-flex items-center gap-1 font-semibold tracking-tight ${className}`}
-    >
-      <AsteriskIcon weight="bold" className={`${s.icon} ${c.icon}`} />
-      <span className={`${s.word} ${c.word} leading-none`}>
-        form<span className="font-bold">wise</span>
-      </span>
-    </span>
+    <LogoFull
+      className={cn("w-auto", sizeClasses[size], toneClasses[tone], className)}
+    />
   );
 }

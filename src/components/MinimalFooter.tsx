@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import LogoFull from "./LogoFull";
 
 export default function MinimalFooter() {
   return (
     <footer className="w-full border-t border-gray-200 bg-white py-4 px-6">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1 text-gray-900">
-          <span className="font-semibold">Formwise</span>
+        <Link href="/" aria-label="formwise" className="flex items-center">
+          <LogoFull className="h-6 w-auto" />
         </Link>
 
         {/* Liens */}
