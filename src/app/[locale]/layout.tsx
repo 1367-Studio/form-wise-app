@@ -52,16 +52,11 @@ export async function generateMetadata({
     appleWebApp: {
       capable: true,
       statusBarStyle: "default",
+      // Renders <meta name="apple-mobile-web-app-title" content="Formwise" />
       title: "Formwise",
     },
-    icons: {
-      icon: [
-        { url: "/icons/icon.svg", type: "image/svg+xml" },
-        { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-        { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
-      ],
-      apple: "/icons/icon-192.png",
-    },
+    // Icons come from the app-folder file conventions:
+    // favicon.ico, icon0.svg, icon1.png, apple-icon.png
   };
 }
 
