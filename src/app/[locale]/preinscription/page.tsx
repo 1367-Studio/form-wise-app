@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { Suspense } from "react";
 import ClientWrapper from "../../../components/pre-inscription/ClientWrapper";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { localeAlternates } from "../../../lib/seo";
 
 export async function generateMetadata({
   params,
@@ -14,7 +15,11 @@ export async function generateMetadata({
     locale,
     namespace: "Preinscription.metadata",
   });
-  return { title: t("title"), description: t("description") };
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: localeAlternates(locale, "/preinscription"),
+  };
 }
 
 export default async function PreinscriptionPage({

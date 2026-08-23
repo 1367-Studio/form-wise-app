@@ -11,6 +11,18 @@ import CTASection from "../../components/CTASection";
 import { AudienceProvider } from "../../contexts/AudienceContext";
 import { getAdheraPricing, ADHERA_TRIAL_DAYS } from "../../lib/adhera-pricing";
 import { getTranslations } from "next-intl/server";
+import { localeAlternates } from "../../lib/seo";
+
+// Title and description are inherited from the locale layout; this only pins
+// the canonical URL and the hreflang cluster for the homepage.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return { alternates: localeAlternates(locale, "/") };
+}
 
 // Mirrors FAQ_KEYS in FAQSection. The accordion only mounts the open panel, so
 // crawlers never see the other answers — this JSON-LD exposes all of them.
@@ -58,7 +70,10 @@ export default async function HomePage() {
           <FeatureSection />
           {/* <HowItWorksSection /> */}
           {/* <StatsSection /> */}
-          <MidCTASection variant="afterFeatures" trialDays={ADHERA_TRIAL_DAYS} />
+          <MidCTASection
+            variant="afterFeatures"
+            trialDays={ADHERA_TRIAL_DAYS}
+          />
           <TestimonialsSection />
           <MidCTASection
             variant="beforePricing"
