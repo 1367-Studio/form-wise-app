@@ -43,3 +43,6 @@ next-env.d.ts
 public/
 public/*
 .env*.local
+
+# Contentsquare wizard verification reports
+.cs-wizard/

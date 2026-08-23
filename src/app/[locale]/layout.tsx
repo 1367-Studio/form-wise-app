@@ -15,6 +15,8 @@ import ConditionalHeader from "components/ConditionalHeader";
 import { PWAInit } from "components/PWAInit";
 import { IOSInstallBanner } from "components/IOSInstallBanner";
 import { routing } from "../../i18n/routing";
+import { SITE_URL } from "../../lib/seo";
+import { Contentsquare } from "./contentsquare";
 // import TrialBanner from "@/components/TrialBanner";
 
 const geistSans = Inter({
@@ -45,10 +47,26 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
   return {
+    // Lets every page below express canonical/hreflang as a relative path.
+    metadataBase: new URL(SITE_URL),
     title: t("title"),
     description: t("description"),
     manifest: "/manifest.json",
     themeColor: "#003EA3",
+    openGraph: {
+      type: "website",
+      siteName: "Formwise",
+      locale,
+      title: t("title"),
+      description: t("description"),
+      images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/og-image.png"],
+    },
     appleWebApp: {
       capable: true,
       statusBarStyle: "default",
@@ -79,6 +97,7 @@ export default async function LocaleLayout({
       <body
         className={`flex min-h-screen flex-col ${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
+        <Contentsquare />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <PWAInit />
           <IOSInstallBanner />

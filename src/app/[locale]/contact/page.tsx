@@ -1,6 +1,7 @@
 import React from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ContactFormPage from "components/ContactFormPage";
+import { localeAlternates } from "../../../lib/seo";
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,11 @@ export async function generateMetadata({
     locale,
     namespace: "ContactPage.metadata",
   });
-  return { title: t("title"), description: t("description") };
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: localeAlternates(locale, "/contact"),
+  };
 }
 
 export default async function ContactPage({
