@@ -16,6 +16,7 @@ import { PWAInit } from "components/PWAInit";
 import { IOSInstallBanner } from "components/IOSInstallBanner";
 import { routing } from "../../i18n/routing";
 import { SITE_URL } from "../../lib/seo";
+import { Contentsquare } from "./contentsquare";
 // import TrialBanner from "@/components/TrialBanner";
 
 const geistSans = Inter({
@@ -96,6 +97,7 @@ export default async function LocaleLayout({
       <body
         className={`flex min-h-screen flex-col ${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
+        <Contentsquare />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <PWAInit />
           <IOSInstallBanner />
