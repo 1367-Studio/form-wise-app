@@ -40,6 +40,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# NOTE: all of public/ is ignored, but files committed before this rule (icons,
+# og-image, flags, hero.mp4) stay tracked because git only ignores UNTRACKED
+# files. Any NEW asset must be added with `git add -f` or the production build
+# will not see it — next/font/local resolves font files at compile time, so a
+# missing one fails the build outright rather than 404ing.
 public/
 public/*
 .env*.local
