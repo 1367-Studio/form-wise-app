@@ -73,7 +73,7 @@ export default function AdminFailedPayments() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-semibold">{t("title")}</h1>
-          <p className="text-sm text-gray-500">{t("subtitle")}</p>
+          <p className="text-sm text-ink/60">{t("subtitle")}</p>
         </div>
         <div className="h-64 animate-pulse rounded-xl bg-gray-100" />
       </div>
@@ -94,17 +94,17 @@ export default function AdminFailedPayments() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       {failed.length === 0 ? (
-        <div className="rounded-xl border border-black/10 bg-white p-8 text-center text-sm text-gray-600">
+        <div className="rounded-xl border border-black/10 bg-white p-8 text-center text-sm text-ink/80">
           {t("empty")}
         </div>
       ) : (
         <div className="rounded-xl border border-black/10 bg-white overflow-x-auto">
           <table className="min-w-full text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-semibold border-b border-black/10">
+            <thead className="bg-gray-50 text-ink/80 font-semibold border-b border-black/10">
               <tr>
                 <th className="px-4 py-3">{t("headerInvoice")}</th>
                 <th className="px-4 py-3">{t("headerCustomer")}</th>
@@ -117,12 +117,12 @@ export default function AdminFailedPayments() {
             <tbody className="divide-y divide-black/5">
               {failed.map((inv) => (
                 <tr key={inv.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 font-medium text-gray-900">
+                  <td className="px-4 py-3 font-medium text-ink">
                     {inv.number ?? inv.id.slice(0, 10)}
                   </td>
                   <td className="px-4 py-3">
                     <div>{inv.customerName ?? "—"}</div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-ink/60">
                       {inv.customerEmail ?? ""}
                     </div>
                   </td>
@@ -135,7 +135,7 @@ export default function AdminFailedPayments() {
                       {inv.attemptCount}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-500">
+                  <td className="px-4 py-3 text-xs text-ink/60">
                     {inv.nextPaymentAttempt
                       ? new Date(inv.nextPaymentAttempt * 1000).toLocaleDateString()
                       : t("notReady")}
@@ -145,7 +145,7 @@ export default function AdminFailedPayments() {
                       <button
                         onClick={() => runAction(inv.id, "retry")}
                         disabled={busyId === inv.id}
-                        className="inline-flex items-center gap-1 rounded-md bg-[#2563EB] px-2 py-1 text-xs font-medium text-white hover:bg-[#1D4ED8] disabled:opacity-60"
+                        className="inline-flex items-center gap-1 rounded-md bg-brand px-2 py-1 text-xs font-medium text-white hover:bg-brand-dark disabled:opacity-60"
                       >
                         <RefreshCw className="h-3 w-3" />
                         {t("retry")}
@@ -153,7 +153,7 @@ export default function AdminFailedPayments() {
                       <button
                         onClick={() => runAction(inv.id, "void")}
                         disabled={busyId === inv.id}
-                        className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs font-medium text-gray-700 hover:border-red-500 hover:text-red-600 disabled:opacity-60"
+                        className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs font-medium text-ink/85 hover:border-red-500 hover:text-red-600 disabled:opacity-60"
                       >
                         <X className="h-3 w-3" />
                         {t("void")}
@@ -163,7 +163,7 @@ export default function AdminFailedPayments() {
                           href={inv.hostedInvoiceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs font-medium text-gray-700 hover:border-[#2563EB] hover:text-[#2563EB]"
+                          className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs font-medium text-ink/85 hover:border-brand hover:text-brand"
                         >
                           {t("open")}
                           <ExternalLink className="h-3 w-3" />

@@ -57,7 +57,7 @@ export default function AIChatBotWidget() {
 
             <div className="p-4 space-y-4 text-sm text-muted-foreground overflow-y-auto flex-1">
               {!answer && (
-                <div className="bg-muted p-3 rounded-md text-sm text-gray-700">
+                <div className="bg-muted p-3 rounded-md text-sm text-ink/85">
                   {t("greeting")}
                 </div>
               )}

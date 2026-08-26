@@ -52,8 +52,8 @@ export default function DirectorPayments() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
         </div>
         <SectionSkeleton variant="stats" rows={3} />
         <SectionSkeleton variant="table" rows={5} />
@@ -77,36 +77,36 @@ export default function DirectorPayments() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
       </div>
 
       {/* KPI Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <CreditCard className="h-4 w-4" />
             {t("paymentsThisMonth")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">{totalPayments}</p>
+          <p className="mt-2 text-2xl font-semibold text-ink">{totalPayments}</p>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <CreditCard className="h-4 w-4" />
             {t("amountCollected")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {eur.format(totalCollected / 100)}
           </p>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <CreditCard className="h-4 w-4" />
             {t("averagePayment")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {eur.format(avgPayment / 100)}
           </p>
         </div>
@@ -115,16 +115,16 @@ export default function DirectorPayments() {
       {/* Payments Table */}
       <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
         <div className="px-4 py-3 border-b border-gray-100">
-          <h3 className="text-sm font-semibold text-gray-900">{t("recentPayments")}</h3>
+          <h3 className="text-sm font-semibold text-ink">{t("recentPayments")}</h3>
         </div>
         {!data || data.payments.length === 0 ? (
-          <div className="px-6 py-12 text-center text-sm text-gray-500">
+          <div className="px-6 py-12 text-center text-sm text-ink/60">
             {t("noPayments")}
           </div>
         ) : (
           <>
             <table className="min-w-full text-sm">
-              <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+              <thead className="bg-gray-50 text-xs uppercase tracking-wide text-ink/60">
                 <tr>
                   <th className="px-4 py-3 text-left">{t("date")}</th>
                   <th className="px-4 py-3 text-left">{t("family")}</th>
@@ -136,19 +136,19 @@ export default function DirectorPayments() {
               <tbody className="divide-y divide-gray-100">
                 {data.payments.map((payment) => (
                   <tr key={payment.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">
                       {new Date(payment.paidAt).toLocaleDateString("fr-FR")}
                     </td>
-                    <td className="px-4 py-3 font-medium text-gray-900">
+                    <td className="px-4 py-3 font-medium text-ink">
                       {payment.invoice.student.firstName} {payment.invoice.student.lastName}
                     </td>
-                    <td className="px-4 py-3 text-gray-900">
+                    <td className="px-4 py-3 text-ink">
                       {eur.format(payment.amount / 100)}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">
                       {t(METHOD_LABELS[payment.method] ?? "other")}
                     </td>
-                    <td className="px-4 py-3 text-gray-500 font-mono text-xs">
+                    <td className="px-4 py-3 text-ink/60 font-mono text-xs">
                       {payment.reference ?? "—"}
                     </td>
                   </tr>
@@ -159,7 +159,7 @@ export default function DirectorPayments() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-between border-t border-gray-100 px-4 py-3">
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-ink/60">
                   {t("pageOf", { page: data.page, total: totalPages })}
                 </p>
                 <div className="flex items-center gap-2">
@@ -167,7 +167,7 @@ export default function DirectorPayments() {
                     type="button"
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page <= 1}
-                    className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-ink/85 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <ChevronLeft className="h-4 w-4" />
                     {t("prev")}
@@ -176,7 +176,7 @@ export default function DirectorPayments() {
                     type="button"
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page >= totalPages}
-                    className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-ink/85 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {t("next")}
                     <ChevronRight className="h-4 w-4" />

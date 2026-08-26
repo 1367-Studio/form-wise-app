@@ -154,14 +154,14 @@ export default function InviteTeacherForm({
       className="rounded-2xl border border-black/10 bg-white p-6 max-w-2xl"
     >
       <div className="mb-4 flex items-center gap-2">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#EFF6FF] text-[#2563EB]">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-tint text-brand">
           <Mail className="h-4 w-4" />
         </span>
         <div>
-          <h2 className="text-base font-semibold text-gray-900">
+          <h2 className="text-base font-semibold text-ink">
             {t("title")}
           </h2>
-          <p className="text-xs text-gray-500">{t("subtitle")}</p>
+          <p className="text-xs text-ink/60">{t("subtitle")}</p>
         </div>
       </div>
 
@@ -287,7 +287,7 @@ export default function InviteTeacherForm({
       </Section>
 
       <div className="mt-6 flex items-center justify-between gap-3 border-t border-black/5 pt-4">
-        <p className="text-xs text-gray-500">{t("emailWillBeSent")}</p>
+        <p className="text-xs text-ink/60">{t("emailWillBeSent")}</p>
         <Button type="submit" disabled={!canSubmit} className="cursor-pointer">
           {loading ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -314,10 +314,10 @@ function Section({
 }) {
   return (
     <div className="mt-2">
-      <div className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+      <div className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
         {icon}
         {label}
-        {hint && <span className="ml-1 text-[10px] normal-case font-normal text-gray-400">· {hint}</span>}
+        {hint && <span className="ml-1 text-[10px] normal-case font-normal text-ink/45">· {hint}</span>}
       </div>
       {children}
     </div>

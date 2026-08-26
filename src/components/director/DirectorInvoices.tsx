@@ -85,8 +85,8 @@ export default function DirectorInvoices() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
         </div>
         <SectionSkeleton variant="stats" rows={4} />
         <SectionSkeleton variant="table" rows={5} />
@@ -105,47 +105,47 @@ export default function DirectorInvoices() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
       </div>
 
       {/* KPI Cards */}
       {data && (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-2xl border border-gray-200 bg-white p-5">
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
               <FileText className="h-4 w-4" />
               {t("totalInvoices")}
             </div>
-            <p className="mt-2 text-2xl font-semibold text-gray-900">{data.total}</p>
+            <p className="mt-2 text-2xl font-semibold text-ink">{data.total}</p>
           </div>
 
           <div className="rounded-2xl border border-gray-200 bg-white p-5">
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
               <CheckCircle className="h-4 w-4" />
               {t("paid")}
             </div>
-            <p className="mt-2 text-2xl font-semibold text-gray-900">
+            <p className="mt-2 text-2xl font-semibold text-ink">
               {data.invoices.filter((i) => i.status === "PAID").length}
             </p>
           </div>
 
           <div className="rounded-2xl border border-gray-200 bg-white p-5">
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
               <Clock className="h-4 w-4" />
               {t("pending")}
             </div>
-            <p className="mt-2 text-2xl font-semibold text-gray-900">
+            <p className="mt-2 text-2xl font-semibold text-ink">
               {data.invoices.filter((i) => i.status === "PENDING").length}
             </p>
           </div>
 
           <div className="rounded-2xl border border-gray-200 bg-white p-5">
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
               <AlertTriangle className="h-4 w-4" />
               {t("overdue")}
             </div>
-            <p className="mt-2 text-2xl font-semibold text-gray-900">
+            <p className="mt-2 text-2xl font-semibold text-ink">
               {data.invoices.filter((i) => i.status === "OVERDUE").length}
             </p>
           </div>
@@ -155,7 +155,7 @@ export default function DirectorInvoices() {
       {/* Search & Filter Controls */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/45 pointer-events-none" />
           <Input
             type="text"
             placeholder={t("searchPlaceholder")}
@@ -180,13 +180,13 @@ export default function DirectorInvoices() {
       {/* Invoices Table */}
       <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
         {!data || data.invoices.length === 0 ? (
-          <div className="px-6 py-12 text-center text-sm text-gray-500">
+          <div className="px-6 py-12 text-center text-sm text-ink/60">
             {t("noInvoices")}
           </div>
         ) : (
           <>
             <table className="min-w-full text-sm">
-              <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+              <thead className="bg-gray-50 text-xs uppercase tracking-wide text-ink/60">
                 <tr>
                   <th className="px-4 py-3 text-left">#</th>
                   <th className="px-4 py-3 text-left">{t("family")}</th>
@@ -198,21 +198,21 @@ export default function DirectorInvoices() {
               <tbody className="divide-y divide-gray-100">
                 {data.invoices.map((inv) => (
                   <tr key={inv.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-mono text-gray-600">{inv.number}</td>
-                    <td className="px-4 py-3 font-medium text-gray-900">
+                    <td className="px-4 py-3 font-mono text-ink/80">{inv.number}</td>
+                    <td className="px-4 py-3 font-medium text-ink">
                       {inv.student.parent.firstName} {inv.student.parent.lastName}
                     </td>
-                    <td className="px-4 py-3 text-gray-900">
+                    <td className="px-4 py-3 text-ink">
                       {eur.format(inv.amount / 100)}
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${statusClasses[inv.status] ?? "bg-gray-100 text-gray-700"}`}
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${statusClasses[inv.status] ?? "bg-gray-100 text-ink/85"}`}
                       >
                         {t(inv.status.toLowerCase())}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">
                       {new Date(inv.dueDate).toLocaleDateString("fr-FR")}
                     </td>
                   </tr>
@@ -223,7 +223,7 @@ export default function DirectorInvoices() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-between border-t border-gray-100 px-4 py-3">
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-ink/60">
                   {t("pageOf", { page: data.page, total: totalPages })}
                 </p>
                 <div className="flex items-center gap-2">
@@ -231,7 +231,7 @@ export default function DirectorInvoices() {
                     type="button"
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page <= 1}
-                    className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-ink/85 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <ChevronLeft className="h-4 w-4" />
                     {t("prev")}
@@ -240,7 +240,7 @@ export default function DirectorInvoices() {
                     type="button"
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page >= totalPages}
-                    className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-ink/85 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {t("next")}
                     <ChevronRight className="h-4 w-4" />

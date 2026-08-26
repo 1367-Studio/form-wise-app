@@ -33,13 +33,13 @@ export default function TestimonialsSection() {
     <section className="paper-bg py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-base/7 font-semibold text-[#003EA3]">
+          <h2 className="text-base/7 font-semibold text-brand">
             {t("section")}
           </h2>
-          <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance">
+          <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-balance">
             {t("title")}
           </p>
-          <p className="mt-6 text-lg/8 text-gray-600">{t("subtitle")}</p>
+          <p className="mt-6 text-lg/8 text-ink/80">{t("subtitle")}</p>
         </div>
 
         <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 sm:mt-20 md:grid-cols-2 lg:grid-cols-3">
@@ -53,7 +53,7 @@ export default function TestimonialsSection() {
                   <Quotes
                     weight="fill"
                     aria-hidden="true"
-                    className="h-6 w-6 text-[#003EA3]/20"
+                    className="h-6 w-6 text-brand/20"
                   />
                   <div className="flex gap-0.5">
                     {Array.from({ length: 5 }).map((_, i) => (
@@ -66,7 +66,7 @@ export default function TestimonialsSection() {
                     ))}
                   </div>
                 </div>
-                <blockquote className="text-sm italic leading-relaxed text-gray-700">
+                <blockquote className="text-sm italic leading-relaxed text-ink/85">
                   &ldquo;{testimonial.quote}&rdquo;
                 </blockquote>
               </div>
@@ -76,10 +76,10 @@ export default function TestimonialsSection() {
                   {testimonial.initials}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-sm font-semibold text-ink">
                     {testimonial.name}
                   </p>
-                  <p className="text-xs text-gray-500">{testimonial.role}</p>
+                  <p className="text-xs text-ink/60">{testimonial.role}</p>
                 </div>
               </div>
             </div>

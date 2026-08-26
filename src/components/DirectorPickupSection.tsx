@@ -147,11 +147,11 @@ export default function DirectorPickupSection() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="text-sm text-gray-500">{todayFmt}</p>
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="text-sm text-ink/60">{todayFmt}</p>
         </div>
         <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/45" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -165,7 +165,7 @@ export default function DirectorPickupSection() {
         <SectionSkeleton variant="table" rows={6} />
       ) : students.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-          <p className="text-sm text-gray-500">{t("noStudents")}</p>
+          <p className="text-sm text-ink/60">{t("noStudents")}</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -181,15 +181,15 @@ export default function DirectorPickupSection() {
                   {(s.firstName[0] ?? "") + (s.lastName[0] ?? "")}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="font-medium text-gray-900">
+                  <p className="font-medium text-ink">
                     {s.firstName} {s.lastName}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-ink/60">
                     {s.class?.name ?? t("noClass")}
                     {" · "}
                     <span
                       className={
-                        inSchool ? "text-emerald-700" : "text-gray-500"
+                        inSchool ? "text-emerald-700" : "text-ink/60"
                       }
                     >
                       {inSchool ? t("inSchool") : t("notInSchool")}
@@ -206,7 +206,7 @@ export default function DirectorPickupSection() {
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs text-gray-500 inline-flex items-center gap-1">
+                  <span className="text-xs text-ink/60 inline-flex items-center gap-1">
                     <UserCheck className="h-3 w-3" />
                     {t("authCount", { count: s.pickupAuthorizations.length })}
                   </span>

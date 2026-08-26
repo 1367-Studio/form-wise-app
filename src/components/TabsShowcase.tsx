@@ -68,7 +68,7 @@ export default function TabsShowcase() {
               "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium cursor-pointer transition",
               activeTab === tab.id
                 ? "bg-gray-100 text-black shadow-sm"
-                : "bg-white text-gray-700 hover:bg-gray-50"
+                : "bg-white text-ink/85 hover:bg-gray-50"
             )}
           >
             {tab.icon}

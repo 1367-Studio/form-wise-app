@@ -68,7 +68,7 @@ export function InvitedParentList() {
     <div className="overflow-x-auto rounded-md border shadow-sm mt-6">
       <table className="min-w-full text-sm">
         <thead className="bg-gray-50 dark:bg-zinc-800">
-          <tr className="text-left text-gray-500 dark:text-gray-300 uppercase text-xs">
+          <tr className="text-left text-ink/60 dark:text-gray-300 uppercase text-xs">
             <th className="px-4 py-3">{t("headerFirstName")}</th>
             <th className="px-4 py-3">{t("headerEmail")}</th>
             <th className="px-4 py-3">{t("headerStatus")}</th>
@@ -87,7 +87,7 @@ export function InvitedParentList() {
               <td className="px-4 py-3 font-medium text-black dark:text-white">
                 {item.email}
               </td>
-              <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+              <td className="px-4 py-3 text-ink/80 dark:text-gray-300">
                 {item.used ? (
                   <span className="inline-flex items-center rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#2fbf6c] ring-1 ring-inset ring-green-600/20">
                     {t("accountCreated")}
@@ -98,7 +98,7 @@ export function InvitedParentList() {
                   </span>
                 )}
               </td>
-              <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+              <td className="px-4 py-3 text-ink/80 dark:text-gray-300">
                 {new Date(item.createdAt).toLocaleDateString()}
               </td>
             </tr>

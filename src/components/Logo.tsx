@@ -6,7 +6,7 @@ type Size = "sm" | "md" | "lg";
 
 // Brand blue on light surfaces, white on dark ones.
 const toneClasses: Record<Tone, string> = {
-  dark: "text-[#003EA3]",
+  dark: "text-brand",
   light: "text-white",
 };
 

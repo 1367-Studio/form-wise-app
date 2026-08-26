@@ -21,23 +21,23 @@ export default function LocaleError({
 
   return (
     <main className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-6 text-center">
-      <h1 className="mb-3 text-2xl font-semibold text-slate-900">
+      <h1 className="mb-3 text-2xl font-semibold text-ink">
         {t("title")}
       </h1>
-      <p className="mb-8 text-slate-600">{t("body")}</p>
+      <p className="mb-8 text-ink/80">{t("body")}</p>
       {error.digest && (
-        <p className="mb-6 text-xs text-slate-400">Ref: {error.digest}</p>
+        <p className="mb-6 text-xs text-ink/45">Ref: {error.digest}</p>
       )}
       <div className="flex flex-wrap items-center justify-center gap-3">
         <button
           onClick={reset}
-          className="rounded-lg bg-[#003EA3] px-5 py-2.5 text-white transition-opacity hover:opacity-90"
+          className="rounded-lg bg-brand px-5 py-2.5 text-white transition-opacity hover:opacity-90"
         >
           {t("retry")}
         </button>
         <Link
           href="/"
-          className="rounded-lg border border-slate-300 px-5 py-2.5 text-slate-700 transition-colors hover:bg-slate-50"
+          className="rounded-lg border border-slate-300 px-5 py-2.5 text-ink/85 transition-colors hover:bg-slate-50"
         >
           {t("home")}
         </Link>

@@ -26,7 +26,7 @@ export default function CTASection({ trialDays }: { trialDays: number }) {
 
           {/* Subtitle + actions */}
           <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between lg:justify-end lg:gap-12">
-            {/* <p className="max-w-sm text-lg text-gray-400">{t("subtitle")}</p> */}
+            {/* <p className="max-w-sm text-lg text-ink/45">{t("subtitle")}</p> */}
 
             <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
               <Link href="/register/free-trial">
@@ -46,7 +46,7 @@ export default function CTASection({ trialDays }: { trialDays: number }) {
           </div>
         </div>
 
-        <p className="mt-10 text-sm text-gray-500">{t("trustBadge", { days: trialDays })}</p>
+        <p className="mt-10 text-sm text-white/40">{t("trustBadge", { days: trialDays })}</p>
       </div>
     </section>
   );

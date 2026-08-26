@@ -55,7 +55,7 @@ export default function PendingStudents() {
 
   if (students.length === 0) {
     return (
-      <p className="text-center text-sm text-gray-500">{t("emptyMessage")}</p>
+      <p className="text-center text-sm text-ink/60">{t("emptyMessage")}</p>
     );
   }
 
@@ -80,7 +80,7 @@ export default function PendingStudents() {
                 <td className="p-3">{student.address}</td>
                 <td className="p-3">
                   {student.parent.firstName} {student.parent.lastName} <br />
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-ink/60">
                     {student.parent.email}
                   </span>
                 </td>
@@ -115,13 +115,13 @@ export default function PendingStudents() {
               <p className="font-semibold">
                 {student.firstName} {student.lastName}
               </p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-ink/80">
                 {t("addressLabel")} {student.address}
               </p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-ink/80">
                 {t("parentLabel")} {student.parent.firstName}{" "}
                 {student.parent.lastName} <br />
-                <span className="text-gray-500">{student.parent.email}</span>
+                <span className="text-ink/60">{student.parent.email}</span>
               </p>
               <div className="flex gap-2 pt-2">
                 <Button

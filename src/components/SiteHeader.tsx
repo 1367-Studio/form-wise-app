@@ -76,17 +76,17 @@ export default function SiteHeader() {
     ? "border-white/20 bg-white/10"
     : "border-white/20 bg-white/10";
   // Brand blue over light sections, white over dark ones.
-  const logoColor = light ? "text-[#003EA3]" : "text-white";
+  const logoColor = light ? "text-brand" : "text-white";
 
   const langSwitcher = light
-    ? "text-gray-900 hover:text-gray-900 hover:bg-transparent"
+    ? "text-ink hover:text-ink hover:bg-transparent"
     : "text-white hover:text-white hover:bg-transparen";
 
   const signInBtn = light
-    ? "border-black/20 text-gray-900 hover:bg-black/5 hover:text-gray-900 bg-transparent"
+    ? "border-black/20 text-ink hover:bg-black/5 hover:text-ink bg-transparent"
     : "border-white/30 text-white hover:bg-transparen hover:text-white bg-transparent";
 
-  const menuIcon = light ? "text-gray-900" : "text-white";
+  const menuIcon = light ? "text-ink" : "text-white";
 
   return (
     <>
@@ -131,7 +131,7 @@ export default function SiteHeader() {
             <div className="hidden lg:flex gap-3 items-center">
               <LanguageSwitcher variant="ghost" className={langSwitcher} />
               <Link href="/register/free-trial">
-                <Button className="min-w-[8rem] cursor-pointer rounded-full bg-[#003EA3] hover:bg-[#002E7A] text-white">
+                <Button className="min-w-[8rem] cursor-pointer rounded-full bg-brand hover:bg-brand-dark text-white">
                   {t("signUp")}
                 </Button>
               </Link>

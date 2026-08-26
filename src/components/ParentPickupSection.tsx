@@ -211,16 +211,16 @@ export default function ParentPickupSection() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       {visibleChildren.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-tint text-brand">
             <UserCheck className="h-6 w-6" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-ink">
             {t("noChildren")}
           </h2>
         </div>
@@ -236,10 +236,10 @@ export default function ParentPickupSection() {
                   {(child.firstName[0] ?? "") + (child.lastName[0] ?? "")}
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold text-gray-900">
+                  <h2 className="text-base font-semibold text-ink">
                     {child.firstName} {child.lastName}
                   </h2>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-ink/60">
                     {child.class?.name ?? t("noClass")}
                   </p>
                 </div>
@@ -255,7 +255,7 @@ export default function ParentPickupSection() {
             </div>
 
             {child.pickupAuthorizations.length === 0 ? (
-              <p className="text-sm text-gray-500 italic">
+              <p className="text-sm text-ink/60 italic">
                 {t("noAuthYet")}
               </p>
             ) : (
@@ -274,11 +274,11 @@ export default function ParentPickupSection() {
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0 flex-1">
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-ink">
                             {a.firstName} {a.lastName}
                           </p>
                           {a.relationship && (
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-ink/60">
                               {a.relationship}
                             </p>
                           )}
@@ -296,7 +296,7 @@ export default function ParentPickupSection() {
                           <Button
                             size="icon"
                             variant="ghost"
-                            className="h-7 w-7 cursor-pointer text-gray-500 hover:text-red-600"
+                            className="h-7 w-7 cursor-pointer text-ink/60 hover:text-red-600"
                             onClick={() => setDeleteTarget(a)}
                             aria-label={t("delete")}
                           >
@@ -304,7 +304,7 @@ export default function ParentPickupSection() {
                           </Button>
                         </div>
                       </div>
-                      <div className="mt-2 space-y-1 text-xs text-gray-600">
+                      <div className="mt-2 space-y-1 text-xs text-ink/80">
                         {a.phone && (
                           <div className="flex items-center gap-1.5">
                             <Phone className="h-3 w-3" />
@@ -343,7 +343,7 @@ export default function ParentPickupSection() {
                         )}
                       </div>
                       {a.notes && (
-                        <p className="mt-2 text-xs italic text-gray-500">
+                        <p className="mt-2 text-xs italic text-ink/60">
                           {a.notes}
                         </p>
                       )}
@@ -355,7 +355,7 @@ export default function ParentPickupSection() {
 
             {child.pickupEvents.length > 0 && (
               <div className="border-t border-black/5 pt-4">
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-3">
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-ink/60 mb-3">
                   {t("recentActivity")}
                 </h3>
                 <div className="space-y-2">
@@ -378,7 +378,7 @@ export default function ParentPickupSection() {
                         )}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="text-gray-900">
+                        <p className="text-ink">
                           {e.type === "ENTRY"
                             ? t("entryEvent")
                             : t("exitEvent")}
@@ -400,7 +400,7 @@ export default function ParentPickupSection() {
                             </>
                           )}
                         </p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-ink/60">
                           <Clock className="inline h-3 w-3 mr-0.5" />
                           {formatDistanceToNow(new Date(e.occurredAt), {
                             addSuffix: true,
@@ -475,7 +475,7 @@ export default function ParentPickupSection() {
                 }
                 type="date"
               />
-              <p className="mt-1 text-[11px] text-gray-500">
+              <p className="mt-1 text-[11px] text-ink/60">
                 {t("expiresAtHint")}
               </p>
             </div>

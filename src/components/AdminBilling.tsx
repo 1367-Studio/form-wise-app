@@ -54,12 +54,12 @@ const statusBadge = (
     case "void":
       return {
         label: t("statusVoid"),
-        className: "bg-gray-200 text-gray-700",
+        className: "bg-gray-200 text-ink/85",
       };
     default:
       return {
         label: t("statusDraft"),
-        className: "bg-gray-100 text-gray-600",
+        className: "bg-gray-100 text-ink/80",
       };
   }
 };
@@ -99,46 +99,46 @@ export default function AdminBilling() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-xl border border-black/10 bg-white p-5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium uppercase tracking-[0.12em] text-gray-500">
+            <span className="text-xs font-medium uppercase tracking-[0.12em] text-ink/60">
               {t("mrrLive")}
             </span>
-            <Euro className="h-5 w-5 text-[#2563EB]" />
+            <Euro className="h-5 w-5 text-brand" />
           </div>
-          <div className="mt-3 text-3xl font-semibold tracking-tight text-gray-900">
+          <div className="mt-3 text-3xl font-semibold tracking-tight text-ink">
             {formatCurrency(data.mrr * 100, data.currency)}
           </div>
         </div>
         <div className="rounded-xl border border-black/10 bg-white p-5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium uppercase tracking-[0.12em] text-gray-500">
+            <span className="text-xs font-medium uppercase tracking-[0.12em] text-ink/60">
               {t("activeSubs")}
             </span>
-            <CreditCard className="h-5 w-5 text-gray-700" />
+            <CreditCard className="h-5 w-5 text-ink/85" />
           </div>
-          <div className="mt-3 text-3xl font-semibold tracking-tight text-gray-900">
+          <div className="mt-3 text-3xl font-semibold tracking-tight text-ink">
             {data.activeSubscriptions}
           </div>
         </div>
         <div className="rounded-xl border border-black/10 bg-white p-5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium uppercase tracking-[0.12em] text-gray-500">
+            <span className="text-xs font-medium uppercase tracking-[0.12em] text-ink/60">
               {t("failedPayments")}
             </span>
             <AlertCircle
               className={`h-5 w-5 ${
-                data.failedCount > 0 ? "text-red-600" : "text-gray-400"
+                data.failedCount > 0 ? "text-red-600" : "text-ink/45"
               }`}
             />
           </div>
           <div
             className={`mt-3 text-3xl font-semibold tracking-tight ${
-              data.failedCount > 0 ? "text-red-600" : "text-gray-900"
+              data.failedCount > 0 ? "text-red-600" : "text-ink"
             }`}
           >
             {data.failedCount}
@@ -148,15 +148,15 @@ export default function AdminBilling() {
 
       <div className="rounded-xl border border-black/10 bg-white">
         <div className="border-b border-black/10 px-6 py-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-gray-500">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-ink/60">
             {t("recentInvoices")}
           </h3>
         </div>
         {data.recentInvoices.length === 0 ? (
-          <div className="px-6 py-8 text-sm text-gray-500">{t("empty")}</div>
+          <div className="px-6 py-8 text-sm text-ink/60">{t("empty")}</div>
         ) : (
           <table className="min-w-full text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-semibold border-b border-black/10">
+            <thead className="bg-gray-50 text-ink/80 font-semibold border-b border-black/10">
               <tr>
                 <th className="px-6 py-3">{t("headerInvoice")}</th>
                 <th className="px-6 py-3">{t("headerCustomer")}</th>
@@ -171,13 +171,13 @@ export default function AdminBilling() {
                 const badge = statusBadge(inv.status, t);
                 return (
                   <tr key={inv.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-3 font-medium text-gray-900">
+                    <td className="px-6 py-3 font-medium text-ink">
                       {inv.number ?? inv.id.slice(0, 10)}
                     </td>
-                    <td className="px-6 py-3 text-gray-600">
+                    <td className="px-6 py-3 text-ink/80">
                       {inv.customerEmail ?? "—"}
                     </td>
-                    <td className="px-6 py-3 text-gray-900">
+                    <td className="px-6 py-3 text-ink">
                       {formatCurrency(
                         inv.amountPaid || inv.amountDue,
                         inv.currency
@@ -190,7 +190,7 @@ export default function AdminBilling() {
                         {badge.label}
                       </span>
                     </td>
-                    <td className="px-6 py-3 text-gray-500 text-xs">
+                    <td className="px-6 py-3 text-ink/60 text-xs">
                       {new Date(inv.created * 1000).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-3 text-right">
@@ -199,7 +199,7 @@ export default function AdminBilling() {
                           href={inv.hostedInvoiceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-gray-600 hover:text-[#2563EB]"
+                          className="inline-flex items-center gap-1 text-xs text-ink/80 hover:text-brand"
                         >
                           {t("openInStripe")}
                           <ExternalLink className="h-3 w-3" />

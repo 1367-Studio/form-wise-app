@@ -141,10 +141,10 @@ export default function ParentNotificationsSection() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl font-semibold text-ink">
             {t("title")}
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-ink/60">
             {unreadCount > 0
               ? t("unreadSubtitle", { count: unreadCount })
               : t("allRead")}
@@ -193,13 +193,13 @@ export default function ParentNotificationsSection() {
         <SectionSkeleton variant="list" rows={5} />
       ) : filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-ink/60">
             <Inbox className="h-6 w-6" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-ink">
             {filter === "unread" ? t("emptyAllRead") : t("emptyTitle")}
           </h2>
-          <p className="mt-1 max-w-sm text-sm text-gray-500">
+          <p className="mt-1 max-w-sm text-sm text-ink/60">
             {filter === "unread"
               ? t("emptyAllReadHint")
               : t("emptySubtitle")}
@@ -210,7 +210,7 @@ export default function ParentNotificationsSection() {
           {(["today", "yesterday", "thisWeek", "older"] as const).map((key) =>
             grouped[key].length ? (
               <div key={key}>
-                <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/60">
                   {t(`group${key.charAt(0).toUpperCase() + key.slice(1)}`)}
                 </h3>
                 <ul className="space-y-2">
@@ -251,8 +251,8 @@ function FilterPill({
       onClick={onClick}
       className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors ${
         active
-          ? "border-[#2563EB] bg-[#2563EB] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-[#2563EB]/30 hover:text-[#2563EB]"
+          ? "border-brand bg-brand text-white"
+          : "border-black/10 bg-white text-ink/85 hover:border-brand/30 hover:text-brand"
       }`}
     >
       {children}
@@ -262,8 +262,8 @@ function FilterPill({
             active
               ? "bg-white/20 text-white"
               : highlight
-              ? "bg-[#EFF6FF] text-[#2563EB]"
-              : "bg-gray-100 text-gray-600"
+              ? "bg-brand-tint text-brand"
+              : "bg-gray-100 text-ink/80"
           }`}
         >
           {count}
@@ -291,14 +291,14 @@ function NotificationItem({
       className={`group flex items-start gap-3 rounded-xl border p-4 transition-colors ${
         isRead
           ? "border-black/10 bg-white"
-          : "border-[#2563EB]/20 bg-[#EFF6FF]/40"
+          : "border-brand/20 bg-brand-tint/40"
       }`}
     >
       <div
         className={`mt-1 flex h-8 w-8 flex-none items-center justify-center rounded-full ${
           isGlobal
             ? "bg-blue-50 text-blue-600"
-            : "bg-[#EFF6FF] text-[#2563EB]"
+            : "bg-brand-tint text-brand"
         }`}
       >
         {isGlobal ? (
@@ -310,9 +310,9 @@ function NotificationItem({
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           {!isRead && (
-            <span className="h-2 w-2 rounded-full bg-[#2563EB]" />
+            <span className="h-2 w-2 rounded-full bg-brand" />
           )}
-          <p className="truncate text-sm font-semibold text-gray-900">
+          <p className="truncate text-sm font-semibold text-ink">
             {title}
           </p>
           {category && category !== "GENERAL" && (
@@ -328,14 +328,14 @@ function NotificationItem({
           ) : student ? (
             <Badge
               variant="outline"
-              className="border-black/10 text-[10px] text-gray-700"
+              className="border-black/10 text-[10px] text-ink/85"
             >
               {student.firstName} {student.lastName}
             </Badge>
           ) : null}
         </div>
-        <p className="mt-1 text-sm text-gray-700">{message}</p>
-        <p className="mt-1.5 text-xs text-gray-500">
+        <p className="mt-1 text-sm text-ink/85">{message}</p>
+        <p className="mt-1.5 text-xs text-ink/60">
           {new Date(createdAt).toLocaleString()}
         </p>
       </div>
@@ -343,7 +343,7 @@ function NotificationItem({
         <Button
           size="sm"
           variant="ghost"
-          className="cursor-pointer text-[#2563EB] hover:bg-[#EFF6FF] hover:text-[#2563EB]"
+          className="cursor-pointer text-brand hover:bg-brand-tint hover:text-brand"
           onClick={onMarkRead}
         >
           <Bell className="mr-1 h-3.5 w-3.5" />

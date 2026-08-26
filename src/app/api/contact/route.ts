@@ -90,7 +90,7 @@ export async function POST(req: Request) {
       subject: `📥 Nouveau message via formulaire - ${subject || "Sans sujet"}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
+          <h2 style="color: #333; border-bottom: 2px solid #003EA3; padding-bottom: 10px;">
             Nouveau message de contact
           </h2>
           
@@ -102,7 +102,7 @@ export async function POST(req: Request) {
             ${subject ? `<p><strong>Sujet:</strong> ${sanitizeHtml(subject)}</p>` : ""}
           </div>
           
-          <div style="background-color: #fff; padding: 20px; border-left: 4px solid #007bff; margin: 20px 0;">
+          <div style="background-color: #fff; padding: 20px; border-left: 4px solid #003EA3; margin: 20px 0;">
             <h3 style="color: #333; margin-top: 0;">Message:</h3>
             <p style="line-height: 1.6; color: #555;">${sanitizeHtml(message)}</p>
           </div>

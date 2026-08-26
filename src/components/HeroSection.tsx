@@ -16,17 +16,17 @@ export default function HeroSection() {
       <div className="py-24 sm:py-32 lg:pb-40">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto text-center">
-            <h1 className="text-balance text-5xl sm:text-7xl leading-[57px] sm:leading-[83px] font-semibold tracking-tight text-gray-900">
+            <h1 className="text-balance text-5xl sm:text-7xl leading-[57px] sm:leading-[83px] font-semibold tracking-tight text-ink">
               {t("titlePrefix")}{" "}
-              <span className="text-[#2563EB]">
+              <span className="text-brand">
                 {t("titleHighlight")}
               </span>
             </h1>
-            <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+            <p className="mt-8 text-pretty text-lg font-medium text-ink/60 sm:text-xl/8">
               {t("subtitle")}
             </p>
             {/* <div className="mt-6 flex justify-center">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#2563EB]/20 bg-[#EFF6FF] px-3 py-1 text-xs font-medium text-[#1E3A8A]">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/20 bg-brand-tint px-3 py-1 text-xs font-medium text-brand-dark">
                 <Smartphone className="h-3 w-3" />
                 {t("mobileBadge")}
               </span>

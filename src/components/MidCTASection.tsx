@@ -20,27 +20,27 @@ export default function MidCTASection({
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-        <h2 className="text-balance text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
+        <h2 className="text-balance text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
           {t(`${variant}Title`)}
         </h2>
 
         <div className="mt-8 flex flex-col items-center gap-4">
           <Link href="/register/free-trial">
-            <Button className="cursor-pointer h-12 w-full rounded-full bg-[#003EA3] px-8 text-base font-semibold text-white hover:bg-[#002E7A] sm:w-auto">
+            <Button className="cursor-pointer h-12 w-full rounded-full bg-brand px-8 text-base font-semibold text-white hover:bg-brand-dark sm:w-auto">
               {t("button")}
             </Button>
           </Link>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-ink/60">
             {t("reassurance", { days: trialDays })}
           </p>
 
           {showDemo && (
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-ink/60">
               {t("demoText")}{" "}
               <Link
                 href="https://calendly.com/hello1367studio/30min"
                 target="_blank"
-                className="font-medium text-[#003EA3] underline underline-offset-4 hover:text-[#002E7A]"
+                className="font-medium text-brand underline underline-offset-4 hover:text-brand-dark"
               >
                 {t("demoLink")}
               </Link>

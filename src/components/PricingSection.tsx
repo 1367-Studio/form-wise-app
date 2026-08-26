@@ -171,11 +171,11 @@ export default function PricingSection({
     >
       {/* Header */}
       <div ref={titleRef} className="mx-auto max-w-4xl text-center">
-        <h2 className="text-base/7 font-semibold text-[#003EA3]">{t("section")}</h2>
-        <p className="mt-2 text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
+        <h2 className="text-base/7 font-semibold text-brand">{t("section")}</h2>
+        <p className="mt-2 text-balance text-5xl font-semibold tracking-tight text-ink sm:text-6xl">
           {t("title")}
         </p>
-        <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8">
+        <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-ink/80 sm:text-xl/8">
           {t("subtitle")}
         </p>
       </div>
@@ -212,9 +212,9 @@ export default function PricingSection({
       {/* ROI / reassurance block */}
       <div className="mx-auto mt-16 max-w-3xl">
         <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-8">
-          <h3 className="text-lg font-semibold text-gray-900">{t("roi.title")}</h3>
-          <p className="mt-3 text-sm/6 text-gray-600">{t("roi.description")}</p>
-          <p className="mt-4 text-xs text-gray-400">{t("roi.disclaimer")}</p>
+          <h3 className="text-lg font-semibold text-ink">{t("roi.title")}</h3>
+          <p className="mt-3 text-sm/6 text-ink/80">{t("roi.description")}</p>
+          <p className="mt-4 text-xs text-ink/45">{t("roi.disclaimer")}</p>
         </div>
       </div>
     </section>

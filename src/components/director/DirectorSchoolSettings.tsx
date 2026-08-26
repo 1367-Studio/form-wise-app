@@ -9,42 +9,42 @@ export default function DirectorSchoolSettings() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <CalendarCheck className="h-4 w-4" />
             {t("schoolYearActive")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">2025-26</p>
+          <p className="mt-2 text-2xl font-semibold text-ink">2025-26</p>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <CalendarPlus className="h-4 w-4" />
             {t("nextYearPlanned")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">2026-27</p>
+          <p className="mt-2 text-2xl font-semibold text-ink">2026-27</p>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <Settings className="h-4 w-4" />
             {t("settingsModified")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">14</p>
+          <p className="mt-2 text-2xl font-semibold text-ink">14</p>
         </div>
       </div>
 
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-16 text-center">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-tint text-brand">
           <School className="h-6 w-6" />
         </div>
-        <h2 className="text-lg font-semibold text-gray-900">{t("comingSoonTitle")}</h2>
-        <p className="mt-1 max-w-sm text-sm text-gray-500">{t("comingSoonDescription")}</p>
+        <h2 className="text-lg font-semibold text-ink">{t("comingSoonTitle")}</h2>
+        <p className="mt-1 max-w-sm text-sm text-ink/60">{t("comingSoonDescription")}</p>
       </div>
     </div>
   );
