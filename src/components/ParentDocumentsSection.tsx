@@ -107,10 +107,10 @@ export default function ParentDocumentsSection() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl font-semibold text-ink">
             {t("title")}
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-ink/60">
             {t("subtitle", { count: totalDocs })}
           </p>
         </div>
@@ -186,13 +186,13 @@ export default function ParentDocumentsSection() {
         <SectionSkeleton variant="cards" rows={4} />
       ) : students.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-ink/60">
             <FileText className="h-6 w-6" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-ink">
             {t("emptyNoChildrenTitle")}
           </h2>
-          <p className="mt-1 max-w-sm text-sm text-gray-500">
+          <p className="mt-1 max-w-sm text-sm text-ink/60">
             {t("emptyNoChildrenHint")}
           </p>
         </div>
@@ -209,10 +209,10 @@ export default function ParentDocumentsSection() {
                     {(s.firstName[0] ?? "") + (s.lastName[0] ?? "")}
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-gray-900">
+                    <h3 className="text-base font-semibold text-ink">
                       {s.firstName} {s.lastName}
                     </h3>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-ink/60">
                       {t("docsCount", { count: s.documents.length })}
                     </p>
                   </div>
@@ -232,7 +232,7 @@ export default function ParentDocumentsSection() {
               </div>
 
               {s.documents.length === 0 ? (
-                <div className="rounded-lg border border-dashed border-black/10 bg-gray-50 px-4 py-8 text-center text-sm text-gray-500">
+                <div className="rounded-lg border border-dashed border-black/10 bg-gray-50 px-4 py-8 text-center text-sm text-ink/60">
                   {t("noDocs")}
                 </div>
               ) : (
@@ -288,7 +288,7 @@ export default function ParentDocumentsSection() {
                     href={previewDoc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-[#2563EB] underline"
+                    className="inline-flex items-center gap-2 text-sm text-brand underline"
                   >
                     <Download className="h-4 w-4" />
                     {t("download")}
@@ -319,15 +319,15 @@ function FilterPill({
       onClick={onClick}
       className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors ${
         active
-          ? "border-[#2563EB] bg-[#2563EB] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-[#2563EB]/30 hover:text-[#2563EB]"
+          ? "border-brand bg-brand text-white"
+          : "border-black/10 bg-white text-ink/85 hover:border-brand/30 hover:text-brand"
       }`}
     >
       {children}
       {count !== undefined && count > 0 && (
         <span
           className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
-            active ? "bg-white/20 text-white" : "bg-gray-100 text-gray-600"
+            active ? "bg-white/20 text-white" : "bg-gray-100 text-ink/80"
           }`}
         >
           {count}
@@ -349,21 +349,21 @@ function DocCard({
   return (
     <div className="group relative flex flex-col gap-2 rounded-xl border border-black/10 bg-white p-4">
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-[#EFF6FF] text-[#2563EB]">
+        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-brand-tint text-brand">
           {fileIcon(doc.fileType)}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium text-gray-900">
+          <p className="truncate text-sm font-medium text-ink">
             {doc.fileName}
           </p>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
             <Badge
               variant="outline"
-              className="border-black/10 bg-gray-50 text-[10px] text-gray-700"
+              className="border-black/10 bg-gray-50 text-[10px] text-ink/85"
             >
               {shortType(doc.fileType)}
             </Badge>
-            <span className="text-[10px] text-gray-500">
+            <span className="text-[10px] text-ink/60">
               {new Date(doc.createdAt).toLocaleDateString()}
             </span>
           </div>
@@ -384,7 +384,7 @@ function DocCard({
           download={doc.fileName}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-9 items-center justify-center rounded-md border border-black/10 px-3 text-xs text-gray-700 transition-colors hover:bg-gray-50 cursor-pointer"
+          className="inline-flex h-9 items-center justify-center rounded-md border border-black/10 px-3 text-xs text-ink/85 transition-colors hover:bg-gray-50 cursor-pointer"
           aria-label={t("download")}
         >
           <Download className="h-3.5 w-3.5" />

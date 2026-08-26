@@ -66,21 +66,21 @@ export function IOSInstallBanner() {
     <div className="fixed inset-x-0 bottom-0 z-50 px-3 pb-3 pt-2 sm:left-auto sm:right-3 sm:max-w-sm">
       <div className="rounded-2xl border border-black/10 bg-white shadow-lg">
         <div className="flex items-start gap-3 p-4">
-          <div className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-[#EFF6FF] text-[#2563EB]">
+          <div className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-brand-tint text-brand">
             <Plus className="h-5 w-5" />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-gray-900">{t("title")}</p>
-            <p className="mt-0.5 text-xs text-gray-600">{t("subtitle")}</p>
-            <ol className="mt-3 space-y-1.5 text-xs text-gray-700">
+            <p className="text-sm font-semibold text-ink">{t("title")}</p>
+            <p className="mt-0.5 text-xs text-ink/80">{t("subtitle")}</p>
+            <ol className="mt-3 space-y-1.5 text-xs text-ink/85">
               <li className="flex items-center gap-1.5">
-                <span className="font-semibold text-gray-900">1.</span>
+                <span className="font-semibold text-ink">1.</span>
                 <span>{t("step1Before")}</span>
-                <Share className="h-3.5 w-3.5 text-gray-500" />
+                <Share className="h-3.5 w-3.5 text-ink/60" />
                 <span>{t("step1After")}</span>
               </li>
               <li className="flex items-center gap-1.5">
-                <span className="font-semibold text-gray-900">2.</span>
+                <span className="font-semibold text-ink">2.</span>
                 <span>{t("step2")}</span>
               </li>
             </ol>
@@ -88,7 +88,7 @@ export function IOSInstallBanner() {
           <button
             type="button"
             onClick={dismiss}
-            className="flex h-7 w-7 flex-none items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+            className="flex h-7 w-7 flex-none items-center justify-center rounded-md text-ink/45 hover:bg-gray-100 hover:text-ink/85 cursor-pointer"
             aria-label={t("dismiss")}
           >
             <X className="h-4 w-4" />

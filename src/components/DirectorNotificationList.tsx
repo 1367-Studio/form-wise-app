@@ -59,7 +59,7 @@ export default function DirectorNotificationList() {
             >
               <p className="font-semibold">{n.title}</p>
               <p className="text-sm">{n.message}</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-ink/60">
                 {new Date(n.createdAt).toLocaleString()}
               </p>
               <p className="text-xs">
@@ -73,7 +73,7 @@ export default function DirectorNotificationList() {
               </p>
               <div className="text-xs">
                 {n.isGlobal ? (
-                  <span className="text-gray-600">
+                  <span className="text-ink/80">
                     {t("parentsRead", { count: n.readBy.length })}
                   </span>
                 ) : (
@@ -131,7 +131,7 @@ export default function DirectorNotificationList() {
                           : t("unread")}
                       </span>
                     ) : n.isGlobal ? (
-                      <span className="text-xs text-gray-600">
+                      <span className="text-xs text-ink/80">
                         {t("parentsRead", { count: n.readBy.length })}
                       </span>
                     ) : (
@@ -146,7 +146,7 @@ export default function DirectorNotificationList() {
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-2 text-xs text-gray-500">
+                  <td className="px-4 py-2 text-xs text-ink/60">
                     {new Date(n.createdAt).toLocaleString()}
                   </td>
                 </tr>

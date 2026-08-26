@@ -35,7 +35,7 @@ export default function MinimalFooter() {
         </div>
 
         {/* Société */}
-        <span className="text-xs text-gray-400 text-center sm:text-right">
+        <span className="text-xs text-ink/45 text-center sm:text-right">
           &copy; {new Date().getFullYear()} Formwise – 1367 Studio
         </span>
       </div>

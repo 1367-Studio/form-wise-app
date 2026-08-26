@@ -84,7 +84,7 @@ export default function AdminBroadcast() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       <form
@@ -141,7 +141,7 @@ export default function AdminBroadcast() {
           <DialogHeader>
             <DialogTitle>{t("confirmTitle")}</DialogTitle>
           </DialogHeader>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-ink/80">
             {t("confirmBody", {
               count: audience === "all" ? "all users" : "all directors",
             })}

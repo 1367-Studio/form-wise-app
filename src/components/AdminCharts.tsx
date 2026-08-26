@@ -63,7 +63,7 @@ export default function AdminCharts() {
                 <Bar
                   dataKey="monthly"
                   stackId="a"
-                  fill="#2563EB"
+                  fill="var(--brand)"
                   name="Monthly"
                 />
                 <Bar
@@ -86,20 +86,20 @@ export default function AdminCharts() {
           {isLoading ? (
             <div className="h-[250px] animate-pulse rounded bg-gray-100" />
           ) : (
-            <ul className="space-y-3 text-sm text-gray-700">
+            <ul className="space-y-3 text-sm text-ink/85">
               <li className="flex items-center justify-between rounded-lg border border-black/10 bg-amber-50 px-4 py-3">
                 <span className="flex items-center gap-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-amber-500" />
                   {t("freeTrialDistribution", { count: totalTrial })}
                 </span>
-                <span className="font-semibold text-gray-900">{totalTrial}</span>
+                <span className="font-semibold text-ink">{totalTrial}</span>
               </li>
-              <li className="flex items-center justify-between rounded-lg border border-black/10 bg-[#EFF6FF] px-4 py-3">
+              <li className="flex items-center justify-between rounded-lg border border-black/10 bg-brand-tint px-4 py-3">
                 <span className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#2563EB]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-brand" />
                   {t("monthlyDistribution", { count: totalMonthly })}
                 </span>
-                <span className="font-semibold text-gray-900">
+                <span className="font-semibold text-ink">
                   {totalMonthly}
                 </span>
               </li>
@@ -108,7 +108,7 @@ export default function AdminCharts() {
                   <span className="h-2.5 w-2.5 rounded-full bg-black" />
                   {t("annualDistribution", { count: totalAnnual })}
                 </span>
-                <span className="font-semibold text-gray-900">
+                <span className="font-semibold text-ink">
                   {totalAnnual}
                 </span>
               </li>

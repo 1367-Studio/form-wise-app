@@ -45,7 +45,7 @@ export default function FAQSection({ trialDays }: { trialDays: number }) {
             </h2>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
-              <span className="text-sm text-gray-400">{t("supportText")}</span>
+              <span className="text-sm text-white/55">{t("supportText")}</span>
               <Button
                 asChild
                 variant="outline"
@@ -78,9 +78,9 @@ export default function FAQSection({ trialDays }: { trialDays: number }) {
                     <CaretDown
                       aria-hidden="true"
                       weight="bold"
-                      className="mt-0.5 h-5 w-5 shrink-0 text-gray-500 transition-all duration-300 ease-out group-hover:text-gray-300 group-data-[state=open]:rotate-180 group-data-[state=open]:text-white"
+                      className="mt-0.5 h-5 w-5 shrink-0 text-white/40 transition-all duration-300 ease-out group-hover:text-white/70 group-data-[state=open]:rotate-180 group-data-[state=open]:text-white"
                     />
-                    <span className="text-base font-semibold text-gray-400 transition-colors group-hover:text-gray-200 group-data-[state=open]:text-white sm:text-lg">
+                    <span className="text-base font-semibold text-white/55 transition-colors group-hover:text-white/80 group-data-[state=open]:text-white sm:text-lg">
                       {t(`${key}Question`)}
                     </span>
                   </AccordionPrimitive.Trigger>
@@ -88,7 +88,7 @@ export default function FAQSection({ trialDays }: { trialDays: number }) {
 
                 <AccordionPrimitive.Content className="overflow-hidden motion-safe:data-[state=closed]:animate-accordion-up motion-safe:data-[state=open]:animate-accordion-down">
                   <div className="px-4 pb-5 sm:px-5">
-                    <p className="max-w-prose pl-8 text-sm leading-relaxed text-gray-300 motion-safe:animate-in motion-safe:fade-in motion-safe:duration-300 sm:pl-9 sm:text-[0.95rem]">
+                    <p className="max-w-prose pl-8 text-sm leading-relaxed text-white/70 motion-safe:animate-in motion-safe:fade-in motion-safe:duration-300 sm:pl-9 sm:text-[0.95rem]">
                       {t(`${key}Answer`, { days: trialDays })}
                     </p>
                   </div>

@@ -57,7 +57,7 @@ export default function FreeTrialRegisterPage() {
             <Logo />
           </Link>
 
-          <h2 className="mt-8 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-8 text-2xl font-bold tracking-tight text-ink">
             {t("formTitle")}
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">{t("subtitle")}</p>

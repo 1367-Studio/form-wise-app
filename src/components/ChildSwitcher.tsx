@@ -37,7 +37,7 @@ export function ChildSwitcher() {
             <span
               className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-semibold ${
                 selectedChildId === child.id
-                  ? "bg-white text-[#2563EB]"
+                  ? "bg-white text-brand"
                   : "bg-black text-white"
               }`}
             >
@@ -66,8 +66,8 @@ function Pill({
       onClick={onClick}
       className={`flex flex-none items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer ${
         active
-          ? "border-[#2563EB] bg-[#2563EB] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-black/20"
+          ? "border-brand bg-brand text-white"
+          : "border-black/10 bg-white text-ink/85 hover:border-black/20"
       }`}
     >
       {children}

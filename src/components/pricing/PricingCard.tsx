@@ -61,17 +61,17 @@ export default function PricingCard({
       className={cn(
         "relative flex h-full flex-col rounded-2xl bg-white p-8",
         plan.highlighted
-          ? "border-2 border-[#003EA3] shadow-lg shadow-[#003EA3]/5"
+          ? "border-2 border-brand shadow-lg shadow-brand/5"
           : "border border-gray-200"
       )}
     >
       {plan.highlighted && plan.badge && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#003EA3] px-3 py-1 text-xs font-medium text-white">
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand px-3 py-1 text-xs font-medium text-white">
           {plan.badge}
         </span>
       )}
 
-      <h3 className="text-lg font-semibold text-gray-900">{plan.name}</h3>
+      <h3 className="text-lg font-semibold text-ink">{plan.name}</h3>
 
       {/* Price block — min-height reserved so switching period causes no layout shift */}
       <div className="mt-4 min-h-[6.5rem]">
@@ -80,22 +80,22 @@ export default function PricingCard({
           className="animate-in fade-in slide-in-from-bottom-1 duration-300"
         >
           <div className="flex items-baseline gap-x-2">
-            <span className="text-5xl font-bold tracking-tight text-gray-900">
+            <span className="text-5xl font-bold tracking-tight text-ink">
               {mainPrice}
             </span>
             {periodSuffix && (
-              <span className="text-base text-gray-500">{periodSuffix}</span>
+              <span className="text-base text-ink/60">{periodSuffix}</span>
             )}
           </div>
 
           {!isQuote && isAnnual && (
             <div className="mt-2 space-y-1">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-ink/60">
                 {labels.annualEquivalent(
                   formatPrice(plan.annualMonthlyEquivalent ?? 0)
                 )}
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-ink/45">
                 {labels.annualBilled(formatPrice(plan.annualPrice ?? 0))}
               </p>
               <p className="text-xs font-medium text-green-600">
@@ -105,14 +105,14 @@ export default function PricingCard({
           )}
 
           {!isQuote && !isAnnual && (
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-ink/60">
               {labels.monthlyBillingNote}
             </p>
           )}
         </div>
       </div>
 
-      <p className="mt-4 text-sm text-gray-500">{plan.description}</p>
+      <p className="mt-4 text-sm text-ink/60">{plan.description}</p>
 
       <div className="my-6 border-t border-gray-100" />
 
@@ -121,9 +121,9 @@ export default function PricingCard({
           <li key={feature} className="flex items-start gap-x-3">
             <Check
               aria-hidden="true"
-              className="h-5 w-5 flex-none text-[#003EA3]"
+              className="h-5 w-5 flex-none text-brand"
             />
-            <span className="text-gray-700">{feature}</span>
+            <span className="text-ink/85">{feature}</span>
           </li>
         ))}
       </ul>
@@ -136,8 +136,8 @@ export default function PricingCard({
           className={cn(
             "w-full rounded-full",
             plan.highlighted
-              ? "bg-[#003EA3] hover:bg-[#002E7A]"
-              : "border-gray-300 text-gray-700 hover:border-[#003EA3] hover:text-[#003EA3]"
+              ? "bg-brand hover:bg-brand-dark"
+              : "border-gray-300 text-ink/85 hover:border-brand hover:text-brand"
           )}
         >
           {plan.ctaExternal ? (

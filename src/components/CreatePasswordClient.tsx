@@ -57,7 +57,7 @@ export default function CreatePasswordClient() {
             <Logo />
           </Link>
         </div>
-        <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
+        <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-ink">
           {t("title")}
         </h2>
       </div>
@@ -68,7 +68,7 @@ export default function CreatePasswordClient() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-900"
+                className="block text-sm font-medium text-ink"
               >
                 {t("passwordLabel")}
               </label>
@@ -81,12 +81,12 @@ export default function CreatePasswordClient() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-2 pr-10 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-black sm:text-sm"
+                  className="block w-full rounded-md bg-white px-3 py-2 pr-10 text-base text-ink outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-ink/45 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-black sm:text-sm"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800 cursor-pointer"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-ink/60 hover:text-ink/90 cursor-pointer"
                   aria-label={t("togglePasswordVisibility")}
                 >
                   {showPassword ? (
@@ -109,11 +109,11 @@ export default function CreatePasswordClient() {
             </Button>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 text-center text-sm text-ink/60">
             {t("signinPrompt")}{" "}
             <Link
               href="/login"
-              className="font-semibold text-black hover:text-gray-800"
+              className="font-semibold text-black hover:text-ink/90"
             >
               {t("signinLink")}
             </Link>

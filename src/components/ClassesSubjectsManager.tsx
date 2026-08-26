@@ -217,10 +217,10 @@ export default function ClassesSubjectsManager() {
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-50 text-amber-600">
           <GraduationCap className="h-6 w-6" />
         </div>
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-lg font-semibold text-ink">
           {t("emptyTitle")}
         </h2>
-        <p className="mt-1 max-w-sm text-sm text-gray-500">
+        <p className="mt-1 max-w-sm text-sm text-ink/60">
           {t("emptyHint")}
         </p>
       </div>
@@ -230,14 +230,14 @@ export default function ClassesSubjectsManager() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       <div className="space-y-8">
         {sortedYears.map(([year, group]) => (
           <div key={year}>
-            <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+            <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-ink/60">
               <CalendarRange className="h-3.5 w-3.5" />
               {year}
             </h3>
@@ -250,14 +250,14 @@ export default function ClassesSubjectsManager() {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <h3 className="truncate text-base font-semibold text-gray-900">
+                      <h3 className="truncate text-base font-semibold text-ink">
                         {c.name}
                       </h3>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-ink/60">
                         {c.schoolYearName ?? t("noYear")}
                       </p>
                     </div>
-                    <Badge className="bg-[#EFF6FF] text-[#2563EB] hover:bg-[#EFF6FF]">
+                    <Badge className="bg-brand-tint text-brand hover:bg-brand-tint">
                       {fmtMoney(c.monthlyFee)} / {t("perMonth")}
                     </Badge>
                   </div>
@@ -295,7 +295,7 @@ export default function ClassesSubjectsManager() {
           {detailLoading && !detail ? (
             <CenteredSpinner label={t("loading")} />
           ) : !detail ? (
-            <p className="text-sm text-gray-500">{t("noDetail")}</p>
+            <p className="text-sm text-ink/60">{t("noDetail")}</p>
           ) : (
             <>
               <SheetHeader className="px-0 pt-0">
@@ -325,7 +325,7 @@ export default function ClassesSubjectsManager() {
 
               {/* Add subject */}
               <div className="mt-6 rounded-xl border border-black/10 bg-gray-50 p-4">
-                <Label className="text-xs font-medium uppercase tracking-wide text-gray-500">
+                <Label className="text-xs font-medium uppercase tracking-wide text-ink/60">
                   {t("addSubjectLabel")}
                 </Label>
                 <div className="mt-2 flex gap-2">
@@ -356,11 +356,11 @@ export default function ClassesSubjectsManager() {
 
               {/* Subjects list */}
               <div className="mt-6">
-                <h3 className="mb-2 text-sm font-semibold text-gray-900">
+                <h3 className="mb-2 text-sm font-semibold text-ink">
                   {t("subjectsTitle")}
                 </h3>
                 {detail.subjects.length === 0 ? (
-                  <p className="rounded-lg border border-dashed border-black/10 bg-white px-4 py-6 text-center text-sm text-gray-500">
+                  <p className="rounded-lg border border-dashed border-black/10 bg-white px-4 py-6 text-center text-sm text-ink/60">
                     {t("noSubjects")}
                   </p>
                 ) : (
@@ -404,7 +404,7 @@ export default function ClassesSubjectsManager() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="cursor-pointer text-gray-500"
+                              className="cursor-pointer text-ink/60"
                               onClick={() => {
                                 setEditingSubject(null);
                                 setEditingName("");
@@ -416,11 +416,11 @@ export default function ClassesSubjectsManager() {
                         ) : (
                           <>
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-sm font-medium text-gray-900">
+                              <p className="truncate text-sm font-medium text-ink">
                                 {s.name}
                               </p>
                               {s.teachers.length > 0 && (
-                                <p className="truncate text-xs text-gray-500">
+                                <p className="truncate text-xs text-ink/60">
                                   {s.teachers
                                     .map((tch) => tch.name)
                                     .filter(Boolean)
@@ -428,7 +428,7 @@ export default function ClassesSubjectsManager() {
                                 </p>
                               )}
                               {s.teachers.length === 0 && (
-                                <p className="text-xs italic text-gray-400">
+                                <p className="text-xs italic text-ink/45">
                                   {t("noTeacher")}
                                 </p>
                               )}
@@ -436,7 +436,7 @@ export default function ClassesSubjectsManager() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="cursor-pointer text-gray-500"
+                              className="cursor-pointer text-ink/60"
                               onClick={() => {
                                 setEditingSubject(s);
                                 setEditingName(s.name);
@@ -448,7 +448,7 @@ export default function ClassesSubjectsManager() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="cursor-pointer text-gray-500 hover:bg-red-50 hover:text-red-600"
+                              className="cursor-pointer text-ink/60 hover:bg-red-50 hover:text-red-600"
                               onClick={() => setDeletingSubject(s)}
                               aria-label={t("delete")}
                             >
@@ -514,11 +514,11 @@ function Stat({
 }) {
   return (
     <div className="rounded-lg border border-black/5 bg-gray-50 p-2 text-center">
-      <div className="flex items-center justify-center gap-1 text-gray-500">
+      <div className="flex items-center justify-center gap-1 text-ink/60">
         {icon}
         <span className="text-[10px] uppercase tracking-wide">{label}</span>
       </div>
-      <p className="mt-0.5 text-sm font-semibold text-gray-900">{value}</p>
+      <p className="mt-0.5 text-sm font-semibold text-ink">{value}</p>
     </div>
   );
 }

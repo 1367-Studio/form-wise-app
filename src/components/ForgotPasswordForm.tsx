@@ -46,7 +46,7 @@ export default function ForgotPasswordForm() {
       footer={
         <Link
           href="/login"
-          className="inline-flex items-center gap-1.5 font-medium text-gray-700 hover:text-[#2563EB] hover:underline"
+          className="inline-flex items-center gap-1.5 font-medium text-ink/85 hover:text-brand hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           {tLogin("signInButton")}
@@ -55,11 +55,11 @@ export default function ForgotPasswordForm() {
     >
       {submitted ? (
         <div className="flex flex-col items-center text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
+          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand-tint text-brand">
             <Mail className="h-7 w-7" />
           </div>
-          <p className="text-sm text-gray-700">{t("successMessage")}</p>
-          <p className="mt-1 text-xs text-gray-500 break-all">{email}</p>
+          <p className="text-sm text-ink/85">{t("successMessage")}</p>
+          <p className="mt-1 text-xs text-ink/60 break-all">{email}</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5" noValidate>
@@ -68,7 +68,7 @@ export default function ForgotPasswordForm() {
             <div className="relative">
               <Mail
                 aria-hidden
-                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/45"
               />
               <Input
                 id="email"
@@ -88,7 +88,7 @@ export default function ForgotPasswordForm() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] cursor-pointer h-11 text-base font-semibold"
+            className="w-full bg-brand text-white hover:bg-brand-dark cursor-pointer h-11 text-base font-semibold"
           >
             {loading ? (
               <>

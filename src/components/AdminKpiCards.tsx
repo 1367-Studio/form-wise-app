@@ -119,7 +119,7 @@ export default function AdminKpiCards() {
       <KpiCard
         label={t("mrr")}
         value={data.revenue.mrr}
-        icon={<Euro className="h-5 w-5 text-[#2563EB]" />}
+        icon={<Euro className="h-5 w-5 text-brand" />}
         sub={t("mrrSub", {
           monthly: data.revenue.activeMonthly,
           yearly: data.revenue.activeYearly,
@@ -143,7 +143,7 @@ export default function AdminKpiCards() {
           <span
             className={
               delta === null
-                ? "text-gray-500"
+                ? "text-ink/60"
                 : delta >= 0
                   ? "text-green-600"
                   : "text-red-600"
@@ -180,15 +180,15 @@ function KpiCard({
       className={`rounded-xl border border-black/10 bg-white p-5 shadow-sm ${className}`}
     >
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium uppercase tracking-[0.12em] text-gray-500">
+        <span className="text-xs font-medium uppercase tracking-[0.12em] text-ink/60">
           {label}
         </span>
-        <span className="text-gray-600">{icon}</span>
+        <span className="text-ink/80">{icon}</span>
       </div>
-      <div className="mt-3 text-3xl font-semibold tracking-tight text-gray-900">
+      <div className="mt-3 text-3xl font-semibold tracking-tight text-ink">
         {display}
       </div>
-      {sub && <div className="mt-2 text-xs text-gray-500">{sub}</div>}
+      {sub && <div className="mt-2 text-xs text-ink/60">{sub}</div>}
     </div>
   );
 }

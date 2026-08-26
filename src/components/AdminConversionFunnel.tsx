@@ -41,22 +41,22 @@ export default function AdminConversionFunnel() {
     },
   ];
 
-  const colors = ["bg-gray-900", "bg-amber-500", "bg-[#2563EB]", "bg-red-500"];
+  const colors = ["bg-gray-900", "bg-amber-500", "bg-brand", "bg-red-500"];
 
   return (
     <div className="rounded-xl border border-black/10 bg-white p-6">
-      <div className="mb-1 text-base font-semibold text-gray-900">
+      <div className="mb-1 text-base font-semibold text-ink">
         {t("title")}
       </div>
-      <p className="mb-6 text-sm text-gray-500">{t("subtitle")}</p>
+      <p className="mb-6 text-sm text-ink/60">{t("subtitle")}</p>
 
       <ul className="space-y-3">
         {stages.map((stage, i) => (
           <li key={stage.label}>
             <div className="mb-1 flex items-center justify-between text-sm">
-              <span className="text-gray-700">{stage.label}</span>
-              <span className="font-semibold text-gray-900">
-                {stage.value} <span className="text-xs text-gray-400">({stage.percent}%)</span>
+              <span className="text-ink/85">{stage.label}</span>
+              <span className="font-semibold text-ink">
+                {stage.value} <span className="text-xs text-ink/45">({stage.percent}%)</span>
               </span>
             </div>
             <div className="h-2 w-full rounded-full bg-gray-100 overflow-hidden">
@@ -71,15 +71,15 @@ export default function AdminConversionFunnel() {
 
       <div className="mt-6 grid grid-cols-2 gap-4 border-t border-black/10 pt-4">
         <div>
-          <div className="text-xs uppercase tracking-[0.12em] text-gray-500">
+          <div className="text-xs uppercase tracking-[0.12em] text-ink/60">
             {t("rateTrialToPaid")}
           </div>
-          <div className="mt-1 text-2xl font-semibold text-[#2563EB]">
+          <div className="mt-1 text-2xl font-semibold text-brand">
             {trialToPaid}%
           </div>
         </div>
         <div>
-          <div className="text-xs uppercase tracking-[0.12em] text-gray-500">
+          <div className="text-xs uppercase tracking-[0.12em] text-ink/60">
             {t("rateChurn")}
           </div>
           <div className="mt-1 text-2xl font-semibold text-red-600">

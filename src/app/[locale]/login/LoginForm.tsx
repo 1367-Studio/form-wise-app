@@ -111,7 +111,7 @@ export default function LoginForm() {
           {t("signupPrompt")}{" "}
           <Link
             href="/register"
-            className="font-semibold text-[#2563EB] hover:underline"
+            className="font-semibold text-brand hover:underline"
           >
             {t("signupLink")}
           </Link>
@@ -124,7 +124,7 @@ export default function LoginForm() {
           <div className="relative">
             <Mail
               aria-hidden
-              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/45"
             />
             <Input
               id="email"
@@ -178,13 +178,13 @@ export default function LoginForm() {
               onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
               disabled={loading}
             />
-            <Label htmlFor="remember" className="cursor-pointer text-sm font-normal text-gray-700">
+            <Label htmlFor="remember" className="cursor-pointer text-sm font-normal text-ink/85">
               {t("rememberMe")}
             </Label>
           </div>
           <Link
             href="/forgot-password"
-            className="text-sm font-medium text-gray-600 hover:text-[#2563EB] hover:underline"
+            className="text-sm font-medium text-ink/80 hover:text-brand hover:underline"
           >
             {t("forgotPassword")}
           </Link>
@@ -199,7 +199,7 @@ export default function LoginForm() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] cursor-pointer h-11 text-base font-semibold"
+          className="w-full bg-brand text-white hover:bg-brand-dark cursor-pointer h-11 text-base font-semibold"
         >
           {loading ? (
             <>

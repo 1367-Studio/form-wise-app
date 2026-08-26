@@ -336,8 +336,8 @@ export default function TeacherEvaluations() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
         </div>
         <Button onClick={() => setCreateOpen(true)}>
           <Plus className="mr-1 h-4 w-4" />
@@ -348,25 +348,25 @@ export default function TeacherEvaluations() {
       {/* KPI cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <ListChecks className="h-4 w-4" />
             {t("evaluationsPlanned")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">{totalEvals}</p>
+          <p className="mt-2 text-2xl font-semibold text-ink">{totalEvals}</p>
         </div>
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <CheckCircle className="h-4 w-4" />
             {t("completed")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">{gradedEvals}</p>
+          <p className="mt-2 text-2xl font-semibold text-ink">{gradedEvals}</p>
         </div>
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <BarChart3 className="h-4 w-4" />
             {t("averageScore")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {overallAvg != null && !isNaN(overallAvg)
               ? `${overallAvg.toFixed(1)}/20`
               : "--/20"}
@@ -377,17 +377,17 @@ export default function TeacherEvaluations() {
       {/* Evaluations table */}
       {evaluations.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-16 text-center">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-tint text-brand">
             <ClipboardList className="h-6 w-6" />
           </div>
-          <p className="text-sm text-gray-500">{t("noEvaluations")}</p>
+          <p className="text-sm text-ink/60">{t("noEvaluations")}</p>
         </div>
       ) : (
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-100 bg-gray-50/50 text-left text-xs font-medium uppercase tracking-wide text-gray-500">
+                <tr className="border-b border-gray-100 bg-gray-50/50 text-left text-xs font-medium uppercase tracking-wide text-ink/60">
                   <th className="px-4 py-3">{t("titleLabel")}</th>
                   <th className="px-4 py-3">{t("dateLabel")}</th>
                   <th className="px-4 py-3">{t("typeLabel")}</th>
@@ -401,23 +401,23 @@ export default function TeacherEvaluations() {
               <tbody className="divide-y divide-gray-100">
                 {evaluations.map((ev) => (
                   <tr key={ev.id} className="hover:bg-gray-50/50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-gray-900">
+                    <td className="px-4 py-3 font-medium text-ink">
                       {ev.title}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">
                       {formatDate(ev.date)}
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${TYPE_BADGE[ev.type] ?? "bg-gray-100 text-gray-700"}`}
+                        className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${TYPE_BADGE[ev.type] ?? "bg-gray-100 text-ink/85"}`}
                       >
                         {typeLabel(ev.type)}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{ev.className}</td>
-                    <td className="px-4 py-3 text-gray-600">{ev.subjectName}</td>
-                    <td className="px-4 py-3 text-gray-600">{ev.gradedCount}</td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">{ev.className}</td>
+                    <td className="px-4 py-3 text-ink/80">{ev.subjectName}</td>
+                    <td className="px-4 py-3 text-ink/80">{ev.gradedCount}</td>
+                    <td className="px-4 py-3 text-ink/80">
                       {ev.average != null ? `${ev.average.toFixed(1)}/20` : "--"}
                     </td>
                     <td className="px-4 py-3">
@@ -476,7 +476,7 @@ export default function TeacherEvaluations() {
             <div className="mt-4 overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100 text-left text-xs font-medium uppercase tracking-wide text-gray-500">
+                  <tr className="border-b border-gray-100 text-left text-xs font-medium uppercase tracking-wide text-ink/60">
                     <th className="px-2 py-2">{t("student")}</th>
                     <th className="px-2 py-2">{t("score")}</th>
                     <th className="px-2 py-2">{t("absent")}</th>
@@ -486,7 +486,7 @@ export default function TeacherEvaluations() {
                 <tbody className="divide-y divide-gray-50">
                   {gradeRows.map((row, idx) => (
                     <tr key={row.studentId}>
-                      <td className="px-2 py-2 text-gray-900 whitespace-nowrap">
+                      <td className="px-2 py-2 text-ink whitespace-nowrap">
                         {row.lastName} {row.firstName}
                       </td>
                       <td className="px-2 py-2">

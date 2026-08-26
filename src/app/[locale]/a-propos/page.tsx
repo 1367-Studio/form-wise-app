@@ -58,7 +58,7 @@ function AboutContent() {
       <h2 className="font-semibold text-xl mt-8 mb-2">{t("securityTitle")}</h2>
       <p className="mb-4">{t("securityBody")}</p>
 
-      <p className="text-sm text-gray-500 mt-12">
+      <p className="text-sm text-ink/60 mt-12">
         {t.rich("contactNote", richTags)}
       </p>
     </main>

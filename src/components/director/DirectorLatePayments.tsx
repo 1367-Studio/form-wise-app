@@ -70,8 +70,8 @@ export default function DirectorLatePayments() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
         </div>
         <SectionSkeleton variant="stats" rows={4} />
         <SectionSkeleton variant="table" rows={5} />
@@ -90,8 +90,8 @@ export default function DirectorLatePayments() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
       </div>
 
       {/* KPI Cards -- warning-toned */}
@@ -145,18 +145,18 @@ export default function DirectorLatePayments() {
       {/* Overdue Invoices Table */}
       <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
         <div className="px-4 py-3 border-b border-gray-100">
-          <h3 className="text-sm font-semibold text-gray-900">{t("overdueDetails")}</h3>
+          <h3 className="text-sm font-semibold text-ink">{t("overdueDetails")}</h3>
         </div>
         {!data || data.invoices.length === 0 ? (
           <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
               <AlertCircle className="h-5 w-5" />
             </div>
-            <p className="text-sm text-gray-500">{t("noOverdue")}</p>
+            <p className="text-sm text-ink/60">{t("noOverdue")}</p>
           </div>
         ) : (
           <table className="min-w-full text-sm">
-            <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+            <thead className="bg-gray-50 text-xs uppercase tracking-wide text-ink/60">
               <tr>
                 <th className="px-4 py-3 text-left">{t("family")}</th>
                 <th className="px-4 py-3 text-left">{t("amount")}</th>
@@ -169,10 +169,10 @@ export default function DirectorLatePayments() {
                 const days = daysBetween(inv.dueDate);
                 return (
                   <tr key={inv.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-gray-900">
+                    <td className="px-4 py-3 font-medium text-ink">
                       {inv.student.parent.firstName} {inv.student.parent.lastName}
                     </td>
-                    <td className="px-4 py-3 text-gray-900">
+                    <td className="px-4 py-3 text-ink">
                       {eur.format(inv.amount / 100)}
                     </td>
                     <td className="px-4 py-3">
@@ -184,7 +184,7 @@ export default function DirectorLatePayments() {
                         {days} {t("days")}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">
                       {new Date(inv.dueDate).toLocaleDateString("fr-FR")}
                     </td>
                   </tr>

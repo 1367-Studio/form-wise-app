@@ -172,13 +172,13 @@ export default function ParentAttendanceSection() {
   if (data.students.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-ink/60">
           <Inbox className="h-6 w-6" />
         </div>
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-lg font-semibold text-ink">
           {t("noChildrenTitle")}
         </h2>
-        <p className="mt-1 max-w-sm text-sm text-gray-500">
+        <p className="mt-1 max-w-sm text-sm text-ink/60">
           {t("noChildrenHint")}
         </p>
       </div>
@@ -188,8 +188,8 @@ export default function ParentAttendanceSection() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       {/* Per-child summary cards */}
@@ -216,18 +216,18 @@ export default function ParentAttendanceSection() {
                   {(s.firstName[0] ?? "") + (s.lastName[0] ?? "")}
                 </div>
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-gray-900">
+                  <p className="truncate text-sm font-semibold text-ink">
                     {s.firstName} {s.lastName}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-ink/60">
                     {s.className ?? t("noClass")}
                   </p>
                 </div>
                 <div className="ml-auto text-right">
-                  <p className="text-2xl font-semibold text-gray-900">
+                  <p className="text-2xl font-semibold text-ink">
                     {presenceRate}%
                   </p>
-                  <p className="text-[10px] uppercase tracking-wide text-gray-500">
+                  <p className="text-[10px] uppercase tracking-wide text-ink/60">
                     {t("presenceRate")}
                   </p>
                 </div>
@@ -274,13 +274,13 @@ export default function ParentAttendanceSection() {
       {/* Recent history */}
       <div className="rounded-2xl border border-black/10 bg-white">
         <div className="flex items-center gap-2 border-b border-black/5 p-4">
-          <CalendarRange className="h-4 w-4 text-gray-500" />
-          <h2 className="text-sm font-semibold text-gray-900">
+          <CalendarRange className="h-4 w-4 text-ink/60" />
+          <h2 className="text-sm font-semibold text-ink">
             {t("historyTitle")}
           </h2>
         </div>
         {filtered.length === 0 ? (
-          <div className="px-6 py-12 text-center text-sm text-gray-500">
+          <div className="px-6 py-12 text-center text-sm text-ink/60">
             {t("historyEmpty")}
           </div>
         ) : (
@@ -311,12 +311,12 @@ export default function ParentAttendanceSection() {
                       | "statusExcused")}
                   </Badge>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm text-gray-900">
+                    <p className="text-sm text-ink">
                       {student
                         ? `${student.firstName} ${student.lastName}`
                         : "—"}
                     </p>
-                    <p className="text-xs text-gray-500">{dateLabel}</p>
+                    <p className="text-xs text-ink/60">{dateLabel}</p>
                     {e.justificationNotes && (
                       <p className="mt-1 inline-flex items-center gap-1 text-xs text-blue-700">
                         <FileText className="h-3 w-3" />
@@ -417,8 +417,8 @@ function FilterPill({
       onClick={onClick}
       className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors ${
         active
-          ? "border-[#2563EB] bg-[#2563EB] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-[#2563EB]/30 hover:text-[#2563EB]"
+          ? "border-brand bg-brand text-white"
+          : "border-black/10 bg-white text-ink/85 hover:border-brand/30 hover:text-brand"
       }`}
     >
       {children}

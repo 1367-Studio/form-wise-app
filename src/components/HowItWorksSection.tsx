@@ -17,13 +17,13 @@ export default function HowItWorksSection() {
     <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[#003EA3]">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-brand">
             {t("section")}
           </h2>
-          <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+          <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
             {t("title")}
           </p>
-          <p className="mt-6 text-lg text-gray-600">{t("subtitle")}</p>
+          <p className="mt-6 text-lg text-ink/80">{t("subtitle")}</p>
         </div>
 
         <div className="mx-auto mt-16 max-w-5xl sm:mt-20">
@@ -37,15 +37,15 @@ export default function HowItWorksSection() {
                   />
                 )}
 
-                <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-lg font-bold text-[#003EA3]">
+                <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-brand-tint text-lg font-bold text-brand">
                   {step.number}
                 </div>
 
                 <div className="mt-6 max-w-xs">
-                  <h3 className="text-base font-semibold text-gray-900">
+                  <h3 className="text-base font-semibold text-ink">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm text-gray-600">
+                  <p className="mt-2 text-sm text-ink/80">
                     {step.description}
                   </p>
                 </div>

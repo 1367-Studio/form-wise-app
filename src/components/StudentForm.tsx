@@ -143,7 +143,7 @@ export default function StudentForm({
   };
 
   const requiredHint = (
-    <span className="text-gray-400 text-xs italic">{t("requiredHint")}</span>
+    <span className="text-ink/45 text-xs italic">{t("requiredHint")}</span>
   );
 
   return (

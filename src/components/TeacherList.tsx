@@ -160,7 +160,7 @@ export default function TeacherList({
           <div className="overflow-x-auto rounded-md border shadow-sm">
             <table className="min-w-full text-sm">
               <thead className="bg-gray-50 dark:bg-zinc-800">
-                <tr className="text-left text-gray-500 dark:text-gray-300 uppercase text-xs">
+                <tr className="text-left text-ink/60 dark:text-gray-300 uppercase text-xs">
                   <th className="px-4 py-3">{t("headerTeacher")}</th>
                   <th className="px-4 py-3">{t("headerSubject")}</th>
                   <th className="px-4 py-3">{t("headerClass")}</th>
@@ -176,10 +176,10 @@ export default function TeacherList({
                     <td className="px-4 py-3 font-medium text-black dark:text-white">
                       {teacher.user?.firstName} {teacher.user?.lastName}
                     </td>
-                    <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                    <td className="px-4 py-3 text-ink/80 dark:text-gray-300">
                       {teacher.subject?.name || t("noValue")}
                     </td>
-                    <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                    <td className="px-4 py-3 text-ink/80 dark:text-gray-300">
                       {teacher.class?.name || t("noValue")}
                     </td>
                     <td className="px-4 py-3 text-right space-x-2">

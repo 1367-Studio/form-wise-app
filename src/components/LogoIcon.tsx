@@ -16,7 +16,7 @@ export default function LogoIcon({
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       focusable="false"
-      className={cn("text-[#003EA3]", className)}
+      className={cn("text-brand", className)}
       {...props}
     >
       <path

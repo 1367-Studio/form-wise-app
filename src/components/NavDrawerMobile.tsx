@@ -51,7 +51,7 @@ export default function NavDrawerMobile({ open, onClose }: Props) {
 
         <div className="flex flex-col gap-3 pb-4">
           <Link href="/register/free-trial" onClick={close}>
-            <Button className="w-full cursor-pointer rounded-full bg-[#003EA3] hover:bg-[#002E7A] text-white">
+            <Button className="w-full cursor-pointer rounded-full bg-brand hover:bg-brand-dark text-white">
               {t("signUp")}
             </Button>
           </Link>

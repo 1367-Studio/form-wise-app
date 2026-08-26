@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import LogoIcon from "./LogoIcon";
 import { useTranslations } from "next-intl";
 import {
@@ -28,46 +29,76 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
       aria-label={t("introAriaLabel")}
       className="relative w-full bg-white flex flex-col items-center justify-start pt-28 px-4 pb-6 overflow-hidden"
     >
-      {/* Background — a single brand mark bleeding off the top-right corner,
-          rotated and very faint. It's a subtle reminder of the brand, not
-          something meant to be read as a logo. */}
+      {/* Background artwork, blurred to a wash of colour. Only a rim of it is
+          ever visible — the white panel below covers the rest — so it reads as
+          a coloured border on the page rather than as a picture. */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
       >
-        <LogoIcon className="absolute -right-32 -top-28 h-[32rem] w-[32rem] rotate-[18deg] text-[#003EA3] opacity-[0.03] sm:-right-44 sm:-top-40 sm:h-[48rem] sm:w-[48rem] lg:-right-56 lg:-top-52 lg:h-[64rem] lg:w-[64rem]" />
+        <Image
+          src="/hero-image.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          // scale-110 pushes the blur's soft edge outside the section; without
+          // it the blur feathers inward and the rim fades out at the corners.
+          className="scale-110 object-cover object-top blur-3xl"
+        />
+        {/* The artwork's lower half is cream stone and green trees. This keeps
+            the rim reading as brand blue all the way round. */}
+        <div className="absolute inset-0 bg-brand/40" />
+      </div>
+
+      {/* White page surface, inset so the blurred artwork shows as a border.
+          Open at the bottom so the white flows into the sections below instead
+          of drawing a stray blue line across the middle of the page. */}
+      <div
+        className="pointer-events-none absolute inset-x-1.5 bottom-0 top-1.5 z-10 rounded-t-md bg-white sm:inset-x-2 sm:top-2"
+        aria-hidden="true"
+      />
+
+      {/* A single brand mark bleeding off the top-right corner, rotated and very
+          faint. It's a subtle reminder of the brand, not something meant to be
+          read as a logo. */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
+        aria-hidden="true"
+      >
+        <LogoIcon className="absolute -right-32 -top-28 h-[32rem] w-[32rem] rotate-[18deg] text-brand opacity-[0.03] sm:-right-44 sm:-top-40 sm:h-[48rem] sm:w-[48rem] lg:-right-56 lg:-top-52 lg:h-[64rem] lg:w-[64rem]" />
       </div>
 
       {/* Text content */}
       <div className="relative z-20 text-center max-w-5xl w-full mb-10">
         {/* Badge */}
-        <div className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-4 py-1.5 text-sm text-[#1a1a1a]">
+        <div className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-4 py-1.5 text-sm text-ink">
           {t("badge")}
         </div>
 
-        <h1 className="text-4xl md:text-6xl font-bold leading-[1.05] tracking-tight text-[#1a1a1a]">
+        <h1 className="text-4xl md:text-6xl font-bold leading-[1.05] tracking-tight text-ink">
           {t("title")}
         </h1>
-        <p className="mt-6 max-w-xl mx-auto text-base leading-relaxed text-[#1a1a1a]">
+        <p className="mt-6 max-w-xl mx-auto text-base leading-relaxed text-ink">
           {t("subtitle")}
         </p>
 
         {/* Single primary CTA */}
         <div className="mt-8 flex flex-col items-center justify-center gap-4">
           <Link href="/register/free-trial">
-            <Button className="cursor-pointer h-12 w-full rounded-full bg-[#003EA3] px-8 text-base font-semibold text-white hover:bg-[#002E7A] sm:w-auto">
+            <Button className="cursor-pointer h-12 w-full rounded-full bg-brand px-8 text-base font-semibold text-white hover:bg-brand-dark sm:w-auto">
               {t("ctaTrial")}
             </Button>
           </Link>
 
           {/* Trust line */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[#1a1a1a]">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink">
             <span className="inline-flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-[#003EA3]" />
+              <CheckCircle className="h-4 w-4 text-brand" />
               {t("reassurance1", { days: trialDays })}
             </span>
             <span className="inline-flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-[#003EA3]" />
+              <CheckCircle className="h-4 w-4 text-brand" />
               {t("reassurance2")}
             </span>
           </div>
@@ -78,9 +109,9 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
           {features.map(({ label, icon: Icon }) => (
             <span
               key={label}
-              className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-4 py-2 text-sm text-[#1a1a1a]"
+              className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-4 py-2 text-sm text-ink"
             >
-              <Icon className="h-4 w-4 text-[#1a1a1a]" />
+              <Icon className="h-4 w-4 text-ink" />
               {label}
             </span>
           ))}
@@ -97,7 +128,7 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
               <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
               <div className="w-3 h-3 rounded-full bg-green-500/60" />
               <div className="flex-1 mx-4 bg-black/5 rounded-md h-5 flex items-center px-3">
-                <span className="text-xs text-[#1a1a1a]/40 truncate">
+                <span className="text-xs text-ink/40 truncate">
                   app.formwise.io
                 </span>
               </div>

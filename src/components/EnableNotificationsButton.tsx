@@ -111,7 +111,7 @@ export function EnableNotificationsButton() {
 
   if (state === "unsupported") {
     return (
-      <p className="text-xs text-gray-500 italic">{t("unsupported")}</p>
+      <p className="text-xs text-ink/60 italic">{t("unsupported")}</p>
     );
   }
 

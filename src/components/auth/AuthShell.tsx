@@ -22,7 +22,7 @@ export default function AuthShell({
   footer,
 }: AuthShellProps) {
   return (
-    <div className="relative min-h-svh w-full overflow-hidden bg-[#F8FAFC]">
+    <div className="relative min-h-svh w-full overflow-hidden bg-off-white">
       <div className="grid min-h-svh lg:grid-cols-2">
         {/* Left: form column */}
         <div className="flex flex-col px-4 py-8 sm:px-8 sm:py-12 lg:px-12 lg:py-16">
@@ -34,15 +34,15 @@ export default function AuthShell({
 
           <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-10">
             {eyebrow && (
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#2563EB]">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
                 {eyebrow}
               </p>
             )}
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-3 text-sm text-gray-600">{subtitle}</p>
+              <p className="mt-3 text-sm text-ink/80">{subtitle}</p>
             )}
 
             <div className="mt-8 rounded-2xl border border-black/5 bg-white p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_32px_-12px_rgba(15,23,42,0.08)] sm:p-8">
@@ -50,7 +50,7 @@ export default function AuthShell({
             </div>
 
             {footer && (
-              <div className="mt-6 text-center text-sm text-gray-600">
+              <div className="mt-6 text-center text-sm text-ink/80">
                 {footer}
               </div>
             )}

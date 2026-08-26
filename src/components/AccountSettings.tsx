@@ -91,8 +91,8 @@ export default function AccountSettings() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 border-b-2 px-1 py-3 text-sm font-medium transition-colors cursor-pointer ${
                 activeTab === tab.id
-                  ? "border-[#2563EB] text-[#2563EB]"
-                  : "border-transparent text-gray-500 hover:text-gray-900"
+                  ? "border-brand text-brand"
+                  : "border-transparent text-ink/60 hover:text-ink"
               }`}
             >
               {tab.icon}
@@ -192,15 +192,15 @@ function ProfileTab({
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h3 className="truncate text-lg font-semibold text-gray-900">
+              <h3 className="truncate text-lg font-semibold text-ink">
                 {user.firstName} {user.lastName}
               </h3>
-              <Badge className="bg-[#EFF6FF] text-[#2563EB] hover:bg-[#EFF6FF]">
+              <Badge className="bg-brand-tint text-brand hover:bg-brand-tint">
                 {t(roleKey)}
               </Badge>
             </div>
-            <p className="text-sm text-gray-500">{user.email}</p>
-            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-600">
+            <p className="text-sm text-ink/60">{user.email}</p>
+            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-ink/80">
               {memberSince && (
                 <span className="flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" />
@@ -220,10 +220,10 @@ function ProfileTab({
 
       {/* Editable form */}
       <div className="rounded-xl border border-black/10 bg-white p-6">
-        <h3 className="text-base font-semibold text-gray-900">
+        <h3 className="text-base font-semibold text-ink">
           {t("profileTitle")}
         </h3>
-        <p className="text-sm text-gray-500">{t("profileSubtitle")}</p>
+        <p className="text-sm text-ink/60">{t("profileSubtitle")}</p>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
@@ -342,10 +342,10 @@ function SecurityTab() {
         onSubmit={handleSubmit}
         className="rounded-xl border border-black/10 bg-white p-6"
       >
-        <h3 className="text-base font-semibold text-gray-900">
+        <h3 className="text-base font-semibold text-ink">
           {t("securityTitle")}
         </h3>
-        <p className="text-sm text-gray-500">{t("securitySubtitle")}</p>
+        <p className="text-sm text-ink/60">{t("securitySubtitle")}</p>
 
         <div className="mt-6 grid gap-4 max-w-md">
           <div className="space-y-2">
@@ -387,10 +387,10 @@ function SecurityTab() {
       </form>
 
       <div className="rounded-xl border border-black/10 bg-white p-6">
-        <h3 className="text-base font-semibold text-gray-900">
+        <h3 className="text-base font-semibold text-ink">
           {t("signOutAllTitle")}
         </h3>
-        <p className="text-sm text-gray-500">{t("signOutAllSubtitle")}</p>
+        <p className="text-sm text-ink/60">{t("signOutAllSubtitle")}</p>
         <div className="mt-6">
           <Button
             type="button"
@@ -436,10 +436,10 @@ function PreferencesTab() {
   return (
     <div className="space-y-6">
       <div className="rounded-xl border border-black/10 bg-white p-6">
-        <h3 className="text-base font-semibold text-gray-900">
+        <h3 className="text-base font-semibold text-ink">
           {t("preferencesTitle")}
         </h3>
-        <p className="text-sm text-gray-500">{t("preferencesSubtitle")}</p>
+        <p className="text-sm text-ink/60">{t("preferencesSubtitle")}</p>
         <div className="mt-6 flex items-center justify-between max-w-md">
           <Label>{t("languageLabel")}</Label>
           <LanguageSwitcher />
@@ -447,10 +447,10 @@ function PreferencesTab() {
       </div>
 
       <div className="rounded-xl border border-black/10 bg-white p-6">
-        <h3 className="text-base font-semibold text-gray-900">
+        <h3 className="text-base font-semibold text-ink">
           {t("notificationsTitle")}
         </h3>
-        <p className="text-sm text-gray-500">{t("notificationsSubtitle")}</p>
+        <p className="text-sm text-ink/60">{t("notificationsSubtitle")}</p>
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3 max-w-md">
           <Label>{t("notificationsLabel")}</Label>
           <EnableNotificationsButton />
@@ -458,10 +458,10 @@ function PreferencesTab() {
       </div>
 
       <div className="rounded-xl border border-black/10 bg-white p-6">
-        <h3 className="text-base font-semibold text-gray-900">
+        <h3 className="text-base font-semibold text-ink">
           {tGdpr("title")}
         </h3>
-        <p className="text-sm text-gray-500">{tGdpr("subtitle")}</p>
+        <p className="text-sm text-ink/60">{tGdpr("subtitle")}</p>
         <div className="mt-6">
           <Button
             type="button"

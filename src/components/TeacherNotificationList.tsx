@@ -110,7 +110,7 @@ export default function TeacherNotificationList() {
                     className={`text-xs font-medium inline-block px-2 py-1 rounded ${
                       notif.isGlobal
                         ? "bg-muted text-muted-foreground"
-                        : "bg-zinc-100 text-zinc-700"
+                        : "bg-zinc-100 text-ink/85"
                     }`}
                   >
                     {notif.isGlobal
