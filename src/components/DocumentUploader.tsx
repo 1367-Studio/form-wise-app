@@ -91,7 +91,7 @@ export default function DocumentUploader({ studentId }: Props) {
       </Button>
 
       {file && (
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-ink/80">
           {t("selectedFile", { name: file.name })}
         </p>
       )}

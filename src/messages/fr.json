@@ -1,4 +1,10 @@
 {
+  "ErrorPage": {
+    "title": "Une erreur est survenue",
+    "body": "Nous ne parvenons pas à afficher cette page pour le moment. Merci de réessayer dans un instant.",
+    "retry": "Réessayer",
+    "home": "Retour à l'accueil"
+  },
   "Metadata": {
     "title": "Formwise — Logiciel de gestion d'association : membres, cotisations et paiements",
     "description": "Gérez votre association en ligne avec Formwise : adhésions, cotisations, paiements, documents et communication centralisés sur une seule plateforme. Essai gratuit de 15 jours, sans carte bancaire."

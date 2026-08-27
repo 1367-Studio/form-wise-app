@@ -49,7 +49,7 @@ export default function TotalStudentsChart() {
             <Line
               type="monotone"
               dataKey={t("studentsKey")}
-              stroke="#3b82f6"
+              stroke="var(--brand)"
               strokeWidth={3}
               dot={{ r: 6 }}
               activeDot={{ r: 8 }}

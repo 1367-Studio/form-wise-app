@@ -59,22 +59,22 @@ export default function NewsletterSection() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="min-w-0 flex-auto rounded-md bg-white/5 px-4 py-2.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/15 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-[#003EA3] sm:text-sm/6"
+                className="min-w-0 flex-auto rounded-md bg-white/5 px-4 py-2.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/15 placeholder:text-white/40 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-brand sm:text-sm/6"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-none rounded-md bg-[#003EA3] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#002E7A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#003EA3] cursor-pointer disabled:opacity-60"
+                className="flex-none rounded-md bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand cursor-pointer disabled:opacity-60"
               >
                 {loading ? t("submitting") : t("submitButton")}
               </button>
             </div>
 
-            <p className="mt-4 text-sm text-gray-400">
+            <p className="mt-4 text-sm text-white/55">
               {t("privacyNote")}{" "}
               <Link
                 href="/politique-de-confidentialite"
-                className="underline underline-offset-2 hover:text-[#003EA3]"
+                className="underline underline-offset-2 hover:text-brand"
               >
                 {t("privacyLink")}
               </Link>

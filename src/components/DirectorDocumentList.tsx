@@ -141,7 +141,7 @@ export default function DirectorDocumentList() {
               </h3>
 
               {student.documents.length === 0 ? (
-                <p className="text-sm text-gray-500">{t("noDocuments")}</p>
+                <p className="text-sm text-ink/60">{t("noDocuments")}</p>
               ) : (
                 <>
                   <div className="hidden md:block overflow-x-auto">
@@ -188,7 +188,7 @@ export default function DirectorDocumentList() {
                         className="border p-3 rounded shadow-sm bg-white space-y-1"
                       >
                         <p className="text-sm font-semibold">{doc.fileName}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-ink/60">
                           {new Date(doc.createdAt).toLocaleDateString()}
                         </p>
                         <p className="text-xs">{doc.fileType}</p>

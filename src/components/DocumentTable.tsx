@@ -32,11 +32,11 @@ export default function DocumentTable({ studentName, documents }: Props) {
         {t("studentDocsTitle", { name: studentName })}
       </h3>
       {documents.length === 0 ? (
-        <p className="text-sm text-gray-500">{t("noDocuments")}</p>
+        <p className="text-sm text-ink/60">{t("noDocuments")}</p>
       ) : (
         <table className="w-full text-sm table-fixed">
           <thead>
-            <tr className="text-left text-gray-500">
+            <tr className="text-left text-ink/60">
               <th className="w-1/2">{t("headerName")}</th>
               <th className="w-1/4 hidden sm:table-cell">{t("headerDate")}</th>
               <th className="w-1/4">{t("headerPreview")}</th>

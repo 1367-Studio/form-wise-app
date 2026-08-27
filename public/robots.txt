@@ -1,14 +1,30 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /dashboard
 Disallow: /login
 Disallow: /register
-Disallow: /dashboard
+Disallow: /register-staff
+Disallow: /create-password
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /redirect
+Disallow: /preinscription-success
+Disallow: /admin/*
 Disallow: /dashboard/*
+Disallow: /login/*
+Disallow: /register/*
+Disallow: /register-staff/*
+Disallow: /create-password/*
+Disallow: /forgot-password/*
+Disallow: /reset-password/*
+Disallow: /redirect/*
+Disallow: /preinscription-success/*
 Disallow: /api/*
 
 # Host
-Host: https://formwise.fr
+Host: https://www.formwise.fr
 
 # Sitemaps
-Sitemap: https://formwise.fr/sitemap.xml
+Sitemap: https://www.formwise.fr/sitemap.xml

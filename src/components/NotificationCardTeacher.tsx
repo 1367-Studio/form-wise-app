@@ -57,7 +57,7 @@ export default function NotificationCardTeacher({
 
       <p className="text-sm">{message}</p>
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-ink/60">
         {new Date(createdAt).toLocaleString()}
       </p>
 
@@ -65,7 +65,7 @@ export default function NotificationCardTeacher({
         className={`text-xs font-medium px-2 py-1 inline-block rounded ${
           notification.isGlobal
             ? "bg-muted text-muted-foreground"
-            : "bg-zinc-100 text-zinc-700"
+            : "bg-zinc-100 text-ink/85"
         }`}
       >
         {notification.isGlobal

@@ -40,7 +40,7 @@ export default function NotificationCard({
       <div className="hidden md:block overflow-x-auto rounded-md border shadow-sm">
         <table className="min-w-full text-sm">
           <thead className="bg-gray-50 dark:bg-zinc-800">
-            <tr className="text-left text-gray-500 dark:text-gray-300 uppercase text-xs">
+            <tr className="text-left text-ink/60 dark:text-gray-300 uppercase text-xs">
               <th className="px-4 py-3">{t("headerTitle")}</th>
               <th className="px-4 py-3">{t("headerMessage")}</th>
               <th className="px-4 py-3">{t("headerDate")}</th>
@@ -63,13 +63,13 @@ export default function NotificationCard({
                   <td className="px-4 py-3 font-medium text-black dark:text-white">
                     {title}
                   </td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                  <td className="px-4 py-3 text-ink/80 dark:text-gray-300">
                     {message}
                   </td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                  <td className="px-4 py-3 text-ink/80 dark:text-gray-300">
                     {new Date(createdAt).toLocaleString()}
                   </td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                  <td className="px-4 py-3 text-ink/80 dark:text-gray-300">
                     {isGlobal
                       ? t("allParents")
                       : `${notification.student?.firstName || ""} ${
@@ -123,7 +123,7 @@ export default function NotificationCard({
             >
               <p className="font-semibold">{title}</p>
               <p className="text-sm">{message}</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-ink/60">
                 {new Date(createdAt).toLocaleString()}
               </p>
               <p className="text-xs">

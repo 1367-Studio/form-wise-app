@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import { localeAlternates } from "../../../lib/seo";
 
 export async function generateMetadata({
   params,
@@ -8,7 +9,11 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "AboutPage.metadata" });
-  return { title: t("title"), description: t("description") };
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: localeAlternates(locale, "/a-propos"),
+  };
 }
 
 export default async function AboutPage({
@@ -53,7 +58,7 @@ function AboutContent() {
       <h2 className="font-semibold text-xl mt-8 mb-2">{t("securityTitle")}</h2>
       <p className="mb-4">{t("securityBody")}</p>
 
-      <p className="text-sm text-gray-500 mt-12">
+      <p className="text-sm text-ink/60 mt-12">
         {t.rich("contactNote", richTags)}
       </p>
     </main>

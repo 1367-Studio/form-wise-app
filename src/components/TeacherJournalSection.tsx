@@ -205,10 +205,10 @@ export default function TeacherJournalSection() {
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-50 text-amber-600">
           <GraduationCap className="h-6 w-6" />
         </div>
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-lg font-semibold text-ink">
           {t("noProfileTitle")}
         </h2>
-        <p className="mt-1 max-w-sm text-sm text-gray-500">
+        <p className="mt-1 max-w-sm text-sm text-ink/60">
           {t("noProfileHint")}
         </p>
       </div>
@@ -221,10 +221,10 @@ export default function TeacherJournalSection() {
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-50 text-amber-600">
           <GraduationCap className="h-6 w-6" />
         </div>
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-lg font-semibold text-ink">
           {t("noClassTitle")}
         </h2>
-        <p className="mt-1 max-w-sm text-sm text-gray-500">
+        <p className="mt-1 max-w-sm text-sm text-ink/60">
           {t("noClassHint")}
         </p>
       </div>
@@ -235,8 +235,8 @@ export default function TeacherJournalSection() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="text-sm text-ink/60">
             {t("subtitle", { className: data.teacher.className ?? "" })}
           </p>
         </div>
@@ -248,13 +248,13 @@ export default function TeacherJournalSection() {
 
       {data.journals.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-tint text-brand">
             <BookOpen className="h-6 w-6" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-ink">
             {t("emptyTitle")}
           </h2>
-          <p className="mt-1 max-w-sm text-sm text-gray-500">
+          <p className="mt-1 max-w-sm text-sm text-ink/60">
             {t("emptyHint")}
           </p>
           <Button className="mt-6 cursor-pointer" onClick={openNew}>
@@ -272,13 +272,13 @@ export default function TeacherJournalSection() {
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-semibold text-gray-900">
+                    <p className="text-sm font-semibold text-ink">
                       {format(new Date(j.date), "PPP", { locale: dfLocale })}
                     </p>
                     {j.subjectId && subjectMap.has(j.subjectId) && (
                       <Badge
                         variant="outline"
-                        className="border-black/10 bg-gray-50 text-[10px] text-gray-700"
+                        className="border-black/10 bg-gray-50 text-[10px] text-ink/85"
                       >
                         {subjectMap.get(j.subjectId)}
                       </Badge>
@@ -297,7 +297,7 @@ export default function TeacherJournalSection() {
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="cursor-pointer text-gray-500 hover:bg-red-50 hover:text-red-600"
+                    className="cursor-pointer text-ink/60 hover:bg-red-50 hover:text-red-600"
                     onClick={() => setConfirmDelete(j)}
                   >
                     <Trash2 className="h-3.5 w-3.5" />
@@ -306,18 +306,18 @@ export default function TeacherJournalSection() {
               </div>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
+                  <p className="text-xs font-medium uppercase tracking-wide text-ink/60">
                     {t("classSummary")}
                   </p>
-                  <p className="mt-1 whitespace-pre-wrap text-sm text-gray-800">
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-ink/90">
                     {j.classSummary}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-wide text-[#2563EB]">
+                  <p className="text-xs font-medium uppercase tracking-wide text-brand">
                     {t("homework")}
                   </p>
-                  <p className="mt-1 whitespace-pre-wrap text-sm text-gray-800">
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-ink/90">
                     {j.homework}
                   </p>
                 </div>

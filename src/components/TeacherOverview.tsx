@@ -97,14 +97,14 @@ export default function TeacherOverview({
             {initials || "·"}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-xs uppercase tracking-wide text-[#2563EB]">
+            <p className="text-xs uppercase tracking-wide text-brand">
               {t(timeOfDayKey())}
             </p>
-            <h1 className="text-2xl font-semibold text-gray-900 sm:text-3xl">
+            <h1 className="text-2xl font-semibold text-ink sm:text-3xl">
               {fullName || t("welcomeFallback")}
             </h1>
             {(data.teacher?.className || data.teacher?.subjectName) && (
-              <div className="mt-1 flex items-center gap-1 text-xs text-gray-500">
+              <div className="mt-1 flex items-center gap-1 text-xs text-ink/60">
                 <BookOpen className="h-3.5 w-3.5" />
                 {[data.teacher.className, data.teacher.subjectName]
                   .filter(Boolean)
@@ -151,14 +151,14 @@ export default function TeacherOverview({
         <div className="rounded-2xl border border-gray-200 bg-white p-6">
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[#2563EB]" />
-              <h2 className="text-base font-semibold text-gray-900">
+              <Sparkles className="h-4 w-4 text-brand" />
+              <h2 className="text-base font-semibold text-ink">
                 {t("attendanceTitle")}
               </h2>
             </div>
             <button
               onClick={() => setActiveSectionAction("attendance")}
-              className="flex items-center gap-1 text-xs font-medium text-[#2563EB] hover:underline cursor-pointer"
+              className="flex items-center gap-1 text-xs font-medium text-brand hover:underline cursor-pointer"
             >
               {t("seeAll")}
               <ArrowRight className="h-3 w-3" />
@@ -178,19 +178,19 @@ export default function TeacherOverview({
               badgeClass="bg-red-100 text-red-700"
             />
             <AttendanceRow
-              icon={<Clock className="h-4 w-4 text-[#2563EB]" />}
+              icon={<Clock className="h-4 w-4 text-brand" />}
               label={t("attendanceLate")}
               value={attendance.late}
-              badgeClass="bg-blue-100 text-[#2563EB]"
+              badgeClass="bg-blue-100 text-brand"
             />
             <AttendanceRow
-              icon={<CalendarCheck className="h-4 w-4 text-gray-500" />}
+              icon={<CalendarCheck className="h-4 w-4 text-ink/60" />}
               label={t("attendanceExcused")}
               value={attendance.excused}
-              badgeClass="bg-gray-100 text-gray-700"
+              badgeClass="bg-gray-100 text-ink/85"
             />
           </div>
-          <div className="mt-4 flex items-center gap-2 rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-500">
+          <div className="mt-4 flex items-center gap-2 rounded-lg bg-gray-50 px-3 py-2 text-xs text-ink/60">
             <CalendarCheck className="h-3.5 w-3.5" />
             {t("attendanceDate", { date: new Date().toLocaleDateString() })}
           </div>
@@ -199,12 +199,12 @@ export default function TeacherOverview({
         {/* Recent Journal Entries */}
         <div className="rounded-2xl border border-gray-200 bg-white p-6">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-base font-semibold text-gray-900">
+            <h2 className="text-base font-semibold text-ink">
               {t("recentJournalsTitle")}
             </h2>
             <button
               onClick={() => setActiveSectionAction("journal")}
-              className="flex items-center gap-1 text-xs font-medium text-[#2563EB] hover:underline cursor-pointer"
+              className="flex items-center gap-1 text-xs font-medium text-brand hover:underline cursor-pointer"
             >
               {t("seeAll")}
               <ArrowRight className="h-3 w-3" />
@@ -212,31 +212,31 @@ export default function TeacherOverview({
           </div>
           {recentJournals.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-black/15 px-4 py-8 text-center">
-              <span className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+              <span className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-ink/60">
                 <BookOpen className="h-5 w-5" />
               </span>
-              <p className="text-sm text-gray-500">{t("recentJournalsEmpty")}</p>
+              <p className="text-sm text-ink/60">{t("recentJournalsEmpty")}</p>
             </div>
           ) : (
             <ul className="space-y-2">
               {recentJournals.map((j) => (
                 <li
                   key={j.id}
-                  className="rounded-lg border border-[#2563EB]/20 bg-[#EFF6FF] p-3"
+                  className="rounded-lg border border-brand/20 bg-brand-tint p-3"
                 >
                   <div className="flex items-start gap-2">
-                    <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-[#2563EB]" />
+                    <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-brand" />
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-gray-900">
+                      <p className="truncate text-sm font-medium text-ink">
                         {j.classSummary}
                       </p>
-                      <div className="mt-1 flex items-center gap-2 text-[10px] text-gray-500">
+                      <div className="mt-1 flex items-center gap-2 text-[10px] text-ink/60">
                         <Clock className="h-3 w-3" />
                         {new Date(j.date).toLocaleDateString()}
                         {j.subjectName && (
                           <Badge
                             variant="outline"
-                            className="border-[#2563EB]/20 text-[10px] text-[#2563EB]"
+                            className="border-brand/20 text-[10px] text-brand"
                           >
                             {j.subjectName}
                           </Badge>
@@ -272,10 +272,10 @@ function KpiCard({
   onClick?: () => void;
 }) {
   const toneClass = {
-    neutral: "text-gray-900",
+    neutral: "text-ink",
     success: "text-emerald-600",
-    warning: "text-[#2563EB]",
-    alert: "text-[#2563EB]",
+    warning: "text-brand",
+    alert: "text-brand",
   }[tone];
 
   return (
@@ -284,15 +284,15 @@ function KpiCard({
       className="rounded-2xl border border-gray-200 bg-white p-5 text-left cursor-pointer"
     >
       <div className="flex items-center justify-between">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-700">
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-ink/85">
           {icon}
         </span>
       </div>
-      <p className="mt-3 text-xs font-medium uppercase tracking-wide text-gray-500">
+      <p className="mt-3 text-xs font-medium uppercase tracking-wide text-ink/60">
         {label}
       </p>
       <p className={`mt-1 text-2xl font-semibold ${toneClass}`}>{value}</p>
-      {hint && <p className="mt-1 text-xs text-gray-500">{hint}</p>}
+      {hint && <p className="mt-1 text-xs text-ink/60">{hint}</p>}
     </button>
   );
 }
@@ -310,7 +310,7 @@ function AttendanceRow({
 }) {
   return (
     <div className="flex items-center justify-between rounded-lg border border-black/5 bg-gray-50 px-3 py-2.5">
-      <div className="flex items-center gap-2 text-sm text-gray-900">
+      <div className="flex items-center gap-2 text-sm text-ink">
         {icon}
         {label}
       </div>

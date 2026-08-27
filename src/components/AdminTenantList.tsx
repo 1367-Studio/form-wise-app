@@ -66,7 +66,7 @@ export default function AdminTenantList() {
     switch (plan) {
       case "MONTHLY":
         return (
-          <Badge className="bg-[#2563EB] text-white">{t("monthly")}</Badge>
+          <Badge className="bg-brand text-white">{t("monthly")}</Badge>
         );
       case "YEARLY":
         return <Badge className="bg-black text-white">{t("annual")}</Badge>;
@@ -160,7 +160,7 @@ export default function AdminTenantList() {
             }
           }}
           disabled={exporting}
-          className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[#2563EB] hover:text-[#2563EB] disabled:opacity-60 cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-ink/85 transition-colors hover:border-brand hover:text-brand disabled:opacity-60 cursor-pointer"
         >
           <Download className="h-4 w-4" />
           {exporting ? tExport("exporting") : tExport("csv")}
@@ -169,7 +169,7 @@ export default function AdminTenantList() {
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/45" />
           <Input
             placeholder={t("searchPlaceholder")}
             value={search}
@@ -200,13 +200,13 @@ export default function AdminTenantList() {
         </Select>
       </div>
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-ink/60">
         {t("countResults", { count: filteredTenants.length })}
       </p>
 
       <div className="hidden md:block overflow-auto rounded-xl border border-black/10 bg-white">
         <table className="min-w-full text-sm text-left">
-          <thead className="bg-gray-50 text-gray-600 font-semibold border-b border-black/10">
+          <thead className="bg-gray-50 text-ink/80 font-semibold border-b border-black/10">
             <tr>
               <th className="px-4 py-3">{t("headerSchoolNumber")}</th>
               <th className="px-4 py-3">{t("headerName")}</th>
@@ -219,10 +219,10 @@ export default function AdminTenantList() {
           <tbody className="divide-y divide-black/5">
             {filteredTenants.map((tenant: Tenant) => (
               <tr key={tenant.id} className="hover:bg-gray-50">
-                <td className="px-4 py-3 text-gray-600 font-medium">
+                <td className="px-4 py-3 text-ink/80 font-medium">
                   {tenant.schoolCode}
                 </td>
-                <td className="px-4 py-3 font-medium text-gray-900">
+                <td className="px-4 py-3 font-medium text-ink">
                   {tenant.name}
                 </td>
                 <td className="px-4 py-3">
@@ -231,24 +231,24 @@ export default function AdminTenantList() {
                       <div>
                         {tenant.users[0].firstName} {tenant.users[0].lastName}
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-ink/60">
                         {tenant.users[0].email}
                       </div>
                     </>
                   ) : (
-                    <em className="text-gray-400">{t("noDirector")}</em>
+                    <em className="text-ink/45">{t("noDirector")}</em>
                   )}
                 </td>
                 <td className="px-4 py-3">
                   {getPlanBadge(tenant.billingPlan, tenant.subscriptionStatus)}
                 </td>
-                <td className="px-4 py-3 text-gray-600">
+                <td className="px-4 py-3 text-ink/80">
                   {new Date(tenant.createdAt).toLocaleDateString()}
                 </td>
                 <td className="px-4 py-3 text-center">
                   <a
                     href={`/admin/tenant/${tenant.id}`}
-                    className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs text-gray-700 transition-colors hover:border-[#2563EB] hover:text-[#2563EB]"
+                    className="inline-flex items-center gap-1 rounded-md border border-black/10 px-2 py-1 text-xs text-ink/85 transition-colors hover:border-brand hover:text-brand"
                   >
                     <Eye className="h-3.5 w-3.5" />
                   </a>
@@ -266,25 +266,25 @@ export default function AdminTenantList() {
             href={`/admin/tenant/${tenant.id}`}
             className="rounded-xl border border-black/10 bg-white p-4"
           >
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-ink/60">
               {t("schoolNumberLabel")} <strong>{tenant.uniqueNumber}</strong>
             </div>
-            <div className="mt-1 text-base font-semibold text-gray-900">
+            <div className="mt-1 text-base font-semibold text-ink">
               {tenant.name}
             </div>
-            <div className="mt-2 text-sm text-gray-600">
+            <div className="mt-2 text-sm text-ink/80">
               {t("directorLabel")}{" "}
               {tenant.users.length > 0 ? (
                 <>
                   {tenant.users[0].firstName} {tenant.users[0].lastName}
                 </>
               ) : (
-                <em className="text-gray-400">{t("noDirector")}</em>
+                <em className="text-ink/45">{t("noDirector")}</em>
               )}
             </div>
             <div className="mt-3 flex items-center justify-between">
               {getPlanBadge(tenant.billingPlan, tenant.subscriptionStatus)}
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-ink/60">
                 {new Date(tenant.createdAt).toLocaleDateString()}
               </span>
             </div>

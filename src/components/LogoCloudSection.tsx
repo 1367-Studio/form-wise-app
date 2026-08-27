@@ -15,7 +15,7 @@ export default function LogoCloudSection() {
     <section className="border-b border-gray-200 bg-slate-50 py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-wide text-gray-500">
+          <p className="text-sm font-medium uppercase tracking-wide text-ink/60">
             {t("kicker")}
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function LogoCloudSection() {
               <span className="text-4xl font-bold tracking-tight text-[#0F172A]">
                 {metric.value}
               </span>
-              <span className="text-sm text-gray-500">{metric.label}</span>
+              <span className="text-sm text-ink/60">{metric.label}</span>
             </div>
           ))}
         </div>

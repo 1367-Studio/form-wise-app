@@ -1,4 +1,10 @@
 {
+  "ErrorPage": {
+    "title": "Something went wrong",
+    "body": "We can't display this page right now. Please try again in a moment.",
+    "retry": "Try again",
+    "home": "Back to home"
+  },
   "Metadata": {
     "title": "Formwise — Association management software: members, dues & payments",
     "description": "Manage your association online with Formwise: memberships, dues, payments, documents and communication centralized on one platform. Free 15-day trial, no credit card required."

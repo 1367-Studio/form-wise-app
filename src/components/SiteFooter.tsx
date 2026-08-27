@@ -27,7 +27,7 @@ export default function SiteFooter() {
             <Link href="/" aria-label="formwise" className="inline-block">
               <LogoFull className="h-8 w-auto" />
             </Link>
-            <p className="max-w-sm text-balance text-sm/6 text-gray-600">
+            <p className="max-w-sm text-balance text-sm/6 text-ink/80">
               {t("tagline")}
             </p>
           </div>
@@ -35,7 +35,7 @@ export default function SiteFooter() {
           {/* Link columns */}
           <div className="grid grid-cols-2 gap-8 lg:col-span-7 lg:grid-cols-2">
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/60">
                 {t("company")}
               </h3>
               <ul role="list" className="mt-5 space-y-3">
@@ -43,7 +43,7 @@ export default function SiteFooter() {
                   <li key={item.key}>
                     <Link
                       href={item.href}
-                      className="text-sm text-gray-900 transition-colors hover:text-[#003EA3]"
+                      className="text-sm text-ink transition-colors hover:text-brand"
                     >
                       {t(item.key)}
                     </Link>
@@ -52,7 +52,7 @@ export default function SiteFooter() {
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/60">
                 {t("legal")}
               </h3>
               <ul role="list" className="mt-5 space-y-3">
@@ -60,7 +60,7 @@ export default function SiteFooter() {
                   <li key={item.key}>
                     <Link
                       href={item.href}
-                      className="text-sm text-gray-900 transition-colors hover:text-[#003EA3]"
+                      className="text-sm text-ink transition-colors hover:text-brand"
                     >
                       {t(item.key)}
                     </Link>
@@ -73,15 +73,15 @@ export default function SiteFooter() {
 
         {/* Bottom bar */}
         <div className="mt-16 flex flex-col-reverse items-start gap-4 border-t border-black/10 pt-6 sm:mt-20 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-ink/60">
             {t("copyright", {
               year: new Date().getFullYear(),
               studio: "1367 Studio",
             })}
           </p>
           <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#003EA3]" />
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-gray-500">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+            <span className="text-xs font-medium uppercase tracking-[0.18em] text-ink/60">
               Made in Marseille
             </span>
           </div>

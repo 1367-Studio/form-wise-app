@@ -61,7 +61,7 @@ export default function AdminAuditLog() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       <div className="flex items-center gap-3">
@@ -87,13 +87,13 @@ export default function AdminAuditLog() {
           {t("loadError")}
         </div>
       ) : !data?.events?.length ? (
-        <div className="rounded-xl border border-black/10 bg-white p-8 text-center text-sm text-gray-500">
+        <div className="rounded-xl border border-black/10 bg-white p-8 text-center text-sm text-ink/60">
           {t("empty")}
         </div>
       ) : (
         <div className="rounded-xl border border-black/10 bg-white overflow-x-auto">
           <table className="min-w-full text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 font-semibold border-b border-black/10">
+            <thead className="bg-gray-50 text-ink/80 font-semibold border-b border-black/10">
               <tr>
                 <th className="px-4 py-3">{t("headerWhen")}</th>
                 <th className="px-4 py-3">{t("headerActor")}</th>
@@ -104,31 +104,31 @@ export default function AdminAuditLog() {
             <tbody className="divide-y divide-black/5">
               {data.events.map((evt) => (
                 <tr key={evt.id} className="hover:bg-gray-50 align-top">
-                  <td className="px-4 py-3 text-xs text-gray-500 whitespace-nowrap">
+                  <td className="px-4 py-3 text-xs text-ink/60 whitespace-nowrap">
                     {new Date(evt.createdAt).toLocaleString()}
                   </td>
                   <td className="px-4 py-3">
-                    <div className="text-sm text-gray-900">
+                    <div className="text-sm text-ink">
                       {evt.actorEmail ?? "—"}
                     </div>
                     {evt.actorRole && (
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-ink/60">
                         {evt.actorRole}
                       </div>
                     )}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center rounded-full bg-[#EFF6FF] px-2 py-0.5 text-xs font-medium text-[#2563EB]">
+                    <span className="inline-flex items-center rounded-full bg-brand-tint px-2 py-0.5 text-xs font-medium text-brand">
                       {t(actionKey(evt.action))}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-600">
+                  <td className="px-4 py-3 text-xs text-ink/80">
                     <div>
                       {evt.targetType}
                       {evt.targetId ? `:${evt.targetId.slice(0, 8)}` : ""}
                     </div>
                     {evt.metadata != null && (
-                      <pre className="mt-1 text-[10px] text-gray-500 max-w-md whitespace-pre-wrap">
+                      <pre className="mt-1 text-[10px] text-ink/60 max-w-md whitespace-pre-wrap">
                         {JSON.stringify(evt.metadata)}
                       </pre>
                     )}

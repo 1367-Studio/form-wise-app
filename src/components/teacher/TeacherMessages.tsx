@@ -87,7 +87,7 @@ function roleBadgeClass(role: string): string {
     case "DIRECTOR":
       return "bg-purple-100 text-purple-700";
     default:
-      return "bg-gray-100 text-gray-700";
+      return "bg-gray-100 text-ink/85";
   }
 }
 
@@ -224,8 +224,8 @@ export default function TeacherMessages() {
     return (
       <div className="space-y-4">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
         </div>
         <SectionSkeleton variant="list" rows={5} />
       </div>
@@ -236,8 +236,8 @@ export default function TeacherMessages() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
         </div>
       </div>
 
@@ -261,7 +261,7 @@ export default function TeacherMessages() {
 
           <div className="flex-1 overflow-y-auto">
             {conversations.length === 0 ? (
-              <div className="flex flex-col items-center justify-center p-6 text-center text-sm text-gray-500">
+              <div className="flex flex-col items-center justify-center p-6 text-center text-sm text-ink/60">
                 {t("noConversations")}
               </div>
             ) : (
@@ -274,28 +274,28 @@ export default function TeacherMessages() {
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <span className="text-sm font-medium text-gray-900 truncate">
+                    <span className="text-sm font-medium text-ink truncate">
                       {conv.subject}
                     </span>
                     <div className="flex items-center gap-1.5 flex-shrink-0">
                       {conv.unreadCount > 0 && (
-                        <span className="h-2 w-2 rounded-full bg-[#2563EB]" />
+                        <span className="h-2 w-2 rounded-full bg-brand" />
                       )}
                       {conv.lastMessage && (
-                        <span className="text-xs text-gray-400">
+                        <span className="text-xs text-ink/45">
                           {relativeTime(conv.lastMessage.createdAt)}
                         </span>
                       )}
                     </div>
                   </div>
-                  <p className="mt-0.5 text-xs text-gray-400 truncate">
+                  <p className="mt-0.5 text-xs text-ink/45 truncate">
                     {conv.participants
                       .filter((p) => p.userId !== currentUserId)
                       .map((p) => `${p.firstName} ${p.lastName}`)
                       .join(", ")}
                   </p>
                   {conv.lastMessage && (
-                    <p className="mt-1 text-xs text-gray-500 truncate">
+                    <p className="mt-1 text-xs text-ink/60 truncate">
                       {conv.lastMessage.senderName}: {conv.lastMessage.body}
                     </p>
                   )}
@@ -317,16 +317,16 @@ export default function TeacherMessages() {
               <div className="flex items-center gap-3 border-b border-gray-200 px-4 py-3">
                 <button
                   onClick={handleBackToList}
-                  className="md:hidden text-gray-500 hover:text-gray-700"
+                  className="md:hidden text-ink/60 hover:text-ink/85"
                   aria-label={t("back")}
                 >
                   <ArrowLeft className="h-5 w-5" />
                 </button>
                 <div className="min-w-0 flex-1">
-                  <h2 className="text-sm font-semibold text-gray-900 truncate">
+                  <h2 className="text-sm font-semibold text-ink truncate">
                     {selectedConversation.subject}
                   </h2>
-                  <p className="text-xs text-gray-500 truncate">
+                  <p className="text-xs text-ink/60 truncate">
                     {selectedConversation.participants
                       .filter((p) => p.userId !== currentUserId)
                       .map((p) => `${p.firstName} ${p.lastName}`)
@@ -338,7 +338,7 @@ export default function TeacherMessages() {
               {/* Messages area */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {messages.length === 0 ? (
-                  <div className="flex items-center justify-center h-full text-sm text-gray-500">
+                  <div className="flex items-center justify-center h-full text-sm text-ink/60">
                     {t("noMessages")}
                   </div>
                 ) : (
@@ -352,7 +352,7 @@ export default function TeacherMessages() {
                         }`}
                       >
                         {!isCurrentUser && (
-                          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-200 text-xs font-medium text-gray-600">
+                          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-200 text-xs font-medium text-ink/80">
                             {getInitials(
                               msg.sender.firstName,
                               msg.sender.lastName
@@ -362,8 +362,8 @@ export default function TeacherMessages() {
                         <div
                           className={`max-w-[70%] rounded-lg px-3 py-2 ${
                             isCurrentUser
-                              ? "bg-[#2563EB] text-white"
-                              : "bg-gray-100 text-gray-900"
+                              ? "bg-brand text-white"
+                              : "bg-gray-100 text-ink"
                           }`}
                         >
                           {!isCurrentUser && (
@@ -387,7 +387,7 @@ export default function TeacherMessages() {
                             className={`text-[10px] mt-1 ${
                               isCurrentUser
                                 ? "text-white/70"
-                                : "text-gray-400"
+                                : "text-ink/45"
                             }`}
                           >
                             {relativeTime(msg.createdAt)}
@@ -414,7 +414,7 @@ export default function TeacherMessages() {
                     }}
                     placeholder={t("typeMessage")}
                     rows={1}
-                    className="flex-1 resize-none rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
+                    className="flex-1 resize-none rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-1 focus:ring-brand"
                   />
                   <Button
                     onClick={handleSendMessage}
@@ -428,7 +428,7 @@ export default function TeacherMessages() {
               </div>
             </>
           ) : (
-            <div className="flex flex-1 items-center justify-center text-sm text-gray-500">
+            <div className="flex flex-1 items-center justify-center text-sm text-ink/60">
               {t("selectConversation")}
             </div>
           )}

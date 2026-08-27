@@ -1,4 +1,10 @@
 {
+  "ErrorPage": {
+    "title": "Ocorreu um erro",
+    "body": "Não conseguimos apresentar esta página neste momento. Tente novamente dentro de instantes.",
+    "retry": "Tentar novamente",
+    "home": "Voltar ao início"
+  },
   "Metadata": {
     "title": "Formwise — Software de gestão de associações: sócios, quotas e pagamentos",
     "description": "Faça a gestão da sua associação online com a Formwise: adesões, quotas, pagamentos, documentos e comunicação numa única plataforma. Teste gratuito de 15 dias, sem cartão."

@@ -83,7 +83,7 @@ export default function StudentList({
     <div className="overflow-x-auto rounded-md border shadow-sm">
       <table className="min-w-full text-sm">
         <thead className="bg-gray-50 dark:bg-zinc-800">
-          <tr className="text-left text-gray-500 dark:text-gray-300 uppercase text-xs">
+          <tr className="text-left text-ink/60 dark:text-gray-300 uppercase text-xs">
             <th className="px-4 py-3">{t("headerFirstName")}</th>
             <th className="px-4 py-3 text-right">{t("headerActions")}</th>
           </tr>

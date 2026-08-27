@@ -115,8 +115,8 @@ export default function RIBForm() {
   return (
     <div className="max-w-3xl space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       {/* Status banner */}
@@ -124,14 +124,14 @@ export default function RIBForm() {
         className={`flex items-start gap-3 rounded-2xl border p-4 ${
           isComplete && savedIban
             ? "border-emerald-100 bg-emerald-50"
-            : "border-[#2563EB]/20 bg-[#EFF6FF]"
+            : "border-brand/20 bg-brand-tint"
         }`}
       >
         <span
           className={`flex h-9 w-9 flex-none items-center justify-center rounded-full ${
             isComplete && savedIban
               ? "bg-emerald-100 text-emerald-700"
-              : "bg-[#EFF6FF] text-[#2563EB]"
+              : "bg-brand-tint text-brand"
           }`}
         >
           {isComplete && savedIban ? (
@@ -146,7 +146,7 @@ export default function RIBForm() {
               className={`text-sm font-semibold ${
                 isComplete && savedIban
                   ? "text-emerald-800"
-                  : "text-[#1E3A8A]"
+                  : "text-brand-dark"
               }`}
             >
               {isComplete && savedIban
@@ -163,7 +163,7 @@ export default function RIBForm() {
             className={`mt-0.5 text-xs ${
               isComplete && savedIban
                 ? "text-emerald-700"
-                : "text-[#1E3A8A]/80"
+                : "text-brand-dark/80"
             }`}
           >
             {isComplete && savedIban
@@ -179,14 +179,14 @@ export default function RIBForm() {
         className="rounded-2xl border border-black/10 bg-white p-6"
       >
         <div className="mb-4 flex items-center gap-2">
-          <CreditCard className="h-4 w-4 text-gray-500" />
-          <h2 className="text-base font-semibold text-gray-900">
+          <CreditCard className="h-4 w-4 text-ink/60" />
+          <h2 className="text-base font-semibold text-ink">
             {t("formTitle")}
           </h2>
         </div>
 
         {loading ? (
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-ink/60">
             <Loader2 className="h-4 w-4 animate-spin" />
             {t("loading")}
           </div>
@@ -207,7 +207,7 @@ export default function RIBForm() {
               {!ibanValid ? (
                 <p className="text-xs text-red-600">{t("invalidIban")}</p>
               ) : (
-                <p className="text-xs text-gray-500">{t("ibanHint")}</p>
+                <p className="text-xs text-ink/60">{t("ibanHint")}</p>
               )}
             </div>
 
@@ -226,7 +226,7 @@ export default function RIBForm() {
               {!bicValid ? (
                 <p className="text-xs text-red-600">{t("invalidBic")}</p>
               ) : (
-                <p className="text-xs text-gray-500">{t("bicHint")}</p>
+                <p className="text-xs text-ink/60">{t("bicHint")}</p>
               )}
             </div>
 
@@ -255,7 +255,7 @@ export default function RIBForm() {
       </form>
 
       {/* Trust note */}
-      <div className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white p-4 text-sm text-gray-600">
+      <div className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white p-4 text-sm text-ink/80">
         <ShieldCheck className="mt-0.5 h-4 w-4 flex-none text-emerald-600" />
         <p>{t("trustNote")}</p>
       </div>

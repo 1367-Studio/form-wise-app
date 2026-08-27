@@ -79,11 +79,11 @@ export default function BillingPlans() {
           <h2 className="text-base font-semibold text-black">
             {t("section")}
           </h2>
-          <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+          <p className="mt-2 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
             {t("title")}
           </p>
         </div>
-        <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-gray-600 sm:text-center">
+        <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-ink/80 sm:text-center">
           {t("subtitle")}
         </p>
 
@@ -93,22 +93,22 @@ export default function BillingPlans() {
               <div key={tier.id} className="pt-16 lg:px-8 lg:pt-0 xl:px-14">
                 <h3
                   id={tier.id}
-                  className="text-base font-semibold text-gray-900"
+                  className="text-base font-semibold text-ink"
                 >
                   {tier.name}
                 </h3>
                 <p className="mt-6 flex items-baseline gap-x-1">
-                  <span className="text-5xl font-semibold tracking-tight text-gray-900">
+                  <span className="text-5xl font-semibold tracking-tight text-ink">
                     {tier.amount}
                   </span>
-                  <span className="text-sm font-semibold flex items-center gap-2 text-gray-600">
+                  <span className="text-sm font-semibold flex items-center gap-2 text-ink/80">
                     /{tier.interval === "year" ? t("perYear") : t("perMonth")}
                     {tier.interval === "year" && (
-                      <Gift className="w-4 h-4 text-gray-600" />
+                      <Gift className="w-4 h-4 text-ink/80" />
                     )}
                   </span>
                 </p>
-                <p className="mt-3 text-sm text-gray-500">{tier.description}</p>
+                <p className="mt-3 text-sm text-ink/60">{tier.description}</p>
                 <button
                   onClick={() =>
                     handleCheckout(
@@ -125,7 +125,7 @@ export default function BillingPlans() {
                 </button>
                 <ul
                   role="list"
-                  className="mt-6 space-y-3 text-sm text-gray-600"
+                  className="mt-6 space-y-3 text-sm text-ink/80"
                 >
                   <li className="flex gap-x-3">
                     <CheckCircle className="h-5 w-5 text-black" />{" "}

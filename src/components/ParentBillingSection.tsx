@@ -84,8 +84,8 @@ export default function ParentBillingSection({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="text-sm text-gray-500">{t("subtitle")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="text-sm text-ink/60">{t("subtitle")}</p>
       </div>
 
       {/* Disclaimer */}
@@ -97,13 +97,13 @@ export default function ParentBillingSection({
       {/* Top summary */}
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="rounded-2xl border border-black/10 bg-white p-6 lg:col-span-2">
-          <p className="text-xs uppercase tracking-wide text-[#2563EB]">
+          <p className="text-xs uppercase tracking-wide text-brand">
             {t("monthlyLabel")}
           </p>
-          <p className="mt-1 text-4xl font-semibold text-gray-900">
+          <p className="mt-1 text-4xl font-semibold text-ink">
             {fmtMoney(monthlyTotal)}
           </p>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-ink/60">
             {t("monthlyHint", { count: children.length })}
           </p>
 
@@ -126,7 +126,7 @@ export default function ParentBillingSection({
         {/* Payment method */}
         <div className="rounded-2xl border border-black/10 bg-white p-6">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-gray-900">
+            <h2 className="text-sm font-semibold text-ink">
               {t("paymentMethodTitle")}
             </h2>
             {ribComplete ? (
@@ -135,7 +135,7 @@ export default function ParentBillingSection({
                 {t("ribActive")}
               </Badge>
             ) : (
-              <Badge className="bg-[#EFF6FF] text-[#2563EB] hover:bg-[#EFF6FF]">
+              <Badge className="bg-brand-tint text-brand hover:bg-brand-tint">
                 <AlertCircle className="mr-1 h-3 w-3" />
                 {t("ribMissing")}
               </Badge>
@@ -144,11 +144,11 @@ export default function ParentBillingSection({
 
           {ribComplete && rib ? (
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-gray-700">
-                <CreditCard className="h-4 w-4 text-gray-400" />
+              <div className="flex items-center gap-2 text-sm text-ink/85">
+                <CreditCard className="h-4 w-4 text-ink/45" />
                 {rib.bankName}
               </div>
-              <p className="font-mono text-xs tracking-wider text-gray-500">
+              <p className="font-mono text-xs tracking-wider text-ink/60">
                 IBAN •••• {rib.ibanLast4}
               </p>
               <Button
@@ -163,7 +163,7 @@ export default function ParentBillingSection({
             </div>
           ) : (
             <div className="space-y-2">
-              <p className="text-xs text-gray-500">{t("ribMissingHint")}</p>
+              <p className="text-xs text-ink/60">{t("ribMissingHint")}</p>
               <Button
                 size="sm"
                 className="mt-2 w-full cursor-pointer"
@@ -181,17 +181,17 @@ export default function ParentBillingSection({
         <div className="rounded-2xl border border-black/10 bg-white p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-sm font-semibold text-gray-900">
+              <h2 className="text-sm font-semibold text-ink">
                 {t("schoolYearTitle")}
               </h2>
-              <p className="text-xs text-gray-500">{schoolYear.name}</p>
+              <p className="text-xs text-ink/60">{schoolYear.name}</p>
             </div>
             <div className="text-right">
-              <p className="text-2xl font-semibold text-gray-900">
+              <p className="text-2xl font-semibold text-ink">
                 {progressPct}%
               </p>
               {schoolYear.remainingMonths !== null && (
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-ink/60">
                   {t("monthsRemaining", { count: schoolYear.remainingMonths })}
                 </p>
               )}
@@ -199,11 +199,11 @@ export default function ParentBillingSection({
           </div>
           <div className="mt-4 h-2 overflow-hidden rounded-full bg-gray-100">
             <div
-              className="h-full rounded-full bg-[#2563EB] transition-all"
+              className="h-full rounded-full bg-brand transition-all"
               style={{ width: `${progressPct}%` }}
             />
           </div>
-          <div className="mt-2 flex justify-between text-[11px] text-gray-500">
+          <div className="mt-2 flex justify-between text-[11px] text-ink/60">
             <span>
               {new Date(schoolYear.startDate).toLocaleDateString()}
             </span>
@@ -214,18 +214,18 @@ export default function ParentBillingSection({
 
       {/* Per-child breakdown */}
       <div className="rounded-2xl border border-black/10 bg-white p-6">
-        <h2 className="text-sm font-semibold text-gray-900">
+        <h2 className="text-sm font-semibold text-ink">
           {t("breakdownTitle")}
         </h2>
-        <p className="mb-4 text-xs text-gray-500">{t("breakdownSubtitle")}</p>
+        <p className="mb-4 text-xs text-ink/60">{t("breakdownSubtitle")}</p>
         {children.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-black/10 bg-gray-50 px-4 py-8 text-center text-sm text-gray-500">
+          <div className="rounded-lg border border-dashed border-black/10 bg-gray-50 px-4 py-8 text-center text-sm text-ink/60">
             {t("noChildren")}
           </div>
         ) : (
           <div className="overflow-x-auto rounded-lg border border-black/10">
             <table className="min-w-full text-sm">
-              <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+              <thead className="bg-gray-50 text-xs uppercase tracking-wide text-ink/60">
                 <tr>
                   <th className="px-4 py-3 text-left">{t("colChild")}</th>
                   <th className="px-4 py-3 text-left">{t("colClass")}</th>
@@ -241,14 +241,14 @@ export default function ParentBillingSection({
                         <span className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-[10px] font-semibold text-white">
                           {(c.firstName[0] ?? "") + (c.lastName[0] ?? "")}
                         </span>
-                        <span className="text-gray-900">
+                        <span className="text-ink">
                           {c.firstName} {c.lastName}
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-gray-700">
+                    <td className="px-4 py-3 text-ink/85">
                       {c.className ?? (
-                        <span className="italic text-gray-400">
+                        <span className="italic text-ink/45">
                           {t("noClass")}
                         </span>
                       )}
@@ -256,7 +256,7 @@ export default function ParentBillingSection({
                     <td className="px-4 py-3">
                       <StatusBadge status={c.status} t={tStatus} />
                     </td>
-                    <td className="px-4 py-3 text-right font-medium text-gray-900">
+                    <td className="px-4 py-3 text-right font-medium text-ink">
                       {fmtMoney(c.monthlyFee)}
                     </td>
                   </tr>
@@ -280,12 +280,12 @@ export default function ParentBillingSection({
       {/* Help / next steps */}
       <div className="rounded-2xl border border-black/10 bg-white p-6">
         <div className="mb-3 flex items-center gap-2">
-          <Wallet className="h-4 w-4 text-gray-500" />
-          <h2 className="text-sm font-semibold text-gray-900">
+          <Wallet className="h-4 w-4 text-ink/60" />
+          <h2 className="text-sm font-semibold text-ink">
             {t("helpTitle")}
           </h2>
         </div>
-        <p className="text-sm text-gray-600">{t("helpBody")}</p>
+        <p className="text-sm text-ink/80">{t("helpBody")}</p>
       </div>
     </div>
   );
@@ -302,11 +302,11 @@ function Stat({
 }) {
   return (
     <div className="rounded-xl border border-black/10 bg-white p-4">
-      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
         {icon}
         {label}
       </div>
-      <p className="mt-1 text-xl font-semibold text-gray-900">{value}</p>
+      <p className="mt-1 text-xl font-semibold text-ink">{value}</p>
     </div>
   );
 }

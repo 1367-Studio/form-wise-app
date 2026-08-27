@@ -34,7 +34,7 @@ export default function ParentNotificationList() {
       <h2 className="text-xl font-semibold mb-4">{t("title")}</h2>
 
       {notifications.length === 0 ? (
-        <h1 className="text-gray-500 text-sm italic">{t("noneParent")}</h1>
+        <h1 className="text-ink/60 text-sm italic">{t("noneParent")}</h1>
       ) : (
         <NotificationCard
           notifications={notifications}

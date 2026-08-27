@@ -6,7 +6,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-tint: var(--brand-tint);
+  --color-off-white: var(--off-white);
+  --color-ink: var(--ink);
+  --font-sans: var(--font-lausanne), var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -44,25 +49,30 @@
 }
 
 
-/* Clean neutral background with a subtle dot grid — used on marketing sections */
-.paper-bg {
-  background-color: #F8FAFC;
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-  background-size: 24px 24px;
+/*
+ * Brand palette — the single source of truth for colour.
+ *
+ * Blanc, Bleu, Off-white and Noir are the four colours design signed off on.
+ * brand-dark and brand-tint are not separate brand colours; they are the
+ * hover/wash derivatives of Bleu, kept here so no component invents its own.
+ *
+ * Reach for the Tailwind utilities these generate (text-brand, bg-brand/10,
+ * hover:bg-brand-dark) rather than pasting a hex into a className — that is
+ * how the codebase ended up with two competing blues.
+ */
+:root {
+  --brand: #003EA3;
+  --brand-dark: #002E7A;
+  --brand-tint: #EFF6FF;
+  --off-white: #F5F3F1;
+  --ink: #000000;
 }
 
-/* Brand accent utility — CTAs, icons, kickers */
-.brand {
-  color: #003EA3;
-}
-.bg-brand {
-  background-color: #003EA3;
-}
-.bg-brand:hover {
-  background-color: #002E7A;
-}
-.ring-brand {
-  --tw-ring-color: #003EA3;
+/* Off-white surface with a subtle dot grid — used on marketing sections */
+.paper-bg {
+  background-color: var(--off-white);
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 @keyframes fadeInLong {
@@ -85,30 +95,30 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --foreground: var(--ink);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: var(--ink);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.55 0.24 264);
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
+  --muted-foreground: color-mix(in oklab, var(--ink) 60%, transparent);
   --accent: oklch(0.968 0.007 247.896);
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.929 0.013 255.508);
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.55 0.24 264);
+  --chart-1: var(--brand);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-foreground: var(--ink);
   --sidebar-primary: oklch(0.208 0.042 265.755);
   --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
   --sidebar-accent: oklch(0.968 0.007 247.896);
@@ -162,5 +172,6 @@
 
 body {
   height: 100vh;
-  font-family: var(--font-geist-sans), sans-serif;
+  /* Lausanne is the brand face; Inter stays behind it as the fallback. */
+  font-family: var(--font-lausanne), var(--font-geist-sans), sans-serif;
 }

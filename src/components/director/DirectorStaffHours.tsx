@@ -77,10 +77,10 @@ export default function DirectorStaffHours() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl font-semibold text-ink">
             {t("title")}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+          <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
         </div>
         <SectionSkeleton variant="stats" />
         <SectionSkeleton variant="table" rows={5} />
@@ -91,38 +91,38 @@ export default function DirectorStaffHours() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
       </div>
 
       {/* KPI Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
-            <CalendarDays className="h-4 w-4 text-[#2563EB]" />
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
+            <CalendarDays className="h-4 w-4 text-brand" />
             {t("totalHours")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {aggregates.totalHours}h
           </p>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <AlertTriangle className="h-4 w-4 text-amber-500" />
             {t("overtime")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {aggregates.totalOvertime}h
           </p>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
-            <BarChart3 className="h-4 w-4 text-[#1E3A5F]" />
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
+            <BarChart3 className="h-4 w-4 text-brand-dark" />
             {t("averageDaily")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {aggregates.averageDaily}h
           </p>
         </div>
@@ -135,7 +135,7 @@ export default function DirectorStaffHours() {
         </div>
       ) : logs.length === 0 ? (
         /* Empty state */
-        <div className="rounded-xl border border-black/10 bg-white p-8 text-center text-sm text-gray-500">
+        <div className="rounded-xl border border-black/10 bg-white p-8 text-center text-sm text-ink/60">
           {t("empty")}
         </div>
       ) : (
@@ -143,7 +143,7 @@ export default function DirectorStaffHours() {
           {/* Table */}
           <div className="overflow-x-auto rounded-xl border border-black/10 bg-white">
             <table className="min-w-full text-sm text-left">
-              <thead className="border-b border-black/10 bg-[#F8FAFC] text-[#1E3A5F] font-semibold">
+              <thead className="border-b border-black/10 bg-off-white text-brand-dark font-semibold">
                 <tr>
                   <th className="px-4 py-3">{t("headerDate")}</th>
                   <th className="px-4 py-3">{t("headerStaffName")}</th>
@@ -158,16 +158,16 @@ export default function DirectorStaffHours() {
               <tbody className="divide-y divide-black/5">
                 {logs.map((log) => (
                   <tr key={log.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
+                    <td className="px-4 py-3 text-ink/80 whitespace-nowrap">
                       {new Date(log.date).toLocaleDateString("fr-FR")}
                     </td>
-                    <td className="px-4 py-3 font-medium text-gray-900">
+                    <td className="px-4 py-3 font-medium text-ink">
                       {log.staff.firstName} {log.staff.lastName}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">
                       {log.staff.roleLabel}
                     </td>
-                    <td className="px-4 py-3 text-right text-gray-900 font-medium tabular-nums">
+                    <td className="px-4 py-3 text-right text-ink font-medium tabular-nums">
                       {log.hours}h
                     </td>
                     <td className="px-4 py-3 text-right tabular-nums">
@@ -176,10 +176,10 @@ export default function DirectorStaffHours() {
                           +{log.overtime}h
                         </span>
                       ) : (
-                        <span className="text-gray-400">0h</span>
+                        <span className="text-ink/45">0h</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-gray-500 max-w-[200px] truncate">
+                    <td className="px-4 py-3 text-ink/60 max-w-[200px] truncate">
                       {log.notes ?? "—"}
                     </td>
                   </tr>

@@ -31,7 +31,7 @@ const iconForType: Record<ActivityType, React.ReactNode> = {
   tenant_signup: <Building2 className="h-4 w-4" />,
   subscription_active: <CheckCircle2 className="h-4 w-4 text-green-600" />,
   preregistration_submitted: <FileText className="h-4 w-4 text-amber-600" />,
-  user_joined: <UserPlus className="h-4 w-4 text-[#2563EB]" />,
+  user_joined: <UserPlus className="h-4 w-4 text-brand" />,
 };
 
 export default function AdminActivityFeed() {
@@ -45,7 +45,7 @@ export default function AdminActivityFeed() {
   if (isLoading) {
     return (
       <div className="rounded-xl border border-black/10 bg-white p-6">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-gray-500 mb-4">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-ink/60 mb-4">
           {t("title")}
         </h3>
         <div className="space-y-3">
@@ -71,7 +71,7 @@ export default function AdminActivityFeed() {
   const events = data?.events ?? [];
   if (events.length === 0) {
     return (
-      <div className="rounded-xl border border-black/10 bg-white p-6 text-sm text-gray-500">
+      <div className="rounded-xl border border-black/10 bg-white p-6 text-sm text-ink/60">
         {t("empty")}
       </div>
     );
@@ -80,7 +80,7 @@ export default function AdminActivityFeed() {
   return (
     <div className="rounded-xl border border-black/10 bg-white">
       <div className="border-b border-black/10 px-6 py-4">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-gray-500">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-ink/60">
           {t("title")}
         </h3>
       </div>
@@ -96,25 +96,25 @@ export default function AdminActivityFeed() {
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-900 truncate">
+                  <span className="text-sm font-medium text-ink truncate">
                     {evt.title}
                   </span>
-                  <span className="text-xs text-gray-400">·</span>
-                  <span className="text-xs text-gray-500 truncate">
+                  <span className="text-xs text-ink/45">·</span>
+                  <span className="text-xs text-ink/60 truncate">
                     {t(evt.type)}
                   </span>
                 </div>
                 {evt.subtitle && (
-                  <div className="text-xs text-gray-500 truncate">
+                  <div className="text-xs text-ink/60 truncate">
                     {evt.subtitle}
                   </div>
                 )}
               </div>
-              <span className="text-xs text-gray-400 whitespace-nowrap">
+              <span className="text-xs text-ink/45 whitespace-nowrap">
                 {timeAgo(evt.at, t)}
               </span>
               {evt.tenantId && (
-                <ChevronRight className="h-4 w-4 text-gray-300" />
+                <ChevronRight className="h-4 w-4 text-ink/30" />
               )}
             </a>
           </li>

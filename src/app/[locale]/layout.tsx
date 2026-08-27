@@ -1,5 +1,6 @@
 import "../globals.css";
 import { Inter, Geist_Mono, Playfair_Display } from "next/font/google";
+import localFont from "next/font/local";
 import AuthProvider from "../../providers/AuthProvider";
 import { Toaster } from "sonner";
 import type { Metadata } from "next";
@@ -15,8 +16,59 @@ import ConditionalHeader from "components/ConditionalHeader";
 import { PWAInit } from "components/PWAInit";
 import { IOSInstallBanner } from "components/IOSInstallBanner";
 import { routing } from "../../i18n/routing";
+import { SITE_URL } from "../../lib/seo";
+import { Contentsquare } from "./contentsquare";
 // import TrialBanner from "@/components/TrialBanner";
 
+/**
+ * Brand typeface. Only the weights the UI actually uses are shipped
+ * (400/500/600/700 + italic) — the family has 20 more we would otherwise pay
+ * for on every page load.
+ *
+ * preload is off on purpose: five faces at ~52 KB each is 260 KB of blocking
+ * <link rel="preload"> for text that mostly renders in one or two of them.
+ * Without it the browser downloads only the faces a page really matches, and
+ * Inter below — already preloaded by next/font/google — covers the swap.
+ */
+const lausanne = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/TWKLausannePan/Web/TWKLausannePan-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/TWKLausannePan/Web/TWKLausannePan-400Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../../public/fonts/TWKLausannePan/Web/TWKLausannePan-500.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/TWKLausannePan/Web/TWKLausannePan-600.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/TWKLausannePan/Web/TWKLausannePan-600Italic.woff2",
+      weight: "600",
+      style: "italic",
+    },
+    {
+      path: "../../../public/fonts/TWKLausannePan/Web/TWKLausannePan-700.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-lausanne",
+  display: "swap",
+  preload: false,
+});
+
+// Kept as the fallback behind Lausanne — see --font-sans in globals.css.
 const geistSans = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -45,23 +97,34 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
   return {
+    // Lets every page below express canonical/hreflang as a relative path.
+    metadataBase: new URL(SITE_URL),
     title: t("title"),
     description: t("description"),
     manifest: "/manifest.json",
     themeColor: "#003EA3",
+    openGraph: {
+      type: "website",
+      siteName: "Formwise",
+      locale,
+      title: t("title"),
+      description: t("description"),
+      images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/og-image.png"],
+    },
     appleWebApp: {
       capable: true,
       statusBarStyle: "default",
+      // Renders <meta name="apple-mobile-web-app-title" content="Formwise" />
       title: "Formwise",
     },
-    icons: {
-      icon: [
-        { url: "/icons/icon.svg", type: "image/svg+xml" },
-        { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-        { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
-      ],
-      apple: "/icons/icon-192.png",
-    },
+    // Icons come from the app-folder file conventions:
+    // favicon.ico, icon0.svg, icon1.png, apple-icon.png
   };
 }
 
@@ -82,8 +145,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className="h-full bg-white">
       <body
-        className={`flex min-h-screen flex-col ${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
+        className={`flex min-h-screen flex-col ${lausanne.variable} ${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
+        <Contentsquare />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <PWAInit />
           <IOSInstallBanner />

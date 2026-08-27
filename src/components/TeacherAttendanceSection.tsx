@@ -207,8 +207,8 @@ export default function TeacherAttendanceSection() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="text-sm text-ink/60">
             {t("subtitle", { className: data.teacher.className ?? "" })}
           </p>
         </div>
@@ -305,7 +305,7 @@ export default function TeacherAttendanceSection() {
                     {(s.firstName[0] ?? "") + (s.lastName[0] ?? "")}
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-gray-900">
+                    <p className="truncate text-sm font-medium text-ink">
                       {s.firstName} {s.lastName}
                     </p>
                     {hasJustification && (
@@ -329,7 +329,7 @@ export default function TeacherAttendanceSection() {
                         className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium cursor-pointer transition-all ${
                           active
                             ? `${styles.bg} border-transparent`
-                            : "border-black/10 bg-white text-gray-600 hover:bg-gray-50"
+                            : "border-black/10 bg-white text-ink/80 hover:bg-gray-50"
                         }`}
                       >
                         {styles.icon}
@@ -404,8 +404,8 @@ function EmptyCard({ title, hint }: { title: string; hint: string }) {
       <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-50 text-amber-600">
         <GraduationCap className="h-6 w-6" />
       </div>
-      <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
-      <p className="mt-1 max-w-sm text-sm text-gray-500">{hint}</p>
+      <h2 className="text-lg font-semibold text-ink">{title}</h2>
+      <p className="mt-1 max-w-sm text-sm text-ink/60">{hint}</p>
     </div>
   );
 }

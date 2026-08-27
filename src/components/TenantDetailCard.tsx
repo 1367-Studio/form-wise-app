@@ -77,7 +77,7 @@ export default function TenantDetailCard({ tenant, stats }: Props) {
       default:
         return {
           label: t("unknown"),
-          color: "bg-gray-200 text-gray-600 ring-gray-400/30",
+          color: "bg-gray-200 text-ink/80 ring-gray-400/30",
         };
     }
   }
@@ -138,7 +138,7 @@ export default function TenantDetailCard({ tenant, stats }: Props) {
         <div className="rounded-xl border border-black/10 bg-white p-4 flex flex-wrap gap-2">
           <a
             href={`mailto:${director.email}`}
-            className="inline-flex items-center gap-2 rounded-md bg-[#2563EB] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1D4ED8]"
+            className="inline-flex items-center gap-2 rounded-md bg-brand px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-dark"
           >
             <Mail className="h-4 w-4" />
             {t("contactDirector")}
@@ -146,14 +146,14 @@ export default function TenantDetailCard({ tenant, stats }: Props) {
           {director.phone && (
             <a
               href={`tel:${director.phone}`}
-              className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:border-[#2563EB] hover:text-[#2563EB]"
+              className="inline-flex items-center gap-2 rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-ink transition-colors hover:border-brand hover:text-brand"
             >
               <Phone className="h-4 w-4" />
               {director.phone}
             </a>
           )}
           {stats?.lastActivity && (
-            <span className="ml-auto inline-flex items-center gap-2 text-xs text-gray-500">
+            <span className="ml-auto inline-flex items-center gap-2 text-xs text-ink/60">
               <Activity className="h-3.5 w-3.5" />
               {t("lastActivity")}:{" "}
               {format(new Date(stats.lastActivity), "dd/MM/yyyy", {
@@ -306,11 +306,11 @@ function StatTile({
 }) {
   return (
     <div className="rounded-xl border border-black/10 bg-white p-4">
-      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-gray-500">
+      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-ink/60">
         {icon}
         {label}
       </div>
-      <div className="mt-2 text-2xl font-semibold tracking-tight text-gray-900">
+      <div className="mt-2 text-2xl font-semibold tracking-tight text-ink">
         {value.toLocaleString()}
       </div>
     </div>

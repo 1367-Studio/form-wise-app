@@ -46,7 +46,7 @@ const STATUS_BADGE: Record<string, string> = {
   ACTIVE: "bg-emerald-100 text-emerald-700",
   EXPIRING_SOON: "bg-amber-100 text-amber-700",
   EXPIRED: "bg-red-100 text-red-700",
-  TERMINATED: "bg-gray-100 text-gray-700",
+  TERMINATED: "bg-gray-100 text-ink/85",
 };
 
 const CONTRACT_TYPE_LABELS: Record<string, string> = {
@@ -97,10 +97,10 @@ export default function DirectorContracts() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl font-semibold text-ink">
             {t("title")}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+          <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
         </div>
         <SectionSkeleton variant="stats" />
         <SectionSkeleton variant="table" rows={5} />
@@ -111,38 +111,38 @@ export default function DirectorContracts() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-        <p className="mt-1 text-sm text-gray-500">{t("description")}</p>
+        <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+        <p className="mt-1 text-sm text-ink/60">{t("description")}</p>
       </div>
 
       {/* KPI Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <FileCheck className="h-4 w-4 text-emerald-600" />
             {t("activeContracts")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {activeCount}
           </p>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <AlertTriangle className="h-4 w-4 text-amber-500" />
             {t("expiringSoon")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {expiringCount}
           </p>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink/60">
             <XCircle className="h-4 w-4 text-red-500" />
             {t("expired")}
           </div>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+          <p className="mt-2 text-2xl font-semibold text-ink">
             {expiredCount}
           </p>
         </div>
@@ -165,7 +165,7 @@ export default function DirectorContracts() {
           </SelectContent>
         </Select>
 
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-ink/60">
           {t("totalContracts", { count: total })}
         </span>
       </div>
@@ -177,7 +177,7 @@ export default function DirectorContracts() {
         </div>
       ) : contracts.length === 0 ? (
         /* Empty state */
-        <div className="rounded-xl border border-black/10 bg-white p-8 text-center text-sm text-gray-500">
+        <div className="rounded-xl border border-black/10 bg-white p-8 text-center text-sm text-ink/60">
           {t("empty")}
         </div>
       ) : (
@@ -185,7 +185,7 @@ export default function DirectorContracts() {
           {/* Table */}
           <div className="overflow-x-auto rounded-xl border border-black/10 bg-white">
             <table className="min-w-full text-sm text-left">
-              <thead className="border-b border-black/10 bg-[#F8FAFC] text-[#1E3A5F] font-semibold">
+              <thead className="border-b border-black/10 bg-off-white text-brand-dark font-semibold">
                 <tr>
                   <th className="px-4 py-3">{t("headerStaffName")}</th>
                   <th className="px-4 py-3">{t("headerRole")}</th>
@@ -198,19 +198,19 @@ export default function DirectorContracts() {
               <tbody className="divide-y divide-black/5">
                 {contracts.map((contract) => (
                   <tr key={contract.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-gray-900">
+                    <td className="px-4 py-3 font-medium text-ink">
                       {contract.staff.firstName} {contract.staff.lastName}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">
                       {contract.staff.roleLabel}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-ink/80">
                       {CONTRACT_TYPE_LABELS[contract.type] ?? contract.type}
                     </td>
-                    <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
+                    <td className="px-4 py-3 text-ink/80 whitespace-nowrap">
                       {new Date(contract.startDate).toLocaleDateString("fr-FR")}
                     </td>
-                    <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
+                    <td className="px-4 py-3 text-ink/80 whitespace-nowrap">
                       {contract.endDate
                         ? new Date(contract.endDate).toLocaleDateString("fr-FR")
                         : "—"}
@@ -219,7 +219,7 @@ export default function DirectorContracts() {
                       <span
                         className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
                           STATUS_BADGE[contract.status] ??
-                          "bg-gray-100 text-gray-700"
+                          "bg-gray-100 text-ink/85"
                         }`}
                       >
                         {t(`status${contract.status}`)}

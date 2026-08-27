@@ -205,8 +205,8 @@ export default function DirectorMobileSidebar({
                   onClick={() => handleSelectSection(DIRECTOR_HOME_ITEM.key)}
                   className={`flex w-full cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition-colors ${
                     isHomeActive
-                      ? "border-l-2 border-l-[#2563EB] bg-blue-50 font-medium text-[#2563EB]"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      ? "border-l-2 border-l-brand bg-blue-50 font-medium text-brand"
+                      : "text-ink/80 hover:bg-gray-50 hover:text-ink"
                   }`}
                 >
                   <HomeIcon className="h-4 w-4" />
@@ -268,7 +268,7 @@ function MobileGroup({
       <button
         type="button"
         onClick={() => onToggle(group.id)}
-        className="flex w-full cursor-pointer items-center gap-1 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 transition-colors hover:text-slate-600"
+        className="flex w-full cursor-pointer items-center gap-1 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink/45 transition-colors hover:text-ink/80"
       >
         {isOpen ? (
           <ChevronDown className="h-3 w-3" />
@@ -292,8 +292,8 @@ function MobileGroup({
                 onClick={() => onSelect(item.key)}
                 className={`flex w-full cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition-colors ${
                   isActive
-                    ? "border-l-2 border-l-[#2563EB] bg-blue-50 font-medium text-[#2563EB]"
-                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    ? "border-l-2 border-l-brand bg-blue-50 font-medium text-brand"
+                    : "text-ink/80 hover:bg-gray-50 hover:text-ink"
                 }`}
               >
                 <Icon className="h-4 w-4" />

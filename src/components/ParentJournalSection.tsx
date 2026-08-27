@@ -126,13 +126,13 @@ export default function ParentJournalSection() {
   if (data.students.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFF6FF] text-[#2563EB]">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-tint text-brand">
           <GraduationCap className="h-6 w-6" />
         </div>
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-lg font-semibold text-ink">
           {t("noChildrenTitle")}
         </h2>
-        <p className="mt-1 max-w-sm text-sm text-gray-500">
+        <p className="mt-1 max-w-sm text-sm text-ink/60">
           {t("noChildrenHint")}
         </p>
       </div>
@@ -143,8 +143,8 @@ export default function ParentJournalSection() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{t("title")}</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-semibold text-ink">{t("title")}</h1>
+          <p className="text-sm text-ink/60">
             {unreadCount > 0
               ? t("subtitleUnread", { count: unreadCount })
               : t("subtitleAllRead")}
@@ -174,13 +174,13 @@ export default function ParentJournalSection() {
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/15 bg-white px-6 py-16 text-center">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-500">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-ink/60">
             <Inbox className="h-6 w-6" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-ink">
             {t("emptyTitle")}
           </h2>
-          <p className="mt-1 max-w-sm text-sm text-gray-500">
+          <p className="mt-1 max-w-sm text-sm text-ink/60">
             {t("emptyHint")}
           </p>
         </div>
@@ -188,7 +188,7 @@ export default function ParentJournalSection() {
         <div className="space-y-8">
           {grouped.map(([dayIso, entries]) => (
             <div key={dayIso}>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink/60">
                 {format(new Date(dayIso), "EEEE PPP", { locale: dfLocale })}
               </h3>
               <ul className="space-y-3">
@@ -200,24 +200,24 @@ export default function ParentJournalSection() {
                     className={`relative cursor-pointer rounded-2xl border p-5 transition-colors ${
                       e.isRead
                         ? "border-black/10 bg-white"
-                        : "border-[#2563EB]/30 bg-[#EFF6FF]/40"
+                        : "border-brand/30 bg-brand-tint/40"
                     }`}
                   >
                     {!e.isRead && (
-                      <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#2563EB] px-2 py-0.5 text-[10px] font-semibold text-white">
+                      <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-brand px-2 py-0.5 text-[10px] font-semibold text-white">
                         <Sparkles className="h-3 w-3" />
                         {t("newTag")}
                       </span>
                     )}
                     <div className="flex flex-wrap items-center gap-2 pr-16">
                       {e.subjectName ? (
-                        <Badge className="bg-[#EFF6FF] text-[#2563EB] hover:bg-[#EFF6FF]">
+                        <Badge className="bg-brand-tint text-brand hover:bg-brand-tint">
                           {e.subjectName}
                         </Badge>
                       ) : (
                         <Badge
                           variant="outline"
-                          className="border-black/10 bg-gray-50 text-gray-700"
+                          className="border-black/10 bg-gray-50 text-ink/85"
                         >
                           {t("generalTag")}
                         </Badge>
@@ -225,13 +225,13 @@ export default function ParentJournalSection() {
                       {e.students.length > 0 && (
                         <Badge
                           variant="outline"
-                          className="border-black/10 text-[10px] text-gray-700"
+                          className="border-black/10 text-[10px] text-ink/85"
                         >
                           {e.students.map((s) => s.name).join(", ")}
                         </Badge>
                       )}
                       {e.teacherName && (
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-ink/60">
                           {t("byTeacher", { name: e.teacherName })}
                         </span>
                       )}
@@ -239,20 +239,20 @@ export default function ParentJournalSection() {
 
                     <div className="mt-4 grid gap-4 sm:grid-cols-2">
                       <div className="rounded-lg bg-gray-50 p-4">
-                        <div className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-gray-500">
+                        <div className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink/60">
                           <BookOpen className="h-3.5 w-3.5" />
                           {t("classSummary")}
                         </div>
-                        <p className="whitespace-pre-wrap text-sm text-gray-800">
+                        <p className="whitespace-pre-wrap text-sm text-ink/90">
                           {e.classSummary}
                         </p>
                       </div>
-                      <div className="rounded-lg border border-[#2563EB]/20 bg-[#EFF6FF]/60 p-4">
-                        <div className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-[#2563EB]">
+                      <div className="rounded-lg border border-brand/20 bg-brand-tint/60 p-4">
+                        <div className="mb-1 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-brand">
                           <ClipboardList className="h-3.5 w-3.5" />
                           {t("homework")}
                         </div>
-                        <p className="whitespace-pre-wrap text-sm text-gray-800">
+                        <p className="whitespace-pre-wrap text-sm text-ink/90">
                           {e.homework}
                         </p>
                       </div>
@@ -282,8 +282,8 @@ function FilterPill({
       onClick={onClick}
       className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors ${
         active
-          ? "border-[#2563EB] bg-[#2563EB] text-white"
-          : "border-black/10 bg-white text-gray-700 hover:border-[#2563EB]/30 hover:text-[#2563EB]"
+          ? "border-brand bg-brand text-white"
+          : "border-black/10 bg-white text-ink/85 hover:border-brand/30 hover:text-brand"
       }`}
     >
       {children}
