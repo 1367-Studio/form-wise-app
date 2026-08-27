@@ -916,7 +916,7 @@
     "subtitle": "Altas, cuotas, pagos y comunicación centralizados en una sola plataforma. Olvídate de las hojas de cálculo dispersas y de los recordatorios manuales.",
     "ctaTrial": "Empieza tu prueba gratis",
     "ctaDemo": "Reservar una demo",
-    "reassurance1": "Prueba gratis de {days} días",
+    "reassurance1": "Sin tarjeta bancaria",
     "reassurance2": "Sin compromiso",
     "feature1": "Configuración sencilla",
     "feature2": "Gestión de socios",
@@ -972,7 +972,8 @@
       "rightFeature3Desc": "Estado de matrículas y pagos de un solo vistazo.",
       "questionPrefix": "¿Todavía gestionando matrículas",
       "questionSuffix": "con hojas de cálculo?"
-    }
+    },
+    "reassurance3": "Soporte los 7 días"
   },
   "Features": {
     "associations": {

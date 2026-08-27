@@ -6,7 +6,8 @@ import Image from "next/image";
 import LogoIcon from "./LogoIcon";
 import { useTranslations } from "next-intl";
 import {
-  CheckCircle,
+  Headset,
+  LockSimpleOpen,
   GearSix,
   Users,
   CreditCard,
@@ -94,12 +95,33 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
           {/* Trust line */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink">
             <span className="inline-flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-brand" />
+              {/* "No card": credit-card icon with a diagonal strike-through.
+                  The white bar underneath knocks out the card lines so the
+                  slash stays legible at 16px. */}
+              <span
+                className="relative inline-flex h-4 w-4 shrink-0 text-brand"
+                aria-hidden="true"
+              >
+                <CreditCard className="h-4 w-4" />
+                <span className="absolute left-1/2 top-1/2 h-[2px] w-[100%] -translate-x-1/2 -translate-y-1/2 -rotate-55 rounded-full bg-white" />
+                <span className="absolute left-1/2 top-1/2 h-[1px] w-[100%] -translate-x-1/2 -translate-y-1/2 -rotate-55 rounded-full bg-current" />
+              </span>
               {t("reassurance1", { days: trialDays })}
             </span>
             <span className="inline-flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-brand" />
+              {/* "No commitment": open padlock — not locked in */}
+              <LockSimpleOpen
+                className="h-4 w-4 shrink-0 text-brand"
+                aria-hidden="true"
+              />
               {t("reassurance2")}
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <Headset
+                className="h-4 w-4 shrink-0 text-brand"
+                aria-hidden="true"
+              />
+              {t("reassurance3")}
             </span>
           </div>
         </div>

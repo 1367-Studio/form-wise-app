@@ -916,7 +916,7 @@
     "subtitle": "Adesões, quotas, pagamentos e comunicação centralizados numa única plataforma. Acabaram-se as planilhas dispersas e as cobranças manuais.",
     "ctaTrial": "Comece o teste gratuito",
     "ctaDemo": "Agendar uma demo",
-    "reassurance1": "Teste gratuito de {days} dias",
+    "reassurance1": "Sem cartão bancário",
     "reassurance2": "Sem compromisso",
     "feature1": "Configuração simples",
     "feature2": "Gestão de sócios",
@@ -972,7 +972,8 @@
       "rightFeature3Desc": "Status de matrículas e pagamentos de um só olhar.",
       "questionPrefix": "Ainda gerenciando matrículas",
       "questionSuffix": "com planilhas?"
-    }
+    },
+    "reassurance3": "Suporte 7 dias por semana"
   },
   "Features": {
     "associations": {

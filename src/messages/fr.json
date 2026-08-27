@@ -916,7 +916,7 @@
     "subtitle": "Adhésions, cotisations, paiements et communication centralisés sur une seule plateforme. Fini les fichiers Excel dispersés et les relances à la main.",
     "ctaTrial": "Commencer gratuitement",
     "ctaDemo": "Réserver une démo",
-    "reassurance1": "{days} jours gratuits",
+    "reassurance1": "Sans carte bancaire",
     "reassurance2": "Sans engagement",
     "feature1": "Configuration simple",
     "feature2": "Gestion des membres",
@@ -972,7 +972,8 @@
       "rightFeature3Desc": "Statut des inscriptions et paiements en un coup d'œil.",
       "questionPrefix": "Vous gérez encore les inscriptions",
       "questionSuffix": "avec des tableurs ?"
-    }
+    },
+    "reassurance3": "Support 7j/7"
   },
   "Features": {
     "associations": {

@@ -916,7 +916,7 @@
     "subtitle": "Memberships, dues, payments and communication centralized on one platform. No more scattered spreadsheets and manual follow-ups.",
     "ctaTrial": "Start your free trial",
     "ctaDemo": "Book a demo",
-    "reassurance1": "{days}-day free trial",
+    "reassurance1": "No credit card required",
     "reassurance2": "No commitment",
     "feature1": "Easy setup",
     "feature2": "Member management",
@@ -972,7 +972,8 @@
       "rightFeature3Desc": "Enrolment status and payments at a glance.",
       "questionPrefix": "Still managing enrolments",
       "questionSuffix": "with spreadsheets?"
-    }
+    },
+    "reassurance3": "Support 7 days a week"
   },
   "Features": {
     "associations": {
