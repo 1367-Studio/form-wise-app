@@ -129,7 +129,7 @@ export default function VideoHeroSection({ trialDays }: { trialDays: number }) {
               <div className="w-3 h-3 rounded-full bg-green-500/60" />
               <div className="flex-1 mx-4 bg-black/5 rounded-md h-5 flex items-center px-3">
                 <span className="text-xs text-ink/40 truncate">
-                  app.formwise.io
+                  app.formwise.fr
                 </span>
               </div>
             </div>
