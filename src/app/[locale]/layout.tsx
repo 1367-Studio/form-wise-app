@@ -18,6 +18,7 @@ import { IOSInstallBanner } from "components/IOSInstallBanner";
 import { routing } from "../../i18n/routing";
 import { SITE_URL } from "../../lib/seo";
 import { Contentsquare } from "./contentsquare";
+import CookieBanner from "@/components/CookieBanner";
 // import TrialBanner from "@/components/TrialBanner";
 
 /**
@@ -158,6 +159,7 @@ export default async function LocaleLayout({
           </AuthProvider>
           <Toaster position="top-center" richColors />
           <ConditionalFooter />
+          <CookieBanner />
         </NextIntlClientProvider>
       </body>
     </html>

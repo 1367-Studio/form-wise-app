@@ -48,7 +48,8 @@
     "privacyPolicy": "Politique de confidentialité",
     "termsOfService": "Conditions de services",
     "legalNotice": "Mentions légales",
-    "copyright": "© {year} Formwise. Tous droits réservés · Software développé par {studio}"
+    "copyright": "© {year} Formwise. Tous droits réservés · Software développé par {studio}",
+    "manageCookies": "Gérer les cookies"
   },
   "AboutPage": {
     "metadata": {
@@ -3089,5 +3090,12 @@
       "demoText": "Besoin d'en voir plus avant de vous lancer ?",
       "demoLink": "Réservez une démo de 30 minutes"
     }
+  },
+  "CookieBanner": {
+    "title": "Votre vie privée compte",
+    "text": "Nous utilisons des cookies de mesure d'audience (Contentsquare) pour comprendre l'usage du site et l'améliorer. Aucun traceur n'est déposé sans votre accord ; votre choix est conservé 6 mois et modifiable à tout moment depuis le pied de page.",
+    "privacyLink": "Politique de confidentialité",
+    "rejectAll": "Tout refuser",
+    "acceptAll": "Tout accepter"
   }
 }

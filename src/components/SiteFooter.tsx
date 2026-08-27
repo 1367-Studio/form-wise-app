@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import LogoFull from "./LogoFull";
+import { openCookieBanner } from "@/lib/cookie-consent";
 
 
 export default function SiteFooter() {
@@ -66,6 +67,17 @@ export default function SiteFooter() {
                     </Link>
                   </li>
                 ))}
+                {/* Re-opens the cookie banner so consent can be changed or
+                    withdrawn at any time (RGPD / CNIL). */}
+                <li>
+                  <button
+                    type="button"
+                    onClick={openCookieBanner}
+                    className="cursor-pointer text-sm text-ink transition-colors hover:text-brand"
+                  >
+                    {t("manageCookies")}
+                  </button>
+                </li>
               </ul>
             </div>
           </div>

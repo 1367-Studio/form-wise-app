@@ -48,7 +48,8 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "legalNotice": "Legal Notice",
-    "copyright": "© {year} Formwise. All rights reserved · Software developed by {studio}"
+    "copyright": "© {year} Formwise. All rights reserved · Software developed by {studio}",
+    "manageCookies": "Manage cookies"
   },
   "AboutPage": {
     "metadata": {
@@ -3095,5 +3096,12 @@
       "demoText": "Want to see more before you decide?",
       "demoLink": "Book a 30-minute demo"
     }
+  },
+  "CookieBanner": {
+    "title": "Your privacy matters",
+    "text": "We use audience-measurement cookies (Contentsquare) to understand how the site is used and improve it. No tracker is set without your consent; your choice is kept for 6 months and can be changed at any time from the footer.",
+    "privacyLink": "Privacy policy",
+    "rejectAll": "Reject all",
+    "acceptAll": "Accept all"
   }
 }
