@@ -1749,6 +1749,13 @@
     "section10Body2": "A responsabilidade da Plataforma não poderá em hipótese alguma exceder o equivalente a dois (2) meses de mensalidades efetivamente pagas pelo usuário pela utilização dos serviços nos doze (12) meses anteriores ao fato gerador do litígio.",
     "description": "Condições de utilização"
   },
+  "LegalDocument": {
+    "version": "Versão {version}",
+    "effective": "Em vigor a partir de {date}",
+    "calloutInfo": "Nota",
+    "calloutWarning": "Atenção",
+    "calloutTip": "Dica"
+  },
   "Cgs": {
     "metadata": {
       "title": "Termos de Serviço – Formwise",

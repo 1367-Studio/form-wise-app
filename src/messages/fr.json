@@ -1749,6 +1749,13 @@
     "section10Body2": "La responsabilité de la Plateforme ne pourra en aucun cas excéder un montant équivalent à deux (2) mois de frais effectivement payés par l'utilisateur pour l'utilisation des services au cours des douze (12) derniers mois précédant le fait générateur du litige.",
     "description": "Conditions générales d'utilisation"
   },
+  "LegalDocument": {
+    "version": "Version {version}",
+    "effective": "En vigueur à compter du {date}",
+    "calloutInfo": "Info",
+    "calloutWarning": "Attention",
+    "calloutTip": "Astuce"
+  },
   "Cgs": {
     "metadata": {
       "title": "Conditions Générales de Services – Formwise",

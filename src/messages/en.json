@@ -1749,6 +1749,13 @@
     "section10Body2": "The Platform's liability shall in no case exceed an amount equivalent to two (2) months of fees actually paid by the user for the use of the services during the twelve (12) months preceding the event giving rise to the dispute.",
     "description": "Terms of use"
   },
+  "LegalDocument": {
+    "version": "Version {version}",
+    "effective": "Effective {date}",
+    "calloutInfo": "Note",
+    "calloutWarning": "Warning",
+    "calloutTip": "Tip"
+  },
   "Cgs": {
     "metadata": {
       "title": "Terms of Service – Formwise",
