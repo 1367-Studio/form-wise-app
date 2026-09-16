@@ -1,6 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { localeAlternates } from "../../../lib/seo";
+import LegalDocumentPage from "@/components/LegalDocumentPage";
+import { getLegalDocument } from "@/sanity/legalDocument";
 
 export async function generateMetadata({
   params,
@@ -23,6 +25,20 @@ export default async function CGUPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const legalDocument = await getLegalDocument("cgu", locale);
+  if (legalDocument) {
+    const cguTranslations = await getTranslations({
+      locale,
+      namespace: "Cgu",
+    });
+    return (
+      <LegalDocumentPage
+        legalDocument={legalDocument}
+        locale={locale}
+        fallbackTitle={cguTranslations("title")}
+      />
+    );
+  }
   return <CGUContent />;
 }
 

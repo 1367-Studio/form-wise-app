@@ -1,6 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { localeAlternates } from "../../../lib/seo";
+import LegalDocumentPage from "@/components/LegalDocumentPage";
+import { getLegalDocument } from "@/sanity/legalDocument";
 
 export async function generateMetadata({
   params,
@@ -23,6 +25,23 @@ export default async function PrivacyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const legalDocument = await getLegalDocument(
+    "politique-confidentialite",
+    locale,
+  );
+  if (legalDocument) {
+    const privacyTranslations = await getTranslations({
+      locale,
+      namespace: "Privacy",
+    });
+    return (
+      <LegalDocumentPage
+        legalDocument={legalDocument}
+        locale={locale}
+        fallbackTitle={privacyTranslations("title")}
+      />
+    );
+  }
   return <PrivacyContent />;
 }
 

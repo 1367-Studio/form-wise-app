@@ -1749,6 +1749,13 @@
     "section10Body2": "La responsabilidad de la Plataforma no podrá en ningún caso superar un importe equivalente a dos (2) meses de cuotas efectivamente abonadas por el usuario por el uso de los servicios durante los doce (12) meses anteriores al hecho que origine el litigio.",
     "description": "Condiciones de uso"
   },
+  "LegalDocument": {
+    "version": "Versión {version}",
+    "effective": "En vigor a partir del {date}",
+    "calloutInfo": "Nota",
+    "calloutWarning": "Atención",
+    "calloutTip": "Consejo"
+  },
   "Cgs": {
     "metadata": {
       "title": "Condiciones del Servicio – Formwise",
