@@ -14,7 +14,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
-    alternates: localeAlternates(locale, "/cgs"),
+    alternates: localeAlternates(locale, "/cgv"),
   };
 }
 
@@ -25,11 +25,11 @@ export default async function CGSPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const legalDocument = await getLegalDocument("cgs", locale);
+  const legalDocument = await getLegalDocument("cgv", locale);
   if (legalDocument) {
     const cgsTranslations = await getTranslations({
       locale,
-      namespace: "Cgs",
+      namespace: "Cgv",
     });
     return (
       <LegalDocumentPage
@@ -43,7 +43,7 @@ export default async function CGSPage({
 }
 
 function CGSContent() {
-  const t = useTranslations("Cgs");
+  const t = useTranslations("Cgv");
   const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
   return (
     <main className="max-w-3xl mx-auto p-6 pt-[150px] pb-[150px]">

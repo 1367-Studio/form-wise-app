@@ -4,7 +4,7 @@ import { LEGAL_DOCUMENT_QUERY } from "./queries";
 
 export type LegalDocumentKind =
   | "cgu"
-  | "cgs"
+  | "cgv"
   | "mentions-legales"
   | "politique-confidentialite";
 

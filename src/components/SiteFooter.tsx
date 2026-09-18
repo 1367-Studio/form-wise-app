@@ -14,7 +14,7 @@ export default function SiteFooter() {
   const legalLinks = [
     { key: "termsOfUse", href: "/cgu" },
     { key: "privacyPolicy", href: "/politique-de-confidentialite" },
-    { key: "termsOfService", href: "/cgs" },
+    { key: "termsOfService", href: "/cgv" },
     { key: "legalNotice", href: "/mentions-legales" },
   ] as const;
 
