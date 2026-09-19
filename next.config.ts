@@ -1,5 +1,5 @@
-import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
@@ -26,8 +26,7 @@ const securityHeaders = [
       "font-src 'self' data:",
       "style-src 'self' 'unsafe-inline'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://*.contentsquare.net https://app.contentsquare.com",
-      "connect-src 'self' https://*.contentsquare.net https://*.contentsquare.com https://api.stripe.com https://api.brevo.com https://*.supabase.co https://*.pusher.com wss://*.pusher.com https://*.livekit.cloud wss://*.livekit.cloud https://nominatim.openstreetmap.org",
-      "frame-src https://js.stripe.com https://hooks.stripe.com",
+      "connect-src 'self' https://*.contentsquare.net https://*.contentsquare.com https://api.stripe.com https://api.brevo.com https://*.supabase.co https://*.pusher.com wss://*.pusher.com https://*.livekit.cloud wss://*.livekit.cloud https://nominatim.openstreetmap.org https://*.r2.cloudflarestorage.com",      "frame-src https://js.stripe.com https://hooks.stripe.com",
       "frame-ancestors 'none'",
       "form-action 'self'",
       "base-uri 'self'",
